@@ -48,8 +48,6 @@ fun GettingStartedUI(composeNavigator: ComposeNavigator) {
             painter = painterResource(id = R.drawable.gettingstarted),
             contentDescription = "Logo",
             Modifier
-              .size(240.dp)
-              .padding(24.dp)
           )
           Spacer(Modifier.padding(8.dp))
           GetStartedButton(composeNavigator)
