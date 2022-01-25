@@ -13,12 +13,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.CommonTopAppBar
-import dev.baseio.slackclone.commonui.theme.AlphaNearTransparent
-import dev.baseio.slackclone.commonui.theme.SlackCloneShapes
-import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
-import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.ForgotPasswordVM
+import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
 fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
@@ -74,7 +71,7 @@ private fun ForgotPasswordButton(forgotPasswordVM: ForgotPasswordVM) {
   ) {
     Text(
       text = "Reset Password",
-      style = MaterialTheme.typography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
+      style = SlackCloneTypography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
     )
   }
 }
@@ -90,7 +87,7 @@ private fun EmailTF(forgotPasswordVM: ForgotPasswordVM) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = MaterialTheme.typography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
+        style = SlackCloneTypography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
       )
     },
     shape = SlackCloneShapes.large,

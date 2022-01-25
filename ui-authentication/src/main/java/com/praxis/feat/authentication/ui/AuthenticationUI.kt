@@ -157,7 +157,7 @@ private fun LoginButton(
   ) {
     Text(
       text = "Login",
-      style = MaterialTheme.typography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
+      style = SlackCloneTypography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
     )
   }
 }
@@ -180,7 +180,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     label = {
       Text(
         text = "Password",
-        style = MaterialTheme.typography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
+        style = SlackCloneTypography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
       )
     },
     shape = SlackCloneShapes.large,
@@ -215,7 +215,7 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = MaterialTheme.typography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
+        style = SlackCloneTypography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
       )
     },
     shape = SlackCloneShapes.large,
@@ -244,7 +244,7 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   focusedIndicatorColor = Color.Transparent,
   disabledIndicatorColor = Color.Transparent,
   unfocusedIndicatorColor = Color.Transparent,
-  backgroundColor = SlackCloneTheme.colors.accent.copy(alpha = AlphaNearTransparent),
+  backgroundColor = Color.White,
 )
 
 @Preview("Light+Dark")
