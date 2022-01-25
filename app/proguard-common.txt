@@ -1,8 +1,8 @@
-#MM Proguard Settings for Praxis
+#MM Proguard Settings for SlackClone
 # this is an extension to the recommended settings for android
 # provided in the default android proguard configuration
 #
-# This file should only be edited if Praxis requires base configuration changes
+# This file should only be edited if SlackClone requires base configuration changes
 # please put project specific directives in proguard-specific.txt
 
 # If your project uses WebView with JS, uncomment the following

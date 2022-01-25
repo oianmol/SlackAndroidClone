@@ -12,6 +12,7 @@ buildscript {
     classpath(BuildPlugins.KOTLIN_GRADLE_PLUGIN)
     classpath(kotlin("serialization", version = Lib.Kotlin.KOTLIN_VERSION))
     classpath(BuildPlugins.KTLINT_GRADLE_PLUGIN)
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }

@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.data
+package dev.baseio.slackclone.data
 
 object AppConstants {
   const val JOKES_BASE_URL = "https://api.icndb.com"

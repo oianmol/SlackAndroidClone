@@ -1,10 +1,10 @@
-package com.mutualmobile.praxis.data.remote.model
+package dev.baseio.slackclone.data.remote.model
 
 import com.google.gson.annotations.SerializedName
-import com.mutualmobile.praxis.data.mapper.EntityMapper
-import com.mutualmobile.praxis.data.mapper.DataModel
-import com.mutualmobile.praxis.domain.model.DOMJoke
-import com.mutualmobile.praxis.domain.model.DOMJokeList
+import dev.baseio.slackclone.data.mapper.EntityMapper
+import dev.baseio.slackclone.data.mapper.DataModel
+import dev.baseio.slackclone.domain.model.DOMJoke
+import dev.baseio.slackclone.domain.model.DOMJokeList
 
 data class NETJokeListData(
   @SerializedName("type")

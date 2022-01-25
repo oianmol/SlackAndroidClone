@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.navigator
+package dev.baseio.slackclone.navigator
 
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
@@ -12,16 +12,6 @@ sealed class Screen(
 
   object Auth : Screen("auth")
   object ForgotPassword : Screen("forgotPassword")
-  object Jokes : Screen("jokes")
-  object RepoDetails : Screen("repoDetails")
-
-  object JokeDetail : Screen(
-    baseRoute = "jokeDetail",
-    navArguments = listOf(navArgument("jokeId") { type = NavType.LongType })
-  ) {
-    fun createRoute(jokeId: String) =
-      route.replace("{${navArguments.first().name}}", jokeId)
-  }
 }
 
 private fun String.appendArguments(navArguments: List<NamedNavArgument>): String {

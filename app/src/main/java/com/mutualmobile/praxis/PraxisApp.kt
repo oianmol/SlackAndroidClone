@@ -1,11 +1,11 @@
-package com.mutualmobile.praxis
+package dev.baseio.slackclone
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class PraxisApp : Application() {
+class SlackCloneApp : Application() {
 
   override fun onCreate() {
     super.onCreate()

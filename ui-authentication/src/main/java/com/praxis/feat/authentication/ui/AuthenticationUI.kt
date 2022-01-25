@@ -33,12 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.mutualmobile.praxis.commonui.material.CommonTopAppBar
-import com.mutualmobile.praxis.commonui.material.DefaultSnackbar
-import com.mutualmobile.praxis.commonui.theme.AlphaNearTransparent
-import com.mutualmobile.praxis.commonui.theme.PraxisShapes
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import dev.baseio.slackclone.commonui.material.CommonTopAppBar
+import dev.baseio.slackclone.commonui.material.DefaultSnackbar
+import dev.baseio.slackclone.commonui.theme.AlphaNearTransparent
+import dev.baseio.slackclone.commonui.theme.SlackCloneShapes
+import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
 
@@ -48,8 +48,8 @@ fun AuthenticationUI(
 ) {
   val scaffoldState = rememberScaffoldState()
   Scaffold(
-    backgroundColor = PraxisTheme.colors.uiBackground,
-    contentColor = PraxisTheme.colors.textSecondary,
+    backgroundColor = SlackCloneTheme.colors.uiBackground,
+    contentColor = SlackCloneTheme.colors.textSecondary,
     modifier = Modifier
       .statusBarsPadding()
       .navigationBarsPadding(),
@@ -78,7 +78,7 @@ private fun AuthSurface(
   authVM: AuthVM,
   scaffoldState: ScaffoldState
 ) {
-  PraxisSurface(
+  SlackCloneSurface(
     modifier = Modifier
       .fillMaxHeight()
       .fillMaxWidth()
@@ -100,11 +100,11 @@ private fun AuthSurface(
       val formVisible by authVM.uiState.collectAsState()
       val (focusRequester) = FocusRequester.createRefs()
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = canShowForm(formVisible)) {
         EmailTF(authVM,focusRequester)
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = canShowForm(formVisible)) {
         PasswordTF(authVM, focusRequester)
       }
 
@@ -112,11 +112,11 @@ private fun AuthSurface(
         CircularProgressIndicator(modifier = Modifier.padding(8.dp))
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty){
+      AnimatedVisibility(visible = canShowForm(formVisible)){
         LoginButton(authVM = authVM)
       }
 
-      AnimatedVisibility(visible = formVisible is AuthVM.UiState.Empty) {
+      AnimatedVisibility(visible = canShowForm(formVisible)) {
         ForgotPasswordText(authVM)
       }
 
@@ -132,13 +132,16 @@ private fun AuthSurface(
   }
 }
 
+private fun canShowForm(formVisible: AuthVM.UiState) =
+  formVisible is AuthVM.UiState.Empty || formVisible is AuthVM.UiState.ErrorState
+
 @Composable
 fun ForgotPasswordText(authVM: AuthVM) {
   ClickableText(text = buildAnnotatedString {
 
     withStyle(
       style = SpanStyle(
-        color = PraxisTheme.colors.accent,
+        color = SlackCloneTheme.colors.accent,
       )
     ) {
       append("Forgot Password? ")
@@ -157,11 +160,11 @@ private fun LoginButton(
     onClick = {
       authVM.loginNow()
     }, Modifier.fillMaxWidth(),
-    colors = ButtonDefaults.buttonColors(backgroundColor = PraxisTheme.colors.buttonColor)
+    colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneTheme.colors.buttonColor)
   ) {
     Text(
       text = "Login",
-      style = MaterialTheme.typography.body1.copy(color = PraxisTheme.colors.buttonTextColor)
+      style = MaterialTheme.typography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
     )
   }
 }
@@ -184,10 +187,10 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     label = {
       Text(
         text = "Password",
-        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+        style = MaterialTheme.typography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
       )
     },
-    shape = PraxisShapes.large,
+    shape = SlackCloneShapes.large,
     keyboardActions = KeyboardActions(
       onDone = { keyboardController?.hide() }),
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -219,10 +222,10 @@ private fun EmailTF(authVM: AuthVM,focusRequester: FocusRequester) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = MaterialTheme.typography.body2.copy(color = PraxisTheme.colors.textPrimary)
+        style = MaterialTheme.typography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
       )
     },
-    shape = PraxisShapes.large,
+    shape = SlackCloneShapes.large,
     keyboardOptions = KeyboardOptions(
       imeAction = ImeAction.Next, keyboardType = KeyboardType.Email
     ),
@@ -248,13 +251,13 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   focusedIndicatorColor = Color.Transparent,
   disabledIndicatorColor = Color.Transparent,
   unfocusedIndicatorColor = Color.Transparent,
-  backgroundColor = PraxisTheme.colors.accent.copy(alpha = AlphaNearTransparent),
+  backgroundColor = SlackCloneTheme.colors.accent.copy(alpha = AlphaNearTransparent),
 )
 
 @Preview("Light+Dark")
 @Composable
 fun PreviewAuth() {
-  PraxisTheme(darkTheme = true) {
+  SlackCloneTheme(isDarkTheme = true) {
     AuthenticationUI()
   }
 }

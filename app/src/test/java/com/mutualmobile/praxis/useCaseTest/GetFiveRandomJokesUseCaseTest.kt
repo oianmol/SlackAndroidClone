@@ -1,10 +1,10 @@
-package com.mutualmobile.praxis.useCaseTest
+package dev.baseio.slackclone.useCaseTest
 
-import com.mutualmobile.praxis.base.BaseTest
-import com.mutualmobile.praxis.data.SafeResult
-import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
-import com.mutualmobile.praxis.injection.component.TestAppComponent
-import com.mutualmobile.praxis.utils.enqueueResponse
+import dev.baseio.slackclone.base.BaseTest
+import dev.baseio.slackclone.data.SafeResult
+import dev.baseio.slackclone.domain.usecases.GetFiveRandomJokesUseCase
+import dev.baseio.slackclone.injection.component.TestAppComponent
+import dev.baseio.slackclone.utils.enqueueResponse
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

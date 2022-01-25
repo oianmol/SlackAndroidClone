@@ -2,8 +2,8 @@ package com.praxis.feat.authentication.vm
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import com.praxis.feat.authentication.ui.model.LoginForm
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

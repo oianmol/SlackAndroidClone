@@ -1,11 +1,11 @@
-package com.mutualmobile.praxis.data.repository
+package dev.baseio.slackclone.data.repository
 
-import com.mutualmobile.praxis.data.mapper.EntityMapper
-import com.mutualmobile.praxis.data.remote.model.NETJokeListData
-import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
-import com.mutualmobile.praxis.domain.SafeResult
-import com.mutualmobile.praxis.domain.model.DOMJokeList
-import com.mutualmobile.praxis.domain.repository.IJokesRepo
+import dev.baseio.slackclone.data.mapper.EntityMapper
+import dev.baseio.slackclone.data.remote.model.NETJokeListData
+import dev.baseio.slackclone.data.sources.IJokesRemoteSource
+import dev.baseio.slackclone.domain.SafeResult
+import dev.baseio.slackclone.domain.model.DOMJokeList
+import dev.baseio.slackclone.domain.repository.IJokesRepo
 import java.lang.RuntimeException
 
 /**

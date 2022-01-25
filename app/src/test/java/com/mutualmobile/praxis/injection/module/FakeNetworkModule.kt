@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.injection.module
+package dev.baseio.slackclone.injection.module
 
-import com.mutualmobile.praxis.data.remote.JokeApiService
-import com.mutualmobile.praxis.data.remote.RetrofitHelper
+import dev.baseio.slackclone.data.remote.JokeApiService
+import dev.baseio.slackclone.data.remote.RetrofitHelper
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

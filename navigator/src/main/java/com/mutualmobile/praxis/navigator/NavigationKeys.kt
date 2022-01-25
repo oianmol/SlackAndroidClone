@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.navigator
+package dev.baseio.slackclone.navigator
 
 object NavigationKeys {
 

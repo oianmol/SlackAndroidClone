@@ -1,14 +1,14 @@
-package com.mutualmobile.praxis.navigator.fragmentnavigator
+package dev.baseio.slackclone.navigator.fragmentnavigator
 
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.navOptions
-import com.mutualmobile.praxis.navigator.FragmentNavigationCommand
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
-import com.mutualmobile.praxis.navigator.asFlow
+import dev.baseio.slackclone.navigator.FragmentNavigationCommand
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.asFlow
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class PraxisFragmentNavGraphNavigator @Inject constructor() : FragmentNavGraphNavigator() {
+class SlackCloneFragmentNavGraphNavigator @Inject constructor() : FragmentNavGraphNavigator() {
 
   override fun navigateFragment(destination: Int, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
     val options = optionsBuilder?.let { navOptions(it) }

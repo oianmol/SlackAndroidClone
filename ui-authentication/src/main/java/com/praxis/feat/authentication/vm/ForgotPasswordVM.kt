@@ -2,10 +2,10 @@ package com.praxis.feat.authentication.vm
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.NavigationKeys
-import com.mutualmobile.praxis.navigator.Navigator
-import com.mutualmobile.praxis.navigator.Screen
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.NavigationKeys
+import dev.baseio.slackclone.navigator.Navigator
+import dev.baseio.slackclone.navigator.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

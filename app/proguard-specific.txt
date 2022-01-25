@@ -2,7 +2,7 @@
 # this is an extension to the recommended settings for android 
 # provide in proguard-android.pro
 #
-# It is also an extention to the proguard configuration of Praxis
+# It is also an extention to the proguard configuration of SlackClone
 # 
 # Add proguard directives to this file if this project requires additional 
 # configuration

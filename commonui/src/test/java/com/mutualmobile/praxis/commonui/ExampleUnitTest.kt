@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui
+package dev.baseio.slackclone.commonui
 
 import org.junit.Test
 

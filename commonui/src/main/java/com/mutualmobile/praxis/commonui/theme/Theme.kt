@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.theme
+package dev.baseio.slackclone.commonui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
@@ -14,10 +14,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-private val LightColorPalette = PraxisColorPalette(
+private val LightColorPalette = SlackCloneColorPalette(
   brand = White,
-  accent = PraxisColor,
-  accentDark = PraxisColor,
+  accent = SlackCloneColor,
+  accentDark = SlackCloneColor,
   iconTint = Grey,
   uiBackground = Neutral0,
   uiBorder = VeryLightGrey,
@@ -29,24 +29,24 @@ private val LightColorPalette = PraxisColorPalette(
   textInteractive = Neutral0,
   textLink = Ocean11,
   iconSecondary = Neutral7,
-  iconInteractive = PraxisColor,
+  iconInteractive = SlackCloneColor,
   iconInteractiveInactive = Grey,
   error = FunctionalRed,
   progressIndicatorBg = LightGrey,
-  switchColor = PraxisColor,
-  statusBarColor = PraxisColor,
+  switchColor = SlackCloneColor,
+  statusBarColor = SlackCloneColor,
   isDark = false,
   searchBarBgColor = LightGrey,
-  buttonColor = PraxisColor,
+  buttonColor = SlackCloneColor,
   buttonTextColor = White
 )
 
-private val DarkColorPalette = PraxisColorPalette(
+private val DarkColorPalette = SlackCloneColorPalette(
   brand = Shadow1,
-  accent = PraxisColor,
-  accentDark = DarkGreen,
+  accent = SlackCloneColor,
+  accentDark = DarkAccent,
   iconTint = Shadow1,
-  uiBackground = GreyBg,
+  uiBackground = DarkBackground,
   uiBorder = Neutral3,
   uiFloated = FunctionalDarkGrey,
   textPrimary = Shadow1,
@@ -61,21 +61,21 @@ private val DarkColorPalette = PraxisColorPalette(
   iconInteractiveInactive = Neutral2,
   error = FunctionalRedDark,
   progressIndicatorBg = LightGrey,
-  switchColor = PraxisColor,
-  statusBarColor = GreyBg,
+  switchColor = SlackCloneColor,
+  statusBarColor = DarkBackground,
   isDark = true,
   searchBarBgColor = SearchBarDarkColor,
-  buttonColor = PraxisColor,
+  buttonColor = SlackCloneColor,
   buttonTextColor = White
 
 )
 
 @Composable
-fun PraxisTheme(
-  darkTheme: Boolean = isSystemInDarkTheme(),
+fun SlackCloneTheme(
+  isDarkTheme: Boolean = isSystemInDarkTheme(),
   content: @Composable () -> Unit
 ) {
-  val colors = if (darkTheme) DarkColorPalette else LightColorPalette
+  val colors = if (isDarkTheme) DarkColorPalette else LightColorPalette
 
   val sysUiController = LocalSysUiController.current
   SideEffect {
@@ -84,27 +84,27 @@ fun PraxisTheme(
     )
   }
 
-  ProvidePraxisColors(colors) {
+  ProvideSlackCloneColors(colors) {
     MaterialTheme(
-      colors = debugColors(darkTheme),
-      typography = PraxisTypography,
-      shapes = PraxisShapes,
+      colors = debugColors(isDarkTheme),
+      typography = SlackCloneTypography,
+      shapes = SlackCloneShapes,
       content = content
     )
   }
 }
 
-object PraxisTheme {
-  val colors: PraxisColorPalette
+object SlackCloneTheme {
+  val colors: SlackCloneColorPalette
     @Composable
-    get() = LocalPraxisColor.current
+    get() = LocalSlackCloneColor.current
 }
 
 /**
- * Praxis custom Color Palette
+ * SlackClone custom Color Palette
  */
 @Stable
-class PraxisColorPalette(
+class SlackCloneColorPalette(
   brand: Color,
   accent: Color,
   accentDark: Color,
@@ -187,7 +187,7 @@ class PraxisColorPalette(
     private set
 
 
-  fun update(other: PraxisColorPalette) {
+  fun update(other: SlackCloneColorPalette) {
     brand = other.brand
     uiBackground = other.uiBackground
     uiBorder = other.uiBorder
@@ -213,22 +213,22 @@ class PraxisColorPalette(
 }
 
 @Composable
-fun ProvidePraxisColors(
-  colors: PraxisColorPalette,
+fun ProvideSlackCloneColors(
+  colors: SlackCloneColorPalette,
   content: @Composable () -> Unit
 ) {
   val colorPalette = remember { colors }
   colorPalette.update(colors)
-  CompositionLocalProvider(LocalPraxisColor provides colorPalette, content = content)
+  CompositionLocalProvider(LocalSlackCloneColor provides colorPalette, content = content)
 }
 
-private val LocalPraxisColor = staticCompositionLocalOf<PraxisColorPalette> {
-  error("No PraxisColorPalette provided")
+private val LocalSlackCloneColor = staticCompositionLocalOf<SlackCloneColorPalette> {
+  error("No SlackCloneColorPalette provided")
 }
 
 /**
  * A Material [Colors] implementation which sets all colors to [debugColor] to discourage usage of
- * [MaterialTheme.colors] in preference to [PraxisTheme.colors].
+ * [MaterialTheme.colors] in preference to [SlackCloneTheme.colors].
  */
 fun debugColors(
   darkTheme: Boolean,

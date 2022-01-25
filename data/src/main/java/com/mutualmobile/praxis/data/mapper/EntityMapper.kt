@@ -1,6 +1,6 @@
-package com.mutualmobile.praxis.data.mapper
+package dev.baseio.slackclone.data.mapper
 
-import com.mutualmobile.praxis.domain.mappers.DomainModel
+import dev.baseio.slackclone.domain.mappers.DomainModel
 
 interface EntityMapper<M : DomainModel, ME : DataModel> {
   fun mapToDomain(entity: ME): M

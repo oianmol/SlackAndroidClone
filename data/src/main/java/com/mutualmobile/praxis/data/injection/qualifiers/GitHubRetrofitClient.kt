@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.data.injection.qualifiers
+package dev.baseio.slackclone.data.injection.qualifiers
 
 import javax.inject.Qualifier
 

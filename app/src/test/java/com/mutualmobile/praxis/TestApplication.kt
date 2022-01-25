@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis
+package dev.baseio.slackclone
 
-import com.mutualmobile.praxis.injection.component.DaggerTestAppComponent
-import com.mutualmobile.praxis.injection.component.TestAppComponent
+import dev.baseio.slackclone.injection.component.DaggerTestAppComponent
+import dev.baseio.slackclone.injection.component.TestAppComponent
 import dagger.android.DaggerApplication
 
 class TestApplication : DaggerApplication() {

@@ -1,6 +1,6 @@
-package com.mutualmobile.praxis.data.remote
+package dev.baseio.slackclone.data.remote
 
-import com.mutualmobile.praxis.data.BuildConfig
+import dev.baseio.slackclone.data.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

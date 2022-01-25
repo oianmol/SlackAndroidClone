@@ -1,29 +1,29 @@
-package com.mutualmobile.praxis.commonui.material
+package dev.baseio.slackclone.commonui.material
 
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
+import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 
 @Composable
 fun CommonTopAppBar(titleText:String){
-  PraxisSurface(
-    color = PraxisTheme.colors.uiBackground,
-    contentColor = PraxisTheme.colors.accent,
+  SlackCloneSurface(
+    color = SlackCloneTheme.colors.uiBackground,
+    contentColor = SlackCloneTheme.colors.accent,
     elevation = 4.dp
   ) {
     TopAppBar(
       title = {
         Text(
           text = titleText,
-          color = PraxisTheme.colors.textPrimary,
+          color = SlackCloneTheme.colors.textPrimary,
           textAlign = TextAlign.Start,
         )
       },
-      backgroundColor = PraxisTheme.colors.uiBackground,
+      backgroundColor = SlackCloneTheme.colors.uiBackground,
     )
   }
 }

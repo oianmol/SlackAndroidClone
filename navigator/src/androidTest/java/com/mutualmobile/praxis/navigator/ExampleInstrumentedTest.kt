@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.navigator
+package dev.baseio.slackclone.navigator
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
   fun useAppContext() {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    assertEquals("com.mutualmobile.praxis.navigator.test", appContext.packageName)
+    assertEquals("dev.baseio.slackclone.navigator.test", appContext.packageName)
   }
 }

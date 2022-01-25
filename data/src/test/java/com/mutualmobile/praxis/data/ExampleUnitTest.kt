@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.data
+package dev.baseio.slackclone.data
 
 import org.junit.Test
 

@@ -1,9 +1,9 @@
-package com.mutualmobile.praxis.domain.usecases
+package dev.baseio.slackclone.domain.usecases
 
 import androidx.paging.PagingData
-import com.mutualmobile.praxis.domain.model.DOMRepo
-import com.mutualmobile.praxis.domain.model.request.GithubReposSearchRequest
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
+import dev.baseio.slackclone.domain.model.DOMRepo
+import dev.baseio.slackclone.domain.model.request.GithubReposSearchRequest
+import dev.baseio.slackclone.domain.repository.IGithubRepo
 import kotlinx.coroutines.flow.Flow
 
 /**

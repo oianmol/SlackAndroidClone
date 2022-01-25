@@ -1,14 +1,14 @@
-package com.mutualmobile.praxis.navigator.composenavigator
+package dev.baseio.slackclone.navigator.composenavigator
 
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.navOptions
-import com.mutualmobile.praxis.navigator.ComposeNavigationCommand
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.asFlow
+import dev.baseio.slackclone.navigator.ComposeNavigationCommand
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.asFlow
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class PraxisComposeNavigator @Inject constructor(): ComposeNavigator() {
+class SlackCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
 
   override fun navigate(route: String, optionsBuilder: (NavOptionsBuilder.() -> Unit)?) {
     val options = optionsBuilder?.let { navOptions(it) }

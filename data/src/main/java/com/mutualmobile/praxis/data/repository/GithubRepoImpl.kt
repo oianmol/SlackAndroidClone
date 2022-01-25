@@ -1,15 +1,15 @@
-package com.mutualmobile.praxis.data.repository
+package dev.baseio.slackclone.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.mutualmobile.praxis.data.mapper.EntityMapper
-import com.mutualmobile.praxis.data.remote.model.NETRepoListData
-import com.mutualmobile.praxis.data.repository.paging.GithubPagingSource
-import com.mutualmobile.praxis.data.sources.IGithubReposRemoteSource
-import com.mutualmobile.praxis.domain.model.DOMRepo
-import com.mutualmobile.praxis.domain.model.DOMRepoList
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
+import dev.baseio.slackclone.data.mapper.EntityMapper
+import dev.baseio.slackclone.data.remote.model.NETRepoListData
+import dev.baseio.slackclone.data.repository.paging.GithubPagingSource
+import dev.baseio.slackclone.data.sources.IGithubReposRemoteSource
+import dev.baseio.slackclone.domain.model.DOMRepo
+import dev.baseio.slackclone.domain.model.DOMRepoList
+import dev.baseio.slackclone.domain.repository.IGithubRepo
 import kotlinx.coroutines.flow.Flow
 
 /**

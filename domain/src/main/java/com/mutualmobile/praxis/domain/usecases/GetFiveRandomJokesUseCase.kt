@@ -1,8 +1,8 @@
-package com.mutualmobile.praxis.domain.usecases
+package dev.baseio.slackclone.domain.usecases
 
-import com.mutualmobile.praxis.domain.SafeResult
-import com.mutualmobile.praxis.domain.model.DOMJoke
-import com.mutualmobile.praxis.domain.repository.IJokesRepo
+import dev.baseio.slackclone.domain.SafeResult
+import dev.baseio.slackclone.domain.model.DOMJoke
+import dev.baseio.slackclone.domain.repository.IJokesRepo
 
 /**
  * Created by Vipul Asri on 13/01/21.

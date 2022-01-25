@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain
+package dev.baseio.slackclone.domain
 
 /**
  * A generic class that holds a value with its loading status.

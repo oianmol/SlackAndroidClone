@@ -1,11 +1,11 @@
-package com.mutualmobile.praxis.data.injection
+package dev.baseio.slackclone.data.injection
 
-import com.mutualmobile.praxis.data.AppConstants
-import com.mutualmobile.praxis.data.injection.qualifiers.GitHubRetrofitClient
-import com.mutualmobile.praxis.data.injection.qualifiers.JokesRetrofitClient
-import com.mutualmobile.praxis.data.remote.GithubApiService
-import com.mutualmobile.praxis.data.remote.JokeApiService
-import com.mutualmobile.praxis.data.remote.RetrofitHelper
+import dev.baseio.slackclone.data.AppConstants
+import dev.baseio.slackclone.data.injection.qualifiers.GitHubRetrofitClient
+import dev.baseio.slackclone.data.injection.qualifiers.JokesRetrofitClient
+import dev.baseio.slackclone.data.remote.GithubApiService
+import dev.baseio.slackclone.data.remote.JokeApiService
+import dev.baseio.slackclone.data.remote.RetrofitHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.navigator
+package dev.baseio.slackclone.navigator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

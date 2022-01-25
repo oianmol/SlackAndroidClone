@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.utils
+package dev.baseio.slackclone.utils
 
 import java.io.BufferedReader
 

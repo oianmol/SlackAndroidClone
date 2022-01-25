@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.domain.model
+package dev.baseio.slackclone.domain.model
 
 import android.os.Parcelable
-import com.mutualmobile.praxis.domain.mappers.DomainModel
+import dev.baseio.slackclone.domain.mappers.DomainModel
 import kotlinx.parcelize.Parcelize
 
 /**

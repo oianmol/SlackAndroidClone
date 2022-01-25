@@ -1,9 +1,9 @@
-package com.mutualmobile.praxis.commonui.theme
+package dev.baseio.slackclone.commonui.theme
 
 import androidx.compose.ui.graphics.Color
 
 val White = Color(0xffffffff)
-val PraxisColor = Color(0xff00ACEE)
+val SlackCloneColor = Color(0xff3F2442)
 
 val VeryLightGrey = Color(0xffdadce0)
 val LightGrey = Color(0xffe8eaed)
@@ -11,8 +11,8 @@ val Grey = Color(0xff5f6368)
 val TextPrimary = Color(0xff202124)
 val TextSecondaryDark = Color(0xff212121)
 val TextSecondary = Color(0xff5f6368)
-val DarkGreen = Color(0xff056449)
-val GreyBg = Color(0xff15202b)
+val DarkAccent = Color(0xff056449)
+val DarkBackground = Color(0xff1B1D21)
 val SearchBarDarkColor = Color(0xff10171e)
 
 val Shadow1 = Color(0xffded6fe)

@@ -1,9 +1,9 @@
-package com.mutualmobile.praxis.data.sources
+package dev.baseio.slackclone.data.sources
 
-import com.mutualmobile.praxis.data.remote.JokeApiService
-import com.mutualmobile.praxis.data.remote.model.NETJokeListData
-import com.mutualmobile.praxis.data.remote.safeApiCall
-import com.mutualmobile.praxis.domain.SafeResult
+import dev.baseio.slackclone.data.remote.JokeApiService
+import dev.baseio.slackclone.data.remote.model.NETJokeListData
+import dev.baseio.slackclone.data.remote.safeApiCall
+import dev.baseio.slackclone.domain.SafeResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

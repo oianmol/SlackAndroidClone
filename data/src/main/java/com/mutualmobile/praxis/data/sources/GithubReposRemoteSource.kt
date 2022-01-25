@@ -1,9 +1,9 @@
-package com.mutualmobile.praxis.data.sources
+package dev.baseio.slackclone.data.sources
 
-import com.mutualmobile.praxis.data.remote.GithubApiService
-import com.mutualmobile.praxis.data.remote.model.NETRepoListData
-import com.mutualmobile.praxis.data.remote.safeApiCall
-import com.mutualmobile.praxis.domain.SafeResult
+import dev.baseio.slackclone.data.remote.GithubApiService
+import dev.baseio.slackclone.data.remote.model.NETRepoListData
+import dev.baseio.slackclone.data.remote.safeApiCall
+import dev.baseio.slackclone.domain.SafeResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

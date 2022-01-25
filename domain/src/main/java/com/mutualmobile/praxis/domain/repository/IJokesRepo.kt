@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.domain.repository
+package dev.baseio.slackclone.domain.repository
 
-import com.mutualmobile.praxis.domain.SafeResult
-import com.mutualmobile.praxis.domain.model.DOMJokeList
+import dev.baseio.slackclone.domain.SafeResult
+import dev.baseio.slackclone.domain.model.DOMJokeList
 
 interface IJokesRepo {
     suspend fun getFiveRandomJokes(): SafeResult<DOMJokeList>

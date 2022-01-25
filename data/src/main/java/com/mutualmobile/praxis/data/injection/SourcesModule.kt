@@ -1,11 +1,11 @@
-package com.mutualmobile.praxis.data.injection
+package dev.baseio.slackclone.data.injection
 
-import com.mutualmobile.praxis.data.remote.GithubApiService
-import com.mutualmobile.praxis.data.remote.JokeApiService
-import com.mutualmobile.praxis.data.sources.GithubReposRemoteSource
-import com.mutualmobile.praxis.data.sources.IGithubReposRemoteSource
-import com.mutualmobile.praxis.data.sources.IJokesRemoteSource
-import com.mutualmobile.praxis.data.sources.JokesRemoteSource
+import dev.baseio.slackclone.data.remote.GithubApiService
+import dev.baseio.slackclone.data.remote.JokeApiService
+import dev.baseio.slackclone.data.sources.GithubReposRemoteSource
+import dev.baseio.slackclone.data.sources.IGithubReposRemoteSource
+import dev.baseio.slackclone.data.sources.IJokesRemoteSource
+import dev.baseio.slackclone.data.sources.JokesRemoteSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

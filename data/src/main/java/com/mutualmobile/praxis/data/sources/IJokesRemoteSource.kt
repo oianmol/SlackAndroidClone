@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.data.sources
+package dev.baseio.slackclone.data.sources
 
-import com.mutualmobile.praxis.data.remote.model.NETJokeListData
-import com.mutualmobile.praxis.domain.SafeResult
+import dev.baseio.slackclone.data.remote.model.NETJokeListData
+import dev.baseio.slackclone.domain.SafeResult
 
 /**
  * Created by Vipul Asri on 13/01/21.

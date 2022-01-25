@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.utils
+package dev.baseio.slackclone.utils
 
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse

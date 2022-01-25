@@ -8,11 +8,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.mutualmobile.praxis.commonui.theme.AlphaNearOpaque
-import com.mutualmobile.praxis.commonui.theme.PraxisSurface
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.Screen
+import dev.baseio.slackclone.commonui.theme.AlphaNearOpaque
+import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.Screen
 import com.praxis.feat.authentication.ui.AuthenticationUI
 import com.praxis.feat.authentication.ui.ForgotPasswordUI
 
@@ -21,8 +21,8 @@ fun AuthNavGraph(
   navigator: ComposeNavigator
 ) {
   ProvideWindowInsets {
-    PraxisSurface(
-      color = PraxisTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
+    SlackCloneSurface(
+      color = SlackCloneTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
       modifier = Modifier.fillMaxSize()
     ) {
       val navController = rememberNavController()

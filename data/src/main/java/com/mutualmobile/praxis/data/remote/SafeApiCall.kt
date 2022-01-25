@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.data.remote
+package dev.baseio.slackclone.data.remote
 
 import android.util.Log
-import com.mutualmobile.praxis.domain.SafeResult
+import dev.baseio.slackclone.domain.SafeResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

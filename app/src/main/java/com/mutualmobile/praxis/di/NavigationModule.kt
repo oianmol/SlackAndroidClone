@@ -1,9 +1,9 @@
-package com.mutualmobile.praxis.di
+package dev.baseio.slackclone.di
 
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
-import com.mutualmobile.praxis.navigator.composenavigator.PraxisComposeNavigator
-import com.mutualmobile.praxis.navigator.fragmentnavigator.PraxisFragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.composenavigator.SlackCloneComposeNavigator
+import dev.baseio.slackclone.navigator.fragmentnavigator.SlackCloneFragmentNavGraphNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,10 +16,10 @@ abstract class NavigationModule {
 
   @Binds
   @Singleton
-  abstract fun provideComposeNavigator(praxisComposeNavigator: PraxisComposeNavigator): ComposeNavigator
+  abstract fun provideComposeNavigator(praxisComposeNavigator: SlackCloneComposeNavigator): ComposeNavigator
 
 
   @Binds
   @Singleton
-  abstract fun provideFragmentNavGraphNavigator(praxisFragmentNavGraphNavigator: PraxisFragmentNavGraphNavigator): FragmentNavGraphNavigator
+  abstract fun provideFragmentNavGraphNavigator(praxisFragmentNavGraphNavigator: SlackCloneFragmentNavGraphNavigator): FragmentNavGraphNavigator
 }

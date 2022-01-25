@@ -8,10 +8,10 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.mutualmobile.praxis.commonui.theme.PraxisTheme
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
-import com.mutualmobile.praxis.navigator.Navigator
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.Navigator
 import com.praxis.feat.authentication.nav.AuthNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class AuthFragment : Fragment() {
     setContent {
       // Create a Compose MaterialTheme inheriting the existing colors, typography
       // and shapes of the current View system's theme
-      PraxisTheme {
+      SlackCloneTheme {
         LaunchedEffect(Unit) {
           navigatorFragment.handleNavigationCommands(findNavController())
         }

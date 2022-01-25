@@ -1,6 +1,6 @@
-package com.mutualmobile.praxis.data.remote
+package dev.baseio.slackclone.data.remote
 
-import com.mutualmobile.praxis.data.remote.model.NETJokeListData
+import dev.baseio.slackclone.data.remote.model.NETJokeListData
 import retrofit2.Retrofit
 import retrofit2.http.GET
 

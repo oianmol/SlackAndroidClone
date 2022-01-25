@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.usecases
+package dev.baseio.slackclone.domain.usecases
 
 /**
  * Created by Vipul Asri on 13/01/21.

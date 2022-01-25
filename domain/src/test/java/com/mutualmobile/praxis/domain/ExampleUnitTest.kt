@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain
+package dev.baseio.slackclone.domain
 
 import org.junit.Test
 

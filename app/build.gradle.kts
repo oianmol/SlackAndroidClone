@@ -65,8 +65,7 @@ kapt {
 }
 
 dependencies {
-  implementation(project(":ui-jokes"))
-  implementation(project(":ui-githubrepos"))
+  implementation(project(":ui-authentication"))
 
   implementation(project(":navigator"))
   implementation(project(":data"))

@@ -1,7 +1,7 @@
-package com.mutualmobile.praxis.data.sources
+package dev.baseio.slackclone.data.sources
 
-import com.mutualmobile.praxis.data.remote.model.NETRepoListData
-import com.mutualmobile.praxis.domain.SafeResult
+import dev.baseio.slackclone.data.remote.model.NETRepoListData
+import dev.baseio.slackclone.domain.SafeResult
 
 interface IGithubReposRemoteSource {
   suspend fun getGithubTrendingRepos(

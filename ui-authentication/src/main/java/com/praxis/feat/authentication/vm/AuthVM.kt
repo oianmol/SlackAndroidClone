@@ -3,10 +3,10 @@ package com.praxis.feat.authentication.vm
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mutualmobile.praxis.navigator.ComposeNavigator
-import com.mutualmobile.praxis.navigator.FragmentNavGraphNavigator
-import com.mutualmobile.praxis.navigator.NavigationKeys
-import com.mutualmobile.praxis.navigator.Screen
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.NavigationKeys
+import dev.baseio.slackclone.navigator.Screen
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
 import com.praxis.feat.authentication.ui.model.LoginForm
@@ -54,7 +54,6 @@ class AuthVM @Inject constructor(
 
       viewModelScope.launch {
         delay(1500)
-        fragmentNavGraphNavigator.navigateFragment(R.id.action_authFragment_to_viewPagerFragment)
       }
     } catch (ex: FormValidationFailed) {
       snackBarState.value = ex.failType.message

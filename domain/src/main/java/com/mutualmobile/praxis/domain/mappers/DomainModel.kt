@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain.mappers
+package dev.baseio.slackclone.domain.mappers
 
 open class DomainModel
 

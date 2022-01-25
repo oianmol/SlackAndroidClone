@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.theme
+package dev.baseio.slackclone.commonui.theme
 
 import android.os.Build
 import android.view.View

@@ -1,16 +1,16 @@
-package com.mutualmobile.praxis.data.repository.paging
+package dev.baseio.slackclone.data.repository.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.mutualmobile.praxis.data.mapper.EntityMapper
-import com.mutualmobile.praxis.data.remote.model.NETRepoListData
-import com.mutualmobile.praxis.data.sources.IGithubReposRemoteSource
-import com.mutualmobile.praxis.domain.SafeResult.NetworkError
-import com.mutualmobile.praxis.domain.SafeResult.Success
-import com.mutualmobile.praxis.domain.getErrorOrNull
-import com.mutualmobile.praxis.domain.getSuccessOrNull
-import com.mutualmobile.praxis.domain.model.DOMRepo
-import com.mutualmobile.praxis.domain.model.DOMRepoList
+import dev.baseio.slackclone.data.mapper.EntityMapper
+import dev.baseio.slackclone.data.remote.model.NETRepoListData
+import dev.baseio.slackclone.data.sources.IGithubReposRemoteSource
+import dev.baseio.slackclone.domain.SafeResult.NetworkError
+import dev.baseio.slackclone.domain.SafeResult.Success
+import dev.baseio.slackclone.domain.getErrorOrNull
+import dev.baseio.slackclone.domain.getSuccessOrNull
+import dev.baseio.slackclone.domain.model.DOMRepo
+import dev.baseio.slackclone.domain.model.DOMRepoList
 import retrofit2.HttpException
 import java.io.IOException
 

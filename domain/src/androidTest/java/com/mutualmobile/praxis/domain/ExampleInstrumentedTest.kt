@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.domain
+package dev.baseio.slackclone.domain
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
   fun useAppContext() {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    assertEquals("com.mutualmobile.praxis.domain.test", appContext.packageName)
+    assertEquals("dev.baseio.slackclone.domain.test", appContext.packageName)
   }
 }

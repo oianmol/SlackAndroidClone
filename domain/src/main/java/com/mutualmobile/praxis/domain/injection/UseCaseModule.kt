@@ -1,9 +1,9 @@
-package com.mutualmobile.praxis.domain.injection
+package dev.baseio.slackclone.domain.injection
 
-import com.mutualmobile.praxis.domain.repository.IGithubRepo
-import com.mutualmobile.praxis.domain.repository.IJokesRepo
-import com.mutualmobile.praxis.domain.usecases.GetFiveRandomJokesUseCase
-import com.mutualmobile.praxis.domain.usecases.GetGithubTrendingReposUseCase
+import dev.baseio.slackclone.domain.repository.IGithubRepo
+import dev.baseio.slackclone.domain.repository.IJokesRepo
+import dev.baseio.slackclone.domain.usecases.GetFiveRandomJokesUseCase
+import dev.baseio.slackclone.domain.usecases.GetGithubTrendingReposUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.mutualmobile.praxis.commonui.theme
+package dev.baseio.slackclone.commonui.theme
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -23,11 +23,11 @@ import kotlin.math.ln
  * An alternative to [androidx.compose.material.Surface]
  */
 @Composable
-fun PraxisSurface(
+fun SlackCloneSurface(
   modifier: Modifier = Modifier,
   shape: Shape = RectangleShape,
-  color: Color = PraxisTheme.colors.uiBackground,
-  contentColor: Color = PraxisTheme.colors.textSecondary,
+  color: Color = SlackCloneTheme.colors.uiBackground,
+  contentColor: Color = SlackCloneTheme.colors.textSecondary,
   border: BorderStroke? = null,
   elevation: Dp = 0.dp,
   content: @Composable () -> Unit
