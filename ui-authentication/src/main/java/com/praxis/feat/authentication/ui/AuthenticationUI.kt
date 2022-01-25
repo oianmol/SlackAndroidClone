@@ -35,12 +35,9 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.CommonTopAppBar
 import dev.baseio.slackclone.commonui.material.DefaultSnackbar
-import dev.baseio.slackclone.commonui.theme.AlphaNearTransparent
-import dev.baseio.slackclone.commonui.theme.SlackCloneShapes
-import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
-import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import com.praxis.feat.authentication.R
 import com.praxis.feat.authentication.vm.AuthVM
+import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
 fun AuthenticationUI(
@@ -50,12 +47,7 @@ fun AuthenticationUI(
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,
-    modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(),
-    topBar = {
-      CommonTopAppBar(titleText = "Authentication")
-    }, scaffoldState = scaffoldState, snackbarHost = {
+    modifier = Modifier, scaffoldState = scaffoldState, snackbarHost = {
       scaffoldState.snackbarHostState
     }
   ) { innerPadding ->
@@ -79,6 +71,7 @@ private fun AuthSurface(
   scaffoldState: ScaffoldState
 ) {
   SlackCloneSurface(
+    color = SlackCloneColor,
     modifier = Modifier
       .fillMaxHeight()
       .fillMaxWidth()
@@ -101,7 +94,7 @@ private fun AuthSurface(
       val (focusRequester) = FocusRequester.createRefs()
 
       AnimatedVisibility(visible = canShowForm(formVisible)) {
-        EmailTF(authVM,focusRequester)
+        EmailTF(authVM, focusRequester)
       }
 
       AnimatedVisibility(visible = canShowForm(formVisible)) {
@@ -112,7 +105,7 @@ private fun AuthSurface(
         CircularProgressIndicator(modifier = Modifier.padding(8.dp))
       }
 
-      AnimatedVisibility(visible = canShowForm(formVisible)){
+      AnimatedVisibility(visible = canShowForm(formVisible)) {
         LoginButton(authVM = authVM)
       }
 
@@ -209,7 +202,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
 
 @ExperimentalComposeUiApi
 @Composable
-private fun EmailTF(authVM: AuthVM,focusRequester: FocusRequester) {
+private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
   val credentials by authVM.credentials.collectAsState()
 
   TextField(

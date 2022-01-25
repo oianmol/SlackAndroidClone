@@ -15,7 +15,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 private val LightColorPalette = SlackCloneColorPalette(
-  brand = White,
+  brand = SlackCloneColor,
   accent = SlackCloneColor,
   accentDark = SlackCloneColor,
   iconTint = Grey,
@@ -37,19 +37,19 @@ private val LightColorPalette = SlackCloneColorPalette(
   statusBarColor = SlackCloneColor,
   isDark = false,
   searchBarBgColor = LightGrey,
-  buttonColor = SlackCloneColor,
-  buttonTextColor = White
+  buttonColor = Color.White,
+  buttonTextColor = SlackCloneColor
 )
 
 private val DarkColorPalette = SlackCloneColorPalette(
-  brand = Shadow1,
+  brand = SlackCloneColor,
   accent = SlackCloneColor,
   accentDark = DarkAccent,
   iconTint = Shadow1,
   uiBackground = DarkBackground,
   uiBorder = Neutral3,
   uiFloated = FunctionalDarkGrey,
-  textPrimary = Shadow1,
+  textPrimary = SlackCloneColor,
   textSecondary = Neutral0,
   textHelp = Neutral1,
   textInteractive = Neutral7,
@@ -65,8 +65,8 @@ private val DarkColorPalette = SlackCloneColorPalette(
   statusBarColor = DarkBackground,
   isDark = true,
   searchBarBgColor = SearchBarDarkColor,
-  buttonColor = SlackCloneColor,
-  buttonTextColor = White
+  buttonColor = Color.White,
+  buttonTextColor = SlackCloneColor
 
 )
 
