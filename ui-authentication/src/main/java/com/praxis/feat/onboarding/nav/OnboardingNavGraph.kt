@@ -16,6 +16,7 @@ import dev.baseio.slackclone.navigator.Screen
 import com.praxis.feat.onboarding.ui.AuthenticationUI
 import com.praxis.feat.onboarding.ui.ForgotPasswordUI
 import dev.baseio.slackclone.uionboarding.GettingStartedUI
+import dev.baseio.slackclone.uionboarding.SkipTypingUI
 
 @Composable
 fun OnboardingNavGraph(
@@ -37,6 +38,9 @@ fun OnboardingNavGraph(
       ) {
         composable(Screen.GettingStarted.route){
           GettingStartedUI(navigator)
+        }
+        composable(Screen.SkipTypingScreen.route){
+          SkipTypingUI(navigator)
         }
         composable(Screen.Auth.route) {
           AuthenticationUI()

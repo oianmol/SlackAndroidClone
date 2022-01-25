@@ -1,11 +1,15 @@
 package dev.baseio.slackclone.uionboarding
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -14,18 +18,40 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
 
 @Composable
-fun GettingStartedUI(composeNavigator: ComposeNavigator) {
+fun SkipTypingUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
 
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,
-    modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
+    modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
+    topBar = {
+      SlackSurfaceAppBar(
+        title = {
+
+        },
+        navigationIcon = {
+          IconButton(onClick = {
+            composeNavigator.navigateUp()
+          }) {
+            Icon(
+              imageVector = Icons.Filled.Clear,
+              contentDescription = "Clear",
+              modifier = Modifier.padding(start = 8.dp)
+            )
+          }
+        },
+        backgroundColor = SlackCloneTheme.colors.uiBackground,
+        elevation = 0.dp
+      )
+    },
+    snackbarHost = {
       scaffoldState.snackbarHostState
     }
   ) { innerPadding ->
@@ -42,14 +68,19 @@ fun GettingStartedUI(composeNavigator: ComposeNavigator) {
             .fillMaxHeight()
             .fillMaxWidth()
         ) {
-          IntroText(modifier = Modifier.padding(top = 12.dp))
           Image(
             painter = painterResource(id = R.drawable.gettingstarted),
             contentDescription = "Logo",
             Modifier
           )
+          TitleSubtitleText()
           Spacer(Modifier.padding(8.dp))
-          GetStartedButton(composeNavigator)
+          Column {
+            EmailMeMagicLink(composeNavigator)
+            Box(modifier = Modifier.height(12.dp))
+            IWillSignInManually(composeNavigator)
+          }
+
         }
 
       }
@@ -59,10 +90,29 @@ fun GettingStartedUI(composeNavigator: ComposeNavigator) {
 }
 
 @Composable
-private fun GetStartedButton(composeNavigator: ComposeNavigator) {
+fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
+  OutlinedButton(
+    onClick = {
+      composeNavigator.navigate(Screen.Auth.route)
+    },
+    border = BorderStroke(1.dp, color = Color.White),
+    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+    modifier = Modifier
+      .fillMaxWidth()
+      .height(40.dp),
+  ) {
+    Text(
+      text = "Email me a magic link",
+      style = SlackCloneTypography.subtitle2.copy(color = Color.White)
+    )
+  }
+}
+
+@Composable
+private fun IWillSignInManually(composeNavigator: ComposeNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(Screen.SkipTypingScreen.route)
+      composeNavigator.navigate(Screen.Auth.route)
     },
     Modifier
       .fillMaxWidth()
@@ -70,42 +120,36 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
     colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneTheme.colors.buttonColor)
   ) {
     Text(
-      text = "Get started",
+      text = "I'll sign in manually",
       style = SlackCloneTypography.subtitle2.copy(color = SlackCloneTheme.colors.buttonTextColor)
     )
   }
 }
 
 @Composable
-private fun IntroText(modifier: Modifier = Modifier) {
+private fun TitleSubtitleText(modifier: Modifier = Modifier) {
   Text(
     text = buildAnnotatedString {
       withStyle(
         style = SpanStyle(
           fontFamily = slackFontFamily,
-          fontWeight = FontWeight.Bold
+          fontWeight = FontWeight.Bold,
+          fontSize = SlackCloneTypography.h6.fontSize
         )
       ) {
-        append("Picture this: a\n")
+        append("Want to skip the typing ?\n\n")
       }
       withStyle(
         style = SpanStyle(
           fontFamily = slackFontFamily,
-          fontWeight = FontWeight.Bold
+          fontWeight = FontWeight.Normal,
+          fontSize = SlackCloneTypography.subtitle2.fontSize
         )
       ) {
-        append("messaging app,\n")
-      }
-      withStyle(
-        style = SpanStyle(
-          SlackLogoYellow,
-          fontFamily = slackFontFamily, fontWeight = FontWeight.Bold
-        )
-      ) {
-        append("but built for\nwork.")
+        append("We can email you a magic sign-in link that adds all your workspaces at once")
       }
     },
-    textAlign = TextAlign.Left,
+    textAlign = TextAlign.Center,
     modifier = modifier.fillMaxWidth(),
     style = SlackCloneTypography.h4
   )

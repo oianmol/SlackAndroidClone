@@ -11,6 +11,7 @@ sealed class Screen(
   val route: String = baseRoute.appendArguments(navArguments)
 
   object GettingStarted : Screen("gettingStarted")
+  object SkipTypingScreen : Screen("SkipTypingUI")
   object Auth : Screen("auth")
   object ForgotPassword : Screen("forgotPassword")
 }
