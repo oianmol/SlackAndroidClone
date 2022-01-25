@@ -1,0 +1,135 @@
+#MM Proguard Settings for Praxis
+# this is an extension to the recommended settings for android
+# provided in the default android proguard configuration
+#
+# This file should only be edited if Praxis requires base configuration changes
+# please put project specific directives in proguard-specific.txt
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface class:
+#-keepclassmembers class com.example.android.fragment.dialog.WebPortalDialogFragment$SSOInterface {
+#   public *;
+#}
+
+-target 1.6
+-optimizationpasses 5
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keep public class android.net.http.SslError
+-keep public class android.webkit.WebViewClient
+
+-dontwarn android.webkit.WebView
+-dontwarn android.net.http.SslError
+-dontwarn android.webkit.WebViewClient
+
+#This will print mappings - very useful for troubleshooting.
+-dump ./build/class_files.txt
+-printseeds ./build/seeds.txt
+-printusage ./build/unused.txt
+-printmapping ./build/mapping.txt
+
+#Some recommended settings for running with Android
+-keepattributes **
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.support.v4.app.Fragment
+
+# There's no way to keep all @Observes methods, so use the On*Event convention to identify event handlers
+-keepclassmembers class * {
+    void *(**On*Event);
+}
+
+#Need this to keep serializable members as is
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+#Handling library optimization
+#-repackageclasses ''
+-allowaccessmodification
+# The -optimizations option disables some arithmetic simplifications that Dalvik 1.0 and 1.5 can't handle.
+-optimizations !code/simplification/arithmetic,!code/allocation/variable
+
+-keep public enum * {}
+-keep public interface * {}
+-keepattributes **
+
+# Keep db4o around
+-keep public class com.db4o.** { *; }
+-dontwarn sun.misc.Unsafe
+
+# Keep httpmime around
+-keep class org.apache.** { *; }
+
+# Keep gson around
+-keep class com.google.gson.stream.** { *; }
+
+# Keep hockey around
+-keep class net.hockeyapp.** { *; }
+
+# Keep system tests
+-keep class com.customername.androidui.tests.system.** { *; }
+
+#Avoid 3rd party library warnings
+-dontwarn net.hockeyapp.**
+-dontwarn javax.xml.stream.**
+-dontwarn java.awt.**,javax.security.**,java.beans.**
+-dontwarn org.apache.tools.ant.**
+-dontwarn org.simpleframework.**
+-dontwarn org.junit.**
+-dontwarn android.support.**
+-dontwarn javax.management.**
+-dontwarn java.lang.management.**
+-dontwarn android.test.**
+-dontwarn org.apache.commons.**
+-dontwarn com.google.gson.mm.internal.UnsafeAllocator.**
+-dontwarn com.google.inject.**
+-dontwarn org.mockito.**
+-dontwarn com.jayway.**
+-dontwarn org.objenesis.instantiator.**
+
+-keepattributes *Annotation*
+
+-keepclassmembers,allowobfuscation class * {
+    @javax.inject.* *;
+    @dagger.* *;
+    <init>();
+}
+
+-keep class **$$ModuleAdapter
+-keep class **$$InjectAdapter
+-keep class **$$StaticInjection
+
+-keepnames class dagger.Lazy
+-keepnames class com.mutualmobile.**
+
+-keepclassmembers class ** {
+    @com.squareup.otto.Subscribe public *;
+    @com.squareup.otto.Produce public *;
+}
+
+
+-keep class com.google.common.** { *; }
+-dontwarn com.google.common.**
+
+-keepattributes *Annotation*,Signature
+-dontwarn retrofit.**
+-keep class retrofit.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit.* <methods>;
+}
+
+-dontwarn java.lang.invoke.*

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/main_nav"
+  app:startDestination="@id/auth_fragment">
+
+  <fragment
+    android:id="@+id/auth_fragment"
+    android:name="com.praxis.feat.authentication.ui.AuthFragment"
+    android:label="AuthFragment">
+
+    <action
+      android:id="@+id/action_authFragment_to_viewPagerFragment"
+      app:destination="@+id/view_pager_fragment" />
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/view_pager_fragment"
+    android:name="com.mutualmobile.praxis.root.PraxisViewPagerFragment"
+    tools:layout="@layout/fragment_view_pager">
+
+    <action
+      android:id="@+id/action_reposFragment_to_repoDetailsFragment"
+      app:destination="@+id/repo_details_fragment" />
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/repo_details_fragment"
+    android:name="com.mutualmobile.feat.githubrepos.ui.github.repodetails.RepoDetailsFragment">
+    <argument
+      android:name="uiRepoModel"
+      app:argType="com.mutualmobile.feat.githubrepos.ui.model.UIRepo"
+      app:nullable="true" />
+  </fragment>
+
+
+</navigation>

@@ -1,0 +1,12 @@
+<resources>
+  <string name="app_name">Praxis</string>
+  <string name="show_random_jokes_coroutine">Show 5 Random Jokes (Coroutine)</string>
+  <string name="show_random_jokes_rx">Show 5 Random Jokes (Rx)</string>
+  <string name="about">About</string>
+  <string name="heading">Chuck Norris Random Joke Generator</string>
+  <string name="about_text">Praxis is a sample Android app which can be used as a base project for other projects written in Kotlin language. The app uses MVVM architecture, Architecture Components, Dagger 2 with AndroidX to provide a robust base to the app.\n\nThe Retrofit library is used to fetch jokes along with the RxJava2/Coroutines which handles connections asynchronously and makes the app more reliable.</string>
+  <string name="mutualMobileWebLink"><a href="http://www.mutualmobile.com">MutualMobile</a></string>
+  <string name="jokes">Jokes</string>
+  <string name="trending_repos">Trending Repos</string>
+  <string name="avatar">Avatar</string>
+</resources>

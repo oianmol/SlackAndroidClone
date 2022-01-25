@@ -1,0 +1,30 @@
+{
+  "type": "success",
+  "value": [
+    {
+      "id": 427,
+      "joke": "Chuck Norris' favorite cereal is Kellogg's Nails 'N' Gravel.",
+      "categories": []
+    },
+    {
+      "id": 75,
+      "joke": "Chuck Norris can believe it's not butter.",
+      "categories": []
+    },
+    {
+      "id": 302,
+      "joke": "Chuck Norris doesn't go on the internet, he has every internet site stored in his memory. He refreshes webpages by blinking.",
+      "categories": []
+    },
+    {
+      "id": 275,
+      "joke": "Little Miss Muffet sat on her tuffet, until Chuck Norris roundhouse kicked her into a glacier.",
+      "categories": []
+    },
+    {
+      "id": 76,
+      "joke": "If tapped, a Chuck Norris roundhouse kick could power the country of Australia for 44 minutes.",
+      "categories": []
+    }
+  ]
+}
