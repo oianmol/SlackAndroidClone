@@ -17,26 +17,12 @@ import androidx.compose.ui.graphics.Color
 private val LightColorPalette = SlackCloneColorPalette(
   brand = SlackCloneColor,
   accent = SlackCloneColor,
-  accentDark = SlackCloneColor,
-  iconTint = Grey,
-  uiBackground = Neutral0,
-  uiBorder = VeryLightGrey,
-  uiFloated = FunctionalGrey,
+  uiBackground = Color.White,
   textPrimary = TextPrimary,
   textSecondary = TextSecondary,
-  textSecondaryDark = TextSecondaryDark,
-  textHelp = Neutral6,
-  textInteractive = Neutral0,
-  textLink = Ocean11,
-  iconSecondary = Neutral7,
-  iconInteractive = SlackCloneColor,
-  iconInteractiveInactive = Grey,
   error = FunctionalRed,
-  progressIndicatorBg = LightGrey,
-  switchColor = SlackCloneColor,
   statusBarColor = SlackCloneColor,
   isDark = false,
-  searchBarBgColor = LightGrey,
   buttonColor = Color.White,
   buttonTextColor = SlackCloneColor
 )
@@ -44,27 +30,12 @@ private val LightColorPalette = SlackCloneColorPalette(
 private val DarkColorPalette = SlackCloneColorPalette(
   brand = SlackCloneColor,
   accent = SlackCloneColor,
-  accentDark = DarkAccent,
-  iconTint = Shadow1,
   uiBackground = DarkBackground,
-  uiBorder = Neutral3,
-  uiFloated = FunctionalDarkGrey,
   textPrimary = SlackCloneColor,
-  textSecondary = Neutral0,
-  textHelp = Neutral1,
-  textInteractive = Neutral7,
-  textLink = Ocean2,
-  iconPrimary = Neutral3,
-  iconSecondary = Neutral0,
-  textSecondaryDark = Neutral0,
-  iconInteractive = White,
-  iconInteractiveInactive = Neutral2,
+  textSecondary = Color.White,
   error = FunctionalRedDark,
-  progressIndicatorBg = LightGrey,
-  switchColor = SlackCloneColor,
-  statusBarColor = DarkBackground,
+  statusBarColor = SlackCloneColor,
   isDark = true,
-  searchBarBgColor = SearchBarDarkColor,
   buttonColor = Color.White,
   buttonTextColor = SlackCloneColor
 
@@ -79,8 +50,9 @@ fun SlackCloneTheme(
 
   val sysUiController = LocalSysUiController.current
   SideEffect {
+    sysUiController.setNavigationBarColor(color = colors.statusBarColor)
     sysUiController.setSystemBarsColor(
-      color = colors.uiBackground.copy(alpha = AlphaNearOpaque)
+      color = colors.statusBarColor
     )
   }
 
@@ -107,82 +79,33 @@ object SlackCloneTheme {
 class SlackCloneColorPalette(
   brand: Color,
   accent: Color,
-  accentDark: Color,
-  iconTint: Color,
   uiBackground: Color,
-  uiBorder: Color,
-  uiFloated: Color,
   textPrimary: Color = brand,
-  textSecondaryDark: Color,
   textSecondary: Color,
-  textHelp: Color,
-  textInteractive: Color,
-  textLink: Color,
-  iconPrimary: Color = brand,
-  iconSecondary: Color,
-  iconInteractive: Color,
-  iconInteractiveInactive: Color,
   error: Color,
-  notificationBadge: Color = error,
-  progressIndicatorBg: Color,
-  switchColor: Color,
   statusBarColor: Color,
   isDark: Boolean,
-  searchBarBgColor: Color,
   buttonColor: Color,
   buttonTextColor: Color
 ) {
-  var searchBarBg by mutableStateOf(searchBarBgColor)
-    private set
   var brand by mutableStateOf(brand)
     private set
   var accent by mutableStateOf(accent)
-    private set
-  var accentDark by mutableStateOf(accentDark)
-    private set
-  var iconTint by mutableStateOf(iconTint)
     private set
   var uiBackground by mutableStateOf(uiBackground)
     private set
   var statusBarColor by mutableStateOf(statusBarColor)
     private set
-  var uiBorder by mutableStateOf(uiBorder)
-    private set
-  var uiFloated by mutableStateOf(uiFloated)
-    private set
   var textPrimary by mutableStateOf(textPrimary)
     private set
   var textSecondary by mutableStateOf(textSecondary)
     private set
-  var textSecondaryDark by mutableStateOf(textSecondaryDark)
-    private set
-  var textHelp by mutableStateOf(textHelp)
-    private set
-  var textInteractive by mutableStateOf(textInteractive)
-    private set
-  var textLink by mutableStateOf(textLink)
-    private set
-  var iconPrimary by mutableStateOf(iconPrimary)
-    private set
-  var iconSecondary by mutableStateOf(iconSecondary)
-    private set
-  var iconInteractive by mutableStateOf(iconInteractive)
-    private set
-  var iconInteractiveInactive by mutableStateOf(iconInteractiveInactive)
-    private set
   var error by mutableStateOf(error)
-    private set
-  var notificationBadge by mutableStateOf(notificationBadge)
-    private set
-  var progressIndicatorBg by mutableStateOf(progressIndicatorBg)
-    private set
-  var switchColor by mutableStateOf(switchColor)
     private set
   var isDark by mutableStateOf(isDark)
     private set
   var buttonColor by mutableStateOf(buttonColor)
     private set
-
   var buttonTextColor by mutableStateOf(buttonTextColor)
     private set
 
@@ -190,23 +113,11 @@ class SlackCloneColorPalette(
   fun update(other: SlackCloneColorPalette) {
     brand = other.brand
     uiBackground = other.uiBackground
-    uiBorder = other.uiBorder
-    uiFloated = other.uiFloated
     textPrimary = other.textPrimary
     textSecondary = other.textSecondary
-    textHelp = other.textHelp
-    textInteractive = other.textInteractive
-    textLink = other.textLink
-    iconPrimary = other.iconPrimary
-    iconSecondary = other.iconSecondary
-    iconInteractive = other.iconInteractive
-    iconInteractiveInactive = other.iconInteractiveInactive
     error = other.error
-    notificationBadge = other.notificationBadge
-    switchColor = other.switchColor
     statusBarColor = other.statusBarColor
     isDark = other.isDark
-    searchBarBg = other.searchBarBg
     buttonColor = other.buttonColor
     buttonTextColor = other.buttonTextColor
   }
