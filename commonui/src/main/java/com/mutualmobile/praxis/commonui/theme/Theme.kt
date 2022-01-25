@@ -25,7 +25,8 @@ private val LightColorPalette = SlackCloneColorPalette(
   statusBarColor = SlackCloneColor,
   isDark = false,
   buttonColor = Color.White,
-  buttonTextColor = SlackCloneColor
+  buttonTextColor = SlackCloneColor,
+  darkBackground = DarkBackground
 )
 
 private val DarkColorPalette = SlackCloneColorPalette(
@@ -38,7 +39,8 @@ private val DarkColorPalette = SlackCloneColorPalette(
   statusBarColor = SlackCloneColor,
   isDark = true,
   buttonColor = Color.White,
-  buttonTextColor = SlackCloneColor
+  buttonTextColor = SlackCloneColor,
+  darkBackground = DarkBackground
 
 )
 
@@ -85,7 +87,8 @@ class SlackCloneColorPalette(
   statusBarColor: Color,
   isDark: Boolean,
   buttonColor: Color,
-  buttonTextColor: Color
+  buttonTextColor: Color,
+  darkBackground:Color
 ) {
   var brand by mutableStateOf(brand)
     private set
@@ -107,7 +110,8 @@ class SlackCloneColorPalette(
     private set
   var buttonTextColor by mutableStateOf(buttonTextColor)
     private set
-
+  var darkBackground by mutableStateOf(darkBackground)
+    private set
 
   fun update(other: SlackCloneColorPalette) {
     brand = other.brand
@@ -119,6 +123,7 @@ class SlackCloneColorPalette(
     isDark = other.isDark
     buttonColor = other.buttonColor
     buttonTextColor = other.buttonTextColor
+    darkBackground = other.darkBackground
   }
 }
 

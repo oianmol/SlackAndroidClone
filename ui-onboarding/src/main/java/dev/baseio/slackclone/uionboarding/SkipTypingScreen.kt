@@ -7,6 +7,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
@@ -26,6 +29,14 @@ import dev.baseio.slackclone.navigator.Screen
 @Composable
 fun SkipTypingUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
+
+  val sysUiController = rememberSystemUiController()
+
+  SideEffect {
+    sysUiController.setNavigationBarColor(color = SlackCloneColor)
+    sysUiController.setSystemBarsColor(color = SlackCloneColor)
+  }
+
 
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
@@ -43,7 +54,7 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
             Icon(
               imageVector = Icons.Filled.Clear,
               contentDescription = "Clear",
-              modifier = Modifier.padding(start = 8.dp)
+              modifier = Modifier.padding(start = 8.dp), tint = Color.White
             )
           }
         },
@@ -93,7 +104,7 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
 fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
   OutlinedButton(
     onClick = {
-      composeNavigator.navigate(Screen.Auth.route)
+      composeNavigator.navigate(Screen.EmailAddressInputUI.route)
     },
     border = BorderStroke(1.dp, color = Color.White),
     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
@@ -134,7 +145,7 @@ private fun TitleSubtitleText(modifier: Modifier = Modifier) {
         style = SpanStyle(
           fontFamily = slackFontFamily,
           fontWeight = FontWeight.Bold,
-          fontSize = SlackCloneTypography.h6.fontSize
+          fontSize = SlackCloneTypography.h6.fontSize, color = Color.White
         )
       ) {
         append("Want to skip the typing ?\n\n")
@@ -143,7 +154,7 @@ private fun TitleSubtitleText(modifier: Modifier = Modifier) {
         style = SpanStyle(
           fontFamily = slackFontFamily,
           fontWeight = FontWeight.Normal,
-          fontSize = SlackCloneTypography.subtitle2.fontSize
+          fontSize = SlackCloneTypography.subtitle2.fontSize, color = Color.White
         )
       ) {
         append("We can email you a magic sign-in link that adds all your workspaces at once")
