@@ -13,11 +13,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorPalette = SlackCloneColorPalette(
   brand = SlackCloneColor,
   accent = SlackCloneColor,
-  uiBackground = Color.White,
+  uiBackground = SlackCloneColor,
   textPrimary = TextPrimary,
   textSecondary = TextSecondary,
   error = FunctionalRed,
@@ -30,7 +31,7 @@ private val LightColorPalette = SlackCloneColorPalette(
 private val DarkColorPalette = SlackCloneColorPalette(
   brand = SlackCloneColor,
   accent = SlackCloneColor,
-  uiBackground = DarkBackground,
+  uiBackground = SlackCloneColor,
   textPrimary = SlackCloneColor,
   textSecondary = Color.White,
   error = FunctionalRedDark,
@@ -47,13 +48,11 @@ fun SlackCloneTheme(
   content: @Composable () -> Unit
 ) {
   val colors = if (isDarkTheme) DarkColorPalette else LightColorPalette
+  val sysUiController = rememberSystemUiController()
 
-  val sysUiController = LocalSysUiController.current
   SideEffect {
     sysUiController.setNavigationBarColor(color = colors.statusBarColor)
-    sysUiController.setSystemBarsColor(
-      color = colors.statusBarColor
-    )
+    sysUiController.setSystemBarsColor(color = colors.statusBarColor)
   }
 
   ProvideSlackCloneColors(colors) {

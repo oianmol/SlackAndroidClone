@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication.vm
+package com.praxis.feat.onboarding.vm
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -7,9 +7,8 @@ import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.NavigationKeys
 import dev.baseio.slackclone.navigator.Screen
-import com.praxis.feat.authentication.R
-import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
-import com.praxis.feat.authentication.ui.model.LoginForm
+import com.praxis.feat.onboarding.ui.exceptions.FormValidationFailed
+import com.praxis.feat.onboarding.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*

@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":navigator"))
     implementation(project(":commonui"))
+    implementation(project(":ui-onboarding"))
 
     api(Lib.Android.COMPOSE_UI)
     api(Lib.Android.COIL_COMPOSE)

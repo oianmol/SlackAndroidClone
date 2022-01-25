@@ -1,10 +1,9 @@
-package com.praxis.feat.authentication.vm
+package com.praxis.feat.onboarding.vm
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.NavigationKeys
-import dev.baseio.slackclone.navigator.Navigator
 import dev.baseio.slackclone.navigator.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

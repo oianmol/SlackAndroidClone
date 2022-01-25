@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication.ui
+package com.praxis.feat.onboarding.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -25,12 +25,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.commonui.material.CommonTopAppBar
 import dev.baseio.slackclone.commonui.material.DefaultSnackbar
-import com.praxis.feat.authentication.R
-import com.praxis.feat.authentication.vm.AuthVM
+import com.praxis.feat.onboarding.R
+import com.praxis.feat.onboarding.vm.AuthVM
 import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
@@ -38,6 +35,7 @@ fun AuthenticationUI(
   authVM: AuthVM = hiltViewModel()
 ) {
   val scaffoldState = rememberScaffoldState()
+
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,

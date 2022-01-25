@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication.ui
+package com.praxis.feat.onboarding.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -13,8 +13,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.CommonTopAppBar
-import com.praxis.feat.authentication.R
-import com.praxis.feat.authentication.vm.ForgotPasswordVM
+import com.praxis.feat.onboarding.R
+import com.praxis.feat.onboarding.vm.ForgotPasswordVM
 import dev.baseio.slackclone.commonui.theme.*
 
 @Composable

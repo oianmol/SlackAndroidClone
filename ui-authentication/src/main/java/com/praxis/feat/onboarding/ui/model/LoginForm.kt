@@ -1,8 +1,7 @@
-package com.praxis.feat.authentication.ui.model
+package com.praxis.feat.onboarding.ui.model
 
-import com.praxis.feat.authentication.services.Validatable
-import android.util.Patterns
-import com.praxis.feat.authentication.ui.exceptions.FormValidationFailed
+import com.praxis.feat.onboarding.services.Validatable
+import com.praxis.feat.onboarding.ui.exceptions.FormValidationFailed
 import java.util.regex.Pattern
 
 

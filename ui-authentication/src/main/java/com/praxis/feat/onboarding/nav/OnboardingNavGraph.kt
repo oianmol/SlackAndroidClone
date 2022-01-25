@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication.nav
+package com.praxis.feat.onboarding.nav
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -13,11 +13,12 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
-import com.praxis.feat.authentication.ui.AuthenticationUI
-import com.praxis.feat.authentication.ui.ForgotPasswordUI
+import com.praxis.feat.onboarding.ui.AuthenticationUI
+import com.praxis.feat.onboarding.ui.ForgotPasswordUI
+import dev.baseio.slackclone.uionboarding.GettingStartedUI
 
 @Composable
-fun AuthNavGraph(
+fun OnboardingNavGraph(
   navigator: ComposeNavigator
 ) {
   ProvideWindowInsets {
@@ -32,8 +33,11 @@ fun AuthNavGraph(
       }
       NavHost(
         navController = navController,
-        startDestination = Screen.Auth.route
+        startDestination = Screen.GettingStarted.route
       ) {
+        composable(Screen.GettingStarted.route){
+          GettingStartedUI(navigator)
+        }
         composable(Screen.Auth.route) {
           AuthenticationUI()
         }

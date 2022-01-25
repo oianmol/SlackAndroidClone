@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication.ui.model
+package com.praxis.feat.onboarding.ui.model
 
 enum class FailureType(val message: String) {
   EMAIL_NOT_VALID(message = "Email is not valid"),

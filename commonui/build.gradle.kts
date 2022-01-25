@@ -46,6 +46,7 @@ dependencies {
     /* Android Designing and layout */
     api(Lib.Android.MATERIAL_DESIGN)
     api(Lib.Android.COMPOSE_UI)
+    implementation(Lib.Android.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
     api(Lib.Android.COIL_COMPOSE)
     api(Lib.Android.COMPOSE_MATERIAL)
     api(Lib.Android.COMPOSE_TOOLING)

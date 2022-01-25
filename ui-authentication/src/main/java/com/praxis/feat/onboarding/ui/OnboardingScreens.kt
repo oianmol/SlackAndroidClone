@@ -1,4 +1,4 @@
-package com.praxis.feat.authentication.ui
+package com.praxis.feat.onboarding.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,7 @@ import androidx.navigation.findNavController
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
-import dev.baseio.slackclone.navigator.Navigator
-import com.praxis.feat.authentication.nav.AuthNavGraph
+import com.praxis.feat.onboarding.nav.OnboardingNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,7 +19,7 @@ import javax.inject.Inject
  * A fragment representing a single Auth screen.
  */
 @AndroidEntryPoint
-class AuthFragment : Fragment() {
+class OnboardingScreens : Fragment() {
 
   @Inject
   lateinit var navigatorFragment: FragmentNavGraphNavigator
@@ -48,7 +47,7 @@ class AuthFragment : Fragment() {
          * Make the bridge between Compose and the fragment-based Navigation component
          * by finding the NavController and navigating to the destination:
          */
-        AuthNavGraph(
+        OnboardingNavGraph(
           navigator = composeNavigator
         )
       }

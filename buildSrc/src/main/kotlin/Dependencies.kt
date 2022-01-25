@@ -51,6 +51,7 @@ object Lib {
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${COMPOSE_ACTIVITY_VERSION}"
     const val CONSTRAINT_LAYOUT_COMPOSE = "androidx.constraintlayout:constraintlayout-compose:${COMPOSE_CONSTRAINT_LAYOUT_VERSION}"
     const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
+    const val ACCOMPANIST_SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.24.0-alpha"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${COMPOSE_COIL_VERSION}"
     const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"

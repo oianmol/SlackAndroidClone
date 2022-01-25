@@ -1,15 +1,14 @@
-package com.praxis.feat.authentication.vm
+package com.praxis.feat.onboarding.vm
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
-import com.praxis.feat.authentication.ui.model.LoginForm
+import com.praxis.feat.onboarding.ui.model.LoginForm
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.*
