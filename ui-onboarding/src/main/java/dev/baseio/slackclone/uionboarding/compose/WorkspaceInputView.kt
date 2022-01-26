@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uionboarding
+package dev.baseio.slackclone.uionboarding.compose
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -15,28 +15,25 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
 fun WorkspaceInputView(modifier: Modifier) {
-  Column(modifier = modifier
-    .fillMaxWidth()
-    .wrapContentWidth()) {
+  Column(
+    modifier = modifier
+      .fillMaxWidth()
+      .wrapContentWidth()
+  ) {
     Text(
       text = "Workspace URL", style = SlackCloneTypography.caption.copy(
         color = Color.White.copy(alpha = 0.7f),
         fontWeight = FontWeight.Normal,
         textAlign = TextAlign.Start
-      ), modifier = Modifier.padding(bottom = 8.dp, start = 8.dp)
+      ), modifier = Modifier.padding(bottom = 4.dp)
     )
     Row(
       modifier = modifier
-        .fillMaxWidth()
-        .wrapContentWidth(),
+        .fillMaxWidth(),
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.Start
     ) {
-      Text(text = "https://", style = textStyleField())
-      Box(modifier = Modifier.fillMaxWidth(0.6f)) {
-        WorkspaceTF()
-      }
-      Text(".slack.com", style = textStyleField())
+      WorkspaceTF()
     }
   }
 }
@@ -52,6 +49,12 @@ private fun WorkspaceTF() {
       workspace = newEmail
     },
     textStyle = textStyleField(),
+    leadingIcon = {
+      Text(text = "https://", style = textStyleField().copy(color = Color.White.copy(alpha = 0.4f)))
+    },
+    trailingIcon = {
+      Text(".slack.com", style = textStyleField().copy(color = Color.White.copy(alpha = 0.4f)))
+    },
     placeholder = {
       Text(
         text = "your-workspace",
@@ -61,7 +64,7 @@ private fun WorkspaceTF() {
     },
     colors = textFieldColors(),
     singleLine = true,
-    maxLines = 1
+    maxLines = 1,
   )
 }
 

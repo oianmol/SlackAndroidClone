@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uionboarding
+package dev.baseio.slackclone.uionboarding.compose
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
@@ -15,12 +15,13 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
-import kotlinx.coroutines.delay
+import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun GettingStartedUI(composeNavigator: ComposeNavigator) {
@@ -67,13 +68,8 @@ private fun CenterImage() {
     expanded = !expanded
   }
   AnimatedVisibility(
-    visible = expanded, enter = expandIn(
-      expandFrom = Alignment.Center
-    ) + fadeIn(
-      // Fade in with the initial alpha of 0.3f.
-      initialAlpha = 0.3f
-    ),
-    exit = shrinkOut() + fadeOut()
+    visible = expanded, enter = ImageEnterTransition(),
+    exit = ImageExitTrans()
   ) {
     Image(
       painter = painterResource(id = R.drawable.gettingstarted),
@@ -82,6 +78,17 @@ private fun CenterImage() {
     )
   }
 }
+
+@Composable
+private fun ImageExitTrans() = shrinkOut() + fadeOut()
+
+@Composable
+private fun ImageEnterTransition() = expandIn(
+  expandFrom = Alignment.Center
+) + fadeIn(
+  // Fade in with the initial alpha of 0.3f.
+  initialAlpha = 0.3f
+)
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -93,17 +100,10 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
   }
   val density = LocalDensity.current
 
-  AnimatedVisibility(visible = expanded, enter = slideInVertically {
-    // Slide in from 40 dp from the bottom.
-    with(density) { +5680.dp.roundToPx() }
-  } + expandVertically(
-    // Expand from the top.
-    expandFrom = Alignment.Top
-  ) + fadeIn(
-    // Fade in with the initial alpha of 0.3f.
-    initialAlpha = 0.3f
-  ),
-    exit = slideOutVertically() + shrinkVertically() + fadeOut()) {
+  AnimatedVisibility(
+    visible = expanded, enter = GetStartedEnterTransition(density),
+    exit = GetStartedExitTrans()
+  ) {
     Button(
       onClick = {
         composeNavigator.navigate(Screen.SkipTypingScreen.route)
@@ -122,6 +122,22 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
 }
 
 @Composable
+private fun GetStartedExitTrans() = slideOutVertically() + shrinkVertically() + fadeOut()
+
+@Composable
+private fun GetStartedEnterTransition(density: Density) =
+  slideInVertically {
+    // Slide in from 40 dp from the bottom.
+    with(density) { +5680.dp.roundToPx() }
+  } + expandVertically(
+    // Expand from the top.
+    expandFrom = Alignment.Top
+  ) + fadeIn(
+    // Fade in with the initial alpha of 0.3f.
+    initialAlpha = 0.3f
+  )
+
+@Composable
 private fun IntroText(modifier: Modifier = Modifier) {
   var expanded by remember { mutableStateOf(false) }
 
@@ -130,17 +146,10 @@ private fun IntroText(modifier: Modifier = Modifier) {
   }
   val density = LocalDensity.current
 
-  AnimatedVisibility(visible = expanded, enter = slideInHorizontally {
-    // Slide in from 12580 dp from the left.
-    with(density) { -12580.dp.roundToPx() }
-  } + expandHorizontally(
-    // Expand from the top.
-    expandFrom = Alignment.Start
-  ) + fadeIn(
-    // Fade in with the initial alpha of 0.3f.
-    initialAlpha = 0.3f
-  ),
-    exit = slideOutHorizontally() + shrinkHorizontally() + fadeOut()) {
+  AnimatedVisibility(
+    visible = expanded, enter = IntroEnterTransition(density),
+    exit = IntroExitTransition()
+  ) {
     Text(
       text = buildAnnotatedString {
         withStyle(
@@ -175,3 +184,18 @@ private fun IntroText(modifier: Modifier = Modifier) {
   }
 
 }
+
+@Composable
+private fun IntroExitTransition() = slideOutHorizontally() + shrinkHorizontally() + fadeOut()
+
+@Composable
+private fun IntroEnterTransition(density: Density) = slideInHorizontally {
+  // Slide in from 12580 dp from the left.
+  with(density) { -12580.dp.roundToPx() }
+} + expandHorizontally(
+  // Expand from the top.
+  expandFrom = Alignment.Start
+) + fadeIn(
+  // Fade in with the initial alpha of 0.3f.
+  initialAlpha = 0.3f
+)
