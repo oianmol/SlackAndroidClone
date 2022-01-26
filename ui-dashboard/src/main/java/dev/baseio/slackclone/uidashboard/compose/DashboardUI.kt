@@ -2,19 +2,16 @@ package dev.baseio.slackclone.uidashboard.compose
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -31,6 +28,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
+import dev.baseio.slackclone.uidashboard.custom.DragComposableView
 
 @Composable
 fun DashboardUI() {
@@ -44,16 +42,53 @@ fun DashboardUI() {
     sysUiController.setNavigationBarColor(color = Color.White)
   }
 
+  var isOpenState by remember { mutableStateOf(false) }
+  val pxValue = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
+
+  Box(Modifier.fillMaxWidth()) {
+    SideNavigation()
+    DragComposableView(
+      isOpen = isOpenState,
+      dragOffset = (pxValue * 0.9f),
+      onOpen = {
+        isOpenState = true
+      },
+      onClose = {
+        isOpenState = false
+      }) { modifier ->
+      DashboardScaffold(scaffoldState, dashboardNavController, modifier) {
+        isOpenState = !isOpenState
+      }
+    }
+  }
+
+
+}
+
+@Composable
+fun SideNavigation() {
+  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
+
+  }
+}
+
+@Composable
+private fun DashboardScaffold(
+  scaffoldState: ScaffoldState,
+  dashboardNavController: NavHostController,
+  modifier: Modifier,
+  appBarIconClick: () -> Unit
+) {
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,
-    modifier = Modifier
+    modifier = modifier
       .statusBarsPadding()
       .navigationBarsPadding(),
 
     scaffoldState = scaffoldState,
     topBar = {
-      DashboardTopBar()
+      DashboardTopBar(appBarIconClick)
     },
     bottomBar = {
       DashboardBottomNavBar(dashboardNavController)
@@ -90,7 +125,6 @@ fun DashboardUI() {
         }
       }
     }
-
   }
 }
 
@@ -145,22 +179,22 @@ fun DashboardBottomNavBar(navController: NavHostController) {
 }
 
 @Composable
-private fun DashboardTopBar() {
+private fun DashboardTopBar(appBarIconClick: () -> Unit) {
   SlackSurfaceAppBar(
     title = {
       Text(text = "mutualmobile", style = SlackCloneTypography.h6.copy(color = Color.White))
     },
     navigationIcon = {
-      MMImageButton()
+      MMImageButton(appBarIconClick)
     },
     backgroundColor = SlackCloneTheme.colors.uiBackground,
   )
 }
 
 @Composable
-private fun MMImageButton() {
+private fun MMImageButton(appBarIconClick: () -> Unit) {
   IconButton(onClick = {
-
+    appBarIconClick()
   }) {
     MMImage()
   }
