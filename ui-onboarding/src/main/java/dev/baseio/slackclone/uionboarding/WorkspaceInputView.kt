@@ -1,28 +1,43 @@
 package dev.baseio.slackclone.uionboarding
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
 fun WorkspaceInputView(modifier: Modifier) {
-  Row(modifier = modifier.fillMaxWidth()) {
-    Text(text = "https://", style = textStyleField())
-    WorkspaceTF()
-    Text("slack.com", style = textStyleField())
+  Column(modifier = modifier
+    .fillMaxWidth()
+    .wrapContentWidth()) {
+    Text(
+      text = "Workspace URL", style = SlackCloneTypography.caption.copy(
+        color = Color.White.copy(alpha = 0.7f),
+        fontWeight = FontWeight.Normal,
+        textAlign = TextAlign.Start
+      ), modifier = Modifier.padding(bottom = 8.dp, start = 8.dp)
+    )
+    Row(
+      modifier = modifier
+        .fillMaxWidth()
+        .wrapContentWidth(),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Start
+    ) {
+      Text(text = "https://", style = textStyleField())
+      Box(modifier = Modifier.fillMaxWidth(0.6f)) {
+        WorkspaceTF()
+      }
+      Text(".slack.com", style = textStyleField())
+    }
   }
 }
 
