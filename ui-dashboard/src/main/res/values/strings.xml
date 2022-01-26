@@ -1,0 +1,8 @@
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="home">Home</string>
+    <string name="dms">DMs</string>
+    <string name="mentions">Mentions</string>
+    <string name="search">Search</string>
+    <string name="you">You</string>
+</resources>
