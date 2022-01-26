@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.theme.*
@@ -53,6 +54,7 @@ fun EmailAddressInputUI(composeNavigator: ComposeNavigator) {
       ) {
         ConstraintLayout(modifier = Modifier
           .padding(12.dp)
+          .navigationBarsWithImePadding()
           .fillMaxHeight()
           .fillMaxWidth()) {
           // Create references for the composables to constrain
