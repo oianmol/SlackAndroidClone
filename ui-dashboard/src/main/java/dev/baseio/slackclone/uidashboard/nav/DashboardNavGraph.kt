@@ -23,7 +23,6 @@ fun DashboardNavGraph(
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
     SlackCloneSurface(
-      color = SlackCloneTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
       modifier = Modifier.fillMaxSize()
     ) {
       val navController = rememberNavController()

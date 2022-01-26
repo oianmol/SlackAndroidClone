@@ -25,6 +25,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.DefaultSnackbar
 import dev.baseio.slackclone.commonui.theme.*
@@ -50,7 +51,7 @@ fun AuthenticationUI(
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,
-    modifier = Modifier, scaffoldState = scaffoldState, snackbarHost = {
+    modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
       scaffoldState.snackbarHostState
     }
   ) { innerPadding ->

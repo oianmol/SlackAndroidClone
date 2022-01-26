@@ -11,10 +11,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.baseio.slackclone.auth.R
 import dev.baseio.slackclone.auth.ui.exceptions.FormValidationFailed
 import dev.baseio.slackclone.auth.ui.model.LoginForm
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class AuthVM @Inject constructor(
@@ -23,7 +25,13 @@ class AuthVM @Inject constructor(
   private val composeNavigator: ComposeNavigator
 ) : ViewModel() {
 
-  var credentials = MutableStateFlow(LoginForm())
+  private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, ex ->
+    if (ex is FormValidationFailed) {
+      snackBarState.value = ex.failType.message
+    }
+    uiState.value = UiState.ErrorState(ex)
+  }
+  var credentials = MutableStateFlow(LoginForm("someemail@xyz.com","password"))
     private set
   var snackBarState = MutableStateFlow("")
     private set
@@ -47,18 +55,15 @@ class AuthVM @Inject constructor(
 
   fun loginNow() {
     uiState.value = UiState.LoadingState
-    try {
-      viewModelScope.launch {
-        delay(1500)
-        credentials.value.validate()
-        snackBarState.value = ""
-        uiState.value = UiState.SuccessState("sdff")
-        fragmentNavGraphNavigator.navigateFragment(R.id.action_auth_fragment_to_dashboard_fragment)
-      }
-    } catch (ex: FormValidationFailed) {
-      snackBarState.value = ex.failType.message
-      uiState.value = UiState.ErrorState(ex)
+
+    viewModelScope.launch(exceptionHandler) {
+      delay(1500)
+      credentials.value.validate()
+      snackBarState.value = ""
+      uiState.value = UiState.SuccessState("sdff")
+      fragmentNavGraphNavigator.navigateFragment(R.id.action_auth_fragment_to_dashboard_fragment)
     }
+
   }
 
   fun navigateForgotPassword() {

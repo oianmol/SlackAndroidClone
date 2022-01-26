@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
@@ -39,7 +40,7 @@ fun DefaultSnackbar(
             }
           }
         },
-        backgroundColor = SlackCloneTheme.colors.accent
+        backgroundColor = Color.White
       )
     },
     modifier = modifier
