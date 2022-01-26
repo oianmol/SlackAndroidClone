@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.auth.nav
+package dev.baseio.slackclone.uidashboard.nav
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -12,15 +12,14 @@ import dev.baseio.slackclone.commonui.theme.AlphaNearOpaque
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.Screen
-import dev.baseio.slackclone.auth.ui.AuthenticationUI
-import dev.baseio.slackclone.auth.ui.ForgotPasswordUI
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.navigator.Screen
+import dev.baseio.slackclone.uidashboard.compose.DashboardUI
 
 @Composable
-fun AuthNavGraph(
+fun DashboardNavGraph(
   composeNavigator: ComposeNavigator,
-  navigatorFragment: FragmentNavGraphNavigator
+  fragmentNavigator: FragmentNavGraphNavigator
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
     SlackCloneSurface(
@@ -34,22 +33,13 @@ fun AuthNavGraph(
       }
       NavHost(
         navController = navController,
-        startDestination = Screen.Auth.route
+        startDestination = Screen.Dashboard.route
       ) {
-        composable(Screen.Auth.route) {
-          AuthenticationUI(
-            composeNavigator = composeNavigator,
-            navigatorFragment = navigatorFragment
-          )
+        composable(Screen.Dashboard.route){
+          DashboardUI()
         }
-        composable(Screen.ForgotPassword.route) {
-          ForgotPasswordUI(
-            composeNavigator = composeNavigator,
-            navigatorFragment = navigatorFragment
-          )
-        }
+
       }
     }
   }
 }
-

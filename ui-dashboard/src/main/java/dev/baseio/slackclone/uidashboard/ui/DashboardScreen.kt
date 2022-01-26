@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.auth.ui
+package dev.baseio.slackclone.uidashboard.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,17 +12,14 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dagger.hilt.android.AndroidEntryPoint
-import dev.baseio.slackclone.auth.nav.AuthNavGraph
+import dev.baseio.slackclone.uidashboard.nav.DashboardNavGraph
 import javax.inject.Inject
 
-/**
- * A fragment representing a single Auth screen.
- */
 @AndroidEntryPoint
-class AuthScreen : Fragment() {
+class DashboardScreen : Fragment() {
 
   @Inject
-  lateinit var navigatorFragment: FragmentNavGraphNavigator
+  lateinit var fragmentNavGraphNavigator: FragmentNavGraphNavigator
 
   @Inject
   lateinit var composeNavigator: ComposeNavigator
@@ -41,15 +38,15 @@ class AuthScreen : Fragment() {
       // and shapes of the current View system's theme
       SlackCloneTheme {
         LaunchedEffect(Unit) {
-          navigatorFragment.handleNavigationCommands(findNavController())
+          fragmentNavGraphNavigator.handleNavigationCommands(findNavController())
         }
         /**
          * Make the bridge between Compose and the fragment-based Navigation component
          * by finding the NavController and navigating to the destination:
          */
-        AuthNavGraph(
+        DashboardNavGraph(
           composeNavigator = composeNavigator,
-          navigatorFragment = navigatorFragment
+          fragmentNavigator = fragmentNavGraphNavigator
         )
       }
     }

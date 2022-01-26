@@ -16,9 +16,15 @@ import dev.baseio.slackclone.auth.R
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.auth.vm.ForgotPasswordVM
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 
 @Composable
-fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){
+fun ForgotPasswordUI(
+  forgotPasswordVM: ForgotPasswordVM = hiltViewModel(),
+  composeNavigator: ComposeNavigator,
+  navigatorFragment: FragmentNavGraphNavigator
+) {
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,

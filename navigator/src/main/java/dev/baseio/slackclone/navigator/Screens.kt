@@ -10,14 +10,19 @@ sealed class Screen(
 ) {
   val route: String = baseRoute.appendArguments(navArguments)
 
+  // onboarding
   object GettingStarted : Screen("gettingStarted")
   object SkipTypingScreen : Screen("SkipTypingUI")
-
   object EmailAddressInputUI : Screen("EmailAddressInputUI")
   object WorkspaceInputUI: Screen("WorkspaceInputUI")
 
+  // auth
   object Auth : Screen("auth")
   object ForgotPassword : Screen("forgotPassword")
+
+  // dashboard
+  object Dashboard:Screen("Dashboard")
+
 }
 
 private fun String.appendArguments(navArguments: List<NamedNavArgument>): String {

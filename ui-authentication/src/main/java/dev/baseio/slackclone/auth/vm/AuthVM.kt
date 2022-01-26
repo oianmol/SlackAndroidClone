@@ -8,6 +8,7 @@ import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.NavigationKeys
 import dev.baseio.slackclone.navigator.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.baseio.slackclone.auth.R
 import dev.baseio.slackclone.auth.ui.exceptions.FormValidationFailed
 import dev.baseio.slackclone.auth.ui.model.LoginForm
 import kotlinx.coroutines.delay
@@ -47,12 +48,12 @@ class AuthVM @Inject constructor(
   fun loginNow() {
     uiState.value = UiState.LoadingState
     try {
-      credentials.value.validate()
-      snackBarState.value = ""
-      uiState.value = UiState.SuccessState("sdff")
-
       viewModelScope.launch {
         delay(1500)
+        credentials.value.validate()
+        snackBarState.value = ""
+        uiState.value = UiState.SuccessState("sdff")
+        fragmentNavGraphNavigator.navigateFragment(R.id.action_auth_fragment_to_dashboard_fragment)
       }
     } catch (ex: FormValidationFailed) {
       snackBarState.value = ex.failType.message

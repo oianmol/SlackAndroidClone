@@ -6,18 +6,26 @@
     app:startDestination="@id/onboarding_fragment">
 
     <fragment
-        android:id="@+id/auth_fragment"
-        android:name="dev.baseio.slackclone.auth.ui.AuthScreen">
-    </fragment>
-
-    <fragment
         android:id="@+id/onboarding_fragment"
         android:name="dev.baseio.slackclone.uionboarding.ui.OnBoardingScreen">
         <action
             android:id="@+id/action_onboarding_fragment_to_auth_fragment"
             app:destination="@+id/auth_fragment" />
-
     </fragment>
+
+
+    <fragment
+        android:id="@+id/auth_fragment"
+        android:name="dev.baseio.slackclone.auth.ui.AuthScreen">
+        <action
+            android:id="@+id/action_auth_fragment_to_dashboard_fragment"
+            app:destination="@+id/dashboard_fragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/dashboard_fragment"
+        android:name="dev.baseio.slackclone.uidashboard.ui.DashboardScreen" />
 
 
 </navigation>

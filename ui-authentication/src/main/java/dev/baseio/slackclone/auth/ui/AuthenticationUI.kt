@@ -30,18 +30,22 @@ import dev.baseio.slackclone.commonui.material.DefaultSnackbar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.auth.R
 import dev.baseio.slackclone.auth.vm.AuthVM
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 
 @Composable
 fun AuthenticationUI(
-  authVM: AuthVM = hiltViewModel()
+  authVM: AuthVM = hiltViewModel(),
+  composeNavigator: ComposeNavigator,
+  navigatorFragment: FragmentNavGraphNavigator
 ) {
   val scaffoldState = rememberScaffoldState()
 
   val sysUiController = rememberSystemUiController()
 
   LaunchedEffect(Unit) {
-    sysUiController.setNavigationBarColor(color = DarkBackground)
-    sysUiController.setSystemBarsColor(color = DarkBackground)
+    sysUiController.setNavigationBarColor(color = SlackCloneColor)
+    sysUiController.setSystemBarsColor(color = SlackCloneColor)
   }
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
@@ -52,7 +56,7 @@ fun AuthenticationUI(
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {
       AuthSurface(
-        authVM = authVM, scaffoldState = scaffoldState
+        authVM = authVM, scaffoldState = scaffoldState, navigatorFragment
       )
       DefaultSnackbar(scaffoldState.snackbarHostState) {
         authVM.snackBarState.value = ""
@@ -67,7 +71,8 @@ fun AuthenticationUI(
 @Composable
 private fun AuthSurface(
   authVM: AuthVM,
-  scaffoldState: ScaffoldState
+  scaffoldState: ScaffoldState,
+  navigatorFragment: FragmentNavGraphNavigator
 ) {
   SlackCloneSurface(
     color = SlackCloneColor,
@@ -101,7 +106,7 @@ private fun AuthSurface(
       }
 
       AnimatedVisibility(visible = (formVisible is AuthVM.UiState.LoadingState)) {
-        CircularProgressIndicator(modifier = Modifier.padding(8.dp))
+        CircularProgressIndicator(modifier = Modifier.padding(8.dp), color = Color.White)
       }
 
       AnimatedVisibility(visible = canShowForm(formVisible)) {
@@ -151,7 +156,10 @@ private fun LoginButton(
   Button(
     onClick = {
       authVM.loginNow()
-    }, Modifier.fillMaxWidth().height(50.dp),
+    },
+    Modifier
+      .fillMaxWidth()
+      .height(50.dp),
     colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneTheme.colors.buttonColor)
   ) {
     Text(
@@ -245,11 +253,3 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   unfocusedIndicatorColor = Color.Transparent,
   backgroundColor = Color.White,
 )
-
-@Preview("Light+Dark")
-@Composable
-fun PreviewAuth() {
-  SlackCloneTheme(isDarkTheme = true) {
-    AuthenticationUI()
-  }
-}
