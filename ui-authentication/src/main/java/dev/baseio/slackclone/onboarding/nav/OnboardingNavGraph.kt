@@ -13,8 +13,8 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
-import com.praxis.feat.onboarding.ui.AuthenticationUI
-import com.praxis.feat.onboarding.ui.ForgotPasswordUI
+import dev.baseio.slackclone.onboarding.ui.AuthenticationUI
+import dev.baseio.slackclone.onboarding.ui.ForgotPasswordUI
 import dev.baseio.slackclone.uionboarding.EmailAddressInputUI
 import dev.baseio.slackclone.uionboarding.GettingStartedUI
 import dev.baseio.slackclone.uionboarding.SkipTypingUI

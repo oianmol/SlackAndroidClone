@@ -7,9 +7,9 @@ import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.NavigationKeys
 import dev.baseio.slackclone.navigator.Screen
-import com.praxis.feat.onboarding.ui.exceptions.FormValidationFailed
-import com.praxis.feat.onboarding.ui.model.LoginForm
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.baseio.slackclone.onboarding.ui.exceptions.FormValidationFailed
+import dev.baseio.slackclone.onboarding.ui.model.LoginForm
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

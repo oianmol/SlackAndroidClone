@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/auth_fragment"
-        android:name="com.praxis.feat.onboarding.ui.OnboardingScreens">
+        android:name="dev.baseio.slackclone.onboarding.ui.OnboardingScreens">
 
     </fragment>
 

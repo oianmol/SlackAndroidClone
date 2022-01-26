@@ -11,8 +11,8 @@ import androidx.navigation.findNavController
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
-import com.praxis.feat.onboarding.nav.OnboardingNavGraph
 import dagger.hilt.android.AndroidEntryPoint
+import dev.baseio.slackclone.onboarding.nav.OnboardingNavGraph
 import javax.inject.Inject
 
 /**
