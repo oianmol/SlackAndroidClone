@@ -12,9 +12,9 @@ The purpose of this app to showcase:
 
 ## Screenshots
 
-![Screenshot](art/art1.png)
-![Screenshot](art/art2.png)
-![Screenshot](art/art3.png)
+<img src="art/art1.png" alt="drawing" style="width:200px;"/>
+<img src="art/art2.png" alt="drawing" style="width:200px;"/>
+<img src="art/art3.png" alt="drawing" style="width:200px;"/>
 
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
 
