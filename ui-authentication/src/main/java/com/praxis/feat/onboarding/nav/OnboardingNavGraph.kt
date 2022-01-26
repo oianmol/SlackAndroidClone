@@ -18,6 +18,7 @@ import com.praxis.feat.onboarding.ui.ForgotPasswordUI
 import dev.baseio.slackclone.uionboarding.EmailAddressInputUI
 import dev.baseio.slackclone.uionboarding.GettingStartedUI
 import dev.baseio.slackclone.uionboarding.SkipTypingUI
+import dev.baseio.slackclone.uionboarding.WorkspaceInputUI
 
 @Composable
 fun OnboardingNavGraph(
@@ -42,6 +43,9 @@ fun OnboardingNavGraph(
         }
         composable(Screen.SkipTypingScreen.route) {
           SkipTypingUI(navigator)
+        }
+        composable(Screen.WorkspaceInputUI.route){
+          WorkspaceInputUI(navigator)
         }
         composable(Screen.EmailAddressInputUI.route) {
           EmailAddressInputUI(navigator)

@@ -12,7 +12,10 @@ sealed class Screen(
 
   object GettingStarted : Screen("gettingStarted")
   object SkipTypingScreen : Screen("SkipTypingUI")
+
   object EmailAddressInputUI : Screen("EmailAddressInputUI")
+  object WorkspaceInputUI: Screen("WorkspaceInputUI")
+
   object Auth : Screen("auth")
   object ForgotPassword : Screen("forgotPassword")
 }

@@ -123,7 +123,7 @@ fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
 private fun IWillSignInManually(composeNavigator: ComposeNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(Screen.Auth.route)
+      composeNavigator.navigate(Screen.WorkspaceInputUI.route)
     },
     Modifier
       .fillMaxWidth()
