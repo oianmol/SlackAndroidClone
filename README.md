@@ -15,7 +15,7 @@ The purpose of this app to showcase:
 | Screenshots            | In Progress                        |
 |----------------	|------------------------------	|
 | <img src="art/art1.png" alt="drawing" style="width:200px;"/> | <img src="art/art2.png" alt="drawing" style="width:200px;"/> |
-| <img src="art/art3.png" alt="drawing" style="width:200px;"/> |  |
+| <img src="art/art3.png" alt="drawing" style="width:200px;"/> | <img src="art/art4.png" alt="drawing" style="width:200px;"/> |
 
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
 

@@ -61,15 +61,6 @@ fun DashboardUI() {
       }
     }
   }
-
-
-}
-
-@Composable
-fun SideNavigation() {
-  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
-
-  }
 }
 
 @Composable
