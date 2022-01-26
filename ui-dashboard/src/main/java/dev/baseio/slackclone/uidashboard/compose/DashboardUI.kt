@@ -192,7 +192,7 @@ private fun MMImageButton(appBarIconClick: () -> Unit) {
 }
 
 @Composable
-private fun MMImage() {
+fun MMImage(modifier: Modifier = Modifier.size(38.dp)) {
   Image(
     painter = rememberImagePainter(
       data = "https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png",
@@ -201,6 +201,6 @@ private fun MMImage() {
       }
     ),
     contentDescription = null,
-    modifier = Modifier.size(38.dp)
+    modifier = modifier
   )
 }
