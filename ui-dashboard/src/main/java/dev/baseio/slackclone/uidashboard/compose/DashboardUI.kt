@@ -8,12 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -66,20 +67,24 @@ fun DashboardUI() {
         color = Color.White,
         modifier = Modifier.fillMaxSize()
       ) {
-        NavHost(dashboardNavController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)) {
+        NavHost(
+          dashboardNavController,
+          startDestination = Screen.Home.route,
+          Modifier.padding(innerPadding)
+        ) {
           composable(Screen.Home.route) {
             Text(text = "Home")
           }
           composable(Screen.DMs.route) {
             Text(text = "DMs")
           }
-          composable(Screen.Mentions.route){
+          composable(Screen.Mentions.route) {
             Text(text = "Mentions")
           }
-          composable(Screen.Search.route){
+          composable(Screen.Search.route) {
             Text(text = "Search")
           }
-          composable(Screen.You.route){
+          composable(Screen.You.route) {
             Text(text = "You")
           }
         }
@@ -89,12 +94,16 @@ fun DashboardUI() {
   }
 }
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-  object Home : Screen("Home", dev.baseio.slackclone.uidashboard.R.string.home)
-  object DMs : Screen("DMs", dev.baseio.slackclone.uidashboard.R.string.dms)
-  object Mentions : Screen("Mentions", dev.baseio.slackclone.uidashboard.R.string.mentions)
-  object Search : Screen("Search", dev.baseio.slackclone.uidashboard.R.string.search)
-  object You : Screen("You", dev.baseio.slackclone.uidashboard.R.string.you)
+sealed class Screen(val route: String, val image: ImageVector, @StringRes val resourceId: Int) {
+  object Home : Screen("Home", Icons.Filled.Home, dev.baseio.slackclone.uidashboard.R.string.home)
+  object DMs : Screen("DMs", Icons.Filled.Menu, dev.baseio.slackclone.uidashboard.R.string.dms)
+  object Mentions :
+    Screen("Mentions", Icons.Filled.Email, dev.baseio.slackclone.uidashboard.R.string.mentions)
+
+  object Search :
+    Screen("Search", Icons.Filled.Search, dev.baseio.slackclone.uidashboard.R.string.search)
+
+  object You : Screen("You", Icons.Default.Face, dev.baseio.slackclone.uidashboard.R.string.you)
 
 }
 
@@ -112,7 +121,7 @@ fun DashboardBottomNavBar(navController: NavHostController) {
     }
     dashTabs.forEach { screen ->
       BottomNavigationItem(
-        icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+        icon = { Icon(screen.image, contentDescription = null) },
         label = { Text(stringResource(screen.resourceId)) },
         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
         onClick = {
