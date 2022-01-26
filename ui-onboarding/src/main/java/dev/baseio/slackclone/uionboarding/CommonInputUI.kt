@@ -19,6 +19,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.Screen
 
 @Composable
 fun CommonInputUI(
@@ -74,7 +75,7 @@ fun CommonInputUI(
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-          })
+          },composeNavigator)
         }
       }
     }
@@ -83,10 +84,10 @@ fun CommonInputUI(
 }
 
 @Composable
-fun NextButton(modifier: Modifier = Modifier) {
+fun NextButton(modifier: Modifier = Modifier, composeNavigator: ComposeNavigator) {
   Button(
     onClick = {
-
+      composeNavigator.navigate(Screen.Auth.route)
     },
     modifier
       .fillMaxWidth()
