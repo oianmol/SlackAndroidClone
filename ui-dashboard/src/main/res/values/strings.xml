@@ -6,4 +6,7 @@
     <string name="search">Search</string>
     <string name="you">You</string>
     <string name="head_workspaces">Workspaces</string>
+    <string name="add_workspace">Add a workspace</string>
+    <string name="preferences">Preferences</string>
+    <string name="help">Help</string>
 </resources>

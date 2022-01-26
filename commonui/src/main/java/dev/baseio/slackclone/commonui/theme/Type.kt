@@ -18,6 +18,7 @@ val slackFontFamily =
   )
 
 val SlackCloneTypography = Typography(
+  defaultFontFamily = slackFontFamily,
   body1 = TextStyle(
     fontFamily = slackFontFamily,
     fontWeight = FontWeight.Normal,
