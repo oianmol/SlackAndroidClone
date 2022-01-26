@@ -2,6 +2,7 @@
 
 ### Status: 🚧 In progress 🚧
 
+TODO : Rewrite the Colors and light/dark mode compatibility!
 
 This is a jetpack compose sample app written in Kotlin following clean architecture principles.
 
