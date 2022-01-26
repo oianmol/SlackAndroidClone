@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.onboarding.ui
+package dev.baseio.slackclone.auth.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -12,10 +12,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.onboarding.R
+import dev.baseio.slackclone.auth.R
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
-import dev.baseio.slackclone.onboarding.vm.ForgotPasswordVM
+import dev.baseio.slackclone.auth.vm.ForgotPasswordVM
 
 @Composable
 fun ForgotPasswordUI(forgotPasswordVM: ForgotPasswordVM = hiltViewModel()){

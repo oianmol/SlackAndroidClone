@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.onboarding.ui.model
+package dev.baseio.slackclone.auth.ui.model
 
 enum class FailureType(val message: String) {
   EMAIL_NOT_VALID(message = "Email is not valid"),

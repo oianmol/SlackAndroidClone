@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uionboarding
+package dev.baseio.slackclone.uionboarding.compose
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -19,11 +19,13 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.Screen
+import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
+import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun CommonInputUI(
   composeNavigator: ComposeNavigator,
+  fragmentNavigator: FragmentNavGraphNavigator,
   TopView: @Composable (modifier: Modifier) -> Unit,
   subtitleText: String
 ) {
@@ -75,7 +77,7 @@ fun CommonInputUI(
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-          },composeNavigator)
+          },fragmentNavigator)
         }
       }
     }
@@ -84,10 +86,10 @@ fun CommonInputUI(
 }
 
 @Composable
-fun NextButton(modifier: Modifier = Modifier, composeNavigator: ComposeNavigator) {
+fun NextButton(modifier: Modifier = Modifier, fragmentNavigator: FragmentNavGraphNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(Screen.Auth.route)
+      fragmentNavigator.navigateFragment(R.id.action_onboarding_fragment_to_auth_fragment)
     },
     modifier
       .fillMaxWidth()

@@ -1,7 +1,7 @@
-package dev.baseio.slackclone.onboarding.ui.model
+package dev.baseio.slackclone.auth.ui.model
 
-import dev.baseio.slackclone.onboarding.services.Validatable
-import dev.baseio.slackclone.onboarding.ui.exceptions.FormValidationFailed
+import dev.baseio.slackclone.auth.services.Validatable
+import dev.baseio.slackclone.auth.ui.exceptions.FormValidationFailed
 import java.util.regex.Pattern
 
 

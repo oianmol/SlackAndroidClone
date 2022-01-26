@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.onboarding.ui
+package dev.baseio.slackclone.auth.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -25,10 +25,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.DefaultSnackbar
 import dev.baseio.slackclone.commonui.theme.*
-import dev.baseio.slackclone.onboarding.R
-import dev.baseio.slackclone.onboarding.vm.AuthVM
+import dev.baseio.slackclone.auth.R
+import dev.baseio.slackclone.auth.vm.AuthVM
 
 @Composable
 fun AuthenticationUI(
@@ -36,6 +37,12 @@ fun AuthenticationUI(
 ) {
   val scaffoldState = rememberScaffoldState()
 
+  val sysUiController = rememberSystemUiController()
+
+  LaunchedEffect(Unit) {
+    sysUiController.setNavigationBarColor(color = DarkBackground)
+    sysUiController.setSystemBarsColor(color = DarkBackground)
+  }
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.textSecondary,

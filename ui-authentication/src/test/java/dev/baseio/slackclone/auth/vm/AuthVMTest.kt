@@ -1,10 +1,10 @@
-package dev.baseio.slackclone.onboarding.vm
+package dev.baseio.slackclone.auth.vm
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
-import dev.baseio.slackclone.onboarding.ui.model.LoginForm
+import dev.baseio.slackclone.auth.ui.model.LoginForm
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.onboarding.nav
+package dev.baseio.slackclone.auth.nav
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -13,15 +13,11 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
-import dev.baseio.slackclone.onboarding.ui.AuthenticationUI
-import dev.baseio.slackclone.onboarding.ui.ForgotPasswordUI
-import dev.baseio.slackclone.uionboarding.EmailAddressInputUI
-import dev.baseio.slackclone.uionboarding.GettingStartedUI
-import dev.baseio.slackclone.uionboarding.SkipTypingUI
-import dev.baseio.slackclone.uionboarding.WorkspaceInputUI
+import dev.baseio.slackclone.auth.ui.AuthenticationUI
+import dev.baseio.slackclone.auth.ui.ForgotPasswordUI
 
 @Composable
-fun OnboardingNavGraph(
+fun AuthNavGraph(
   navigator: ComposeNavigator
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
@@ -36,20 +32,8 @@ fun OnboardingNavGraph(
       }
       NavHost(
         navController = navController,
-        startDestination = Screen.GettingStarted.route
+        startDestination = Screen.Auth.route
       ) {
-        composable(Screen.GettingStarted.route) {
-          GettingStartedUI(navigator)
-        }
-        composable(Screen.SkipTypingScreen.route) {
-          SkipTypingUI(navigator)
-        }
-        composable(Screen.WorkspaceInputUI.route){
-          WorkspaceInputUI(navigator)
-        }
-        composable(Screen.EmailAddressInputUI.route) {
-          EmailAddressInputUI(navigator)
-        }
         composable(Screen.Auth.route) {
           AuthenticationUI()
         }

@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.onboarding.vm
+package dev.baseio.slackclone.auth.vm
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -8,8 +8,8 @@ import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.NavigationKeys
 import dev.baseio.slackclone.navigator.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.baseio.slackclone.onboarding.ui.exceptions.FormValidationFailed
-import dev.baseio.slackclone.onboarding.ui.model.LoginForm
+import dev.baseio.slackclone.auth.ui.exceptions.FormValidationFailed
+import dev.baseio.slackclone.auth.ui.model.LoginForm
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

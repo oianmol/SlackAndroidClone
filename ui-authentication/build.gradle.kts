@@ -61,7 +61,6 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":navigator"))
     implementation(project(":commonui"))
-    implementation(project(":ui-onboarding"))
 
     api(Lib.Android.COMPOSE_UI)
     api(Lib.Android.COIL_COMPOSE)
@@ -70,6 +69,7 @@ dependencies {
     api(Lib.Android.COMPOSE_TOOLING)
     debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
     api(Lib.Android.ACTIVITY_COMPOSE)
+    implementation(Lib.Android.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
 
     api(Lib.Android.APP_COMPAT)
     api(Lib.Kotlin.KTX_CORE)

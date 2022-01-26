@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.onboarding.vm
+package dev.baseio.slackclone.auth.vm
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
