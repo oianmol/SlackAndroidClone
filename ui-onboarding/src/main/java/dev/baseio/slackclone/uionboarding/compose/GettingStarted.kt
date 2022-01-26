@@ -95,7 +95,7 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
 
   AnimatedVisibility(visible = expanded, enter = slideInVertically {
     // Slide in from 40 dp from the bottom.
-    with(density) { +180.dp.roundToPx() }
+    with(density) { +5680.dp.roundToPx() }
   } + expandVertically(
     // Expand from the top.
     expandFrom = Alignment.Top
@@ -131,8 +131,8 @@ private fun IntroText(modifier: Modifier = Modifier) {
   val density = LocalDensity.current
 
   AnimatedVisibility(visible = expanded, enter = slideInHorizontally {
-    // Slide in from 40 dp from the left.
-    with(density) { -380.dp.roundToPx() }
+    // Slide in from 12580 dp from the left.
+    with(density) { -12580.dp.roundToPx() }
   } + expandHorizontally(
     // Expand from the top.
     expandFrom = Alignment.Start
