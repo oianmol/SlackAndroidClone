@@ -114,7 +114,7 @@
 -keep class **$$StaticInjection
 
 -keepnames class dagger.Lazy
--keepnames class com.mutualmobile.**
+-keepnames class com.baseio.**
 
 -keepclassmembers class ** {
     @com.squareup.otto.Subscribe public *;
