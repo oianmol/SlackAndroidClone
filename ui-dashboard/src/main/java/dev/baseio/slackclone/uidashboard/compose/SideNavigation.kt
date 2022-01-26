@@ -54,16 +54,16 @@ private fun SideNavFooter() {
 
 @Composable
 fun FooterItem(imageVector: ImageVector, title: String) {
-  Row(modifier = Modifier.padding(8.dp)) {
+  Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
     Icon(
       imageVector,
       contentDescription = null,
-      tint = Color.White,
+      tint = Color.White.copy(alpha = 0.5f),
       modifier = Modifier.padding(8.dp)
     )
     Text(
       text = title,
-      style = SlackCloneTypography.subtitle1.copy(color = Color.White),
+      style = SlackCloneTypography.subtitle1.copy(color = Color.White.copy(alpha = 0.7f)),
       modifier = Modifier.padding(8.dp)
     )
   }
