@@ -49,7 +49,7 @@ fun DashboardUI() {
     SideNavigation()
     DragComposableView(
       isOpen = isOpenState,
-      dragOffset = (pxValue * 0.9f),
+      dragOffset = (pxValue * 0.85f),
       onOpen = {
         isOpenState = true
       },
