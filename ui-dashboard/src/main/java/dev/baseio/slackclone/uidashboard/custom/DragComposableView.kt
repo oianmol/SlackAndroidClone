@@ -1,7 +1,5 @@
 package dev.baseio.slackclone.uidashboard.custom
 
-import android.annotation.SuppressLint
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.offset
@@ -61,12 +59,11 @@ fun DragComposableView(
           //cancel
 
         }, { change, dragAmount ->
-          val original = Offset(offsetX.targetValue, 0f)
-          val summed = original + Offset(x = dragAmount, y = 0f)
-          val newValue = Offset(x = summed.x.coerceIn(0f, dragOffset), y = 0f)
+          val summed = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
+          val newDragValue = Offset(x = summed.x.coerceIn(0f, dragOffset), y = 0f)
           change.consumePositionChange()
           coroutineScope.launch {
-            offsetX.animateTo(newValue.x, animationSpec = tween(50))
+            offsetX.animateTo(newDragValue.x, animationSpec = tween(50))
           }
 
         })
