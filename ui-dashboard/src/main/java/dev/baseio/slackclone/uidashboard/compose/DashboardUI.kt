@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -139,45 +140,65 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
 
 @Composable
 fun DashboardBottomNavBar(navController: NavHostController) {
-  BottomNavigation(backgroundColor = Color.White) {
+  BottomNavigation(backgroundColor = DarkBackground) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val dashTabs = mutableListOf<Screen>().apply {
-      add(Screen.Home)
-      add(Screen.DMs)
-      add(Screen.Mentions)
-      add(Screen.Search)
-      add(Screen.You)
-    }
+    val dashTabs = getDashTabs()
     dashTabs.forEach { screen ->
-      BottomNavigationItem(
-        selectedContentColor = DarkBackground,
-        unselectedContentColor = Color.Black.copy(alpha = 0.6f),
-        icon = { Icon(screen.image, contentDescription = null) },
-        label = {
-          Text(
-            stringResource(screen.resourceId),
-            style = SlackCloneTypography.subtitle2
-          )
-        },
-        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-        onClick = {
-          navController.navigate(screen.route) {
-            // Pop up to the start destination of the graph to
-            // avoid building up a large stack of destinations
-            // on the back stack as users select items
-            popUpTo(navController.graph.findStartDestination().id) {
-              saveState = true
-            }
-            // Avoid multiple copies of the same destination when
-            // reselecting the same item
-            launchSingleTop = true
-            // Restore state when reselecting a previously selected item
-            restoreState = true
-          }
-        }
-      )
+      BottomNavItem(screen, currentDestination, navController)
     }
+  }
+}
+
+@Composable
+private fun RowScope.BottomNavItem(
+  screen: Screen,
+  currentDestination: NavDestination?,
+  navController: NavHostController
+) {
+  BottomNavigationItem(
+    selectedContentColor = Color.White,
+    unselectedContentColor = Color.LightGray,
+    icon = { Icon(screen.image, contentDescription = null) },
+    label = {
+      Text(
+        stringResource(screen.resourceId),
+        style = SlackCloneTypography.subtitle2
+      )
+    },
+    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+    onClick = {
+      navigateTab(navController, screen)
+    }
+  )
+}
+
+private fun navigateTab(
+  navController: NavHostController,
+  screen: Screen
+) {
+  navController.navigate(screen.route) {
+    // Pop up to the start destination of the graph to
+    // avoid building up a large stack of destinations
+    // on the back stack as users select items
+    popUpTo(navController.graph.findStartDestination().id) {
+      saveState = true
+    }
+    // Avoid multiple copies of the same destination when
+    // reselecting the same item
+    launchSingleTop = true
+    // Restore state when reselecting a previously selected item
+    restoreState = true
+  }
+}
+
+private fun getDashTabs(): MutableList<Screen> {
+  return mutableListOf<Screen>().apply {
+    add(Screen.Home)
+    add(Screen.DMs)
+    add(Screen.Mentions)
+    add(Screen.Search)
+    add(Screen.You)
   }
 }
 
