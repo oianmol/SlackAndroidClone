@@ -2,6 +2,7 @@ package dev.baseio.slackclone.uidashboard.compose
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -75,7 +76,6 @@ private fun DashboardScaffold(
     modifier = modifier
       .statusBarsPadding()
       .navigationBarsPadding(),
-
     scaffoldState = scaffoldState,
     bottomBar = {
       DashboardBottomNavBar(dashboardNavController)
@@ -136,12 +136,15 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
 
 @Composable
 fun DashboardBottomNavBar(navController: NavHostController) {
-  BottomNavigation(backgroundColor = DarkBackground) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    val dashTabs = getDashTabs()
-    dashTabs.forEach { screen ->
-      BottomNavItem(screen, currentDestination, navController)
+  Column(Modifier.background(color = Color.Black)) {
+    Divider(color = Color.White.copy(alpha = 0.2f), thickness = 0.5.dp)
+    BottomNavigation(backgroundColor = DarkBackground) {
+      val navBackStackEntry by navController.currentBackStackEntryAsState()
+      val currentDestination = navBackStackEntry?.destination
+      val dashTabs = getDashTabs()
+      dashTabs.forEach { screen ->
+        BottomNavItem(screen, currentDestination, navController)
+      }
     }
   }
 }
@@ -154,7 +157,7 @@ private fun RowScope.BottomNavItem(
 ) {
   BottomNavigationItem(
     selectedContentColor = Color.White,
-    unselectedContentColor = Color.LightGray,
+    unselectedContentColor = Color.DarkGray,
     icon = { Icon(screen.image, contentDescription = null) },
     label = {
       Text(
