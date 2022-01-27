@@ -29,6 +29,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.uidashboard.custom.DragComposableView
+import dev.baseio.slackclone.uidashboard.home.HomeScreenUI
 import dev.baseio.slackclone.uidashboard.home.UserProfileUI
 
 @Composable
@@ -79,9 +80,6 @@ private fun DashboardScaffold(
       .navigationBarsPadding(),
 
     scaffoldState = scaffoldState,
-    topBar = {
-      DashboardTopBar(appBarIconClick)
-    },
     bottomBar = {
       DashboardBottomNavBar(dashboardNavController)
     },
@@ -104,10 +102,9 @@ private fun DashboardScaffold(
         NavHost(
           dashboardNavController,
           startDestination = Screen.Home.route,
-          Modifier.padding(innerPadding)
         ) {
           composable(Screen.Home.route) {
-            Text(text = "Home")
+            HomeScreenUI(appBarIconClick)
           }
           composable(Screen.DMs.route) {
             Text(text = "DMs")
@@ -181,31 +178,6 @@ fun DashboardBottomNavBar(navController: NavHostController) {
         }
       )
     }
-  }
-}
-
-@Composable
-private fun DashboardTopBar(appBarIconClick: () -> Unit) {
-  SlackSurfaceAppBar(
-    title = {
-      Text(text = "mutualmobile", style = SlackCloneTypography.h5.copy(color = Color.White))
-    },
-    navigationIcon = {
-      MMImageButton(appBarIconClick)
-    },
-    backgroundColor = DarkBackground,
-  )
-}
-
-@Composable
-private fun MMImageButton(appBarIconClick: () -> Unit) {
-  IconButton(onClick = {
-    appBarIconClick()
-  }) {
-    SlackImageBox(
-      Modifier.size(38.dp),
-      "https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png"
-    )
   }
 }
 
