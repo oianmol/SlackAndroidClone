@@ -154,7 +154,7 @@ fun DashboardBottomNavBar(navController: NavHostController) {
     dashTabs.forEach { screen ->
       BottomNavigationItem(
         selectedContentColor = DarkBackground,
-        unselectedContentColor = Color.Black.copy(alpha = 0.4f),
+        unselectedContentColor = Color.Black.copy(alpha = 0.6f),
         icon = { Icon(screen.image, contentDescription = null) },
         label = {
           Text(
