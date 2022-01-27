@@ -20,6 +20,11 @@ The purpose of this app to showcase:
 | <img src="art/art5.png" alt="drawing" style="width:200px;"/> | <img src="art/art6.png" alt="drawing" style="width:200px;"/> |
 | <img src="art/art7.png" alt="drawing" style="width:200px;"/> | |
 
+### Highlights
+
+![Animated Search Cancel With Keyboard](art/animated_search.gif)
+
+
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
 
 | What            | How                        |
