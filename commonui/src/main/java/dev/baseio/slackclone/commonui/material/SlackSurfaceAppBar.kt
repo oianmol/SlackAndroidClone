@@ -24,7 +24,6 @@ fun SlackSurfaceAppBar(
   SlackCloneSurface(
     color = SlackCloneTheme.colors.uiBackground,
     contentColor = SlackCloneTheme.colors.accent,
-    elevation = 4.dp
   ) {
     TopAppBar(
       title, modifier, navigationIcon, actions, backgroundColor, contentColor, elevation

@@ -86,6 +86,13 @@ private fun DashboardScaffold(
     },
     snackbarHost = {
       scaffoldState.snackbarHostState
+    },
+    floatingActionButton = {
+      FloatingActionButton(onClick = {
+
+      }, backgroundColor = SlackCloneColor) {
+        Icon(imageVector = Icons.Default.Edit, contentDescription = null, tint = Color.White)
+      }
     }
   ) { innerPadding ->
     Box(modifier = Modifier.padding(innerPadding)) {

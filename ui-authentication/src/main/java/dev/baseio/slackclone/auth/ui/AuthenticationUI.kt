@@ -139,7 +139,7 @@ fun ForgotPasswordText(authVM: AuthVM) {
 
     withStyle(
       style = SpanStyle(
-        color = SlackCloneTheme.colors.accent,
+        color = Color.White,
       )
     ) {
       append("Forgot Password? ")

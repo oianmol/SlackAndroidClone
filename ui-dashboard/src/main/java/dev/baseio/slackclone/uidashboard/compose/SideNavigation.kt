@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -74,6 +75,8 @@ fun Workspace() {
   Row(modifier = Modifier.padding(8.dp)) {
     OrganizationLogo()
     OrganizationDetails()
+    Spacer(modifier = Modifier.padding(start = 8.dp))
+    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null, tint = Color.White.copy(alpha = 0.7f))
   }
 }
 
@@ -81,18 +84,17 @@ fun Workspace() {
 fun OrganizationDetails() {
   Column(
     modifier = Modifier
-      .fillMaxWidth()
       .padding(start = 8.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.Start
   ) {
-    Text(text = "mutualmobile", style = SlackCloneTypography.h6.copy(color = Color.White))
+    Text(text = "mutualmobile", style = SlackCloneTypography.h6.copy(color = Color.White, fontWeight = FontWeight.SemiBold))
     Text(
       "mutualmobile.slack.com",
       style = SlackCloneTypography.subtitle1.copy(
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.Normal,
         color = Color.White.copy(alpha = 0.4f)
-      )
+      ),
     )
   }
 }
@@ -113,5 +115,5 @@ private fun Workspaces() {
         fontWeight = FontWeight.Bold
       )
     )
-  }, backgroundColor = SlackCloneColor)
+  }, backgroundColor = SlackCloneColor, elevation = 0.dp)
 }
