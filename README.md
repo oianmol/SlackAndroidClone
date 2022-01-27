@@ -24,7 +24,7 @@ The purpose of this app to showcase:
 
 #### Animated Search Cancel With Keyboard
 
-<img src="art/animated_search.gif" width="250" height="250"/>
+<img src="art/animated_search.gif" width="300" height="610"/>
 
 
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
