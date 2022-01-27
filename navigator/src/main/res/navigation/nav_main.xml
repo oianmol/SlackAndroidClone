@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_onboarding_fragment_to_auth_fragment"
             app:destination="@+id/auth_fragment" />
+        <action
+            android:id="@+id/action_onboarding_fragment_to_dashboard_fragment"
+            app:destination="@+id/dashboard_fragment" />
     </fragment>
 
 

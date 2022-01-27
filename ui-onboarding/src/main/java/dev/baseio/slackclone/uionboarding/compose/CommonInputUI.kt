@@ -90,7 +90,7 @@ fun CommonInputUI(
 fun NextButton(modifier: Modifier = Modifier, fragmentNavigator: FragmentNavGraphNavigator) {
   Button(
     onClick = {
-      fragmentNavigator.navigateFragment(R.id.action_onboarding_fragment_to_auth_fragment)
+      fragmentNavigator.navigateFragment(R.id.action_onboarding_fragment_to_dashboard_fragment)
     },
     modifier
       .fillMaxWidth()

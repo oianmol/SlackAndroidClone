@@ -30,8 +30,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.uidashboard.custom.DragComposableView
-import dev.baseio.slackclone.uidashboard.home.HomeScreenUI
-import dev.baseio.slackclone.uidashboard.home.UserProfileUI
+import dev.baseio.slackclone.uidashboard.home.*
 
 @Composable
 fun DashboardUI() {
@@ -108,13 +107,13 @@ private fun DashboardScaffold(
             HomeScreenUI(appBarIconClick)
           }
           composable(Screen.DMs.route) {
-            Text(text = "DMs")
+            DirectMessagesUI()
           }
           composable(Screen.Mentions.route) {
-            Text(text = "Mentions")
+            MentionsReactionsUI()
           }
           composable(Screen.Search.route) {
-            Text(text = "Search")
+            SearchMessagesUI()
           }
           composable(Screen.You.route) {
             UserProfileUI()
