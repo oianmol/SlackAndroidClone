@@ -202,12 +202,15 @@ private fun MMImageButton(appBarIconClick: () -> Unit) {
   IconButton(onClick = {
     appBarIconClick()
   }) {
-    SlackImageBox(Modifier.size(38.dp),"https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png")
+    SlackImageBox(
+      Modifier.size(38.dp),
+      "https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png"
+    )
   }
 }
 
 @Composable
-fun SlackImageBox(modifier: Modifier,imageUrl:String) {
+fun SlackImageBox(modifier: Modifier, imageUrl: String) {
   Image(
     painter = rememberImagePainter(
       data = imageUrl,

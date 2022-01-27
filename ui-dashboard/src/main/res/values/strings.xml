@@ -9,4 +9,9 @@
     <string name="add_workspace">Add a workspace</string>
     <string name="preferences">Preferences</string>
     <string name="help">Help</string>
+    <string name="pause_notifications">Pause Notifications</string>
+    <string name="set_away">Set yoursel as away</string>
+    <string name="saved_items">Saved items</string>
+    <string name="view_profile">View profile</string>
+    <string name="notifications">Notifications</string>
 </resources>
