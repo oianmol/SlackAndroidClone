@@ -1,8 +1,6 @@
 package dev.baseio.slackclone.uidashboard.compose
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -32,7 +30,7 @@ fun SideNavigation() {
         .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween
     ) {
       Column {
-        Workspaces()
+        WorkspacesBar()
         Workspace()
       }
       Spacer(modifier = Modifier.padding(8.dp))
@@ -74,12 +72,6 @@ fun Workspace() {
   Row(modifier = Modifier.padding(8.dp)) {
     OrganizationLogo()
     OrganizationDetails()
-    Spacer(modifier = Modifier.padding(start = 8.dp))
-    Icon(
-      imageVector = Icons.Default.MoreVert,
-      contentDescription = null,
-      tint = Color.White.copy(alpha = 0.7f)
-    )
   }
 }
 
@@ -87,6 +79,7 @@ fun Workspace() {
 fun OrganizationDetails() {
   Column(
     modifier = Modifier
+      .fillMaxWidth()
       .padding(start = 8.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.Start
@@ -111,7 +104,7 @@ fun OrganizationLogo() {
 }
 
 @Composable
-private fun Workspaces() {
+private fun WorkspacesBar() {
   SlackSurfaceAppBar(
     backgroundColor = DarkBackground,
     elevation = 0.dp,
@@ -128,7 +121,8 @@ private fun Workspaces() {
         color = Color.White,
         fontFamily = slackFontFamily,
         fontWeight = FontWeight.Bold
-      )
+      ),
+      modifier = Modifier.padding(start = 8.dp)
     )
   }
 }
