@@ -15,10 +15,10 @@ The purpose of this app to showcase:
 
 | Screenshots            | In Progress                        |
 |----------------	|------------------------------	|
-| <img src="art/art1.png" alt="drawing" style="width:200px;"/> | <img src="art/art2.png" alt="drawing" style="width:200px;"/> |
-| <img src="art/art3.png" alt="drawing" style="width:200px;"/> | <img src="art/art4.png" alt="drawing" style="width:200px;"/> |
-| <img src="art/art5.png" alt="drawing" style="width:200px;"/> | <img src="art/art6.png" alt="drawing" style="width:200px;"/> |
-| <img src="art/art7.png" alt="drawing" style="width:200px;"/> | <img src="art/animated_search.gif" style="width:300px;"/> |
+| <img src="art/art1.png" alt="drawing" style="width:300px;"/> | <img src="art/art2.png" alt="drawing" style="width:300px;"/> |
+| <img src="art/art3.png" alt="drawing" style="width:300px;"/> | <img src="art/art4.png" alt="drawing" style="width:300px;"/> |
+| <img src="art/art5.png" alt="drawing" style="width:300px;"/> | <img src="art/art6.png" alt="drawing" style="width:300px;"/> |
+| <img src="art/art7.png" alt="drawing" style="width:300px;"/> | <img src="art/animated_search.gif" style="width:300px;"/> |
 
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
 
