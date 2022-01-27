@@ -7,8 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,17 +58,21 @@ private fun SearchTopAppBar() {
 @Composable
 private fun SearchMessagesTF(modifier: Modifier) {
   Box(modifier
-    .height(50.dp)
     .background(
       color = Color.White.copy(alpha = 0.2f),
       shape = RoundedCornerShape(12.dp)
     )) {
+    var search by remember { mutableStateOf("") }
+
     TextField(
-      value = "", onValueChange = {},
+      value = search,
+      onValueChange = { newSearch ->
+        search = newSearch
+      },
       placeholder = {
         Text(
           "Search for messages and files",
-          style = SlackCloneTypography.h6.copy(color = Color.White, fontSize = 18.sp)
+          style = SlackCloneTypography.subtitle1.copy(color = Color.White, fontSize = 18.sp)
         )
       },
       leadingIcon = {
