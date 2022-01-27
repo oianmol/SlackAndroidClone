@@ -1,5 +1,6 @@
 package dev.baseio.slackclone.uidashboard.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
@@ -17,19 +18,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.*
 import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
 fun SideNavigation() {
-  SlackCloneSurface(color = SlackCloneColor, modifier = Modifier.fillMaxSize()) {
+  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
     Column(
       modifier = Modifier
-        .statusBarsPadding()
         .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween
     ) {
       Column {
@@ -76,7 +75,11 @@ fun Workspace() {
     OrganizationLogo()
     OrganizationDetails()
     Spacer(modifier = Modifier.padding(start = 8.dp))
-    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null, tint = Color.White.copy(alpha = 0.7f))
+    Icon(
+      imageVector = Icons.Default.MoreVert,
+      contentDescription = null,
+      tint = Color.White.copy(alpha = 0.7f)
+    )
   }
 }
 
@@ -88,7 +91,10 @@ fun OrganizationDetails() {
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.Start
   ) {
-    Text(text = "mutualmobile", style = SlackCloneTypography.h6.copy(color = Color.White, fontWeight = FontWeight.SemiBold))
+    Text(
+      text = "mutualmobile",
+      style = SlackCloneTypography.h6.copy(color = Color.White, fontWeight = FontWeight.SemiBold)
+    )
     Text(
       "mutualmobile.slack.com",
       style = SlackCloneTypography.subtitle1.copy(
@@ -106,7 +112,16 @@ fun OrganizationLogo() {
 
 @Composable
 private fun Workspaces() {
-  SlackSurfaceAppBar(title = {
+  SlackSurfaceAppBar(
+    backgroundColor = DarkBackground,
+    elevation = 0.dp,
+    contentPadding = rememberInsetsPaddingValues(
+      insets = LocalWindowInsets.current.statusBars,
+      applyStart = true,
+      applyTop = true,
+      applyEnd = true,
+    )
+  ) {
     Text(
       text = stringResource(id = R.string.head_workspaces),
       style = SlackCloneTypography.h5.copy(
@@ -115,5 +130,5 @@ private fun Workspaces() {
         fontWeight = FontWeight.Bold
       )
     )
-  }, backgroundColor = SlackCloneColor, elevation = 0.dp)
+  }
 }

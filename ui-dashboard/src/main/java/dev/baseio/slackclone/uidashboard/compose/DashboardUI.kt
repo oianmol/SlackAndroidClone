@@ -38,7 +38,7 @@ fun DashboardUI() {
   val sysUiController = rememberSystemUiController()
 
   LaunchedEffect(Unit) {
-    sysUiController.setSystemBarsColor(color = SlackCloneColor)
+    sysUiController.setSystemBarsColor(color = DarkBackground)
     sysUiController.setNavigationBarColor(color = Color.White)
   }
 
@@ -185,7 +185,7 @@ private fun DashboardTopBar(appBarIconClick: () -> Unit) {
     navigationIcon = {
       MMImageButton(appBarIconClick)
     },
-    backgroundColor = SlackCloneTheme.colors.uiBackground,
+    backgroundColor = DarkBackground,
   )
 }
 
