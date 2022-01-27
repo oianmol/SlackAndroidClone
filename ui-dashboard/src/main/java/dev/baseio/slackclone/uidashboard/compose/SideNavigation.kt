@@ -63,7 +63,7 @@ fun FooterItem(imageVector: ImageVector, title: String) {
     )
     Text(
       text = title,
-      style = SlackCloneTypography.subtitle1.copy(color = Color.White.copy(alpha = 0.7f)),
+      style = SlackCloneTypography.subtitle1.copy(color = Color.White.copy(alpha = 0.8f)),
       modifier = Modifier.padding(8.dp)
     )
   }
