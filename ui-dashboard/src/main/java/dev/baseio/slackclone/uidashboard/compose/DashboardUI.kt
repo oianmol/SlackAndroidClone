@@ -29,6 +29,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.uidashboard.custom.DragComposableView
+import dev.baseio.slackclone.uidashboard.home.UserProfileUI
 
 @Composable
 fun DashboardUI() {
@@ -118,7 +119,7 @@ private fun DashboardScaffold(
             Text(text = "Search")
           }
           composable(Screen.You.route) {
-            Text(text = "You")
+            UserProfileUI()
           }
         }
       }
@@ -187,7 +188,7 @@ fun DashboardBottomNavBar(navController: NavHostController) {
 private fun DashboardTopBar(appBarIconClick: () -> Unit) {
   SlackSurfaceAppBar(
     title = {
-      Text(text = "mutualmobile", style = SlackCloneTypography.h6.copy(color = Color.White))
+      Text(text = "mutualmobile", style = SlackCloneTypography.h5.copy(color = Color.White))
     },
     navigationIcon = {
       MMImageButton(appBarIconClick)
@@ -201,17 +202,17 @@ private fun MMImageButton(appBarIconClick: () -> Unit) {
   IconButton(onClick = {
     appBarIconClick()
   }) {
-    MMImage()
+    SlackImageBox(Modifier.size(38.dp),"https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png")
   }
 }
 
 @Composable
-fun MMImage(modifier: Modifier = Modifier.size(38.dp)) {
+fun SlackImageBox(modifier: Modifier,imageUrl:String) {
   Image(
     painter = rememberImagePainter(
-      data = "https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png",
+      data = imageUrl,
       builder = {
-        transformations(RoundedCornersTransformation(8.0f, 8.0f, 8.0f, 8.0f))
+        transformations(RoundedCornersTransformation(12.0f, 12.0f, 12.0f, 12.0f))
       }
     ),
     contentDescription = null,

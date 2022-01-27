@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -100,7 +99,7 @@ fun OrganizationDetails() {
 
 @Composable
 fun OrganizationLogo() {
-  MMImage(Modifier.size(64.dp))
+  SlackImageBox(Modifier.size(64.dp),"https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png")
 }
 
 @Composable
