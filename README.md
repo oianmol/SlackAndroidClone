@@ -18,13 +18,14 @@ The purpose of this app to showcase:
 | <img src="art/art1.png" alt="drawing" style="width:200px;"/> | <img src="art/art2.png" alt="drawing" style="width:200px;"/> |
 | <img src="art/art3.png" alt="drawing" style="width:200px;"/> | <img src="art/art4.png" alt="drawing" style="width:200px;"/> |
 | <img src="art/art5.png" alt="drawing" style="width:200px;"/> | <img src="art/art6.png" alt="drawing" style="width:200px;"/> |
-| <img src="art/art7.png" alt="drawing" style="width:200px;"/> | |
+| <img src="art/art7.png" alt="drawing" style="width:200px;"/> | <img src="art/animated_search.gif" width="300" height="610"/> |
 
 ### Highlights
 
 #### Animated Search Cancel With Keyboard
 
 <img src="art/animated_search.gif" width="300" height="610"/>
+
 
 
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
