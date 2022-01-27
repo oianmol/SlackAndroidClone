@@ -27,7 +27,7 @@ import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
 fun SideNavigation() {
-  SlackCloneSurface(color = DarkBackground , modifier = Modifier.fillMaxSize()) {
+  SlackCloneSurface(color = Color(0xff1c1d21) , modifier = Modifier.fillMaxSize()) {
     Column(
       modifier = Modifier
         .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween
@@ -139,7 +139,7 @@ fun OrganizationLogo() {
 @Composable
 private fun WorkspacesBar() {
   SlackSurfaceAppBar(
-    backgroundColor = DarkBackground,
+    backgroundColor = Color(0xff212429),
     elevation = 0.dp,
     contentPadding = rememberInsetsPaddingValues(
       insets = LocalWindowInsets.current.statusBars,
