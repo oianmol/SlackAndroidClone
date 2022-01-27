@@ -66,9 +66,12 @@ private fun SearchMessagesTF(modifier: Modifier) {
 
     TextField(
       value = search,
+      singleLine = true,
+      maxLines = 1,
       onValueChange = { newSearch ->
         search = newSearch
       },
+      textStyle = SlackCloneTypography.subtitle1.copy(color = Color.White, fontSize = 18.sp),
       placeholder = {
         Text(
           "Search for messages and files",
