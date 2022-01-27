@@ -22,7 +22,9 @@ The purpose of this app to showcase:
 
 ### Highlights
 
-![Animated Search Cancel With Keyboard](art/animated_search.gif)
+#### Animated Search Cancel With Keyboard
+
+<img src="art/animated_search.gif" width="250" height="250"/>
 
 
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
