@@ -153,11 +153,13 @@ fun DashboardBottomNavBar(navController: NavHostController) {
     }
     dashTabs.forEach { screen ->
       BottomNavigationItem(
-        icon = { Icon(screen.image, contentDescription = null, tint = DarkBackground) },
+        selectedContentColor = DarkBackground,
+        unselectedContentColor = Color.Black.copy(alpha = 0.4f),
+        icon = { Icon(screen.image, contentDescription = null) },
         label = {
           Text(
             stringResource(screen.resourceId),
-            style = SlackCloneTypography.subtitle2.copy(color = DarkBackground)
+            style = SlackCloneTypography.subtitle2
           )
         },
         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
