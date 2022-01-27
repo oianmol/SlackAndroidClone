@@ -18,6 +18,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
@@ -26,6 +27,13 @@ import dev.baseio.slackclone.uionboarding.R
 @Composable
 fun GettingStartedUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
+  val sysUiController = rememberSystemUiController()
+  val colors = SlackCloneTheme.colors
+
+  SideEffect {
+    sysUiController.setNavigationBarColor(color = colors.uiBackground)
+    sysUiController.setSystemBarsColor(color = colors.uiBackground)
+  }
 
   Scaffold(
     backgroundColor = SlackCloneTheme.colors.uiBackground,

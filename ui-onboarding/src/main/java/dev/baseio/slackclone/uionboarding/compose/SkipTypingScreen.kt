@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
@@ -27,68 +29,71 @@ import dev.baseio.slackclone.uionboarding.R
 @Composable
 fun SkipTypingUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
+  val colors = SlackCloneTheme.colors
+  val sysUiController = rememberSystemUiController()
+  SideEffect {
+    sysUiController.setNavigationBarColor(color = colors.uiBackground)
+    sysUiController.setSystemBarsColor(color = colors.uiBackground)
+  }
+  Scaffold(
+    backgroundColor = SlackCloneTheme.colors.uiBackground,
+    contentColor = SlackCloneTheme.colors.textSecondary,
+    modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
+    topBar = {
+      SlackSurfaceAppBar(
+        title = {
 
-  SlackCloneTheme() {
-    Scaffold(
-      backgroundColor = SlackCloneTheme.colors.uiBackground,
-      contentColor = SlackCloneTheme.colors.textSecondary,
-      modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
-      topBar = {
-        SlackSurfaceAppBar(
-          title = {
-
-          },
-          navigationIcon = {
-            IconButton(onClick = {
-              composeNavigator.navigateUp()
-            }) {
-              Icon(
-                imageVector = Icons.Filled.Clear,
-                contentDescription = "Clear",
-                modifier = Modifier.padding(start = 8.dp), tint = Color.White
-              )
-            }
-          },
-          backgroundColor = SlackCloneTheme.colors.uiBackground,
-          elevation = 0.dp
-        )
-      },
-      snackbarHost = {
-        scaffoldState.snackbarHostState
-      }
-    ) { innerPadding ->
-      Box(modifier = Modifier.padding(innerPadding)) {
-        SlackCloneSurface(
-          color = SlackCloneColor,
-          modifier = Modifier
-            .padding(28.dp)
-        ) {
-          Column(
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-              .fillMaxHeight()
-              .fillMaxWidth()
-          ) {
-            Image(
-              painter = painterResource(id = R.drawable.gettingstarted),
-              contentDescription = "Logo",
-              Modifier
+        },
+        navigationIcon = {
+          IconButton(onClick = {
+            composeNavigator.navigateUp()
+          }) {
+            Icon(
+              imageVector = Icons.Filled.Clear,
+              contentDescription = "Clear",
+              modifier = Modifier.padding(start = 8.dp), tint = Color.White
             )
-            TitleSubtitleText()
-            Spacer(Modifier.padding(8.dp))
-            Column {
-              EmailMeMagicLink(composeNavigator)
-              Box(modifier = Modifier.height(12.dp))
-              IWillSignInManually(composeNavigator)
-            }
-
+          }
+        },
+        backgroundColor = SlackCloneTheme.colors.uiBackground,
+        elevation = 0.dp
+      )
+    },
+    snackbarHost = {
+      scaffoldState.snackbarHostState
+    }
+  ) { innerPadding ->
+    Box(modifier = Modifier.padding(innerPadding)) {
+      SlackCloneSurface(
+        color = SlackCloneColor,
+        modifier = Modifier
+          .padding(28.dp)
+      ) {
+        Column(
+          verticalArrangement = Arrangement.SpaceAround,
+          horizontalAlignment = Alignment.CenterHorizontally,
+          modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+        ) {
+          Image(
+            painter = painterResource(id = R.drawable.gettingstarted),
+            contentDescription = "Logo",
+            Modifier
+          )
+          TitleSubtitleText()
+          Spacer(Modifier.padding(8.dp))
+          Column {
+            EmailMeMagicLink(composeNavigator)
+            Box(modifier = Modifier.height(12.dp))
+            IWillSignInManually(composeNavigator)
           }
 
         }
-      }
 
+      }
     }
+
   }
 
 
