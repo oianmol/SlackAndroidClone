@@ -37,32 +37,29 @@ fun DashboardUI() {
   val scaffoldState = rememberScaffoldState()
   val dashboardNavController = rememberNavController()
 
-  val sysUiController = rememberSystemUiController()
+  SlackCloneTheme {
+    var isOpenState by remember { mutableStateOf(false) }
+    val pxValue = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
 
-  LaunchedEffect(Unit) {
-    sysUiController.setSystemBarsColor(color = DarkBackground)
-    sysUiController.setNavigationBarColor(color = Color.White)
-  }
-
-  var isOpenState by remember { mutableStateOf(false) }
-  val pxValue = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
-
-  Box(Modifier.fillMaxWidth()) {
-    SideNavigation()
-    DragComposableView(
-      isOpen = isOpenState,
-      dragOffset = (pxValue * 0.85f),
-      onOpen = {
-        isOpenState = true
-      },
-      onClose = {
-        isOpenState = false
-      }) { modifier ->
-      DashboardScaffold(scaffoldState, dashboardNavController, modifier) {
-        isOpenState = !isOpenState
+    Box(Modifier.fillMaxWidth()) {
+      SideNavigation()
+      DragComposableView(
+        isOpen = isOpenState,
+        dragOffset = (pxValue * 0.85f),
+        onOpen = {
+          isOpenState = true
+        },
+        onClose = {
+          isOpenState = false
+        }) { modifier ->
+        DashboardScaffold(scaffoldState, dashboardNavController, modifier) {
+          isOpenState = !isOpenState
+        }
       }
     }
   }
+
+
 }
 
 @Composable

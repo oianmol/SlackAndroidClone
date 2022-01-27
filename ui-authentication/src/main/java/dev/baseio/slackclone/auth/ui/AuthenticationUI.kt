@@ -2,6 +2,7 @@ package dev.baseio.slackclone.auth.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -38,34 +39,31 @@ import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 fun AuthenticationUI(
   authVM: AuthVM = hiltViewModel(),
   composeNavigator: ComposeNavigator,
-  navigatorFragment: FragmentNavGraphNavigator
+  navigatorFragment: FragmentNavGraphNavigator,
 ) {
   val scaffoldState = rememberScaffoldState()
 
-  val sysUiController = rememberSystemUiController()
-
-  LaunchedEffect(Unit) {
-    sysUiController.setNavigationBarColor(color = SlackCloneColor)
-    sysUiController.setSystemBarsColor(color = SlackCloneColor)
-  }
-  Scaffold(
-    backgroundColor = SlackCloneTheme.colors.uiBackground,
-    contentColor = SlackCloneTheme.colors.textSecondary,
-    modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
-      scaffoldState.snackbarHostState
-    }
-  ) { innerPadding ->
-    Box(modifier = Modifier.padding(innerPadding)) {
-      AuthSurface(
-        authVM = authVM, scaffoldState = scaffoldState, navigatorFragment
-      )
-      DefaultSnackbar(scaffoldState.snackbarHostState) {
-        authVM.snackBarState.value = ""
-        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+  SlackCloneTheme {
+    Scaffold(
+      backgroundColor = SlackCloneTheme.colors.uiBackground,
+      contentColor = SlackCloneTheme.colors.textSecondary,
+      modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
+        scaffoldState.snackbarHostState
       }
-    }
+    ) { innerPadding ->
+      Box(modifier = Modifier.padding(innerPadding)) {
+        AuthSurface(
+          authVM = authVM, scaffoldState = scaffoldState, navigatorFragment
+        )
+        DefaultSnackbar(scaffoldState.snackbarHostState) {
+          authVM.snackBarState.value = ""
+          scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+        }
+      }
 
+    }
   }
+
 }
 
 @OptIn(ExperimentalComposeUiApi::class)

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
 
@@ -33,7 +34,7 @@ fun SlackMMTopAppBar(appBarIconClick: () -> Unit) {
     navigationIcon = {
       MMImageButton(appBarIconClick)
     },
-    backgroundColor = DarkBackground,
+    backgroundColor = SlackCloneTheme.colors.appBarColor,
   )
 }
 

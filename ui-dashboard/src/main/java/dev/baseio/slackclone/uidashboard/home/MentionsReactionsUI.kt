@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
@@ -27,6 +28,6 @@ private fun MRTopAppBar() {
     title = {
       Text(text = "Mentions & Reactions", style = SlackCloneTypography.h5.copy(color = Color.White, fontWeight = FontWeight.Bold))
     },
-    backgroundColor = DarkBackground,
+    backgroundColor = SlackCloneTheme.colors.appBarColor,
   )
 }

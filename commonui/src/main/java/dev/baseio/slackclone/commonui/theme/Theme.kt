@@ -26,7 +26,8 @@ private val LightColorPalette = SlackCloneColorPalette(
   isDark = false,
   buttonColor = Color.White,
   buttonTextColor = SlackCloneColor,
-  darkBackground = DarkBackground
+  darkBackground = DarkBackground,
+  appBarColor = AppBarColor
 )
 
 private val DarkColorPalette = SlackCloneColorPalette(
@@ -40,7 +41,8 @@ private val DarkColorPalette = SlackCloneColorPalette(
   isDark = true,
   buttonColor = Color.White,
   buttonTextColor = SlackCloneColor,
-  darkBackground = DarkBackground
+  darkBackground = DarkBackground,
+  appBarColor = AppBarColor
 
 )
 
@@ -53,8 +55,8 @@ fun SlackCloneTheme(
   val sysUiController = rememberSystemUiController()
 
   SideEffect {
+    sysUiController.setSystemBarsColor(color = colors.appBarColor)
     sysUiController.setNavigationBarColor(color = colors.statusBarColor)
-    sysUiController.setSystemBarsColor(color = colors.statusBarColor)
   }
 
   ProvideSlackCloneColors(colors) {
@@ -88,7 +90,8 @@ class SlackCloneColorPalette(
   isDark: Boolean,
   buttonColor: Color,
   buttonTextColor: Color,
-  darkBackground:Color
+  darkBackground:Color,
+  appBarColor:Color
 ) {
   var brand by mutableStateOf(brand)
     private set
@@ -112,6 +115,8 @@ class SlackCloneColorPalette(
     private set
   var darkBackground by mutableStateOf(darkBackground)
     private set
+  var appBarColor by mutableStateOf(appBarColor)
+    private set
 
   fun update(other: SlackCloneColorPalette) {
     brand = other.brand
@@ -124,6 +129,7 @@ class SlackCloneColorPalette(
     buttonColor = other.buttonColor
     buttonTextColor = other.buttonTextColor
     darkBackground = other.darkBackground
+    appBarColor = other.appBarColor
   }
 }
 

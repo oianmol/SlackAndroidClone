@@ -32,57 +32,52 @@ fun CommonInputUI(
 ) {
   val scaffoldState = rememberScaffoldState()
 
-  val sysUiController = rememberSystemUiController()
-
-  LaunchedEffect(Unit) {
-    sysUiController.setNavigationBarColor(color = DarkBackground)
-    sysUiController.setSystemBarsColor(color = DarkBackground)
-  }
-
-  Scaffold(
-    backgroundColor = SlackCloneTheme.colors.darkBackground,
-    contentColor = SlackCloneTheme.colors.textSecondary,
-    modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(),
-    scaffoldState = scaffoldState,
-    snackbarHost = {
-      scaffoldState.snackbarHostState
-    }
-  ) { innerPadding ->
-    Box(modifier = Modifier.padding(innerPadding)) {
-      SlackCloneSurface(
-        color = SlackCloneTheme.colors.darkBackground,
-        modifier = Modifier
-      ) {
-        ConstraintLayout(
+  SlackCloneTheme {
+    Scaffold(
+      backgroundColor = SlackCloneTheme.colors.darkBackground,
+      contentColor = SlackCloneTheme.colors.textSecondary,
+      modifier = Modifier
+        .statusBarsPadding()
+        .navigationBarsPadding(),
+      scaffoldState = scaffoldState,
+      snackbarHost = {
+        scaffoldState.snackbarHostState
+      }
+    ) { innerPadding ->
+      Box(modifier = Modifier.padding(innerPadding)) {
+        SlackCloneSurface(
+          color = SlackCloneTheme.colors.darkBackground,
           modifier = Modifier
-            .padding(12.dp)
-            .navigationBarsWithImePadding()
-            .fillMaxHeight()
-            .fillMaxWidth()
         ) {
-          // Create references for the composables to constrain
-          val (inputView, subtitle, button) = createRefs()
+          ConstraintLayout(
+            modifier = Modifier
+              .padding(12.dp)
+              .navigationBarsWithImePadding()
+              .fillMaxHeight()
+              .fillMaxWidth()
+          ) {
+            // Create references for the composables to constrain
+            val (inputView, subtitle, button) = createRefs()
 
-          TopView(modifier = Modifier.constrainAs(inputView) {
-            top.linkTo(parent.top)
-            bottom.linkTo(button.top)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-          })
-          SubTitle(modifier = Modifier.constrainAs(subtitle) {
-            top.linkTo(inputView.bottom)
-          }, subtitleText)
-          NextButton(modifier = Modifier.constrainAs(button) {
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-          },fragmentNavigator)
+            TopView(modifier = Modifier.constrainAs(inputView) {
+              top.linkTo(parent.top)
+              bottom.linkTo(button.top)
+              start.linkTo(parent.start)
+              end.linkTo(parent.end)
+            })
+            SubTitle(modifier = Modifier.constrainAs(subtitle) {
+              top.linkTo(inputView.bottom)
+            }, subtitleText)
+            NextButton(modifier = Modifier.constrainAs(button) {
+              bottom.linkTo(parent.bottom)
+              start.linkTo(parent.start)
+              end.linkTo(parent.end)
+            },fragmentNavigator)
+          }
         }
       }
-    }
 
+    }
   }
 }
 
@@ -110,7 +105,8 @@ private fun SubTitle(modifier: Modifier = Modifier, subtitleText: String) {
   Text(
     subtitleText,
     modifier = modifier
-      .fillMaxWidth().wrapContentWidth(align = Alignment.Start),
+      .fillMaxWidth()
+      .wrapContentWidth(align = Alignment.Start),
     style = SlackCloneTypography.subtitle2.copy(
       color = Color.White.copy(alpha = 0.8f),
       fontWeight = FontWeight.Normal,

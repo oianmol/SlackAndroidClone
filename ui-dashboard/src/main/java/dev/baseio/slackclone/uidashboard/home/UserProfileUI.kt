@@ -15,8 +15,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
@@ -25,7 +27,8 @@ import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
 @Composable
 fun UserProfileUI() {
   SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
-    Column(Modifier.padding(12.dp)) {
+    Column() {
+      SearchTopAppBar()
       UserHeader()
       StatusBox()
       ProfileListItem(Icons.Default.Notifications, stringResource(R.string.pause_notifications))
@@ -38,6 +41,17 @@ fun UserProfileUI() {
     }
   }
 }
+
+@Composable
+private fun SearchTopAppBar() {
+  SlackSurfaceAppBar(
+    title = {
+      Text(text = "You", style = SlackCloneTypography.h5.copy(color = Color.White, fontWeight = FontWeight.Bold))
+    },
+    backgroundColor = SlackCloneTheme.colors.appBarColor,
+  )
+}
+
 
 @ExperimentalMaterialApi
 @Composable

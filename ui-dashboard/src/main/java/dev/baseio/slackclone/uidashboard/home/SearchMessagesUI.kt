@@ -20,6 +20,7 @@ import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
@@ -36,7 +37,7 @@ fun SearchMessagesUI() {
 private fun SearchTopAppBar() {
   val keyboardController = LocalSoftwareKeyboardController.current
   SlackSurfaceAppBar(
-    backgroundColor = DarkBackground,
+    backgroundColor = SlackCloneTheme.colors.appBarColor,
     contentPadding = PaddingValues(8.dp)
   ) {
     val isKeyboardOpen by keyboardAsState()

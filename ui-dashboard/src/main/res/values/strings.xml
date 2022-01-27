@@ -14,4 +14,6 @@
     <string name="saved_items">Saved items</string>
     <string name="view_profile">View profile</string>
     <string name="notifications">Notifications</string>
+    <string name="mutualmobile">mutualmobile</string>
+    <string name="mmlink">mutualmobile.slack.com</string>
 </resources>

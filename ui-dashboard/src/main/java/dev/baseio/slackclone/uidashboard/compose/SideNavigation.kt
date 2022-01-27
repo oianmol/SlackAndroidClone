@@ -1,12 +1,16 @@
 package dev.baseio.slackclone.uidashboard.compose
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,14 +27,17 @@ import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
 fun SideNavigation() {
-  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
+  SlackCloneSurface(color = DarkBackground , modifier = Modifier.fillMaxSize()) {
     Column(
       modifier = Modifier
         .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween
     ) {
       Column {
         WorkspacesBar()
-        Workspace()
+        Spacer(modifier = Modifier.padding(8.dp))
+        Workspace(selected = true)
+        Spacer(modifier = Modifier.padding(8.dp))
+        Workspace(selected = false)
       }
       Spacer(modifier = Modifier.padding(8.dp))
       SideNavFooter()
@@ -67,10 +74,24 @@ fun FooterItem(imageVector: ImageVector, title: String) {
 }
 
 @Composable
-fun Workspace() {
-  Row(modifier = Modifier.padding(8.dp)) {
-    OrganizationLogo()
-    OrganizationDetails()
+fun Workspace(selected: Boolean) {
+  Box(
+    Modifier.background(
+      color = if (selected) Color.White.copy(alpha = 0.2f) else Color.Transparent,
+      shape = RoundedCornerShape(12.dp)
+    )
+  ) {
+    Row(
+      modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth(), horizontalArrangement = Arrangement.Center
+    ) {
+      OrganizationLogo()
+      Box(Modifier.weight(1f)) {
+        OrganizationDetails()
+      }
+      Icon(imageVector = Icons.Filled.MoreVert, contentDescription = null, tint = Color.White)
+    }
   }
 }
 
@@ -78,17 +99,16 @@ fun Workspace() {
 fun OrganizationDetails() {
   Column(
     modifier = Modifier
-      .fillMaxWidth()
       .padding(start = 8.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.Start
   ) {
     Text(
-      text = "mutualmobile",
+      text = stringResource(R.string.mutualmobile),
       style = SlackCloneTypography.h6.copy(color = Color.White, fontWeight = FontWeight.SemiBold)
     )
     Text(
-      "mutualmobile.slack.com",
+      stringResource(R.string.mmlink),
       style = SlackCloneTypography.subtitle1.copy(
         fontWeight = FontWeight.Normal,
         color = Color.White.copy(alpha = 0.4f)
@@ -99,7 +119,21 @@ fun OrganizationDetails() {
 
 @Composable
 fun OrganizationLogo() {
-  SlackImageBox(Modifier.size(64.dp),"https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png")
+  Box(
+    Modifier
+      .size(68.dp)
+      .border(
+        width = 3.dp,
+        color = Color.White,
+        shape = RoundedCornerShape(12.dp)
+      )
+      .padding(8.dp)
+  ) {
+    SlackImageBox(
+      Modifier.size(64.dp),
+      "https://avatars.slack-edge.com/2018-07-20/401750958992_1b07bb3c946bc863bfc6_88.png"
+    )
+  }
 }
 
 @Composable

@@ -17,7 +17,7 @@ import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.Screen
 import dev.baseio.slackclone.uionboarding.EmailAddressInputUI
 import dev.baseio.slackclone.uionboarding.compose.GettingStartedUI
-import dev.baseio.slackclone.uionboarding.SkipTypingUI
+import dev.baseio.slackclone.uionboarding.compose.SkipTypingUI
 import dev.baseio.slackclone.uionboarding.WorkspaceInputUI
 
 @Composable
