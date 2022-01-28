@@ -1,18 +1,26 @@
 package dev.baseio.slackclone.uidashboard.home
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
+import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
+import dev.baseio.slackclone.uidashboard.home.channels.*
+import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @Composable
 fun HomeScreenUI(appBarIconClick: () -> Unit) {
@@ -20,14 +28,31 @@ fun HomeScreenUI(appBarIconClick: () -> Unit) {
     Column {
       SlackMMTopAppBar(appBarIconClick)
       JumpToText()
-
+      ThreadsTile()
+      Divider(color = SlackCloneColorProvider.colors.lineColor)
+      SlackRecentChannels()
+      SlackStarredChannels()
+      SlackDirectMessages()
+      SlackAllChannels()
+      SlackConnections()
     }
   }
 }
 
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun ThreadsTile() {
+  ListItem(Icons.Default.MailOutline, stringResource(R.string.threads))
+}
+
 @Composable
 fun JumpToText() {
-  Box(Modifier.fillMaxWidth().padding(8.dp)) {
+  Box(
+    Modifier
+      .fillMaxWidth()
+      .padding(8.dp)
+  ) {
     RoundedCornerBoxDecoration {
       Text(
         text = "Jump to...",

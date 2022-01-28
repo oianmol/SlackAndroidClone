@@ -16,4 +16,11 @@
     <string name="notifications">Notifications</string>
     <string name="mutualmobile">mutualmobile</string>
     <string name="mmlink">mutualmobile.slack.com</string>
+    <string name="threads">Threads</string>
+    <string name="some_project">prj_jetpack_compose</string>
+    <string name="Recent">Recent</string>
+    <string name="starred">Starred</string>
+    <string name="direct_messages">Direct messages</string>
+    <string name="channels">Channels</string>
+    <string name="connections">Connections</string>
 </resources>

@@ -31,13 +31,13 @@ fun UserProfileUI() {
       SearchTopAppBar()
       UserHeader()
       StatusBox()
-      ProfileListItem(Icons.Default.Notifications, stringResource(R.string.pause_notifications))
-      ProfileListItem(Icons.Default.Person, stringResource(R.string.set_away))
+      ListItem(Icons.Default.Notifications, stringResource(R.string.pause_notifications))
+      ListItem(Icons.Default.Person, stringResource(R.string.set_away))
       Divider(color = Color.White.copy(alpha = 0.4f))
-      ProfileListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
-      ProfileListItem(Icons.Default.Person, stringResource(R.string.view_profile))
-      ProfileListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
-      ProfileListItem(Icons.Default.Settings, stringResource(R.string.preferences))
+      ListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
+      ListItem(Icons.Default.Person, stringResource(R.string.view_profile))
+      ListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
+      ListItem(Icons.Default.Settings, stringResource(R.string.preferences))
     }
   }
 }
@@ -55,7 +55,7 @@ private fun SearchTopAppBar() {
 
 @ExperimentalMaterialApi
 @Composable
-private fun ProfileListItem(icon: ImageVector, title: String) {
+fun ListItem(icon: ImageVector, title: String) {
   ListItem(icon = {
     Icon(imageVector = icon, contentDescription = null, tint = Color.White.copy(alpha = 0.4f))
   }, text = {
