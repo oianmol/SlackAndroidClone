@@ -9,5 +9,7 @@ val DarkBackground = Color(0xff1b1d21)
 val FunctionalRed = Color(0xffd00036)
 val FunctionalRedDark = Color(0xffea6d7e)
 val SlackLogoYellow = Color(0xffECB22E)
+val LineColorLight = Color(0xff000000)
+val LineColorDark = Color.White.copy(alpha = 0.2f)
 const val AlphaNearOpaque = 0.95f
 const val AlphaNearTransparent = 0.15f

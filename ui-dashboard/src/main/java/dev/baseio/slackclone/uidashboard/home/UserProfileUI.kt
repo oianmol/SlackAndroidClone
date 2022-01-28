@@ -116,7 +116,7 @@ fun RoundedCornerBoxDecoration(content: @Composable () -> Unit) {
     Modifier
       .border(
         width = 1.dp,
-        color = Color.White.copy(alpha = 0.2f),
+        color = SlackCloneTheme.colors.lineColor,
         shape = RoundedCornerShape(12.dp)
       )
       .padding(16.dp)
