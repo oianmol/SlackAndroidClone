@@ -10,6 +10,7 @@ import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 fun SlackRecentChannels(
 ) {
   val recent = stringResource(R.string.Recent)
+  // TODO update remember to rememberSaveable
   var expandCollapseModel by remember {
     mutableStateOf(ExpandCollapseModel(
       1, recent,
