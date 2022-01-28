@@ -40,13 +40,14 @@ fun DashboardUI() {
 
   SlackCloneTheme {
     var isOpenState by remember { mutableStateOf(false) }
-    val pxValue = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
+    val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
+    val pxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
 
     Box(Modifier.fillMaxWidth()) {
-      SideNavigation()
+      SideNavigation(Modifier.width(sideNavWidth))
       DragComposableView(
         isOpen = isOpenState,
-        dragOffset = (pxValue * 0.85f),
+        dragOffset = (pxValue),
         onOpen = {
           isOpenState = true
         },
@@ -86,8 +87,8 @@ private fun DashboardScaffold(
     floatingActionButton = {
       FloatingActionButton(onClick = {
 
-      }, backgroundColor = SlackCloneColor) {
-        Icon(imageVector = Icons.Default.Edit, contentDescription = null, tint = Color.White)
+      }, backgroundColor = Color.White) {
+        Icon(imageVector = Icons.Default.Edit, contentDescription = null, tint = SlackCloneColor)
       }
     }
   ) { innerPadding ->

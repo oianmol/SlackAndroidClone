@@ -26,8 +26,8 @@ import com.google.accompanist.insets.*
 import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
-fun SideNavigation() {
-  SlackCloneSurface(color = Color(0xff1c1d21) , modifier = Modifier.fillMaxSize()) {
+fun SideNavigation(modifier: Modifier) {
+  SlackCloneSurface(color = Color(0xff1c1d21) , modifier = modifier.fillMaxSize()) {
     Column(
       modifier = Modifier
         .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween

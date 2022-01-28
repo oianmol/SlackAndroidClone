@@ -71,11 +71,11 @@ private fun SearchMessagesTF(modifier: Modifier) {
       onValueChange = { newSearch ->
         search = newSearch
       },
-      textStyle = SlackCloneTypography.subtitle1.copy(color = Color.White, fontSize = 18.sp),
+      textStyle = SlackCloneTypography.subtitle2.copy(color = Color.White, fontSize = 18.sp),
       placeholder = {
         Text(
           "Search for messages and files",
-          style = SlackCloneTypography.subtitle1.copy(color = Color.White, fontSize = 18.sp)
+          style = SlackCloneTypography.subtitle2.copy(color = Color.White, fontSize = 18.sp)
         )
       },
       leadingIcon = {

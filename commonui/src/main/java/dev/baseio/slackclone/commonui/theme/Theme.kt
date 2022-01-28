@@ -55,8 +55,8 @@ fun SlackCloneTheme(
   val sysUiController = rememberSystemUiController()
 
   SideEffect {
-    sysUiController.setNavigationBarColor(color = colors.statusBarColor)
     sysUiController.setSystemBarsColor(color = colors.appBarColor)
+    sysUiController.setNavigationBarColor(color = colors.appBarColor)
   }
 
   ProvideSlackCloneColors(colors) {
