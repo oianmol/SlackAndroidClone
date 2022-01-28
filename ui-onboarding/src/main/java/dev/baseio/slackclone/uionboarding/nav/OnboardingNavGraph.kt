@@ -15,10 +15,10 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.Screen
-import dev.baseio.slackclone.uionboarding.EmailAddressInputUI
+import dev.baseio.slackclone.uionboarding.compose.EmailAddressInputUI
 import dev.baseio.slackclone.uionboarding.compose.GettingStartedUI
 import dev.baseio.slackclone.uionboarding.compose.SkipTypingUI
-import dev.baseio.slackclone.uionboarding.WorkspaceInputUI
+import dev.baseio.slackclone.uionboarding.compose.WorkspaceInputUI
 
 @Composable
 fun OnboardingNavGraph(

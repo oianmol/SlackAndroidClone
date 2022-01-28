@@ -1,12 +1,10 @@
-package dev.baseio.slackclone.uionboarding
+package dev.baseio.slackclone.uionboarding.compose
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
-import dev.baseio.slackclone.uionboarding.compose.CommonInputUI
-import dev.baseio.slackclone.uionboarding.compose.EmailInputView
-import dev.baseio.slackclone.uionboarding.compose.WorkspaceInputView
+import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun EmailAddressInputUI(

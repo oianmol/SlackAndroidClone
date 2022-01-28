@@ -57,11 +57,11 @@ private fun SearchTopAppBar() {
 @Composable
 fun ListItem(icon: ImageVector, title: String) {
   ListItem(icon = {
-    Icon(imageVector = icon, contentDescription = null, tint = Color.White.copy(alpha = 0.4f))
+    Icon(imageVector = icon, contentDescription = null, tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f))
   }, text = {
     Text(
       text = title,
-      style = SlackCloneTypography.subtitle1.copy(color = Color.White)
+      style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.8f))
     )
   })
 }

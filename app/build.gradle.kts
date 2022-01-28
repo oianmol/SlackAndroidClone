@@ -82,6 +82,7 @@ dependencies {
   implementation(Lib.Android.MATERIAL_DESIGN)
   implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
   implementation(Lib.Android.ACCOMPANIST_INSETS)
+  implementation(Lib.Android.SPLASH_SCREEN_API)
 
   implementation(Lib.Android.APP_COMPAT)
   implementation(Lib.Android.NAVIGATION_FRAGMENT)

@@ -135,9 +135,9 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
 
 @Composable
 fun DashboardBottomNavBar(navController: NavHostController) {
-  Column(Modifier.background(color = Color.Black)) {
-    Divider(color = Color.White.copy(alpha = 0.2f), thickness = 0.5.dp)
-    BottomNavigation(backgroundColor = DarkBackground) {
+  Column(Modifier.background(color = SlackCloneColorProvider.colors.uiBackground)) {
+    Divider(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.2f), thickness = 0.5.dp)
+    BottomNavigation(backgroundColor = SlackCloneColorProvider.colors.uiBackground) {
       val navBackStackEntry by navController.currentBackStackEntryAsState()
       val currentDestination = navBackStackEntry?.destination
       val dashTabs = getDashTabs()
@@ -155,13 +155,13 @@ private fun RowScope.BottomNavItem(
   navController: NavHostController
 ) {
   BottomNavigationItem(
-    selectedContentColor = Color.White,
-    unselectedContentColor = Color.DarkGray,
+    selectedContentColor = SlackCloneColorProvider.colors.bottomNavSelectedColor,
+    unselectedContentColor = SlackCloneColorProvider.colors.bottomNavUnSelectedColor,
     icon = { Icon(screen.image, contentDescription = null) },
     label = {
       Text(
         stringResource(screen.resourceId),
-        style = SlackCloneTypography.subtitle2
+        style = SlackCloneTypography.caption
       )
     },
     selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,

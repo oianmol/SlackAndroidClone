@@ -32,11 +32,11 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
   val colors = SlackCloneColorProvider.colors
   val sysUiController = rememberSystemUiController()
   SideEffect {
-    sysUiController.setNavigationBarColor(color = colors.uiBackground)
-    sysUiController.setSystemBarsColor(color = colors.uiBackground)
+    sysUiController.setNavigationBarColor(color = SlackCloneColor)
+    sysUiController.setSystemBarsColor(color = SlackCloneColor)
   }
   Scaffold(
-    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+    backgroundColor = SlackCloneColor,
     contentColor = SlackCloneColorProvider.colors.textSecondary,
     modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
     topBar = {
@@ -55,7 +55,7 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
             )
           }
         },
-        backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+        backgroundColor = SlackCloneColor,
         elevation = 0.dp
       )
     },
@@ -127,11 +127,11 @@ private fun IWillSignInManually(composeNavigator: ComposeNavigator) {
     Modifier
       .fillMaxWidth()
       .height(40.dp),
-    colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneColorProvider.colors.buttonColor)
+    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
   ) {
     Text(
       text = "I'll sign in manually",
-      style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.buttonTextColor)
+      style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColor)
     )
   }
 }

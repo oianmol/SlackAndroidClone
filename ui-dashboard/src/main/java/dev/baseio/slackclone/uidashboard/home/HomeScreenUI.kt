@@ -24,12 +24,12 @@ import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @Composable
 fun HomeScreenUI(appBarIconClick: () -> Unit) {
-  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
+  SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground, modifier = Modifier.fillMaxSize()) {
     Column {
       SlackMMTopAppBar(appBarIconClick)
       JumpToText()
       ThreadsTile()
-      Divider(color = SlackCloneColorProvider.colors.lineColor)
+      Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
       SlackRecentChannels()
       SlackStarredChannels()
       SlackDirectMessages()

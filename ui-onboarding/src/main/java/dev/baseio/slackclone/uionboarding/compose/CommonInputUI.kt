@@ -32,7 +32,7 @@ fun CommonInputUI(
 
   SlackCloneTheme {
     Scaffold(
-      backgroundColor = SlackCloneColorProvider.colors.darkBackground,
+      backgroundColor = SlackCloneColorProvider.colors.uiBackground,
       contentColor = SlackCloneColorProvider.colors.textSecondary,
       modifier = Modifier
         .statusBarsPadding()
@@ -44,7 +44,7 @@ fun CommonInputUI(
     ) { innerPadding ->
       Box(modifier = Modifier.padding(innerPadding)) {
         SlackCloneSurface(
-          color = SlackCloneColorProvider.colors.darkBackground,
+          color = SlackCloneColorProvider.colors.uiBackground,
           modifier = Modifier
         ) {
           ConstraintLayout(
@@ -70,7 +70,7 @@ fun CommonInputUI(
               bottom.linkTo(parent.bottom)
               start.linkTo(parent.start)
               end.linkTo(parent.end)
-            },fragmentNavigator)
+            }, fragmentNavigator)
           }
         }
       }
@@ -89,11 +89,13 @@ fun NextButton(modifier: Modifier = Modifier, fragmentNavigator: FragmentNavGrap
       .fillMaxWidth()
       .height(50.dp)
       .padding(top = 8.dp),
-    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0.2f))
+    colors = ButtonDefaults.buttonColors(
+      backgroundColor = SlackCloneColorProvider.colors.buttonColor
+    )
   ) {
     Text(
       text = "Next",
-      style = SlackCloneTypography.subtitle2.copy(color = Color.White)
+      style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.buttonTextColor)
     )
   }
 }
@@ -106,7 +108,7 @@ private fun SubTitle(modifier: Modifier = Modifier, subtitleText: String) {
       .fillMaxWidth()
       .wrapContentWidth(align = Alignment.Start),
     style = SlackCloneTypography.subtitle2.copy(
-      color = Color.White.copy(alpha = 0.8f),
+      color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.8f),
       fontWeight = FontWeight.Normal,
       textAlign = TextAlign.Start
     )

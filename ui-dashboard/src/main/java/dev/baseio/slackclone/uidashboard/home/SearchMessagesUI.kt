@@ -24,7 +24,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
 fun SearchMessagesUI() {
-  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
+  SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground, modifier = Modifier.fillMaxSize()) {
     Column() {
       SearchTopAppBar()
     }
@@ -47,7 +47,7 @@ private fun SearchTopAppBar() {
         TextButton(onClick = {
           keyboardController?.hide()
         }) {
-          Text("Cancel", style = SlackCloneTypography.h6.copy(color = Color.White))
+          Text("Cancel", style = SlackCloneTypography.subtitle1.copy(color = Color.White))
         }
       }
     }
@@ -71,20 +71,20 @@ private fun SearchMessagesTF(modifier: Modifier) {
       onValueChange = { newSearch ->
         search = newSearch
       },
-      textStyle = SlackCloneTypography.subtitle2.copy(color = Color.White, fontSize = 18.sp),
+      textStyle = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.textPrimary, fontSize = 18.sp),
       placeholder = {
         Text(
           "Search for messages and files",
-          style = SlackCloneTypography.subtitle2.copy(color = Color.White, fontSize = 18.sp)
+          style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.textPrimary, fontSize = 18.sp)
         )
       },
       leadingIcon = {
-        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Color.White)
+        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = SlackCloneColorProvider.colors.textPrimary)
       },
       modifier = modifier,
       colors = TextFieldDefaults.textFieldColors(
         backgroundColor = Color.Transparent,
-        cursorColor = Color.White,
+        cursorColor = SlackCloneColorProvider.colors.textPrimary,
         unfocusedIndicatorColor = Color.Transparent,
         focusedIndicatorColor = Color.Transparent
       ),

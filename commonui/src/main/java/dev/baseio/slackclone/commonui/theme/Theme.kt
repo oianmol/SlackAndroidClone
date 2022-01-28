@@ -18,34 +18,37 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 private val LightColorPalette = SlackCloneColorPalette(
   brand = SlackCloneColor,
   accent = SlackCloneColor,
-  uiBackground = SlackCloneColor,
+  uiBackground = Color.White,
   textPrimary = Color.Black,
-  textSecondary = TextSecondary,
+  textSecondary = Color.DarkGray,
   error = FunctionalRed,
   statusBarColor = SlackCloneColor,
   isDark = false,
-  buttonColor = Color.White,
-  buttonTextColor = SlackCloneColor,
+  buttonColor = Color.Black,
+  buttonTextColor = Color.White,
   darkBackground = DarkBackground,
   appBarColor = AppBarColor,
-  lineColor = LineColorLight
+  lineColor = LineColorLight,
+  bottomNavSelectedColor = Color.Black,
+  bottomNavUnSelectedColor = Color.LightGray
 )
 
 private val DarkColorPalette = SlackCloneColorPalette(
   brand = SlackCloneColor,
   accent = SlackCloneColor,
-  uiBackground = SlackCloneColor,
-  textPrimary = Color.Black,
+  uiBackground = DarkBackground,
+  textPrimary = Color.White,
   textSecondary = Color.White,
   error = FunctionalRedDark,
   statusBarColor = SlackCloneColor,
   isDark = true,
   buttonColor = Color.White,
-  buttonTextColor = SlackCloneColor,
+  buttonTextColor = Color.Black,
   darkBackground = DarkBackground,
   appBarColor = AppBarColor,
-  lineColor = LineColorDark
-
+  lineColor = LineColorDark,
+  bottomNavSelectedColor = Color.White,
+  bottomNavUnSelectedColor = Color.Gray
 )
 
 @Composable
@@ -92,9 +95,11 @@ class SlackCloneColorPalette(
   isDark: Boolean,
   buttonColor: Color,
   buttonTextColor: Color,
-  darkBackground:Color,
-  appBarColor:Color,
-  lineColor:Color
+  darkBackground: Color,
+  appBarColor: Color,
+  lineColor: Color,
+  bottomNavSelectedColor: Color,
+  bottomNavUnSelectedColor: Color
 ) {
   var brand by mutableStateOf(brand)
     private set
@@ -123,6 +128,12 @@ class SlackCloneColorPalette(
   var lineColor by mutableStateOf(lineColor)
     private set
 
+  var bottomNavSelectedColor by mutableStateOf(bottomNavSelectedColor)
+    private set
+  var bottomNavUnSelectedColor by mutableStateOf(bottomNavUnSelectedColor)
+    private set
+
+
   fun update(other: SlackCloneColorPalette) {
     brand = other.brand
     uiBackground = other.uiBackground
@@ -136,6 +147,8 @@ class SlackCloneColorPalette(
     darkBackground = other.darkBackground
     appBarColor = other.appBarColor
     lineColor = other.lineColor
+    bottomNavSelectedColor = other.bottomNavSelectedColor
+    bottomNavUnSelectedColor = other.bottomNavUnSelectedColor
   }
 }
 

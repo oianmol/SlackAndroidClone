@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
@@ -22,7 +23,7 @@ fun WorkspaceInputView(modifier: Modifier) {
   ) {
     Text(
       text = "Workspace URL", style = SlackCloneTypography.caption.copy(
-        color = Color.White.copy(alpha = 0.7f),
+        color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.7f),
         fontWeight = FontWeight.Normal,
         textAlign = TextAlign.Start
       ), modifier = Modifier.padding(bottom = 4.dp)
@@ -50,10 +51,10 @@ private fun WorkspaceTF() {
     },
     textStyle = textStyleField(),
     leadingIcon = {
-      Text(text = "https://", style = textStyleField().copy(color = Color.White.copy(alpha = 0.4f)))
+      Text(text = "https://", style = textStyleField().copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)))
     },
     trailingIcon = {
-      Text(".slack.com", style = textStyleField().copy(color = Color.White.copy(alpha = 0.4f)))
+      Text(".slack.com", style = textStyleField().copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)))
     },
     placeholder = {
       Text(
@@ -71,14 +72,14 @@ private fun WorkspaceTF() {
 @Composable
 private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   backgroundColor = Color.Transparent,
-  cursorColor = Color.White,
+  cursorColor = SlackCloneColorProvider.colors.textPrimary,
   unfocusedIndicatorColor = Color.Transparent,
   focusedIndicatorColor = Color.Transparent
 )
 
 @Composable
 private fun textStyleField() = SlackCloneTypography.h6.copy(
-  color = Color.White.copy(alpha = 0.7f),
+  color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.7f),
   fontWeight = FontWeight.Normal,
   textAlign = TextAlign.Start
 )

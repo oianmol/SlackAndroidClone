@@ -3,9 +3,12 @@ package dev.baseio.slackclone.uionboarding.compose
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -17,6 +20,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -29,7 +33,7 @@ fun EmailInputView(modifier: Modifier = Modifier) {
   ) {
     Text(
       text = "Email", style = SlackCloneTypography.caption.copy(
-        color = Color.White.copy(alpha = 0.7f),
+        color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.7f),
         fontWeight = FontWeight.Normal,
         textAlign = TextAlign.Start
       ), modifier = Modifier.padding(bottom = 4.dp)
@@ -59,7 +63,7 @@ private fun EmailTF() {
     },
     textStyle = textStyleField(),
     leadingIcon = {
-      Text(text = "✉️", style = textStyleField().copy(color = Color.White.copy(alpha = 0.4f)))
+      Icon(imageVector = Icons.Default.Email, contentDescription = null, tint = SlackCloneColorProvider.colors.textPrimary)
     },
     placeholder = {
       Text(
@@ -83,14 +87,14 @@ private fun EmailTF() {
 @Composable
 private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   backgroundColor = Color.Transparent,
-  cursorColor = Color.White,
+  cursorColor = SlackCloneColorProvider.colors.textPrimary,
   unfocusedIndicatorColor = Color.Transparent,
   focusedIndicatorColor = Color.Transparent
 )
 
 @Composable
 private fun textStyleField() = SlackCloneTypography.h6.copy(
-  color = Color.White.copy(alpha = 0.7f),
+  color = SlackCloneColorProvider.colors.textPrimary,
   fontWeight = FontWeight.Normal,
   textAlign = TextAlign.Start
 )

@@ -27,7 +27,7 @@ import dev.baseio.slackclone.commonui.theme.*
 
 @Composable
 fun SideNavigation(modifier: Modifier) {
-  SlackCloneSurface(color = Color(0xff1c1d21) , modifier = modifier.fillMaxSize()) {
+  SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground , modifier = modifier.fillMaxSize()) {
     Column(
       modifier = Modifier
         .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween
@@ -62,12 +62,12 @@ fun FooterItem(imageVector: ImageVector, title: String) {
     Icon(
       imageVector,
       contentDescription = null,
-      tint = Color.White.copy(alpha = 0.5f),
+      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.5f),
       modifier = Modifier.padding(8.dp)
     )
     Text(
       text = title,
-      style = SlackCloneTypography.subtitle1.copy(color = Color.White.copy(alpha = 0.8f)),
+      style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.8f)),
       modifier = Modifier.padding(8.dp)
     )
   }
@@ -90,7 +90,7 @@ fun Workspace(selected: Boolean) {
       Box(Modifier.weight(1f)) {
         OrganizationDetails()
       }
-      Icon(imageVector = Icons.Filled.MoreVert, contentDescription = null, tint = Color.White)
+      Icon(imageVector = Icons.Filled.MoreVert, contentDescription = null, tint = SlackCloneColorProvider.colors.textPrimary)
     }
   }
 }
@@ -105,13 +105,13 @@ fun OrganizationDetails() {
   ) {
     Text(
       text = stringResource(R.string.mutualmobile),
-      style = SlackCloneTypography.h6.copy(color = Color.White, fontWeight = FontWeight.SemiBold)
+      style = SlackCloneTypography.h6.copy(color = SlackCloneColorProvider.colors.textPrimary, fontWeight = FontWeight.SemiBold)
     )
     Text(
       stringResource(R.string.mmlink),
       style = SlackCloneTypography.subtitle1.copy(
         fontWeight = FontWeight.Normal,
-        color = Color.White.copy(alpha = 0.4f)
+        color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)
       ),
     )
   }
@@ -124,7 +124,7 @@ fun OrganizationLogo() {
       .size(68.dp)
       .border(
         width = 3.dp,
-        color = Color.White,
+        color = SlackCloneColorProvider.colors.textPrimary,
         shape = RoundedCornerShape(12.dp)
       )
       .padding(8.dp)
@@ -139,7 +139,7 @@ fun OrganizationLogo() {
 @Composable
 private fun WorkspacesBar() {
   SlackSurfaceAppBar(
-    backgroundColor = Color(0xff212429),
+    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
     elevation = 0.dp,
     contentPadding = rememberInsetsPaddingValues(
       insets = LocalWindowInsets.current.statusBars,
@@ -151,7 +151,7 @@ private fun WorkspacesBar() {
     Text(
       text = stringResource(id = R.string.head_workspaces),
       style = SlackCloneTypography.h5.copy(
-        color = Color.White,
+        color = SlackCloneColorProvider.colors.textPrimary,
         fontFamily = slackFontFamily,
         fontWeight = FontWeight.Bold
       ),

@@ -42,6 +42,7 @@ object Lib {
     private const val COMPOSE_NAVIGATION_VERSION = "2.4.0-rc01"
     private const val COMPOSE_COIL_VERSION = "1.4.0"
     private const val ACCOMPANIST_VERSION = "0.22.0-rc"
+    private const val SPLASH_SCREEN_VERSION = "1.0.0-beta01"
 
     const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
     const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
@@ -60,6 +61,7 @@ object Lib {
     const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:${COMPOSE_NAVIGATION_VERSION}"
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
     const val ACCOMPANIST_INSETS = "com.google.accompanist:accompanist-insets:${ACCOMPANIST_VERSION}"
+    const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
   }
 
   object Di {

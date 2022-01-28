@@ -15,7 +15,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @Composable
 fun MentionsReactionsUI() {
-  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()){
+  SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground, modifier = Modifier.fillMaxSize()){
     Column() {
       MRTopAppBar()
     }
