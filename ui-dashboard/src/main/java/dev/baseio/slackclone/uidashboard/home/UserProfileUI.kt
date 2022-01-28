@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
-import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
@@ -48,7 +48,7 @@ private fun SearchTopAppBar() {
     title = {
       Text(text = "You", style = SlackCloneTypography.h5.copy(color = Color.White, fontWeight = FontWeight.Bold))
     },
-    backgroundColor = SlackCloneTheme.colors.appBarColor,
+    backgroundColor = SlackCloneColorProvider.colors.appBarColor,
   )
 }
 
@@ -116,7 +116,7 @@ fun RoundedCornerBoxDecoration(content: @Composable () -> Unit) {
     Modifier
       .border(
         width = 1.dp,
-        color = SlackCloneTheme.colors.lineColor,
+        color = SlackCloneColorProvider.colors.lineColor,
         shape = RoundedCornerShape(12.dp)
       )
       .padding(16.dp)

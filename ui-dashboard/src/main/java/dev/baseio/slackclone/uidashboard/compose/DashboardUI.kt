@@ -27,8 +27,6 @@ import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.uidashboard.custom.DragComposableView
 import dev.baseio.slackclone.uidashboard.home.*
@@ -72,8 +70,8 @@ private fun DashboardScaffold(
   appBarIconClick: () -> Unit
 ) {
   Scaffold(
-    backgroundColor = SlackCloneTheme.colors.uiBackground,
-    contentColor = SlackCloneTheme.colors.textSecondary,
+    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+    contentColor = SlackCloneColorProvider.colors.textSecondary,
     modifier = modifier
       .statusBarsPadding()
       .navigationBarsPadding(),

@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import dev.baseio.slackclone.commonui.theme.AlphaNearOpaque
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
-import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
 import dev.baseio.slackclone.auth.ui.AuthenticationUI
@@ -24,7 +24,7 @@ fun AuthNavGraph(
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
     SlackCloneSurface(
-      color = SlackCloneTheme.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
+      color = SlackCloneColorProvider.colors.statusBarColor.copy(alpha = AlphaNearOpaque),
       modifier = Modifier.fillMaxSize()
     ) {
       val navController = rememberNavController()

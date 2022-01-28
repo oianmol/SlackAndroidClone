@@ -8,9 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import dev.baseio.slackclone.commonui.theme.AlphaNearOpaque
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
-import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.Screen

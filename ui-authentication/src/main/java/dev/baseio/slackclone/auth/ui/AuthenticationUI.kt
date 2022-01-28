@@ -2,7 +2,6 @@ package dev.baseio.slackclone.auth.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -23,11 +22,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.DefaultSnackbar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.auth.R
@@ -45,8 +42,8 @@ fun AuthenticationUI(
 
   SlackCloneTheme {
     Scaffold(
-      backgroundColor = SlackCloneTheme.colors.uiBackground,
-      contentColor = SlackCloneTheme.colors.textSecondary,
+      backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+      contentColor = SlackCloneColorProvider.colors.textSecondary,
       modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
         scaffoldState.snackbarHostState
       }
@@ -159,11 +156,11 @@ private fun LoginButton(
     Modifier
       .fillMaxWidth()
       .height(50.dp),
-    colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneTheme.colors.buttonColor)
+    colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneColorProvider.colors.buttonColor)
   ) {
     Text(
       text = "Login",
-      style = SlackCloneTypography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
+      style = SlackCloneTypography.body1.copy(color = SlackCloneColorProvider.colors.buttonTextColor)
     )
   }
 }
@@ -186,7 +183,7 @@ private fun PasswordTF(authVM: AuthVM, focusRequester: FocusRequester) {
     label = {
       Text(
         text = "Password",
-        style = SlackCloneTypography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
+        style = SlackCloneTypography.body2.copy(color = SlackCloneColorProvider.colors.textPrimary)
       )
     },
     shape = SlackCloneShapes.large,
@@ -221,7 +218,7 @@ private fun EmailTF(authVM: AuthVM, focusRequester: FocusRequester) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = SlackCloneTypography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
+        style = SlackCloneTypography.body2.copy(color = SlackCloneColorProvider.colors.textPrimary)
       )
     },
     shape = SlackCloneShapes.large,

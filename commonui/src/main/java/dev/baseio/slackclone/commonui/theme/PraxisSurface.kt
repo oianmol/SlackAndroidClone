@@ -26,8 +26,8 @@ import kotlin.math.ln
 fun SlackCloneSurface(
   modifier: Modifier = Modifier,
   shape: Shape = RectangleShape,
-  color: Color = SlackCloneTheme.colors.uiBackground,
-  contentColor: Color = SlackCloneTheme.colors.textSecondary,
+  color: Color = SlackCloneColorProvider.colors.uiBackground,
+  contentColor: Color = SlackCloneColorProvider.colors.textSecondary,
   border: BorderStroke? = null,
   elevation: Dp = 0.dp,
   content: @Composable () -> Unit

@@ -3,7 +3,6 @@ package dev.baseio.slackclone.uionboarding.compose
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,10 +13,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
@@ -34,8 +32,8 @@ fun CommonInputUI(
 
   SlackCloneTheme {
     Scaffold(
-      backgroundColor = SlackCloneTheme.colors.darkBackground,
-      contentColor = SlackCloneTheme.colors.textSecondary,
+      backgroundColor = SlackCloneColorProvider.colors.darkBackground,
+      contentColor = SlackCloneColorProvider.colors.textSecondary,
       modifier = Modifier
         .statusBarsPadding()
         .navigationBarsPadding(),
@@ -46,7 +44,7 @@ fun CommonInputUI(
     ) { innerPadding ->
       Box(modifier = Modifier.padding(innerPadding)) {
         SlackCloneSurface(
-          color = SlackCloneTheme.colors.darkBackground,
+          color = SlackCloneColorProvider.colors.darkBackground,
           modifier = Modifier
         ) {
           ConstraintLayout(

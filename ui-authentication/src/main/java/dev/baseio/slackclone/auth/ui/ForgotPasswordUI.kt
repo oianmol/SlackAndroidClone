@@ -2,7 +2,6 @@ package dev.baseio.slackclone.auth.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -30,15 +29,15 @@ fun ForgotPasswordUI(
   navigatorFragment: FragmentNavGraphNavigator
 ) {
   Scaffold(
-    backgroundColor = SlackCloneTheme.colors.uiBackground,
-    contentColor = SlackCloneTheme.colors.textSecondary,
+    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+    contentColor = SlackCloneColorProvider.colors.textSecondary,
     modifier = Modifier
       .statusBarsPadding()
       .navigationBarsPadding(),
     topBar = {
       SlackSurfaceAppBar(title = {
 
-      }, backgroundColor = SlackCloneTheme.colors.uiBackground)
+      }, backgroundColor = SlackCloneColorProvider.colors.uiBackground)
     }) {
     ForgotPasswordSurface(forgotPasswordVM)
   }
@@ -79,11 +78,11 @@ private fun ForgotPasswordButton(forgotPasswordVM: ForgotPasswordVM) {
     onClick = {
       forgotPasswordVM.navigateBack()
     }, Modifier.fillMaxWidth(),
-    colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneTheme.colors.buttonColor)
+    colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneColorProvider.colors.buttonColor)
   ) {
     Text(
       text = "Reset Password",
-      style = SlackCloneTypography.body1.copy(color = SlackCloneTheme.colors.buttonTextColor)
+      style = SlackCloneTypography.body1.copy(color = SlackCloneColorProvider.colors.buttonTextColor)
     )
   }
 }
@@ -99,7 +98,7 @@ private fun EmailTF(forgotPasswordVM: ForgotPasswordVM) {
       .fillMaxWidth(), label = {
       Text(
         text = "Email",
-        style = SlackCloneTypography.body2.copy(color = SlackCloneTheme.colors.textPrimary)
+        style = SlackCloneTypography.body2.copy(color = SlackCloneColorProvider.colors.textPrimary)
       )
     },
     shape = SlackCloneShapes.large,

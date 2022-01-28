@@ -28,7 +28,7 @@ import dev.baseio.slackclone.uionboarding.R
 fun GettingStartedUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
   val sysUiController = rememberSystemUiController()
-  val colors = SlackCloneTheme.colors
+  val colors = SlackCloneColorProvider.colors
 
   SideEffect {
     sysUiController.setNavigationBarColor(color = colors.uiBackground)
@@ -36,8 +36,8 @@ fun GettingStartedUI(composeNavigator: ComposeNavigator) {
   }
 
   Scaffold(
-    backgroundColor = SlackCloneTheme.colors.uiBackground,
-    contentColor = SlackCloneTheme.colors.textSecondary,
+    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+    contentColor = SlackCloneColorProvider.colors.textSecondary,
     modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
       scaffoldState.snackbarHostState
     }
@@ -119,11 +119,11 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
       Modifier
         .fillMaxWidth()
         .height(40.dp),
-      colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneTheme.colors.buttonColor)
+      colors = ButtonDefaults.buttonColors(backgroundColor = SlackCloneColorProvider.colors.buttonColor)
     ) {
       Text(
         text = "Get started",
-        style = SlackCloneTypography.subtitle2.copy(color = SlackCloneTheme.colors.buttonTextColor)
+        style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.buttonTextColor)
       )
     }
   }

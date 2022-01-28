@@ -71,7 +71,7 @@ fun SlackCloneTheme(
   }
 }
 
-object SlackCloneTheme {
+object SlackCloneColorProvider {
   val colors: SlackCloneColorPalette
     @Composable
     get() = LocalSlackCloneColor.current
@@ -155,7 +155,7 @@ private val LocalSlackCloneColor = staticCompositionLocalOf<SlackCloneColorPalet
 
 /**
  * A Material [Colors] implementation which sets all colors to [debugColor] to discourage usage of
- * [MaterialTheme.colors] in preference to [SlackCloneTheme.colors].
+ * [MaterialTheme.colors] in preference to [SlackCloneColorProvider.colors].
  */
 fun debugColors(
   darkTheme: Boolean,

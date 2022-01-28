@@ -49,7 +49,7 @@ fun SideNavigation(modifier: Modifier) {
 @Composable
 private fun SideNavFooter() {
   Column(modifier = Modifier.navigationBarsPadding()) {
-    Divider(color = SlackCloneTheme.colors.lineColor)
+    Divider(color = SlackCloneColorProvider.colors.lineColor)
     FooterItem(Icons.Filled.AddCircle, stringResource(id = R.string.add_workspace))
     FooterItem(Icons.Filled.Settings, stringResource(id = R.string.preferences))
     FooterItem(Icons.Filled.CheckCircle, stringResource(id = R.string.help))
