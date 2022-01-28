@@ -54,7 +54,7 @@ private fun SearchTopAppBar() {
         }) {
           Text(
             "Cancel",
-            style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.buttonTextColor)
+            style = SlackCloneTypography.subtitle2.copy(color = Color.White)
           )
         }
       }
