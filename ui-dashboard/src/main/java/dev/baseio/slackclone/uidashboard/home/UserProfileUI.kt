@@ -26,14 +26,19 @@ import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun UserProfileUI() {
-  SlackCloneSurface(color = DarkBackground, modifier = Modifier.fillMaxSize()) {
+  SlackCloneSurface(
+    color = SlackCloneColorProvider.colors.uiBackground,
+    modifier = Modifier.fillMaxSize()
+  ) {
     Column() {
       SearchTopAppBar()
       UserHeader()
-      StatusBox()
+      Box(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
+        StatusBox()
+      }
       ListItem(Icons.Default.Notifications, stringResource(R.string.pause_notifications))
       ListItem(Icons.Default.Person, stringResource(R.string.set_away))
-      Divider(color = Color.White.copy(alpha = 0.4f))
+      Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
       ListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
       ListItem(Icons.Default.Person, stringResource(R.string.view_profile))
       ListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
@@ -46,7 +51,13 @@ fun UserProfileUI() {
 private fun SearchTopAppBar() {
   SlackSurfaceAppBar(
     title = {
-      Text(text = "You", style = SlackCloneTypography.h5.copy(color = Color.White, fontWeight = FontWeight.Bold))
+      Text(
+        text = "You",
+        style = SlackCloneTypography.h5.copy(
+          color = Color.White,
+          fontWeight = FontWeight.Bold
+        )
+      )
     },
     backgroundColor = SlackCloneColorProvider.colors.appBarColor,
   )
@@ -57,11 +68,19 @@ private fun SearchTopAppBar() {
 @Composable
 fun ListItem(icon: ImageVector, title: String) {
   ListItem(icon = {
-    Icon(imageVector = icon, contentDescription = null, tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f))
+    Icon(
+      imageVector = icon,
+      contentDescription = null,
+      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)
+    )
   }, text = {
     Text(
       text = title,
-      style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.8f))
+      style = SlackCloneTypography.subtitle1.copy(
+        color = SlackCloneColorProvider.colors.textPrimary.copy(
+          alpha = 0.8f
+        )
+      )
     )
   })
 }
@@ -80,7 +99,7 @@ fun UserHeader() {
         text = "Active",
         style = SlackCloneTypography.subtitle1.copy(
           fontWeight = FontWeight.Bold,
-          color = Color.White.copy(alpha = 0.4f)
+          color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)
         )
       )
     }
@@ -98,13 +117,17 @@ fun StatusBox() {
       Text(
         text = "Out on a vacation", style = SlackCloneTypography.body1.copy(
           fontWeight = FontWeight.Normal,
-          color = Color.White
+          color = SlackCloneColorProvider.colors.textPrimary
         ), modifier = Modifier
           .padding(4.dp)
           .weight(1f),
         textAlign = TextAlign.Start
       )
-      Icon(imageVector = Icons.Default.Clear, contentDescription = null, tint = Color.LightGray)
+      Icon(
+        imageVector = Icons.Default.Clear,
+        contentDescription = null,
+        tint = SlackCloneColorProvider.colors.textPrimary
+      )
     }
   }
 }
