@@ -37,6 +37,10 @@ dependencies {
 
   /* Paging */
   implementation(Lib.Paging.PAGING_3)
+  implementation(Lib.Room.roomRuntime)
+  kapt(Lib.Room.roomCompiler)
+  implementation(Lib.Room.roomKtx)
+  implementation(Lib.Room.roomPaging)
 
   /* Networking */
   api(Lib.Networking.RETROFIT)

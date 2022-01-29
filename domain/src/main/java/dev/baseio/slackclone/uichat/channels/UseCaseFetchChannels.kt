@@ -18,13 +18,16 @@ class UseCaseFetchChannels(private val localChannelsRepository: LocalChannelsRep
   BaseUseCase<List<SlackChannel>, SlackChannelType> {
   override suspend fun performStreaming(params: SlackChannelType): Flow<List<SlackChannel>> {
     return callbackFlow {
-      val callback = localChannelCallback(this)
+      val callback = localChannelCallback(this, params)
       localChannelsRepository.registerChannelUpdates(callback)
       awaitClose { localChannelsRepository.unregisterChange(callback) }
     }
   }
 
-  private fun localChannelCallback(producerScope: ProducerScope<List<SlackChannel>>) =
+  private fun localChannelCallback(
+    producerScope: ProducerScope<List<SlackChannel>>,
+    channelType: SlackChannelType
+  ) =
     object :
       LocalChannelsRepository.Callback<List<SlackChannel>> {
       override fun onNextValue(value: List<SlackChannel>) {
@@ -33,6 +36,8 @@ class UseCaseFetchChannels(private val localChannelsRepository: LocalChannelsRep
             Timber.e(throwable)
           }
       }
+
+      override var channelType: SlackChannelType = channelType
 
       override fun onApiError(cause: Throwable) {
         producerScope.cancel(CancellationException("API Error", cause))

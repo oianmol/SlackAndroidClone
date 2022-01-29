@@ -9,7 +9,8 @@ object BuildPlugins {
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
-  const val SAFE_ARGS_GRADLE_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
+  const val SAFE_ARGS_GRADLE_PLUGIN =
+    "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
   const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
   const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
@@ -45,22 +46,27 @@ object Lib {
     private const val SPLASH_SCREEN_VERSION = "1.0.0-beta01"
 
     const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
-    const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
+    const val NAVIGATION_FRAGMENT =
+      "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.4.0"
 
     // Compose
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${COMPOSE_ACTIVITY_VERSION}"
-    const val CONSTRAINT_LAYOUT_COMPOSE = "androidx.constraintlayout:constraintlayout-compose:${COMPOSE_CONSTRAINT_LAYOUT_VERSION}"
+    const val CONSTRAINT_LAYOUT_COMPOSE =
+      "androidx.constraintlayout:constraintlayout-compose:${COMPOSE_CONSTRAINT_LAYOUT_VERSION}"
     const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
-    const val ACCOMPANIST_SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.24.0-alpha"
+    const val ACCOMPANIST_SYSTEM_UI_CONTROLLER =
+      "com.google.accompanist:accompanist-systemuicontroller:0.24.0-alpha"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${COMPOSE_COIL_VERSION}"
     const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"
     const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${COMPOSE_VERSION}"
     const val COMPOSE_DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${COMPOSE_VERSION}"
-    const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:${COMPOSE_NAVIGATION_VERSION}"
+    const val COMPOSE_NAVIGATION =
+      "androidx.navigation:navigation-compose:${COMPOSE_NAVIGATION_VERSION}"
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
-    const val ACCOMPANIST_INSETS = "com.google.accompanist:accompanist-insets:${ACCOMPANIST_VERSION}"
+    const val ACCOMPANIST_INSETS =
+      "com.google.accompanist:accompanist-insets:${ACCOMPANIST_VERSION}"
     const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
   }
 
@@ -79,6 +85,18 @@ object Lib {
     const val PAGING_3 = "androidx.paging:paging-runtime:${PAGING_VERSION}"
   }
 
+  object Room {
+    private const val roomVersion = "2.4.1"
+    const val roomRuntime = "androidx.room:room-runtime:$roomVersion"
+    const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    const val roomKtx = "androidx.room:room-ktx:$roomVersion"
+
+    // optional - Paging 3 Integration
+    const val roomPaging = "androidx.room:room-paging:2.4.1"
+  }
+
   object Glide {
     private const val GLIDE_VERSION = "4.12.0"
     const val GLIDE = "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
@@ -89,7 +107,8 @@ object Lib {
     private const val COROUTINES_VERSION = "1.6.0"
 
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}"
-    const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${COROUTINES_VERSION}"
+    const val COROUTINES_ANDROID =
+      "org.jetbrains.kotlinx:kotlinx-coroutines-android:${COROUTINES_VERSION}"
   }
 
   object Networking {
