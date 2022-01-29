@@ -24,7 +24,6 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 @Composable
 fun ChatScreenUI(modifier: Modifier, onBackClick: () -> Unit) {
   val scaffoldState = rememberScaffoldState()
-  val dashboardNavController = rememberNavController()
   SlackCloneTheme {
     Scaffold(
       backgroundColor = SlackCloneColorProvider.colors.uiBackground,
@@ -54,12 +53,12 @@ fun ChatScreenUI(modifier: Modifier, onBackClick: () -> Unit) {
 
 @Composable
 private fun ChatAppBar(onBackClick: () -> Unit) {
-  SlackSurfaceAppBar(backgroundColor = SlackCloneColorProvider.colors.uiBackground) {
+  SlackSurfaceAppBar(backgroundColor = SlackCloneColorProvider.colors.appBarColor) {
     IconButton(onClick = { onBackClick() }) {
       Icon(
         imageVector = Icons.Default.ArrowBack,
         contentDescription = null,
-        tint = SlackCloneColorProvider.colors.textSecondary,
+        tint = SlackCloneColorProvider.colors.appBarIconColor,
         modifier = Modifier.size(24.dp)
       )
     }
@@ -72,24 +71,26 @@ private fun ChatAppBar(onBackClick: () -> Unit) {
         text = "🔒 android-india",
         style = SlackCloneTypography.subtitle1.copy(
           fontWeight = FontWeight.Bold,
-          color = SlackCloneColorProvider.colors.textPrimary
+          color = SlackCloneColorProvider.colors.appBarTextTitleColor
         ), modifier = Modifier.padding(2.dp)
       )
       Text(
         text = "25 members >",
-        style = SlackCloneTypography.subtitle2.copy(
+        style = SlackCloneTypography.caption.copy(
           fontWeight = FontWeight.Normal,
-          color = SlackCloneColorProvider.colors.textSecondary
-        ), modifier = Modifier.padding(2.dp)
+          color = SlackCloneColorProvider.colors.appBarTextSubTitleColor
+        ),
+        modifier = Modifier.padding(2.dp)
       )
     }
-    Icon(
-      imageVector = Icons.Default.Call,
-      contentDescription = null,
-      tint = SlackCloneColorProvider.colors.buttonColor,
-      modifier = Modifier
-        .size(24.dp)
-        .padding(4.dp)
-    )
+    IconButton(onClick = { }) {
+      Icon(
+        imageVector = Icons.Default.Call,
+        contentDescription = null,
+        tint = SlackCloneColorProvider.colors.appBarIconColor,
+        modifier = Modifier
+          .size(24.dp)
+      )
+    }
   }
 }

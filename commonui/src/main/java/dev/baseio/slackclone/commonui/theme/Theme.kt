@@ -30,7 +30,10 @@ private val LightColorPalette = SlackCloneColorPalette(
   appBarColor = SlackCloneColor,
   lineColor = LineColorLight,
   bottomNavSelectedColor = Color.Black,
-  bottomNavUnSelectedColor = Color.LightGray
+  bottomNavUnSelectedColor = Color.LightGray,
+  appBarIconColor = Color.White,
+  appBarTextTitleColor = Color.White,
+  appBarTextSubTitleColor = Color.White
 )
 
 private val DarkColorPalette = SlackCloneColorPalette(
@@ -48,7 +51,10 @@ private val DarkColorPalette = SlackCloneColorPalette(
   appBarColor = DarkAppBarColor,
   lineColor = LineColorDark,
   bottomNavSelectedColor = Color.White,
-  bottomNavUnSelectedColor = Color.Gray
+  bottomNavUnSelectedColor = Color.Gray,
+  appBarIconColor = Color.White,
+  appBarTextTitleColor = Color.White,
+  appBarTextSubTitleColor = Color.White
 )
 
 @Composable
@@ -99,7 +105,10 @@ class SlackCloneColorPalette(
   appBarColor: Color,
   lineColor: Color,
   bottomNavSelectedColor: Color,
-  bottomNavUnSelectedColor: Color
+  bottomNavUnSelectedColor: Color,
+  appBarIconColor: Color,
+  appBarTextTitleColor: Color,
+  appBarTextSubTitleColor: Color
 ) {
   var brand by mutableStateOf(brand)
     private set
@@ -132,6 +141,13 @@ class SlackCloneColorPalette(
     private set
   var bottomNavUnSelectedColor by mutableStateOf(bottomNavUnSelectedColor)
     private set
+  var appBarIconColor by mutableStateOf(appBarIconColor)
+    private set
+
+  var appBarTextTitleColor by mutableStateOf(appBarTextTitleColor)
+    private set
+  var appBarTextSubTitleColor by mutableStateOf(appBarTextSubTitleColor)
+    private set
 
 
   fun update(other: SlackCloneColorPalette) {
@@ -149,6 +165,9 @@ class SlackCloneColorPalette(
     lineColor = other.lineColor
     bottomNavSelectedColor = other.bottomNavSelectedColor
     bottomNavUnSelectedColor = other.bottomNavUnSelectedColor
+    appBarIconColor = other.appBarIconColor
+    appBarTextTitleColor = other.appBarTextTitleColor
+    appBarTextSubTitleColor = other.appBarTextSubTitleColor
   }
 }
 
