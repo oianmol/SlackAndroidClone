@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -16,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
@@ -24,6 +24,7 @@ import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.*
 import dev.baseio.slackclone.commonui.theme.*
+import dev.baseio.slackclone.uidashboard.home.SlackListItem
 
 @Composable
 fun SideNavigation(modifier: Modifier) {
@@ -46,30 +47,14 @@ fun SideNavigation(modifier: Modifier) {
   }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun SideNavFooter() {
   Column(modifier = Modifier.navigationBarsPadding()) {
     Divider(color = SlackCloneColorProvider.colors.lineColor)
-    FooterItem(Icons.Filled.AddCircle, stringResource(id = R.string.add_workspace))
-    FooterItem(Icons.Filled.Settings, stringResource(id = R.string.preferences))
-    FooterItem(Icons.Filled.CheckCircle, stringResource(id = R.string.help))
-  }
-}
-
-@Composable
-fun FooterItem(imageVector: ImageVector, title: String) {
-  Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-    Icon(
-      imageVector,
-      contentDescription = null,
-      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.5f),
-      modifier = Modifier.padding(8.dp)
-    )
-    Text(
-      text = title,
-      style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.8f)),
-      modifier = Modifier.padding(8.dp)
-    )
+    SlackListItem(Icons.Filled.AddCircle, stringResource(id = R.string.add_workspace))
+    SlackListItem(Icons.Filled.Settings, stringResource(id = R.string.preferences))
+    SlackListItem(Icons.Filled.CheckCircle, stringResource(id = R.string.help))
   }
 }
 

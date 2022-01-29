@@ -13,14 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
-import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
 import dev.baseio.slackclone.uidashboard.home.channels.*
-import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @Composable
 fun HomeScreenUI(appBarIconClick: () -> Unit) {
@@ -43,7 +41,7 @@ fun HomeScreenUI(appBarIconClick: () -> Unit) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ThreadsTile() {
-  ListItem(Icons.Default.MailOutline, stringResource(R.string.threads))
+  SlackListItem(Icons.Default.MailOutline, stringResource(R.string.threads))
 }
 
 @Composable

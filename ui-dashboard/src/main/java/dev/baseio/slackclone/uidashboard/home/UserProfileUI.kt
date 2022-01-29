@@ -1,6 +1,7 @@
 package dev.baseio.slackclone.uidashboard.home
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -16,7 +17,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
-import dev.baseio.slackclone.commonui.theme.DarkBackground
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
@@ -36,13 +36,13 @@ fun UserProfileUI() {
       Box(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
         StatusBox()
       }
-      ListItem(Icons.Default.Notifications, stringResource(R.string.pause_notifications))
-      ListItem(Icons.Default.Person, stringResource(R.string.set_away))
+      SlackListItem(Icons.Default.Notifications, stringResource(R.string.pause_notifications))
+      SlackListItem(Icons.Default.Person, stringResource(R.string.set_away))
       Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-      ListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
-      ListItem(Icons.Default.Person, stringResource(R.string.view_profile))
-      ListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
-      ListItem(Icons.Default.Settings, stringResource(R.string.preferences))
+      SlackListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
+      SlackListItem(Icons.Default.Person, stringResource(R.string.view_profile))
+      SlackListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
+      SlackListItem(Icons.Default.Settings, stringResource(R.string.preferences))
     }
   }
 }
@@ -66,7 +66,7 @@ private fun SearchTopAppBar() {
 
 @ExperimentalMaterialApi
 @Composable
-fun ListItem(icon: ImageVector, title: String) {
+fun SlackListItem(icon: ImageVector, title: String) {
   ListItem(icon = {
     Icon(
       imageVector = icon,
@@ -82,7 +82,7 @@ fun ListItem(icon: ImageVector, title: String) {
         )
       )
     )
-  })
+  }, modifier = Modifier.clickable {  })
 }
 
 @Composable

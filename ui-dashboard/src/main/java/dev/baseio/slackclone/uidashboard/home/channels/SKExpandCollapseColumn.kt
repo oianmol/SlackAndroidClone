@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.uidashboard.R
-import dev.baseio.slackclone.uidashboard.home.ListItem
+import dev.baseio.slackclone.uidashboard.home.SlackListItem
 import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -47,7 +47,7 @@ fun SKExpandCollapseColumn(
     AnimatedVisibility(visible = expandCollapseModel.isOpen) {
       LazyColumn {
         items(10) {
-          ListItem(icon = Icons.Default.Lock, title = stringResource(R.string.some_project))
+          SlackListItem(icon = Icons.Default.Lock, title = stringResource(R.string.some_project))
         }
       }
     }
