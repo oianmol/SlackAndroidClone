@@ -51,7 +51,7 @@ fun DashboardUI() {
       onOpenCloseRightView = {
         isChatViewClosed = it
       }, { modifier ->
-        DashboardScaffold(isLeftNavOpen,scaffoldState, dashboardNavController, modifier, {
+        DashboardScaffold(isLeftNavOpen, scaffoldState, dashboardNavController, modifier, {
           isLeftNavOpen = !isLeftNavOpen
         }) {
           isChatViewClosed = false
@@ -59,9 +59,9 @@ fun DashboardUI() {
       }, { leftViewModifier ->
         SideNavigation(leftViewModifier.width(sideNavWidth))
       }, { chatViewModifier ->
-        ChatScreenUI(chatViewModifier) {
+        ChatScreenUI(chatViewModifier, {
           isChatViewClosed = true
-        }
+        })
       })
 
   }
@@ -71,7 +71,7 @@ fun DashboardUI() {
 
 @Composable
 private fun DashboardScaffold(
-  isLeftNavOpen:Boolean,
+  isLeftNavOpen: Boolean,
   scaffoldState: ScaffoldState,
   dashboardNavController: NavHostController,
   modifier: Modifier,
@@ -129,7 +129,8 @@ private fun DashboardScaffold(
     if (isLeftNavOpen) {
       Box(
         Modifier
-          .fillMaxSize().clickable {
+          .fillMaxSize()
+          .clickable {
             appBarIconClick()
           }
           .background(Color.Black.copy(alpha = 0.4f))

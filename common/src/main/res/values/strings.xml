@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Home</string>
+    <string name="dms">DMs</string>
+    <string name="mentions">Mentions</string>
+    <string name="search">Search</string>
+    <string name="you">You</string>
+    <string name="head_workspaces">Workspaces</string>
+    <string name="add_workspace">Add a workspace</string>
+    <string name="preferences">Preferences</string>
+    <string name="help">Help</string>
+    <string name="pause_notifications">Pause Notifications</string>
+    <string name="set_away">Set yoursel as away</string>
+    <string name="saved_items">Saved items</string>
+    <string name="view_profile">View profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="mutualmobile">mutualmobile</string>
+    <string name="mmlink">mutualmobile.slack.com</string>
+    <string name="threads">Threads</string>
+    <string name="some_project">prj_jetpack_compose</string>
+    <string name="Recent">Recent</string>
+    <string name="starred">Starred</string>
+    <string name="direct_messages">Direct messages</string>
+    <string name="channels">Channels</string>
+    <string name="connections">Connections</string>
+    <string name="browse_people">Browse People</string>
+    <string name="browse_channels">Browse Channels</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="narrow_your_search">Narrow Your Search</string>
+</resources>

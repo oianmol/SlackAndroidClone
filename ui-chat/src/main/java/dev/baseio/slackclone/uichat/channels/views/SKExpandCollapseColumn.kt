@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat.channels
+package dev.baseio.slackclone.uichat.channels.views
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
@@ -17,9 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
+import dev.baseio.slackclone.uichat.R
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -20,9 +21,14 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
+import dev.baseio.slackclone.uichat.ChatThreadVM
 
 @Composable
-fun ChatScreenUI(modifier: Modifier, onBackClick: () -> Unit) {
+fun ChatScreenUI(
+  modifier: Modifier,
+  onBackClick: () -> Unit,
+  viewModel: ChatThreadVM = hiltViewModel()
+) {
   val scaffoldState = rememberScaffoldState()
   SlackCloneTheme {
     Scaffold(
