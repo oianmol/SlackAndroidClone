@@ -1,10 +1,8 @@
-package dev.baseio.slackclone.uidashboard.home.channels
+package dev.baseio.slackclone.uichat.channels
 
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.res.stringResource
-import dev.baseio.slackclone.uidashboard.R
-import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
+import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
 
 @Composable
 fun SlackConnections(onItemClick: () -> Unit = {}) {

@@ -24,7 +24,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.R
-import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
+import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

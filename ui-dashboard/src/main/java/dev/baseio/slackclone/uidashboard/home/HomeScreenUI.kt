@@ -20,8 +20,8 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.R
-import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
-import dev.baseio.slackclone.uidashboard.home.channels.*
+import dev.baseio.slackclone.commonui.reusable.SlackImageBox
+import dev.baseio.slackclone.uichat.channels.*
 
 @Composable
 fun HomeScreenUI(appBarIconClick: () -> Unit,onItemClick: () -> Unit = {}) {

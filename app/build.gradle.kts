@@ -67,6 +67,7 @@ kapt {
 dependencies {
   implementation(project(":ui-onboarding"))
   implementation(project(":ui-dashboard"))
+  implementation(project(":ui-chat"))
 
   implementation(project(":navigator"))
   implementation(project(":data"))

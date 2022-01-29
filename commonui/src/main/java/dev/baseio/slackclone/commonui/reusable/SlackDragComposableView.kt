@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uidashboard.custom
+package dev.baseio.slackclone.commonui.reusable
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures

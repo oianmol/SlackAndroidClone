@@ -1,7 +1,6 @@
 package dev.baseio.slackclone.uidashboard.compose
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,13 +23,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberImagePainter
-import coil.transform.RoundedCornersTransformation
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
+import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.uidashboard.chat.ChatScreenUI
-import dev.baseio.slackclone.uidashboard.custom.SlackDragComposableView
 import dev.baseio.slackclone.uidashboard.home.*
 
 @Composable
@@ -226,16 +223,3 @@ private fun getDashTabs(): MutableList<Screen> {
   }
 }
 
-@Composable
-fun SlackImageBox(modifier: Modifier, imageUrl: String) {
-  Image(
-    painter = rememberImagePainter(
-      data = imageUrl,
-      builder = {
-        transformations(RoundedCornersTransformation(12.0f, 12.0f, 12.0f, 12.0f))
-      }
-    ),
-    contentDescription = null,
-    modifier = modifier
-  )
-}

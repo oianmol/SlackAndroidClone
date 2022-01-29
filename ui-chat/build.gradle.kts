@@ -56,8 +56,6 @@ kapt {
 
 dependencies {
     /*Kotlin*/
-    implementation(project(":ui-chat"))
-
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":common"))

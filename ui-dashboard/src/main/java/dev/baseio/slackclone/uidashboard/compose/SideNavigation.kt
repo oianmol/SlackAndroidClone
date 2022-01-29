@@ -23,6 +23,7 @@ import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.*
+import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 
