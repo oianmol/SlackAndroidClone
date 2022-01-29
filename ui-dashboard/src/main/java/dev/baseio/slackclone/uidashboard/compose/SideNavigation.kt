@@ -24,7 +24,7 @@ import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.*
 import dev.baseio.slackclone.commonui.theme.*
-import dev.baseio.slackclone.uidashboard.home.SlackListItem
+import dev.baseio.slackclone.commonui.reusable.SlackListItem
 
 @Composable
 fun SideNavigation(modifier: Modifier) {

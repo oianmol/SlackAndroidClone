@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
+import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
@@ -70,7 +71,7 @@ private fun SearchTopAppBar() {
 fun SlackListItemTrailingView(
   icon: ImageVector,
   title: String,
-  trailingView: @Composable () -> Unit= {}
+  trailingView: @Composable () -> Unit = {}
 ) {
   Row(modifier = Modifier
     .padding(12.dp)
@@ -97,42 +98,7 @@ fun SlackListItemTrailingView(
   }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun SlackListItem(icon: ImageVector, title: String, trailingItem: ImageVector? = null) {
-  Row(modifier = Modifier
-    .padding(12.dp)
-    .clickable { }) {
-    Icon(
-      imageVector = icon,
-      contentDescription = null,
-      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f),
-      modifier = Modifier
-        .size(24.dp)
-        .padding(4.dp)
-    )
-    Text(
-      text = title,
-      style = SlackCloneTypography.subtitle1.copy(
-        color = SlackCloneColorProvider.colors.textPrimary.copy(
-          alpha = 0.8f
-        )
-      ), modifier = Modifier
-        .weight(1f)
-        .padding(4.dp)
-    )
-    trailingItem?.let { safeIcon ->
-      Icon(
-        imageVector = safeIcon,
-        contentDescription = null,
-        tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f),
-        modifier = Modifier
-          .size(24.dp)
-          .padding(4.dp)
-      )
-    }
-  }
-}
+
 
 @Composable
 fun UserHeader() {

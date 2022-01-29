@@ -14,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
+import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uidashboard.R
-import dev.baseio.slackclone.uidashboard.home.SlackListItem
+import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -38,35 +40,44 @@ fun SKExpandCollapseColumn(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Text(text = expandCollapseModel.title, modifier = Modifier.weight(1f))
-      if (expandCollapseModel.needsPlusButton) {
-        AddButton()
-      }
+      Text(text = expandCollapseModel.title,
+        style = SlackCloneTypography.subtitle2.copy(fontWeight = FontWeight.SemiBold),
+        modifier = Modifier.weight(1f))
+      AddButton(expandCollapseModel)
       ToggleButton(expandCollapseModel, onExpandCollapse)
     }
-    AnimatedVisibility(visible = expandCollapseModel.isOpen) {
-      Column {
-        repeat(10) {
-          SlackListItem(icon = Icons.Default.Lock, title = stringResource(R.string.some_project))
-        }
-      }
-    }
+    ChannelsList(expandCollapseModel)
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-
   }
 }
 
 @Composable
-private fun AddButton() {
-  IconButton(onClick = {
-
-  }) {
-    Icon(
-      imageVector = Icons.Default.Add,
-      contentDescription = null,
-      tint = SlackCloneColorProvider.colors.lineColor
-    )
+private fun ColumnScope.ChannelsList(expandCollapseModel: ExpandCollapseModel) {
+  AnimatedVisibility(visible = expandCollapseModel.isOpen) {
+    Column {
+      repeat(10) {
+        SlackListItem(icon = Icons.Default.Lock, title = stringResource(R.string.some_project))
+      }
+    }
   }
+}
+
+@Composable
+private fun AddButton(
+  expandCollapseModel: ExpandCollapseModel,
+  ) {
+  if(expandCollapseModel.needsPlusButton){
+    IconButton(onClick = {
+
+    }) {
+      Icon(
+        imageVector = Icons.Default.Add,
+        contentDescription = null,
+        tint = SlackCloneColorProvider.colors.lineColor
+      )
+    }
+  }
+
 }
 
 @Composable

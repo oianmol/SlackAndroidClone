@@ -2,7 +2,6 @@
 include(":app")
 
 // Feature modules
-include(":ui-authentication")
 include(":ui-onboarding")
 
 // Other modules

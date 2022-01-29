@@ -16,10 +16,6 @@ sealed class Screen(
   object EmailAddressInputUI : Screen("EmailAddressInputUI")
   object WorkspaceInputUI: Screen("WorkspaceInputUI")
 
-  // auth
-  object Auth : Screen("auth")
-  object ForgotPassword : Screen("forgotPassword")
-
   // dashboard
   object Dashboard:Screen("Dashboard")
 

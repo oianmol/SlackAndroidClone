@@ -28,7 +28,8 @@ import coil.transform.RoundedCornersTransformation
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
-import dev.baseio.slackclone.uidashboard.custom.DragComposableView
+import dev.baseio.slackclone.uidashboard.chat.ChatScreenUI
+import dev.baseio.slackclone.uidashboard.custom.SlackDragComposableView
 import dev.baseio.slackclone.uidashboard.home.*
 
 @Composable
@@ -37,26 +38,38 @@ fun DashboardUI() {
   val dashboardNavController = rememberNavController()
 
   SlackCloneTheme {
-    var isOpenState by remember { mutableStateOf(false) }
+    var isLeftNavOpen by remember { mutableStateOf(false) }
+    val isChatViewOpen by remember { mutableStateOf(false) }
     val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
     val pxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
 
-    Box(Modifier.fillMaxWidth()) {
-      SideNavigation(Modifier.width(sideNavWidth))
-      DragComposableView(
-        isOpen = isOpenState,
-        dragOffset = (pxValue),
-        onOpen = {
-          isOpenState = true
-        },
-        onClose = {
-          isOpenState = false
-        }) { modifier ->
+    SlackDragComposableView(
+      isLeftNavOpen = isLeftNavOpen,
+      isChatViewOpen = isChatViewOpen,
+      mainScreenOffset = (pxValue),
+      onOpenCloseLeftView = {
+        isLeftNavOpen = true
+      },
+      onOpenCloseRightView = {
+        isLeftNavOpen = false
+      }, { modifier ->
         DashboardScaffold(scaffoldState, dashboardNavController, modifier) {
-          isOpenState = !isOpenState
+          isLeftNavOpen = !isLeftNavOpen
         }
-      }
-    }
+        if (isLeftNavOpen) {
+          Box(
+            Modifier
+              .fillMaxSize()
+              .background(Color.Black.copy(alpha = 0.4f))) {
+
+          }
+        }
+      }, { leftViewModifier ->
+        SideNavigation(leftViewModifier.width(sideNavWidth))
+      }, { chatViewModifier ->
+        ChatScreenUI(chatViewModifier)
+      })
+
   }
 
 
@@ -136,7 +149,10 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
 @Composable
 fun DashboardBottomNavBar(navController: NavHostController) {
   Column(Modifier.background(color = SlackCloneColorProvider.colors.uiBackground)) {
-    Divider(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.2f), thickness = 0.5.dp)
+    Divider(
+      color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.2f),
+      thickness = 0.5.dp
+    )
     BottomNavigation(backgroundColor = SlackCloneColorProvider.colors.uiBackground) {
       val navBackStackEntry by navController.currentBackStackEntryAsState()
       val currentDestination = navBackStackEntry?.destination
