@@ -35,6 +35,7 @@ dependencies {
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
   api(Lib.Async.COROUTINES)
+  api(Lib.Logger.TIMBER)
 
   /* Paging */
   implementation(Lib.Paging.PAGING_3)

@@ -5,7 +5,6 @@ import dev.baseio.slackclone.data.remote.model.NETJokeListData
 import dev.baseio.slackclone.data.sources.IJokesRemoteSource
 import dev.baseio.slackclone.domain.SafeResult
 import dev.baseio.slackclone.domain.model.DOMJokeList
-import dev.baseio.slackclone.domain.repository.IJokesRepo
 import java.lang.RuntimeException
 
 /**

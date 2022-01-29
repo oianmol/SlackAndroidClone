@@ -9,7 +9,6 @@ import dev.baseio.slackclone.data.repository.paging.GithubPagingSource
 import dev.baseio.slackclone.data.sources.IGithubReposRemoteSource
 import dev.baseio.slackclone.domain.model.DOMRepo
 import dev.baseio.slackclone.domain.model.DOMRepoList
-import dev.baseio.slackclone.domain.repository.IGithubRepo
 import kotlinx.coroutines.flow.Flow
 
 /**

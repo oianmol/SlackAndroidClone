@@ -5,5 +5,5 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SlackChannelVM @Inject constructor() : ViewModel() {
+class SlackChannelVM @Inject constructor(ucFetchChannels:UseCaseFetchChannels) : ViewModel() {
 }

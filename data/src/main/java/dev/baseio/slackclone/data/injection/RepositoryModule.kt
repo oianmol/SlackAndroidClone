@@ -6,8 +6,6 @@ import dev.baseio.slackclone.data.repository.GithubRepoImpl
 import dev.baseio.slackclone.data.repository.JokesRepoImpl
 import dev.baseio.slackclone.data.sources.IGithubReposRemoteSource
 import dev.baseio.slackclone.data.sources.IJokesRemoteSource
-import dev.baseio.slackclone.domain.repository.IGithubRepo
-import dev.baseio.slackclone.domain.repository.IJokesRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,8 +1,6 @@
 package dev.baseio.slackclone.domain.usecases
 
-/**
- * Created by Vipul Asri on 13/01/21.
- */
+import kotlinx.coroutines.flow.Flow
 
 interface BaseUseCase<out Result, in ExecutableParam> {
 
@@ -22,4 +20,6 @@ interface BaseUseCase<out Result, in ExecutableParam> {
    * @return
    */
   suspend fun perform(params: ExecutableParam): Result = throw NotImplementedError()
+
+  suspend fun performStreaming(params: ExecutableParam): Flow<Result> = throw NotImplementedError()
 }
