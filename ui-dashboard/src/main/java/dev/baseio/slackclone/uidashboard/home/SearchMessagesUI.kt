@@ -10,10 +10,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
@@ -70,10 +72,9 @@ private fun SearchTopAppBar() {
 
 @Composable
 private fun SearchMessagesTF(modifier: Modifier, search: String, onValueChange: (String) -> Unit) {
-  TextField(
+  BasicTextField(
     value = search,
     singleLine = true,
-    shape = SlackCloneShapes.medium,
     maxLines = 1,
     onValueChange = { newSearch ->
       onValueChange(newSearch)
@@ -81,28 +82,39 @@ private fun SearchMessagesTF(modifier: Modifier, search: String, onValueChange: 
     textStyle = SlackCloneTypography.subtitle1.copy(
       color = Color.White,
     ),
-    placeholder = {
-      Text(
-        "Search for messages and files",
-        style = SlackCloneTypography.subtitle1.copy(
-          color = Color.White,
+    decorationBox = {
+      Row(
+        Modifier
+          .background(
+            color = Color.White.copy(alpha = 0.2f),
+            shape = RoundedCornerShape(12.dp)
+          )
+          .padding(8.dp), verticalAlignment = Alignment.CenterVertically
+      ) {
+        Icon(
+          imageVector = Icons.Default.Search,
+          contentDescription = null,
+          tint = Color.White
         )
-      )
+        Text(
+          "Search for messages and files",
+          style = SlackCloneTypography.subtitle1.copy(
+            color = Color.White,
+          ),
+          modifier = Modifier.weight(1f)
+        )
+      }
     },
-    leadingIcon = {
-      Icon(
-        imageVector = Icons.Default.Search,
-        contentDescription = null,
-        tint = Color.White
-      )
-    },
-    modifier = modifier,
-    colors = TextFieldDefaults.textFieldColors(
-      backgroundColor = Color.White.copy(alpha = 0.2f),
-      cursorColor = SlackCloneColorProvider.colors.textPrimary,
-      unfocusedIndicatorColor = Color.Transparent,
-      focusedIndicatorColor = Color.Transparent
-    ),
+    modifier = modifier.padding(8.dp),
+    cursorBrush = SolidColor(Color.White),
   )
 
 }
+
+@Composable
+private fun searchTextFieldColors() = TextFieldDefaults.textFieldColors(
+  backgroundColor = Color.White.copy(alpha = 0.2f),
+  cursorColor = SlackCloneColorProvider.colors.textPrimary,
+  unfocusedIndicatorColor = Color.Transparent,
+  focusedIndicatorColor = Color.Transparent
+)
