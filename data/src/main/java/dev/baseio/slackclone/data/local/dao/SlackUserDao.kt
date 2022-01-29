@@ -11,7 +11,7 @@ interface SlackUserDao {
   @Query("SELECT * FROM slackuser")
   fun getAll(): List<SlackUser>
 
-  @Query("SELECT * FROM slackuser WHERE uid IN (:slackuserIds)")
+  @Query("SELECT * FROM slackuser WHERE uuid IN (:slackuserIds)")
   fun loadAllByIds(slackuserIds: IntArray): List<SlackUser>
 
   @Query(

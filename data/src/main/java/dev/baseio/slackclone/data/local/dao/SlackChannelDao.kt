@@ -6,11 +6,15 @@ import androidx.room.Insert
 import androidx.room.Query
 import dev.baseio.slackclone.data.local.model.SlackChannel
 import dev.baseio.slackclone.data.local.model.SlackUser
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SlackChannelDao {
   @Query("SELECT * FROM slackchannel")
   fun getAll(): List<SlackChannel>
+
+  @Query("SELECT * FROM slackchannel")
+  fun getAllAsFlow(): Flow<List<SlackChannel>>
 
   @Query("SELECT * FROM slackchannel WHERE uuid IN (:groupIds)")
   fun loadAllByIds(groupIds: Array<String>): List<SlackChannel>

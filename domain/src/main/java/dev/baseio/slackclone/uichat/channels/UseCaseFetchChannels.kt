@@ -17,32 +17,6 @@ import kotlin.coroutines.cancellation.CancellationException
 class UseCaseFetchChannels(private val localChannelsRepository: LocalChannelsRepository) :
   BaseUseCase<List<SlackChannel>, SlackChannelType> {
   override suspend fun performStreaming(params: SlackChannelType): Flow<List<SlackChannel>> {
-    return callbackFlow {
-      val callback = localChannelCallback(this, params)
-      localChannelsRepository.registerChannelUpdates(callback)
-      awaitClose { localChannelsRepository.unregisterChange(callback) }
-    }
+    return localChannelsRepository.fetchChannels(params)
   }
-
-  private fun localChannelCallback(
-    producerScope: ProducerScope<List<SlackChannel>>,
-    channelType: SlackChannelType
-  ) =
-    object :
-      LocalChannelsRepository.Callback<List<SlackChannel>> {
-      override fun onNextValue(value: List<SlackChannel>) {
-        producerScope.trySendBlocking(value)
-          .onFailure { throwable ->
-            Timber.e(throwable)
-          }
-      }
-
-      override var channelType: SlackChannelType = channelType
-
-      override fun onApiError(cause: Throwable) {
-        producerScope.cancel(CancellationException("API Error", cause))
-      }
-
-      override fun onCompleted() = producerScope.channel.close()
-    }
 }
