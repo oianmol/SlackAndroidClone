@@ -94,12 +94,12 @@ private fun chatScreenComposable(
       if (offsetX.targetValue > requiredOffset / 2) {
         coroutineScope.launch {
           offsetX.animateTo(requiredOffset, animationSpec = tween(150))
-          onOpen(false)
+          onOpen(true)
         }
       } else {
         coroutineScope.launch {
           offsetX.animateTo(0F, animationSpec = tween(150))
-          onOpen(true)
+          onOpen(false)
         }
       }
     }, {
