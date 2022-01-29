@@ -82,7 +82,7 @@ private fun SearchMessagesTF(modifier: Modifier, search: String, onValueChange: 
     textStyle = SlackCloneTypography.subtitle1.copy(
       color = Color.White,
     ),
-    decorationBox = {
+    decorationBox = { innerTextField ->
       Row(
         Modifier
           .background(
@@ -96,13 +96,18 @@ private fun SearchMessagesTF(modifier: Modifier, search: String, onValueChange: 
           contentDescription = null,
           tint = Color.White
         )
-        Text(
-          "Search for messages and files",
-          style = SlackCloneTypography.subtitle1.copy(
-            color = Color.White,
-          ),
-          modifier = Modifier.weight(1f)
-        )
+        if (search.isEmpty()) {
+          Text(
+            "Search for messages and files",
+            style = SlackCloneTypography.subtitle1.copy(
+              color = Color.White,
+            ),
+            modifier = Modifier.weight(1f)
+          )
+        } else {
+          innerTextField()
+        }
+
       }
     },
     modifier = modifier.padding(8.dp),
