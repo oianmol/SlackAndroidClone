@@ -1,6 +1,8 @@
 package dev.baseio.slackclone.uidashboard.home
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
@@ -23,7 +25,7 @@ import dev.baseio.slackclone.uidashboard.home.channels.*
 @Composable
 fun HomeScreenUI(appBarIconClick: () -> Unit) {
   SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground, modifier = Modifier.fillMaxSize()) {
-    Column {
+    Column(Modifier.verticalScroll(rememberScrollState())) {
       SlackMMTopAppBar(appBarIconClick)
       JumpToText()
       ThreadsTile()

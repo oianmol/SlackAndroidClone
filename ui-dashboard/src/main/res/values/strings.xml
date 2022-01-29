@@ -23,4 +23,8 @@
     <string name="direct_messages">Direct messages</string>
     <string name="channels">Channels</string>
     <string name="connections">Connections</string>
+    <string name="browse_people">Browse People</string>
+    <string name="browse_channels">Browse Channels</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="narrow_your_search">Narrow Your Search</string>
 </resources>

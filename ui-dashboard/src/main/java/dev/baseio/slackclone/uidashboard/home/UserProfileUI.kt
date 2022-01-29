@@ -3,7 +3,9 @@ package dev.baseio.slackclone.uidashboard.home
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -30,7 +32,7 @@ fun UserProfileUI() {
     color = SlackCloneColorProvider.colors.uiBackground,
     modifier = Modifier.fillMaxSize()
   ) {
-    Column() {
+    Column(Modifier.verticalScroll(rememberScrollState())) {
       SearchTopAppBar()
       UserHeader()
       Box(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
@@ -64,25 +66,72 @@ private fun SearchTopAppBar() {
 }
 
 
-@ExperimentalMaterialApi
 @Composable
-fun SlackListItem(icon: ImageVector, title: String) {
-  ListItem(icon = {
+fun SlackListItemTrailingView(
+  icon: ImageVector,
+  title: String,
+  trailingView: @Composable () -> Unit= {}
+) {
+  Row(modifier = Modifier
+    .padding(12.dp)
+    .clickable { }) {
     Icon(
       imageVector = icon,
       contentDescription = null,
-      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)
+      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f),
+      modifier = Modifier
+        .size(24.dp)
+        .padding(4.dp)
     )
-  }, text = {
     Text(
       text = title,
       style = SlackCloneTypography.subtitle1.copy(
         color = SlackCloneColorProvider.colors.textPrimary.copy(
           alpha = 0.8f
         )
-      )
+      ), modifier = Modifier
+        .weight(1f)
+        .padding(4.dp)
     )
-  }, modifier = Modifier.clickable {  })
+    trailingView()
+  }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun SlackListItem(icon: ImageVector, title: String, trailingItem: ImageVector? = null) {
+  Row(modifier = Modifier
+    .padding(12.dp)
+    .clickable { }) {
+    Icon(
+      imageVector = icon,
+      contentDescription = null,
+      tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f),
+      modifier = Modifier
+        .size(24.dp)
+        .padding(4.dp)
+    )
+    Text(
+      text = title,
+      style = SlackCloneTypography.subtitle1.copy(
+        color = SlackCloneColorProvider.colors.textPrimary.copy(
+          alpha = 0.8f
+        )
+      ), modifier = Modifier
+        .weight(1f)
+        .padding(4.dp)
+    )
+    trailingItem?.let { safeIcon ->
+      Icon(
+        imageVector = safeIcon,
+        contentDescription = null,
+        tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f),
+        modifier = Modifier
+          .size(24.dp)
+          .padding(4.dp)
+      )
+    }
+  }
 }
 
 @Composable

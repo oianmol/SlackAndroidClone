@@ -45,8 +45,8 @@ fun SKExpandCollapseColumn(
       ToggleButton(expandCollapseModel, onExpandCollapse)
     }
     AnimatedVisibility(visible = expandCollapseModel.isOpen) {
-      LazyColumn {
-        items(10) {
+      Column {
+        repeat(10) {
           SlackListItem(icon = Icons.Default.Lock, title = stringResource(R.string.some_project))
         }
       }
