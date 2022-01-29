@@ -3,6 +3,7 @@ package dev.baseio.slackclone.uidashboard.compose
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -39,35 +40,31 @@ fun DashboardUI() {
 
   SlackCloneTheme {
     var isLeftNavOpen by remember { mutableStateOf(false) }
-    val isChatViewOpen by remember { mutableStateOf(false) }
+    var isChatViewClosed by remember { mutableStateOf(true) }
     val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
     val pxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
 
     SlackDragComposableView(
       isLeftNavOpen = isLeftNavOpen,
-      isChatViewOpen = isChatViewOpen,
+      isChatViewClosed = isChatViewClosed,
       mainScreenOffset = (pxValue),
       onOpenCloseLeftView = {
-        isLeftNavOpen = true
+        isLeftNavOpen = it
       },
       onOpenCloseRightView = {
-        isLeftNavOpen = false
+        isChatViewClosed = it
       }, { modifier ->
-        DashboardScaffold(scaffoldState, dashboardNavController, modifier) {
+        DashboardScaffold(isLeftNavOpen,scaffoldState, dashboardNavController, modifier, {
           isLeftNavOpen = !isLeftNavOpen
-        }
-        if (isLeftNavOpen) {
-          Box(
-            Modifier
-              .fillMaxSize()
-              .background(Color.Black.copy(alpha = 0.4f))) {
-
-          }
+        }) {
+          isChatViewClosed = false
         }
       }, { leftViewModifier ->
         SideNavigation(leftViewModifier.width(sideNavWidth))
       }, { chatViewModifier ->
-        ChatScreenUI(chatViewModifier)
+        ChatScreenUI(chatViewModifier) {
+          isChatViewClosed = true
+        }
       })
 
   }
@@ -77,10 +74,12 @@ fun DashboardUI() {
 
 @Composable
 private fun DashboardScaffold(
+  isLeftNavOpen:Boolean,
   scaffoldState: ScaffoldState,
   dashboardNavController: NavHostController,
   modifier: Modifier,
-  appBarIconClick: () -> Unit
+  appBarIconClick: () -> Unit,
+  onItemClick: () -> Unit,
 ) {
   Scaffold(
     backgroundColor = SlackCloneColorProvider.colors.uiBackground,
@@ -113,7 +112,7 @@ private fun DashboardScaffold(
           startDestination = Screen.Home.route,
         ) {
           composable(Screen.Home.route) {
-            HomeScreenUI(appBarIconClick)
+            HomeScreenUI(appBarIconClick, onItemClick)
           }
           composable(Screen.DMs.route) {
             DirectMessagesUI()
@@ -128,6 +127,17 @@ private fun DashboardScaffold(
             UserProfileUI()
           }
         }
+      }
+    }
+    if (isLeftNavOpen) {
+      Box(
+        Modifier
+          .fillMaxSize().clickable {
+            appBarIconClick()
+          }
+          .background(Color.Black.copy(alpha = 0.4f))
+      ) {
+
       }
     }
   }

@@ -8,6 +8,7 @@ import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @Composable
 fun SlackDirectMessages(
+  onItemClick: () -> Unit = {}
 ) {
   val recent = stringResource(R.string.direct_messages)
   var expandCollapseModel by remember {
@@ -17,7 +18,7 @@ fun SlackDirectMessages(
       isOpen = false
     ))
   }
-  SKExpandCollapseColumn(expandCollapseModel) {
+  SKExpandCollapseColumn(expandCollapseModel, onItemClick) {
     expandCollapseModel = expandCollapseModel.copy(isOpen = it)
   }
 }

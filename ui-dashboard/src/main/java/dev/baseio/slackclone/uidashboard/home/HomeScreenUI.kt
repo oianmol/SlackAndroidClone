@@ -24,18 +24,29 @@ import dev.baseio.slackclone.uidashboard.compose.SlackImageBox
 import dev.baseio.slackclone.uidashboard.home.channels.*
 
 @Composable
-fun HomeScreenUI(appBarIconClick: () -> Unit) {
+fun HomeScreenUI(appBarIconClick: () -> Unit,onItemClick: () -> Unit = {}) {
   SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground, modifier = Modifier.fillMaxSize()) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
       SlackMMTopAppBar(appBarIconClick)
       JumpToText()
       ThreadsTile()
       Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-      SlackRecentChannels()
-      SlackStarredChannels()
-      SlackDirectMessages()
-      SlackAllChannels()
-      SlackConnections()
+      SlackRecentChannels {
+        onItemClick()
+      }
+      SlackStarredChannels {
+        onItemClick()
+      }
+      SlackDirectMessages {
+        onItemClick()
+      }
+      SlackAllChannels {
+        onItemClick()
+      }
+
+      SlackConnections {
+        onItemClick()
+      }
     }
   }
 }
@@ -66,7 +77,7 @@ fun JumpToText() {
 }
 
 @Composable
-fun SlackMMTopAppBar(appBarIconClick: () -> Unit) {
+private fun SlackMMTopAppBar(appBarIconClick: () -> Unit) {
   SlackSurfaceAppBar(
     title = {
       Text(text = "mutualmobile", style = SlackCloneTypography.h5.copy(color = Color.White))

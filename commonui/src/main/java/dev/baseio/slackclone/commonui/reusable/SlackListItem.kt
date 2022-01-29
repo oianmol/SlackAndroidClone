@@ -17,10 +17,18 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SlackListItem(icon: ImageVector, title: String, trailingItem: ImageVector? = null) {
-  Row(modifier = Modifier
-    .padding(12.dp)
-    .clickable { }, verticalAlignment = Alignment.CenterVertically
+fun SlackListItem(
+  icon: ImageVector,
+  title: String,
+  trailingItem: ImageVector? = null,
+  onItemClick: () -> Unit = {}
+) {
+  Row(
+    modifier = Modifier
+      .padding(12.dp)
+      .clickable {
+        onItemClick()
+      }, verticalAlignment = Alignment.CenterVertically
   ) {
     Icon(
       imageVector = icon,

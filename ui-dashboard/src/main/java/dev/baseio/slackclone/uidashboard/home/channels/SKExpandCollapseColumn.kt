@@ -26,37 +26,49 @@ import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 @Composable
 fun SKExpandCollapseColumn(
   expandCollapseModel: ExpandCollapseModel,
-  onExpandCollapse: (isChecked: Boolean) -> Unit
-) {
+  onItemClick: () -> Unit = {},
+  onExpandCollapse: (isChecked: Boolean) -> Unit,
+  ) {
   Column(
     Modifier
       .fillMaxWidth()
       .padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp)
   ) {
     Row(
-      Modifier.fillMaxWidth().clickable {
-        onExpandCollapse(!expandCollapseModel.isOpen)
-      },
+      Modifier
+        .fillMaxWidth()
+        .clickable {
+          onExpandCollapse(!expandCollapseModel.isOpen)
+        },
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Text(text = expandCollapseModel.title,
+      Text(
+        text = expandCollapseModel.title,
         style = SlackCloneTypography.subtitle2.copy(fontWeight = FontWeight.SemiBold),
-        modifier = Modifier.weight(1f))
+        modifier = Modifier.weight(1f)
+      )
       AddButton(expandCollapseModel)
       ToggleButton(expandCollapseModel, onExpandCollapse)
     }
-    ChannelsList(expandCollapseModel)
+    ChannelsList(expandCollapseModel, onItemClick)
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
   }
 }
 
 @Composable
-private fun ColumnScope.ChannelsList(expandCollapseModel: ExpandCollapseModel) {
+private fun ColumnScope.ChannelsList(
+  expandCollapseModel: ExpandCollapseModel,
+  onItemClick: () -> Unit = {}
+) {
   AnimatedVisibility(visible = expandCollapseModel.isOpen) {
     Column {
       repeat(10) {
-        SlackListItem(icon = Icons.Default.Lock, title = stringResource(R.string.some_project))
+        SlackListItem(
+          icon = Icons.Default.Lock,
+          title = stringResource(R.string.some_project),
+          onItemClick = onItemClick
+        )
       }
     }
   }
@@ -65,8 +77,8 @@ private fun ColumnScope.ChannelsList(expandCollapseModel: ExpandCollapseModel) {
 @Composable
 private fun AddButton(
   expandCollapseModel: ExpandCollapseModel,
-  ) {
-  if(expandCollapseModel.needsPlusButton){
+) {
+  if (expandCollapseModel.needsPlusButton) {
     IconButton(onClick = {
 
     }) {

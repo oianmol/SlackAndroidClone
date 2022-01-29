@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 @Composable
 fun SlackDragComposableView(
   isLeftNavOpen: Boolean,
-  isChatViewOpen: Boolean,
+  isChatViewClosed: Boolean,
   mainScreenOffset: Float,
   onOpenCloseLeftView: (Boolean) -> Unit,
   onOpenCloseRightView: (Boolean) -> Unit,
@@ -36,7 +36,7 @@ fun SlackDragComposableView(
     Animatable(viewOffset(isLeftNavOpen, mainScreenOffset))
   }
   val chatViewOffX = remember {
-    Animatable(viewOffset(!isChatViewOpen, chatScreenOffset))
+    Animatable(viewOffset(isChatViewClosed, chatScreenOffset))
   }
 
   val coroutineScope = rememberCoroutineScope()
@@ -47,7 +47,7 @@ fun SlackDragComposableView(
     }
     coroutineScope.launch {
       chatViewOffX.animateTo(
-        viewOffset(!isChatViewOpen, chatScreenOffset),
+        viewOffset(isChatViewClosed, chatScreenOffset),
       )
     }
   }
@@ -69,14 +69,14 @@ fun SlackDragComposableView(
 
 }
 
-private fun viewOffset(isOpen: Boolean, dragOffset: Float) =
-  if (isOpen) dragOffset else 0f
+private fun viewOffset(needsOpen: Boolean, offset: Float) =
+  if (needsOpen) offset else 0f
 
 
 @Composable
 private fun chatScreenComposable(
   offsetX: Animatable<Float, AnimationVector1D>,
-  dragOffset: Float,
+  requiredOffset: Float,
   coroutineScope: CoroutineScope,
   onOpen: (Boolean) -> Unit,
 ) = Modifier
@@ -91,15 +91,15 @@ private fun chatScreenComposable(
       //start
     }, {
       //end
-      if (offsetX.targetValue > dragOffset / 2) {
+      if (offsetX.targetValue > requiredOffset / 2) {
         coroutineScope.launch {
-          offsetX.animateTo(dragOffset, animationSpec = tween(150))
-          onOpen(true)
+          offsetX.animateTo(requiredOffset, animationSpec = tween(150))
+          onOpen(false)
         }
       } else {
         coroutineScope.launch {
           offsetX.animateTo(0F, animationSpec = tween(150))
-          onOpen(false)
+          onOpen(true)
         }
       }
     }, {
@@ -107,7 +107,7 @@ private fun chatScreenComposable(
 
     }, { change, dragAmount ->
       val summed = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
-      val newDragValue = Offset(x = summed.x.coerceIn(0f, dragOffset), y = 0f)
+      val newDragValue = Offset(x = summed.x.coerceIn(0f, requiredOffset), y = 0f)
       change.consumePositionChange()
       coroutineScope.launch {
         offsetX.animateTo(newDragValue.x, animationSpec = tween(50))

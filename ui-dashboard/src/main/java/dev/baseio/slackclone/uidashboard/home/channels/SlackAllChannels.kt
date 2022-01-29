@@ -7,7 +7,7 @@ import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.uidashboard.home.channels.data.ExpandCollapseModel
 
 @Composable
-fun SlackAllChannels() {
+fun SlackAllChannels(onItemClick: () -> Unit = {}) {
   val recent = stringResource(R.string.channels)
   var expandCollapseModel by remember {
     mutableStateOf(
@@ -18,7 +18,7 @@ fun SlackAllChannels() {
       )
     )
   }
-  SKExpandCollapseColumn(expandCollapseModel) {
+  SKExpandCollapseColumn(expandCollapseModel = expandCollapseModel, onItemClick = onItemClick) {
     expandCollapseModel = expandCollapseModel.copy(isOpen = it)
   }
 }
