@@ -9,8 +9,6 @@ plugins {
   id("org.jlleitschuh.gradle.ktlint")
 }
 
-
-
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
@@ -64,8 +62,6 @@ android {
       signingConfig = signingConfigs.getByName("debug")
     }
   }
-
-
 
   buildFeatures {
     dataBinding = true
