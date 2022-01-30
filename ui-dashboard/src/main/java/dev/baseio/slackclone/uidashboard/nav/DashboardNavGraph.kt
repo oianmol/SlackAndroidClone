@@ -10,13 +10,14 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.Screen
 import dev.baseio.slackclone.uidashboard.compose.DashboardUI
+import io.getstream.butterfly.compose.WindowDpSize
 
 @Composable
 fun DashboardNavGraph(
-  composeNavigator: ComposeNavigator
+  composeNavigator: ComposeNavigator,
+  windowDpSize: WindowDpSize
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
     SlackCloneSurface(
@@ -32,7 +33,7 @@ fun DashboardNavGraph(
         startDestination = Screen.Dashboard.route
       ) {
         composable(Screen.Dashboard.route){
-          DashboardUI()
+          DashboardUI(windowDpSize)
         }
 
       }

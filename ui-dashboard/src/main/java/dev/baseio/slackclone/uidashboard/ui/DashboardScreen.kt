@@ -13,6 +13,8 @@ import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import dev.baseio.slackclone.uidashboard.nav.DashboardNavGraph
+import io.getstream.butterfly.compose.WindowDpSize
+import io.getstream.butterfly.compose.rememberWindowDpSize
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,6 +36,8 @@ class DashboardScreen : Fragment() {
     setViewCompositionStrategy(DisposeOnViewTreeLifecycleDestroyed)
 
     setContent {
+      val windowDpSize: WindowDpSize = rememberWindowDpSize()
+
       // Create a Compose MaterialTheme inheriting the existing colors, typography
       // and shapes of the current View system's theme
       SlackCloneTheme {
@@ -45,7 +49,7 @@ class DashboardScreen : Fragment() {
          * by finding the NavController and navigating to the destination:
          */
         DashboardNavGraph(
-          composeNavigator = composeNavigator
+          composeNavigator = composeNavigator,windowDpSize
         )
       }
     }

@@ -55,6 +55,9 @@ object Lib {
     const val CONSTRAINT_LAYOUT_COMPOSE =
       "androidx.constraintlayout:constraintlayout-compose:${COMPOSE_CONSTRAINT_LAYOUT_VERSION}"
     const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
+    const val BUTTERFLY = "io.getstream:butterfly:1.0.1"
+    const val BUTTERFLY_LIVE = "io.getstream:butterfly-livedata:1.0.1"
+    const val BUTTERFLY_COMPOSE =  "io.getstream:butterfly-compose:1.0.1"
     const val ACCOMPANIST_SYSTEM_UI_CONTROLLER =
       "com.google.accompanist:accompanist-systemuicontroller:0.24.0-alpha"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${COMPOSE_COIL_VERSION}"

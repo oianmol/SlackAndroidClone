@@ -30,52 +30,108 @@ import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 import dev.baseio.slackclone.uidashboard.chat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
+import io.getstream.butterfly.WindowSize
+import io.getstream.butterfly.compose.WindowDpSize
 
+/**
+ *  * Compact: Most phones in portrait mode
+ * Medium: Most foldables and tablets in portrait mode
+ * Expanded: Most tablets in landscape mode
+ */
 @Composable
-fun DashboardUI() {
+fun DashboardUI(windowDpSize: WindowDpSize) {
   val scaffoldState = rememberScaffoldState()
   val dashboardNavController = rememberNavController()
 
   SlackCloneTheme {
-    var lastChannel by remember {
-      mutableStateOf<ChatPresentation.SlackChannel?>(null)
-    }
-    var isLeftNavOpen by remember { mutableStateOf(false) }
-    var isChatViewClosed by remember { mutableStateOf(true) }
-    val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
-    val pxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
-
-    SlackDragComposableView(
-      isLeftNavOpen = isLeftNavOpen,
-      isChatViewClosed = lastChannel == null || isChatViewClosed,
-      canOpenChatView = lastChannel != null,
-      mainScreenOffset = (pxValue),
-      onOpenCloseLeftView = {
-        isLeftNavOpen = it
-      },
-      onOpenCloseRightView = {
-        isChatViewClosed = it
-      }, { modifier ->
-        DashboardScaffold(isLeftNavOpen, scaffoldState, dashboardNavController, modifier, {
-          isLeftNavOpen = !isLeftNavOpen
-        }) {
-          lastChannel = it
-          isChatViewClosed = false
-        }
-      }, { leftViewModifier ->
-        SideNavigation(leftViewModifier.width(sideNavWidth))
-      }, { chatViewModifier ->
-        lastChannel?.let { slackChannel ->
-          ChatScreenUI(chatViewModifier, slackChannel, {
-            isChatViewClosed = true
-          })
-        }
+    when (windowDpSize) {
+      is WindowDpSize.Compact -> MobileDashboardUI(scaffoldState, dashboardNavController)
+      is WindowDpSize.Medium -> MobileDashboardUI(scaffoldState, dashboardNavController)
+      is WindowDpSize.Expanded -> LandscapeDashboardUI(scaffoldState, dashboardNavController)
+      else -> {
+        MobileDashboardUI(scaffoldState, dashboardNavController)
       }
-    )
+    }
+
 
   }
 
 
+}
+
+@Composable
+private fun LandscapeDashboardUI(
+  scaffoldState: ScaffoldState,
+  dashboardNavController: NavHostController
+) {
+  var lastChannel by remember {
+    mutableStateOf<ChatPresentation.SlackChannel?>(null)
+  }
+  val sideNavWidth =
+    LocalConfiguration.current.screenWidthDp.dp * 0.2f
+  val mainContentWidth =
+    LocalConfiguration.current.screenWidthDp.dp * (if (lastChannel == null) 0.8f else 0.0f)
+  val chatScreenWidth =
+    LocalConfiguration.current.screenWidthDp.dp * (if (lastChannel != null) 0.8f else 0f)
+  Row {
+    SideNavigation(Modifier.width(sideNavWidth))
+    DashboardScaffold(
+      false,
+      scaffoldState,
+      dashboardNavController,
+      Modifier.width(mainContentWidth),
+      {
+      }) {
+      lastChannel = it
+    }
+    lastChannel?.let {
+      ChatScreenUI(Modifier.width(chatScreenWidth), it, {
+        lastChannel = null
+      })
+    }
+  }
+}
+
+@Composable
+private fun MobileDashboardUI(
+  scaffoldState: ScaffoldState,
+  dashboardNavController: NavHostController
+) {
+  var lastChannel by remember {
+    mutableStateOf<ChatPresentation.SlackChannel?>(null)
+  }
+  var isLeftNavOpen by remember { mutableStateOf(false) }
+  var isChatViewClosed by remember { mutableStateOf(true) }
+  val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
+  val pxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
+
+  SlackDragComposableView(
+    isLeftNavOpen = isLeftNavOpen,
+    isChatViewClosed = lastChannel == null || isChatViewClosed,
+    canOpenChatView = lastChannel != null,
+    mainScreenOffset = (pxValue),
+    onOpenCloseLeftView = {
+      isLeftNavOpen = it
+    },
+    onOpenCloseRightView = {
+      isChatViewClosed = it
+    }, { modifier ->
+      DashboardScaffold(isLeftNavOpen, scaffoldState, dashboardNavController, modifier, {
+        isLeftNavOpen = !isLeftNavOpen
+      }) {
+        lastChannel = it
+        isChatViewClosed = false
+      }
+    }, { leftViewModifier ->
+      SideNavigation(leftViewModifier.width(sideNavWidth))
+    }, { chatViewModifier ->
+      lastChannel?.let { slackChannel ->
+        ChatScreenUI(chatViewModifier, slackChannel, {
+          isChatViewClosed = true
+        })
+      }
+    }
+  )
 }
 
 @Composable
