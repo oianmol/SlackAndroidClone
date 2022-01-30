@@ -9,17 +9,13 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
 import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
-import dev.baseio.slackclone.uichat.R
 import dev.baseio.slackclone.uichat.models.ChatPresentation
-import dev.baseio.slackclone.uidashboard.chat.lock
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

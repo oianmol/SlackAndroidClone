@@ -23,15 +23,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.window.layout.WindowLayoutInfo
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.uichat.models.ChatPresentation
-import dev.baseio.slackclone.uidashboard.chat.ChatScreenUI
+import dev.baseio.slackclone.uichat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
-import io.getstream.butterfly.WindowSize
 import io.getstream.butterfly.compose.WindowDpSize
+import io.getstream.butterfly.findFoldingFeature
 
 /**
  *  * Compact: Most phones in portrait mode
@@ -39,21 +40,36 @@ import io.getstream.butterfly.compose.WindowDpSize
  * Expanded: Most tablets in landscape mode
  */
 @Composable
-fun DashboardUI(windowDpSize: WindowDpSize) {
+fun DashboardUI(windowDpSize: WindowDpSize, windowLayoutInfoState: State<WindowLayoutInfo>) {
   val scaffoldState = rememberScaffoldState()
   val dashboardNavController = rememberNavController()
 
   SlackCloneTheme {
-    when (windowDpSize) {
-      is WindowDpSize.Compact -> MobileDashboardUI(scaffoldState, dashboardNavController)
-      is WindowDpSize.Medium -> MobileDashboardUI(scaffoldState, dashboardNavController)
-      is WindowDpSize.Expanded -> LandscapeDashboardUI(scaffoldState, dashboardNavController)
-      else -> {
-        MobileDashboardUI(scaffoldState, dashboardNavController)
+    val foldingFeature = windowLayoutInfoState.value.displayFeatures.findFoldingFeature()
+    if (foldingFeature == null) {
+      MobileDashboardUI(scaffoldState, dashboardNavController, windowDpSize)
+    } else {
+      when (windowDpSize) {
+        is WindowDpSize.Compact -> MobileDashboardUI(
+          scaffoldState,
+          dashboardNavController,
+          windowDpSize
+        )
+        is WindowDpSize.Medium -> MobileDashboardUI(
+          scaffoldState,
+          dashboardNavController,
+          windowDpSize
+        )
+        is WindowDpSize.Expanded -> LandscapeDashboardUI(
+          scaffoldState,
+          dashboardNavController,
+          windowDpSize
+        )
+        else -> {
+          MobileDashboardUI(scaffoldState, dashboardNavController, windowDpSize)
+        }
       }
     }
-
-
   }
 
 
@@ -62,7 +78,8 @@ fun DashboardUI(windowDpSize: WindowDpSize) {
 @Composable
 private fun LandscapeDashboardUI(
   scaffoldState: ScaffoldState,
-  dashboardNavController: NavHostController
+  dashboardNavController: NavHostController,
+  windowDpSize: WindowDpSize
 ) {
   var lastChannel by remember {
     mutableStateOf<ChatPresentation.SlackChannel?>(null)
@@ -76,6 +93,7 @@ private fun LandscapeDashboardUI(
   Row {
     SideNavigation(Modifier.width(sideNavWidth))
     DashboardScaffold(
+      windowDpSize,
       false,
       scaffoldState,
       dashboardNavController,
@@ -95,7 +113,8 @@ private fun LandscapeDashboardUI(
 @Composable
 private fun MobileDashboardUI(
   scaffoldState: ScaffoldState,
-  dashboardNavController: NavHostController
+  dashboardNavController: NavHostController,
+  windowDpSize: WindowDpSize
 ) {
   var lastChannel by remember {
     mutableStateOf<ChatPresentation.SlackChannel?>(null)
@@ -107,35 +126,47 @@ private fun MobileDashboardUI(
 
   SlackDragComposableView(
     isLeftNavOpen = isLeftNavOpen,
-    isChatViewClosed = lastChannel == null || isChatViewClosed,
-    canOpenChatView = lastChannel != null,
-    mainScreenOffset = (pxValue),
+    isChatViewClosed = checkChatViewClosed(lastChannel, isChatViewClosed),
+    mainScreenOffset = pxValue,
     onOpenCloseLeftView = {
       isLeftNavOpen = it
     },
     onOpenCloseRightView = {
       isChatViewClosed = it
-    }, { modifier ->
-      DashboardScaffold(isLeftNavOpen, scaffoldState, dashboardNavController, modifier, {
-        isLeftNavOpen = !isLeftNavOpen
-      }) {
+    },
+    { modifier ->
+      DashboardScaffold(
+        windowDpSize,
+        isLeftNavOpen,
+        scaffoldState,
+        dashboardNavController,
+        modifier,
+        {
+          isLeftNavOpen = !isLeftNavOpen
+        }) {
         lastChannel = it
         isChatViewClosed = false
       }
     }, { leftViewModifier ->
       SideNavigation(leftViewModifier.width(sideNavWidth))
-    }, { chatViewModifier ->
-      lastChannel?.let { slackChannel ->
-        ChatScreenUI(chatViewModifier, slackChannel, {
-          isChatViewClosed = true
-        })
-      }
     }
-  )
+  ) { chatViewModifier ->
+    lastChannel?.let { slackChannel ->
+      ChatScreenUI(chatViewModifier, slackChannel, {
+        isChatViewClosed = true
+      })
+    }
+  }
 }
+
+private fun checkChatViewClosed(
+  lastChannel: ChatPresentation.SlackChannel?,
+  isChatViewClosed: Boolean
+) = lastChannel == null || isChatViewClosed
 
 @Composable
 private fun DashboardScaffold(
+  windowDpSize: WindowDpSize,
   isLeftNavOpen: Boolean,
   scaffoldState: ScaffoldState,
   dashboardNavController: NavHostController,
@@ -151,7 +182,7 @@ private fun DashboardScaffold(
       .navigationBarsPadding(),
     scaffoldState = scaffoldState,
     bottomBar = {
-      DashboardBottomNavBar(dashboardNavController)
+      DashboardBottomNavBar(dashboardNavController, windowDpSize)
     },
     snackbarHost = {
       scaffoldState.snackbarHostState
@@ -225,7 +256,7 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
 }
 
 @Composable
-fun DashboardBottomNavBar(navController: NavHostController) {
+fun DashboardBottomNavBar(navController: NavHostController, windowDpSize: WindowDpSize) {
   Column(Modifier.background(color = SlackCloneColorProvider.colors.uiBackground)) {
     Divider(
       color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.2f),
@@ -236,7 +267,7 @@ fun DashboardBottomNavBar(navController: NavHostController) {
       val currentDestination = navBackStackEntry?.destination
       val dashTabs = getDashTabs()
       dashTabs.forEach { screen ->
-        BottomNavItem(screen, currentDestination, navController)
+        BottomNavItem(screen, currentDestination, navController, windowDpSize)
       }
     }
   }
@@ -246,17 +277,21 @@ fun DashboardBottomNavBar(navController: NavHostController) {
 private fun RowScope.BottomNavItem(
   screen: Screen,
   currentDestination: NavDestination?,
-  navController: NavHostController
+  navController: NavHostController,
+  windowDpSize: WindowDpSize
 ) {
   BottomNavigationItem(
     selectedContentColor = SlackCloneColorProvider.colors.bottomNavSelectedColor,
     unselectedContentColor = SlackCloneColorProvider.colors.bottomNavUnSelectedColor,
     icon = { Icon(screen.image, contentDescription = null) },
     label = {
-      Text(
-        stringResource(screen.resourceId),
-        style = SlackCloneTypography.caption
-      )
+      if (windowDpSize !is WindowDpSize.Compact) {
+        Text(
+          stringResource(screen.resourceId),
+          style = SlackCloneTypography.caption
+        )
+      }
+
     },
     selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
     onClick = {

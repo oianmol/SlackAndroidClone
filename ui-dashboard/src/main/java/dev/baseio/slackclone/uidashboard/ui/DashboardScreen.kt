@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.baseio.slackclone.uidashboard.nav.DashboardNavGraph
 import io.getstream.butterfly.compose.WindowDpSize
 import io.getstream.butterfly.compose.rememberWindowDpSize
+import io.getstream.butterfly.compose.windowLayoutInfoState
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,7 +50,7 @@ class DashboardScreen : Fragment() {
          * by finding the NavController and navigating to the destination:
          */
         DashboardNavGraph(
-          composeNavigator = composeNavigator,windowDpSize
+          composeNavigator = composeNavigator,windowDpSize,windowLayoutInfoState
         )
       }
     }

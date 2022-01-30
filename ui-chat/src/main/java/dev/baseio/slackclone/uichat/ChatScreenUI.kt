@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uidashboard.chat
+package dev.baseio.slackclone.uichat
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -19,7 +19,6 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.uichat.ChatThreadVM
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable

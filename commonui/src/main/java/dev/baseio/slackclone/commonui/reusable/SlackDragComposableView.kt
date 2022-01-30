@@ -23,7 +23,6 @@ import kotlin.math.roundToInt
 fun SlackDragComposableView(
   isLeftNavOpen: Boolean,
   isChatViewClosed: Boolean,
-  canOpenChatView: Boolean,
   mainScreenOffset: Float,
   onOpenCloseLeftView: (Boolean) -> Unit,
   onOpenCloseRightView: (Boolean) -> Unit,
@@ -43,7 +42,7 @@ fun SlackDragComposableView(
 
   val coroutineScope = rememberCoroutineScope()
 
-  initialOffsetsSideEffect(
+  InitialOffsetsSideEffect(
     coroutineScope,
     sideNavOffX,
     isLeftNavOpen,
@@ -80,7 +79,7 @@ fun SlackDragComposableView(
 }
 
 @Composable
-private fun initialOffsetsSideEffect(
+private fun InitialOffsetsSideEffect(
   coroutineScope: CoroutineScope,
   sideNavOffX: Animatable<Float, AnimationVector1D>,
   isLeftNavOpen: Boolean,
@@ -125,6 +124,7 @@ private fun chatScreenModifier(
       //cancel
 
     }, { change, dragAmount ->
+      // this moves the chat view left/right
       val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
       val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, requiredOffset), y = 0f)
       change.consumePositionChange()
@@ -134,7 +134,6 @@ private fun chatScreenModifier(
     })
   }
 
-@Composable
 private fun mainScreenModifier(
   offsetX: Animatable<Float, AnimationVector1D>,
   dragOffset: Float,
@@ -221,14 +220,14 @@ private fun mainAnimateOffset(
   chatViewOffX: Animatable<Float, AnimationVector1D>,
   chatScreenOffset: Float
 ) {
-  if (true) {
-    val summedChat = Offset(x = chatViewOffX.targetValue + dragAmount, y = 0f)
-    val chatNewDragValueMain = Offset(x = summedChat.x.coerceIn(0f, chatScreenOffset), y = 0f)
-    change.consumePositionChange()
-    coroutineScope.launch {
-      chatViewOffX.animateTo(chatNewDragValueMain.x, animationSpec = tween(50))
-    }
+  // this moves the chat view from right to left/left to right
+  val summedChat = Offset(x = chatViewOffX.targetValue + dragAmount, y = 0f)
+  val chatNewDragValueMain = Offset(x = summedChat.x.coerceIn(0f, chatScreenOffset), y = 0f)
+  change.consumePositionChange()
+  coroutineScope.launch {
+    chatViewOffX.animateTo(chatNewDragValueMain.x, animationSpec = tween(50))
   }
+  // this moved the main view left/right
   val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
   val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, mainDragOffset), y = 0f)
   change.consumePositionChange()
