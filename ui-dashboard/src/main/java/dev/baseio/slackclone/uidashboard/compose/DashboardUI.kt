@@ -285,12 +285,12 @@ private fun RowScope.BottomNavItem(
     unselectedContentColor = SlackCloneColorProvider.colors.bottomNavUnSelectedColor,
     icon = { Icon(screen.image, contentDescription = null) },
     label = {
-      if (windowDpSize !is WindowDpSize.Compact) {
+      
         Text(
           stringResource(screen.resourceId),
           style = SlackCloneTypography.caption
         )
-      }
+      
 
     },
     selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
