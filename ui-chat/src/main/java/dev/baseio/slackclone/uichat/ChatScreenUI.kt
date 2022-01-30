@@ -45,12 +45,7 @@ fun ChatScreenUI(
       }
     ) { innerPadding ->
       Box(modifier = Modifier.padding(innerPadding)) {
-        SlackCloneSurface(
-          color = Color.White,
-          modifier = Modifier.fillMaxSize()
-        ) {
 
-        }
       }
     }
   }
