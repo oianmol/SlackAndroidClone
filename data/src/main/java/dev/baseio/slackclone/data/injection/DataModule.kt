@@ -22,10 +22,10 @@ object DataModule {
   @Provides
   @Singleton
   fun provideDatabase(@ApplicationContext context: Context): SlackDatabase {
-    return Room.databaseBuilder(
+    return Room.inMemoryDatabaseBuilder(
       context,
-      SlackDatabase::class.java, "slack-db"
-    ).fallbackToDestructiveMigration().build()
+      SlackDatabase::class.java,
+    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
   }
 
   @Provides

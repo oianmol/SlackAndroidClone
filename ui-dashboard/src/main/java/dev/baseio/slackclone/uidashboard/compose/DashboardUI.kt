@@ -27,6 +27,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
+import dev.baseio.slackclone.uichat.models.ChatPresentation
 import dev.baseio.slackclone.uidashboard.chat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
 
@@ -36,6 +37,9 @@ fun DashboardUI() {
   val dashboardNavController = rememberNavController()
 
   SlackCloneTheme {
+    var lastChannel by remember {
+      mutableStateOf<ChatPresentation.SlackChannel?>(null)
+    }
     var isLeftNavOpen by remember { mutableStateOf(false) }
     var isChatViewClosed by remember { mutableStateOf(true) }
     val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
@@ -54,14 +58,17 @@ fun DashboardUI() {
         DashboardScaffold(isLeftNavOpen, scaffoldState, dashboardNavController, modifier, {
           isLeftNavOpen = !isLeftNavOpen
         }) {
+          lastChannel = it
           isChatViewClosed = false
         }
       }, { leftViewModifier ->
         SideNavigation(leftViewModifier.width(sideNavWidth))
       }, { chatViewModifier ->
-        ChatScreenUI(chatViewModifier, {
-          isChatViewClosed = true
-        })
+        lastChannel?.let { slackChannel ->
+          ChatScreenUI(chatViewModifier,slackChannel, {
+            isChatViewClosed = true
+          })
+        }
       })
 
   }
@@ -76,7 +83,7 @@ private fun DashboardScaffold(
   dashboardNavController: NavHostController,
   modifier: Modifier,
   appBarIconClick: () -> Unit,
-  onItemClick: () -> Unit,
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit,
 ) {
   Scaffold(
     backgroundColor = SlackCloneColorProvider.colors.uiBackground,
@@ -127,17 +134,22 @@ private fun DashboardScaffold(
       }
     }
     if (isLeftNavOpen) {
-      Box(
-        Modifier
-          .fillMaxSize()
-          .clickable {
-            appBarIconClick()
-          }
-          .background(Color.Black.copy(alpha = 0.4f))
-      ) {
-
-      }
+      OverlayDark(appBarIconClick)
     }
+  }
+}
+
+@Composable
+private fun OverlayDark(appBarIconClick: () -> Unit) {
+  Box(
+    Modifier
+      .fillMaxSize()
+      .clickable {
+        appBarIconClick()
+      }
+      .background(Color.Black.copy(alpha = 0.4f))
+  ) {
+
   }
 }
 

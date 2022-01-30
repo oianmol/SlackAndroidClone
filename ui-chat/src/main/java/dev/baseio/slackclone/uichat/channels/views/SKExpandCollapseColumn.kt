@@ -5,10 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,16 +15,20 @@ import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
+import dev.baseio.slackclone.domain.model.channel.SlackChannel
 import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
 import dev.baseio.slackclone.uichat.R
+import dev.baseio.slackclone.uichat.models.ChatPresentation
+import dev.baseio.slackclone.uidashboard.chat.lock
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SKExpandCollapseColumn(
   expandCollapseModel: ExpandCollapseModel,
-  onItemClick: () -> Unit = {},
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
   onExpandCollapse: (isChecked: Boolean) -> Unit,
-  ) {
+  channels: List<ChatPresentation.SlackChannel>,
+) {
   Column(
     Modifier
       .fillMaxWidth()
@@ -50,7 +51,7 @@ fun SKExpandCollapseColumn(
       AddButton(expandCollapseModel)
       ToggleButton(expandCollapseModel, onExpandCollapse)
     }
-    ChannelsList(expandCollapseModel, onItemClick)
+    ChannelsList(expandCollapseModel, onItemClick, channels)
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
   }
 }
@@ -58,15 +59,19 @@ fun SKExpandCollapseColumn(
 @Composable
 private fun ColumnScope.ChannelsList(
   expandCollapseModel: ExpandCollapseModel,
-  onItemClick: () -> Unit = {}
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
+  channels: List<ChatPresentation.SlackChannel>
 ) {
   AnimatedVisibility(visible = expandCollapseModel.isOpen) {
     Column {
-      repeat(10) {
+      repeat(channels.size) {
+        val slackChannel = channels[it]
         SlackListItem(
-          icon = Icons.Default.Lock,
-          title = stringResource(R.string.some_project),
-          onItemClick = onItemClick
+          icon = if (slackChannel.isPrivate) Icons.Default.Lock else Icons.Default.MailOutline,
+          title = "${slackChannel.name}",
+          onItemClick = {
+            onItemClick(slackChannel)
+          }
         )
       }
     }

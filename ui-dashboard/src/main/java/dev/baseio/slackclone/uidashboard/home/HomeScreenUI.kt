@@ -24,9 +24,10 @@ import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.uichat.channels.*
 import dev.baseio.slackclone.uichat.channels.views.SlackAllChannels
 import dev.baseio.slackclone.uichat.channels.views.SlackStarredChannels
+import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable
-fun HomeScreenUI(appBarIconClick: () -> Unit, onItemClick: () -> Unit = {}) {
+fun HomeScreenUI(appBarIconClick: () -> Unit, onItemClick: (ChatPresentation.SlackChannel) -> Unit = {}) {
   SlackCloneSurface(
     color = SlackCloneColorProvider.colors.uiBackground,
     modifier = Modifier.fillMaxSize()
@@ -37,19 +38,19 @@ fun HomeScreenUI(appBarIconClick: () -> Unit, onItemClick: () -> Unit = {}) {
       ThreadsTile()
       Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
       SlackRecentChannels({
-        onItemClick()
+        onItemClick(it)
       })
       SlackStarredChannels({
-        onItemClick()
+        onItemClick(it)
       })
       SlackDirectMessages({
-        onItemClick()
+        onItemClick(it)
       })
       SlackAllChannels({
-        onItemClick()
+        onItemClick(it)
       })
       SlackConnections({
-        onItemClick()
+        onItemClick(it)
       })
     }
   }

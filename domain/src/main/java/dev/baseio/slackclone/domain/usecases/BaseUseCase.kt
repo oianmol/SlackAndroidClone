@@ -21,5 +21,5 @@ interface BaseUseCase<out Result, in ExecutableParam> {
    */
   suspend fun perform(params: ExecutableParam): Result = throw NotImplementedError()
 
-  suspend fun performStreaming(params: ExecutableParam): Flow<Result> = throw NotImplementedError()
+  fun performStreaming(params: ExecutableParam): Flow<Result> = throw NotImplementedError()
 }

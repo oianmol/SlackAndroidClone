@@ -5,7 +5,7 @@ open class DomainModel
 open class UIModel
 
 interface UiModelMapper<M : DomainModel, MI : UIModel> {
-  fun mapToPresentation(model: M): UIModel
+  fun mapToPresentation(model: M): MI
 
-  fun mapToDomain(modelItem: MI): DomainModel
+  fun mapToDomain(modelItem: MI): M
 }

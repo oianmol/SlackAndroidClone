@@ -4,15 +4,18 @@ import dev.baseio.slackclone.uichat.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import dev.baseio.slackclone.domain.model.channel.SlackChannel
 import dev.baseio.slackclone.uichat.channels.SlackChannelVM
 import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
+import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable
 fun SlackStarredChannels(
-  onItemClick: () -> Unit = {},
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
   channelVM: SlackChannelVM = hiltViewModel()
 ) {
   val recent = stringResource(R.string.starred)
+  val channels by channelVM.channels.collectAsState(initial = emptyList())
   var expandCollapseModel by remember {
     mutableStateOf(
       ExpandCollapseModel(
@@ -22,7 +25,7 @@ fun SlackStarredChannels(
       )
     )
   }
-  SKExpandCollapseColumn(expandCollapseModel, onItemClick) {
+  SKExpandCollapseColumn(expandCollapseModel, onItemClick, {
     expandCollapseModel = expandCollapseModel.copy(isOpen = it)
-  }
+  }, channels)
 }

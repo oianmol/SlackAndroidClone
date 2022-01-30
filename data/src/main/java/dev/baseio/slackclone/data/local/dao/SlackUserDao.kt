@@ -4,25 +4,25 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import dev.baseio.slackclone.data.local.model.SlackUser
+import dev.baseio.slackclone.data.local.model.DBSlackUser
 
 @Dao
 interface SlackUserDao {
   @Query("SELECT * FROM slackuser")
-  fun getAll(): List<SlackUser>
+  fun getAll(): List<DBSlackUser>
 
   @Query("SELECT * FROM slackuser WHERE uuid IN (:slackuserIds)")
-  fun loadAllByIds(slackuserIds: IntArray): List<SlackUser>
+  fun loadAllByIds(slackuserIds: IntArray): List<DBSlackUser>
 
   @Query(
     "SELECT * FROM slackuser WHERE first_name LIKE :first AND " +
         "last_name LIKE :last LIMIT 1"
   )
-  fun findByName(first: String, last: String): SlackUser
+  fun findByName(first: String, last: String): DBSlackUser
 
   @Insert
-  fun insertAll(vararg slackUsers: SlackUser)
+  fun insertAll( slackUsers: List<DBSlackUser>)
 
   @Delete
-  fun delete(slackUser: SlackUser)
+  fun delete(slackUser: DBSlackUser)
 }

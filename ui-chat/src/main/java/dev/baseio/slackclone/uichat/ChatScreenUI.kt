@@ -1,6 +1,5 @@
 package dev.baseio.slackclone.uidashboard.chat
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
@@ -22,10 +20,12 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uichat.ChatThreadVM
+import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable
 fun ChatScreenUI(
   modifier: Modifier,
+  slackChannel: ChatPresentation.SlackChannel,
   onBackClick: () -> Unit,
   viewModel: ChatThreadVM = hiltViewModel()
 ) {
@@ -42,7 +42,7 @@ fun ChatScreenUI(
         scaffoldState.snackbarHostState
       },
       topBar = {
-        ChatAppBar(onBackClick)
+        ChatAppBar(onBackClick, slackChannel)
       }
     ) { innerPadding ->
       Box(modifier = Modifier.padding(innerPadding)) {
@@ -58,7 +58,7 @@ fun ChatScreenUI(
 }
 
 @Composable
-private fun ChatAppBar(onBackClick: () -> Unit) {
+private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: ChatPresentation.SlackChannel) {
   SlackSurfaceAppBar(backgroundColor = SlackCloneColorProvider.colors.appBarColor) {
     IconButton(onClick = { onBackClick() }) {
       Icon(
@@ -74,7 +74,7 @@ private fun ChatAppBar(onBackClick: () -> Unit) {
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Text(
-        text = "🔒 android-india",
+        text = " ${if (slackChannel.isPrivate) lock() else "#"}  ${slackChannel.name}",
         style = SlackCloneTypography.subtitle1.copy(
           fontWeight = FontWeight.Bold,
           color = SlackCloneColorProvider.colors.appBarTextTitleColor
@@ -100,3 +100,5 @@ private fun ChatAppBar(onBackClick: () -> Unit) {
     }
   }
 }
+
+fun lock() = "\uD83D\uDD12"

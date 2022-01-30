@@ -102,6 +102,13 @@ dependencies {
   implementation(Lib.Async.COROUTINES)
   implementation(Lib.Async.COROUTINES_ANDROID)
 
+  /* Room */
+  implementation(Lib.Room.roomRuntime)
+  kapt(Lib.Room.roomCompiler)
+  implementation(Lib.Room.roomKtx)
+  implementation(Lib.Room.roomPaging)
+
+
   /*Testing*/
   testImplementation(TestLib.JUNIT)
   testImplementation(TestLib.CORE_TEST)
