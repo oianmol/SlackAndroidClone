@@ -12,7 +12,8 @@ import javax.inject.Inject
 class SlackLocalChannelsRepositoryImpl @Inject constructor(private val slackChannelDao: SlackChannelDao) :
   LocalChannelsRepository {
   override fun fetchChannels(params: SlackChannelType): Flow<List<SlackChannel>> {
-    return slackChannelDao.getAllAsFlow().map { list -> list.map {channel-> GroupChannel(channel.channelType) } }
+    return slackChannelDao.getAllAsFlow()
+      .map { list -> list.map { channel -> GroupChannel(channel.channelType) } }
   }
 
 
