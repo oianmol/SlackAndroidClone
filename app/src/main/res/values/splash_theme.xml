@@ -3,7 +3,7 @@
     <style name="Theme.App.SplashScreenTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_bg</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/slack</item>
-        <item name="windowSplashScreenAnimationDuration">500</item>
+        <item name="windowSplashScreenAnimationDuration">2500</item>
         <!--        This will Set the Theme of the app after the Splash Screen has been ended-->
         <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
     </style>
