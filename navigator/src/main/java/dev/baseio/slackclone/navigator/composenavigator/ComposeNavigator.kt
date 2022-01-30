@@ -5,6 +5,7 @@ import androidx.navigation.navOptions
 import dev.baseio.slackclone.navigator.ComposeNavigationCommand
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.asFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -28,17 +29,18 @@ class SlackCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
   override fun <T> navigateBackWithResult(
     key: String,
     result: T,
-    destination: String?
+    route: String?
   ) {
     navigationCommands.tryEmit(
       ComposeNavigationCommand.NavigateUpWithResult(
         key = key,
         result = result,
-        destination = destination
+        route = route
       )
     )
   }
 
+  @OptIn(ExperimentalCoroutinesApi::class)
   override fun <T> observeResult(key: String, route: String?): Flow<T> {
     return navControllerFlow
       .filterNotNull()

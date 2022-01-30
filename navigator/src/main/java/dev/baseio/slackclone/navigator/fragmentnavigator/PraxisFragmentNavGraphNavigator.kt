@@ -5,6 +5,7 @@ import androidx.navigation.navOptions
 import dev.baseio.slackclone.navigator.FragmentNavigationCommand
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dev.baseio.slackclone.navigator.asFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -44,6 +45,7 @@ class SlackCloneFragmentNavGraphNavigator @Inject constructor() : FragmentNavGra
     )
   }
 
+  @OptIn(ExperimentalCoroutinesApi::class)
   override fun <T> observeResult(key: String, destination: Int?): Flow<T> {
     return navControllerFlow
       .filterNotNull()

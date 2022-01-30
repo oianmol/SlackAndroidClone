@@ -16,8 +16,7 @@ import dev.baseio.slackclone.uidashboard.compose.DashboardUI
 
 @Composable
 fun DashboardNavGraph(
-  composeNavigator: ComposeNavigator,
-  fragmentNavigator: FragmentNavGraphNavigator
+  composeNavigator: ComposeNavigator
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
     SlackCloneSurface(

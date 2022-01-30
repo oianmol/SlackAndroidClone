@@ -13,7 +13,7 @@ sealed class ComposeNavigationCommand : NavigationCommand() {
   data class NavigateUpWithResult<T>(
     val key: String,
     val result: T,
-    val destination: String? = null
+    val route: String? = null
   ) : ComposeNavigationCommand()
 
   data class PopUpToRoute(val route: String, val inclusive: Boolean) : ComposeNavigationCommand()

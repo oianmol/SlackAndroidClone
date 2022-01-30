@@ -4,17 +4,17 @@ plugins {
 
   android {
     signingConfigs {
-      getByName("release") {
+      create("release") {
         keyAlias = "praxis-release"
         keyPassword = "ITHOmptI"
-        storeFile(file("keystore/praxis-release.jks"))
+        storeFile = file("keystore/praxis-release.jks")
         storePassword = "PoTHatHR"
       }
 
       getByName("debug") {
         keyAlias = "praxis-debug"
         keyPassword = "utherNiC"
-        storeFile(file("keystore/praxis-debug.jks"))
+        storeFile = file("keystore/praxis-debug.jks")
         storePassword = "uRgeSCIt"
       }
     }

@@ -9,11 +9,7 @@ plugins {
   id("org.jlleitschuh.gradle.ktlint")
 }
 
-subprojects {
-  apply {
-    from("variants.gradle.kts")
-  }
-}
+
 
 // def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
@@ -29,6 +25,47 @@ android {
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
   }
+
+  signingConfigs {
+
+    getByName("debug") {
+      keyAlias = "praxis-debug"
+      keyPassword = "utherNiC"
+      storeFile = file("keystore/praxis-debug.jks")
+      storePassword = "uRgeSCIt"
+    }
+
+    create("release") {
+      keyAlias = "praxis-release"
+      keyPassword = "ITHOmptI"
+      storeFile = file("keystore/praxis-release.jks")
+      storePassword = "PoTHatHR"
+    }
+
+  }
+  buildTypes {
+    getByName("release") {
+      isDebuggable = false
+      versionNameSuffix = "-release"
+
+      isMinifyEnabled = true
+      isShrinkResources = true
+
+      proguardFiles(
+        getDefaultProguardFile("proguard-android.txt"), "proguard-common.txt",
+        "proguard-specific.txt"
+      )
+      signingConfig = signingConfigs.getByName("release")
+    }
+    getByName("debug") {
+      isDebuggable = true
+      versionNameSuffix = "-debug"
+      applicationIdSuffix = ".debug"
+      signingConfig = signingConfigs.getByName("debug")
+    }
+  }
+
+
 
   buildFeatures {
     dataBinding = true

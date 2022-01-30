@@ -45,8 +45,7 @@ class DashboardScreen : Fragment() {
          * by finding the NavController and navigating to the destination:
          */
         DashboardNavGraph(
-          composeNavigator = composeNavigator,
-          fragmentNavigator = fragmentNavGraphNavigator
+          composeNavigator = composeNavigator
         )
       }
     }
