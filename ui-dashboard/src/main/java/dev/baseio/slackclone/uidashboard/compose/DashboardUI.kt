@@ -47,7 +47,8 @@ fun DashboardUI() {
 
     SlackDragComposableView(
       isLeftNavOpen = isLeftNavOpen,
-      isChatViewClosed = isChatViewClosed,
+      isChatViewClosed = lastChannel == null || isChatViewClosed,
+      canOpenChatView = lastChannel != null,
       mainScreenOffset = (pxValue),
       onOpenCloseLeftView = {
         isLeftNavOpen = it
@@ -65,11 +66,12 @@ fun DashboardUI() {
         SideNavigation(leftViewModifier.width(sideNavWidth))
       }, { chatViewModifier ->
         lastChannel?.let { slackChannel ->
-          ChatScreenUI(chatViewModifier,slackChannel, {
+          ChatScreenUI(chatViewModifier, slackChannel, {
             isChatViewClosed = true
           })
         }
-      })
+      }
+    )
 
   }
 
