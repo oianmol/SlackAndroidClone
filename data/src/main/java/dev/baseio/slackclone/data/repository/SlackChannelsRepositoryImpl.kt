@@ -5,17 +5,18 @@ import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.mapper.EntityMapper
 import dev.baseio.slackclone.domain.model.channel.SlackChannel
 import dev.baseio.slackclone.domain.model.channel.SlackChannelType
-import dev.baseio.slackclone.domain.repository.LocalChannelsRepository
+import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.*
 import javax.inject.Inject
 
-class SlackLocalChannelsRepositoryImpl @Inject constructor(
+class SlackChannelsRepositoryImpl @Inject constructor(
+        // create local/network source
   private val slackChannelDao: SlackChannelDao,
   private val slackChannelMapper: EntityMapper<SlackChannel, DBSlackChannel>,
 ) :
-  LocalChannelsRepository {
+  ChannelsRepository {
 
   init {
     preloadChannels()
