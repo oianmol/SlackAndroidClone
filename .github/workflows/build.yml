@@ -3,7 +3,7 @@ name: Minimal Android CI Workflow
 on:
   push:
     branches:
-      - deploy
+      - master
 
 jobs:
   apk:
