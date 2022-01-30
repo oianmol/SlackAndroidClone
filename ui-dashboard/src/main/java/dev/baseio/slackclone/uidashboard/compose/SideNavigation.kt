@@ -63,7 +63,7 @@ private fun SideNavFooter() {
 fun Workspace(selected: Boolean) {
   Box(
     Modifier.background(
-      color = if (selected) SlackCloneColorProvider.colors.uiBackground.copy(alpha = 0.2f) else Color.Transparent,
+      color = if (selected) SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.2f) else Color.Transparent,
       shape = RoundedCornerShape(12.dp)
     )
   ) {
