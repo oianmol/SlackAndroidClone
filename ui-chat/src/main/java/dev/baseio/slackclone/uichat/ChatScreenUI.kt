@@ -92,19 +92,23 @@ private fun ChatMessage(message: SlackMessage) {
 
 @Composable
 private fun ChatMedia(message: SlackMessage) {
-  Text(
-    message.message,
-    style = SlackCloneTypography.subtitle2.copy(
-      color = SlackCloneColorProvider.colors.textPrimary
-    ), modifier = Modifier.padding(4.dp)
-  )
+  Column {
+    Text(
+      message.message,
+      style = SlackCloneTypography.subtitle2.copy(
+        color = SlackCloneColorProvider.colors.textSecondary
+      ), modifier = Modifier.padding(4.dp)
+    )
+    SlackImageBox(modifier = Modifier.padding(4.dp).fillMaxWidth().height(228.dp), imageUrl = "http://placekitten.com/300/300")
+  }
+
 }
 
 @Composable
 private fun ChatUserDateTime(message: SlackMessage) {
   Row(verticalAlignment = Alignment.CenterVertically) {
     Text(
-      message.createdBy,
+      message.createdBy +" \uD83C\uDF34",
       style = SlackCloneTypography.subtitle1.copy(
         fontWeight = FontWeight.Bold,
         color = SlackCloneColorProvider.colors.textPrimary
@@ -113,7 +117,7 @@ private fun ChatUserDateTime(message: SlackMessage) {
     Text(
       message.createdDate.calendar().formattedTime(),
       style = SlackCloneTypography.overline.copy(
-        color = SlackCloneColorProvider.colors.textSecondary
+        color = SlackCloneColorProvider.colors.textSecondary.copy(alpha = 0.8f)
       ), modifier = Modifier.padding(4.dp)
     )
   }
@@ -124,7 +128,7 @@ fun ChatHeader(createdDate: Long) {
   Column(Modifier.padding(start = 8.dp, end = 8.dp)) {
     Text(
       createdDate.calendar().formattedMonthDate(),
-      style = SlackCloneTypography.subtitle1.copy(
+      style = SlackCloneTypography.subtitle2.copy(
         fontWeight = FontWeight.Bold,
         color = SlackCloneColorProvider.colors.textPrimary
       ), modifier = Modifier.padding(4.dp)

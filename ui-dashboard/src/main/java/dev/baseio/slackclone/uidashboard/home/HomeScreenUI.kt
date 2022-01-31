@@ -79,7 +79,7 @@ fun JumpToText() {
     RoundedCornerBoxDecoration {
       Text(
         text = "Jump to...",
-        style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.lineColor),
+        style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.textPrimary),
         modifier = Modifier.fillMaxWidth()
       )
     }
