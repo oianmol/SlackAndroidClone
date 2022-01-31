@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -138,13 +139,16 @@ private fun DashboardScreenRegular(
     }
     var isLeftNavOpen by remember { mutableStateOf(false) }
     var isChatViewClosed by remember { mutableStateOf(true) }
-    val sideNavWidth = LocalConfiguration.current.screenWidthDp.dp * 0.8f
-    val pxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val sideNavWidth = screenWidth * 0.8f
+    val sideNavPxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
+    val screenWidthPxValue = with(LocalDensity.current) { screenWidth.toPx() }
 
     SlackDragComposableView(
         isLeftNavOpen = isLeftNavOpen,
         isChatViewClosed = checkChatViewClosed(lastChannel, isChatViewClosed),
-        mainScreenOffset = pxValue,
+        mainScreenOffset = sideNavPxValue,
+        chatScreenOffset = screenWidthPxValue,
         onOpenCloseLeftView = {
             isLeftNavOpen = it
         },
