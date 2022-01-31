@@ -148,10 +148,8 @@ private fun mainScreenModifier(
         )
     }
     .pointerInput(Unit) {
-        var start = 0f
         detectHorizontalDragGestures({
             //start
-            start = it.x
         }, {
             sideNavigationEndTransition(
                 offsetX,

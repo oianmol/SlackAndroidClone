@@ -151,7 +151,7 @@ private fun Long.calendar(): Calendar {
 
 private fun Long?.month(): Int? {
   this?.let {
-    return Date(it).month
+    return it.calendar().get(Calendar.MONTH)
   } ?: kotlin.run {
     return null
   }

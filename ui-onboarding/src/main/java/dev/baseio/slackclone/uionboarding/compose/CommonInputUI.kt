@@ -23,7 +23,6 @@ import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun CommonInputUI(
-  composeNavigator: ComposeNavigator,
   fragmentNavigator: FragmentNavGraphNavigator,
   TopView: @Composable (modifier: Modifier) -> Unit,
   subtitleText: String

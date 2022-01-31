@@ -28,10 +28,8 @@ class SlackChannelsRepositoryImpl @Inject constructor(
 
   init {
     // bad ! change, only for testing purposes
-    GlobalScope.launch(Dispatchers.IO) {
-      preloadChannels()
-      preloadMessages(20)
-    }
+    preloadChannels()
+    preloadMessages(20)
   }
 
   override fun fetchChannels(params: SlackChannelType?): Flow<List<SlackChannel>> {

@@ -28,7 +28,6 @@ import dev.baseio.slackclone.uionboarding.R
 fun GettingStartedUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
   val sysUiController = rememberSystemUiController()
-  val colors = SlackCloneColorProvider.colors
 
   SideEffect {
     sysUiController.setNavigationBarColor(color = SlackCloneColor)

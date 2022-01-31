@@ -8,25 +8,22 @@ import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun EmailAddressInputUI(
-  composeNavigator: ComposeNavigator,
   fragmentNavigator: FragmentNavGraphNavigator
 ) {
   CommonInputUI(
-    composeNavigator = composeNavigator,
     fragmentNavigator = fragmentNavigator,
     { modifier ->
       EmailInputView(modifier)
-    }, stringResource(id = R.string.subtitle_this_email_slack)
+    },
+    stringResource(id = R.string.subtitle_this_email_slack)
   )
 }
 
 @Composable
 fun WorkspaceInputUI(
-  composeNavigator: ComposeNavigator,
   fragmentNavigator: FragmentNavGraphNavigator
 ) {
   CommonInputUI(
-    composeNavigator = composeNavigator,
     fragmentNavigator = fragmentNavigator,
     {
       WorkspaceInputView(it)

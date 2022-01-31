@@ -46,10 +46,10 @@ fun OnboardingNavGraph(
           SkipTypingUI(composeNavigator)
         }
         composable(Screen.WorkspaceInputUI.route) {
-          WorkspaceInputUI(composeNavigator, fragmentNavigator)
+          WorkspaceInputUI(fragmentNavigator)
         }
         composable(Screen.EmailAddressInputUI.route) {
-          EmailAddressInputUI(composeNavigator, fragmentNavigator)
+          EmailAddressInputUI(fragmentNavigator)
         }
       }
     }

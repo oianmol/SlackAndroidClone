@@ -29,7 +29,6 @@ import dev.baseio.slackclone.uionboarding.R
 @Composable
 fun SkipTypingUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
-  val colors = SlackCloneColorProvider.colors
   val sysUiController = rememberSystemUiController()
   SideEffect {
     sysUiController.setNavigationBarColor(color = SlackCloneColor)
