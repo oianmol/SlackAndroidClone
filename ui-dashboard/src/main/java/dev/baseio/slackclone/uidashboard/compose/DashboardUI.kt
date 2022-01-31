@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -24,7 +23,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.window.layout.FoldingFeature
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
@@ -32,9 +30,6 @@ import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 import dev.baseio.slackclone.uichat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
-import io.getstream.butterfly.compose.*
-import io.getstream.butterfly.findFoldingFeature
-import io.getstream.butterfly.isSeparating
 
 @Composable
 fun DashboardUI() {
@@ -42,90 +37,7 @@ fun DashboardUI() {
     val dashboardNavController = rememberNavController()
 
     SlackCloneTheme {
-        val isSeparating = LocalWindowLayoutInfo.current.isSeparating
-        if (isSeparating) {
-            when (windowOrientation) {
-                WindowOrientation.ORIENTATION_LANDSCAPE ->
-                    DashboardScreenExpandedLandscape(
-                        scaffoldState,
-                        dashboardNavController,
-                    )
-                WindowOrientation.ORIENTATION_PORTRAIT ->
-                    DashboardScreenExpandedPortrait(scaffoldState, dashboardNavController)
-            }
-        } else {
-            DashboardScreenRegular(scaffoldState, dashboardNavController)
-        }
-    }
-}
-
-@Composable
-private fun DashboardScreenExpandedLandscape(
-    scaffoldState: ScaffoldState,
-    dashboardNavController: NavHostController,
-) {
-
-    val foldingFeature = LocalWindowLayoutInfo.current.findFoldingFeature()
-    val windowSize = LocalWindowDpSize.current
-    val hingeSize = foldingFeature?.hingeDp ?: 0.dp
-    val rowItemWidth = (windowSize.windowSize.width - hingeSize) / 2
-
-    var lastChannel by remember {
-        mutableStateOf<ChatPresentation.SlackChannel?>(null)
-    }
-    Row(Modifier.fillMaxSize()) {
-        SideNavigation(Modifier.width(rowItemWidth))
-        Spacer(modifier = Modifier.width(hingeSize))
-        lastChannel?.let {
-            ChatScreenUI(Modifier.width(rowItemWidth), it, {
-                lastChannel = null
-            })
-        } ?: run {
-            DashboardScaffold(
-                false,
-                scaffoldState,
-                dashboardNavController,
-                Modifier.width(rowItemWidth), {
-                }, {
-                    lastChannel = it
-                })
-        }
-
-    }
-}
-
-@Composable
-private fun DashboardScreenExpandedPortrait(
-    scaffoldState: ScaffoldState,
-    dashboardNavController: NavHostController
-) {
-    val foldingFeature = LocalWindowLayoutInfo.current.findFoldingFeature()
-    val windowSize = LocalWindowDpSize.current
-    val hingeSize = foldingFeature?.hingeDp ?: 0.dp
-    val rowItemWidth = (windowSize.windowSize.height - hingeSize) / 2
-
-    var lastChannel by remember {
-        mutableStateOf<ChatPresentation.SlackChannel?>(null)
-    }
-    Row {
-        SideNavigation(Modifier.width(rowItemWidth))
-        Spacer(modifier = Modifier.width(hingeSize))
-
-        lastChannel?.let {
-            ChatScreenUI(Modifier.width(rowItemWidth), it, {
-                lastChannel = null
-            })
-        } ?: run {
-            DashboardScaffold(
-                false,
-                scaffoldState,
-                dashboardNavController,
-                Modifier.width(rowItemWidth),
-                {
-                }) {
-                lastChannel = it
-            }
-        }
+        DashboardScreenRegular(scaffoldState, dashboardNavController)
     }
 }
 
@@ -310,14 +222,11 @@ private fun RowScope.BottomNavItem(
         unselectedContentColor = SlackCloneColorProvider.colors.bottomNavUnSelectedColor,
         icon = { Icon(screen.image, contentDescription = null) },
         label = {
-            val foldingFeature = LocalWindowLayoutInfo.current.findFoldingFeature()
-            if (foldingFeature?.state != FoldingFeature.State.HALF_OPENED) {
-                Text(
-                    stringResource(screen.resourceId),
-                    maxLines = 1,
-                    style = SlackCloneTypography.overline,
-                )
-            }
+            Text(
+                stringResource(screen.resourceId),
+                maxLines = 1,
+                style = SlackCloneTypography.overline,
+            )
         },
         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
         onClick = {

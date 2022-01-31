@@ -3,18 +3,15 @@ package dev.baseio.slackclone.uidashboard.nav
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.window.layout.WindowLayoutInfo
 import com.google.accompanist.insets.ProvideWindowInsets
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.Screen
 import dev.baseio.slackclone.uidashboard.compose.DashboardUI
-import io.getstream.butterfly.compose.WindowDpSize
 
 @Composable
 fun DashboardNavGraph(

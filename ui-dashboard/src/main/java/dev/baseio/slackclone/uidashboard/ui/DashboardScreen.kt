@@ -3,7 +3,6 @@ package dev.baseio.slackclone.uidashboard.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
@@ -14,7 +13,6 @@ import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import dev.baseio.slackclone.uidashboard.nav.DashboardNavGraph
-import io.getstream.butterfly.compose.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,15 +40,9 @@ class DashboardScreen : Fragment() {
                 LaunchedEffect(Unit) {
                     fragmentNavGraphNavigator.handleNavigationCommands(findNavController())
                 }
-                CompositionLocalProvider(
-                    LocalWindowDpSize provides rememberWindowDpSize(),
-                    LocalWindowLayoutInfo provides windowLayoutInfoState.value,
-                    LocalPosture provides postureState.value
-                ) {
-                    DashboardNavGraph(
-                        composeNavigator = composeNavigator
-                    )
-                }
+                DashboardNavGraph(
+                    composeNavigator = composeNavigator
+                )
             }
         }
     }
