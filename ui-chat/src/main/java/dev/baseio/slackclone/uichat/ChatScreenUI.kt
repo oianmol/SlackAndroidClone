@@ -2,22 +2,30 @@ package dev.baseio.slackclone.uichat
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Call
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
@@ -53,9 +61,67 @@ fun ChatScreenUI(
         ChatAppBar(onBackClick, slackChannel)
       }
     ) { innerPadding ->
-      Box(modifier = Modifier.padding(innerPadding)) {
-        ChatMessagesUI(viewModel)
+      Box(
+        modifier = Modifier
+          .padding(innerPadding)
+          .navigationBarsWithImePadding()
+      ) {
+        Column {
+          Box(Modifier.weight(1f)) {
+            ChatMessagesUI(viewModel)
+          }
+          Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
+          ChatMessageBox()
+        }
       }
+    }
+  }
+}
+
+@Composable
+private fun textStyleField() = SlackCloneTypography.h6.copy(
+  color = SlackCloneColorProvider.colors.textPrimary,
+  fontWeight = FontWeight.Normal,
+  textAlign = TextAlign.Start
+)
+
+@Composable
+fun ChatMessageBox() {
+  var search by remember { mutableStateOf("") }
+
+  Row(Modifier.padding(start = 4.dp)) {
+    BasicTextField(
+      value = search,
+      maxLines = 5,
+      onValueChange = {
+        search = it
+      },
+      textStyle = SlackCloneTypography.subtitle1.copy(
+        color = Color.White,
+      ),
+      decorationBox = { innerTextField ->
+        Row(
+          Modifier
+            .padding(16.dp), verticalAlignment = Alignment.CenterVertically
+        ) {
+          if (search.isEmpty()) {
+            Text(
+              text = "Message #jetpack_compose",
+              style = SlackCloneTypography.subtitle1.copy(
+                color = SlackCloneColorProvider.colors.textSecondary,
+              ),
+              modifier = Modifier.weight(1f)
+            )
+          } else {
+            innerTextField()
+          }
+
+        }
+      },
+      modifier = Modifier.weight(1f)
+    )
+    IconButton(onClick = { }) {
+      Icon(Icons.Default.Send, contentDescription = null)
     }
   }
 }
@@ -99,7 +165,12 @@ private fun ChatMedia(message: SlackMessage) {
         color = SlackCloneColorProvider.colors.textSecondary
       ), modifier = Modifier.padding(4.dp)
     )
-    SlackImageBox(modifier = Modifier.padding(4.dp).fillMaxWidth().height(228.dp), imageUrl = "http://placekitten.com/300/300")
+    SlackImageBox(
+      modifier = Modifier
+        .padding(4.dp)
+        .fillMaxWidth()
+        .height(228.dp), imageUrl = "http://placekitten.com/300/300"
+    )
   }
 
 }
@@ -108,7 +179,7 @@ private fun ChatMedia(message: SlackMessage) {
 private fun ChatUserDateTime(message: SlackMessage) {
   Row(verticalAlignment = Alignment.CenterVertically) {
     Text(
-      message.createdBy +" \uD83C\uDF34",
+      message.createdBy + " \uD83C\uDF34",
       style = SlackCloneTypography.subtitle1.copy(
         fontWeight = FontWeight.Bold,
         color = SlackCloneColorProvider.colors.textPrimary
