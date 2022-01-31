@@ -5,7 +5,7 @@ import dev.baseio.slackclone.domain.model.channel.SlackChannelType
 import kotlinx.coroutines.flow.Flow
 
 interface ChannelsRepository {
-  fun fetchChannels(params: SlackChannelType): Flow<List<SlackChannel>>
+  fun fetchChannels(params: SlackChannelType?): Flow<List<SlackChannel>>
 
 }
 

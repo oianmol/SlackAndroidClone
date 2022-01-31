@@ -25,6 +25,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.data.local.model.DBSlackMessage
+import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,7 +63,7 @@ fun ChatScreenUI(
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun ChatMessagesUI(viewModel: ChatThreadVM) {
-  val messages = viewModel.chatPager.flow.collectAsLazyPagingItems()
+  val messages = viewModel.chatMessagesFlow.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
 
   LazyColumn(state = listState, reverseLayout = true) {
@@ -79,7 +80,7 @@ fun ChatMessagesUI(viewModel: ChatThreadVM) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun ChatMessage(message: DBSlackMessage) {
+private fun ChatMessage(message: SlackMessage) {
   ListItem(icon = {
     SlackImageBox(Modifier.size(48.dp), imageUrl = "http://placekitten.com/200/300")
   }, modifier = Modifier.padding(2.dp), secondaryText = {
@@ -90,7 +91,7 @@ private fun ChatMessage(message: DBSlackMessage) {
 }
 
 @Composable
-private fun ChatMedia(message: DBSlackMessage) {
+private fun ChatMedia(message: SlackMessage) {
   Text(
     message.message,
     style = SlackCloneTypography.subtitle2.copy(
@@ -100,7 +101,7 @@ private fun ChatMedia(message: DBSlackMessage) {
 }
 
 @Composable
-private fun ChatUserDateTime(message: DBSlackMessage) {
+private fun ChatUserDateTime(message: SlackMessage) {
   Row(verticalAlignment = Alignment.CenterVertically) {
     Text(
       message.createdBy,

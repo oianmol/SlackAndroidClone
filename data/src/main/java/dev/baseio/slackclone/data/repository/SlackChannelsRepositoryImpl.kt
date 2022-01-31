@@ -34,6 +34,11 @@ class SlackChannelsRepositoryImpl @Inject constructor(
     }
   }
 
+  override fun fetchChannels(params: SlackChannelType?): Flow<List<SlackChannel>> {
+    return slackChannelDao.getAllAsFlow()
+      .map { list -> list.map { channel -> slackChannelMapper.mapToDomain(channel) } }
+  }
+
   private fun preloadMessages(messagesCount: Int) {
     var days = 36
     repeat(messagesCount) {
@@ -68,10 +73,5 @@ class SlackChannelsRepositoryImpl @Inject constructor(
       )
     }
     slackChannelDao.insertAll(channels)
-  }
-
-  override fun fetchChannels(params: SlackChannelType): Flow<List<SlackChannel>> {
-    return slackChannelDao.getAllAsFlow()
-      .map { list -> list.map { channel -> slackChannelMapper.mapToDomain(channel) } }
   }
 }

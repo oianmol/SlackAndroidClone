@@ -7,6 +7,7 @@ enum class SlackChannelType {
   GROUP
 }
 
+
 abstract class SlackChannel(val channelType: SlackChannelType) : DomainModel() {
   abstract val uuid: String
   abstract val name: String?

@@ -10,7 +10,7 @@ class UseCaseFetchChannels(
         private val channelsRepository: ChannelsRepository,
 ) :
   BaseUseCase<List<SlackChannel>, SlackChannelType> {
-  override fun performStreaming(params: SlackChannelType): Flow<List<SlackChannel>> {
+  override fun performStreaming(params: SlackChannelType?): Flow<List<SlackChannel>> {
     return channelsRepository.fetchChannels(params)
   }
 }
