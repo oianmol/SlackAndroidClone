@@ -35,7 +35,7 @@ fun SlackListItem(
       contentDescription = null,
       tint = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f),
       modifier = Modifier
-        .size(24.dp)
+        .size(28.dp)
         .padding(4.dp)
     )
     Text(

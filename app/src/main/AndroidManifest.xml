@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".SlackCloneApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

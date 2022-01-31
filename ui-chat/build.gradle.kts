@@ -72,6 +72,8 @@ dependencies {
     debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)
     api(Lib.Android.ACTIVITY_COMPOSE)
     api(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
+    implementation(Lib.Paging.PAGING_3)
+    implementation(Lib.Paging.PAGING_COMPOSE)
 
     api(Lib.Android.APP_COMPAT)
     api(Lib.Kotlin.KTX_CORE)

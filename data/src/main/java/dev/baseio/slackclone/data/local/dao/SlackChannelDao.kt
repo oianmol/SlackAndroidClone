@@ -9,17 +9,17 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SlackChannelDao {
-  @Query("SELECT * FROM slackchannel")
+  @Query("SELECT * FROM slackChannel")
   fun getAll(): List<DBSlackChannel>
 
-  @Query("SELECT * FROM slackchannel")
+  @Query("SELECT * FROM slackChannel")
   fun getAllAsFlow(): Flow<List<DBSlackChannel>>
 
-  @Query("SELECT * FROM slackchannel WHERE uuid IN (:groupIds)")
+  @Query("SELECT * FROM slackChannel WHERE uuid IN (:groupIds)")
   fun loadAllByIds(groupIds: Array<String>): List<DBSlackChannel>
 
   @Query(
-    "SELECT * FROM slackchannel WHERE name LIKE :name"
+    "SELECT * FROM slackChannel WHERE name LIKE :name"
   )
   fun findByName(name:String): List<DBSlackChannel>
 

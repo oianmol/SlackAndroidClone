@@ -12,6 +12,7 @@ fun SlackImageBox(modifier: Modifier, imageUrl: String) {
     painter = rememberImagePainter(
       data = imageUrl,
       builder = {
+        this.placeholderMemoryCacheKey(imageUrl + System.currentTimeMillis())
         transformations(RoundedCornersTransformation(12.0f, 12.0f, 12.0f, 12.0f))
       }
     ),
