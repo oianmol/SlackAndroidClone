@@ -19,8 +19,6 @@ import io.getstream.butterfly.compose.WindowDpSize
 @Composable
 fun DashboardNavGraph(
   composeNavigator: ComposeNavigator,
-  windowDpSize: WindowDpSize,
-  windowLayoutInfoState: State<WindowLayoutInfo>
 ) {
   ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
     SlackCloneSurface(
@@ -36,7 +34,7 @@ fun DashboardNavGraph(
         startDestination = Screen.Dashboard.route
       ) {
         composable(Screen.Dashboard.route){
-          DashboardUI(windowDpSize,windowLayoutInfoState)
+          DashboardUI()
         }
 
       }
