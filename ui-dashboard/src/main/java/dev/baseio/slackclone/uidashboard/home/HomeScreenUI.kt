@@ -27,32 +27,38 @@ import dev.baseio.slackclone.uichat.channels.views.SlackStarredChannels
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable
-fun HomeScreenUI(appBarIconClick: () -> Unit, onItemClick: (ChatPresentation.SlackChannel) -> Unit = {}) {
+fun HomeScreenUI(
+  appBarIconClick: () -> Unit,
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {}
+) {
   SlackCloneSurface(
     color = SlackCloneColorProvider.colors.uiBackground,
     modifier = Modifier.fillMaxSize()
   ) {
-    Column(Modifier.verticalScroll(rememberScrollState())) {
+    Column() {
       SlackMMTopAppBar(appBarIconClick)
-      JumpToText()
-      ThreadsTile()
-      Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-      SlackRecentChannels({
-        onItemClick(it)
-      })
-      SlackStarredChannels({
-        onItemClick(it)
-      })
-      SlackDirectMessages({
-        onItemClick(it)
-      })
-      SlackAllChannels({
-        onItemClick(it)
-      })
-      SlackConnections({
-        onItemClick(it)
-      })
+      Column(Modifier.verticalScroll(rememberScrollState())) {
+        JumpToText()
+        ThreadsTile()
+        Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
+        SlackRecentChannels({
+          onItemClick(it)
+        })
+        SlackStarredChannels({
+          onItemClick(it)
+        })
+        SlackDirectMessages({
+          onItemClick(it)
+        })
+        SlackAllChannels({
+          onItemClick(it)
+        })
+        SlackConnections({
+          onItemClick(it)
+        })
+      }
     }
+
   }
 }
 
