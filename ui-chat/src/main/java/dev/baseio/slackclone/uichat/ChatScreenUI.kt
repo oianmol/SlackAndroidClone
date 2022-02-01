@@ -2,6 +2,7 @@ package dev.baseio.slackclone.uichat
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -17,8 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstrainedLayoutReference
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -36,6 +39,7 @@ import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 @Composable
 fun ChatScreenUI(
@@ -63,83 +67,141 @@ fun ChatScreenUI(
       Box(
         modifier = Modifier
           .padding(innerPadding)
-          .navigationBarsWithImePadding()
       ) {
-        Column {
-          Box(Modifier.weight(1f)) {
-            ChatMessagesUI(viewModel)
+
+        ConstraintLayout(
+          modifier = Modifier
+            .navigationBarsWithImePadding()
+            .fillMaxHeight()
+            .fillMaxWidth()
+        ) {
+          // Create references for the composables to constrain
+          val isExpanded by viewModel.isExpanded.collectAsState()
+          val isKeyboardOpen by keyboardAsState()
+
+          Column() {
+            if(!isExpanded){
+              ChatMessagesUI(
+                viewModel,
+                modifier = Modifier.weight(1f)
+              )
+            }
+            ChatMessageBox(
+              viewModel, if (isExpanded) Modifier.weight(1f) else Modifier
+            )
+            if (isKeyboardOpen == Keyboard.Opened) {
+              ChatOptions(viewModel, Modifier)
+            }
           }
-          Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-          ChatMessageBox(viewModel)
         }
+
       }
     }
   }
 }
 
-@Composable
-private fun textStyleField() = SlackCloneTypography.h6.copy(
-  color = SlackCloneColorProvider.colors.textPrimary,
-  fontWeight = FontWeight.Normal,
-  textAlign = TextAlign.Start
-)
+fun expandedBottomViewConstrains(
+  constraintLayoutScope: ConstraintLayoutScope,
+  bottomView: ConstrainedLayoutReference,
+  chatOptions: ConstrainedLayoutReference
+): Modifier {
+  constraintLayoutScope.apply {
+    return Modifier.constrainAs(bottomView) {
+      top.linkTo(parent.top)
+      bottom.linkTo(chatOptions.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+    }
+  }
+}
+
+fun normalBottomViewConstraints(
+  constraintLayoutScope: ConstraintLayoutScope,
+  bottomView: ConstrainedLayoutReference,
+  chatView: ConstrainedLayoutReference,
+  chatOptions: ConstrainedLayoutReference
+): Modifier {
+  constraintLayoutScope.apply {
+    return Modifier.constrainAs(bottomView) {
+      top.linkTo(chatView.bottom)
+      bottom.linkTo(chatOptions.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+    }
+  }
+}
+
+private fun normalChatConstraints(
+  chatView: ConstrainedLayoutReference,
+  bottomView: ConstrainedLayoutReference,
+  constraintLayoutScope: ConstraintLayoutScope
+): Modifier {
+  constraintLayoutScope.apply {
+    return Modifier.Companion.constrainAs(chatView) {
+      top.linkTo(parent.top)
+      bottom.linkTo(bottomView.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+    }
+  }
+}
+
+private fun expandedChatConstraints(
+  chatView: ConstrainedLayoutReference,
+  constraintLayoutScope: ConstraintLayoutScope
+): Modifier {
+  constraintLayoutScope.apply {
+    return Modifier.Companion.constrainAs(chatView) {
+      top.linkTo(parent.top)
+      bottom.linkTo(parent.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+    }
+  }
+}
+
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ChatMessageBox(viewModel: ChatThreadVM) {
+fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
   val isKeyboardOpen by keyboardAsState()
 
-  Column {
+  Column(modifier.background(SlackCloneColorProvider.colors.uiBackground)) {
+    Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
     MessageTFRow(viewModel, isKeyboardOpen)
-    if (isKeyboardOpen == Keyboard.Opened) {
-      ChatOptions(viewModel)
-    }
   }
 
 }
 
 @Composable
-fun ChatOptions(viewModel: ChatThreadVM) {
+fun ChatOptions(viewModel: ChatThreadVM, modifier: Modifier = Modifier) {
   val search by viewModel.message.collectAsState()
 
-  Row {
+  Row(modifier) {
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.Add, contentDescription = null, ChatOptionIconSize())
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.AccountCircle, contentDescription = null, ChatOptionIconSize())
+      Icon(Icons.Outlined.Add, contentDescription = null, chatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.Email, contentDescription = null, ChatOptionIconSize())
+      Icon(Icons.Outlined.AccountCircle, contentDescription = null, chatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.ShoppingCart, contentDescription = null, ChatOptionIconSize())
+      Icon(Icons.Outlined.Email, contentDescription = null, chatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.Phone, contentDescription = null, ChatOptionIconSize())
+      Icon(Icons.Outlined.ShoppingCart, contentDescription = null, chatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.MailOutline, contentDescription = null, ChatOptionIconSize())
+      Icon(Icons.Outlined.Phone, contentDescription = null, chatOptionIconSize())
     }
-    IconButton(
-      onClick = {
-        viewModel.sendMessage(search)
-        viewModel.message.value = ""
-      },
-      Modifier.weight(1f),
-      enabled = search.isNotEmpty()
-    ) {
-      Icon(
-        Icons.Default.Send,
-        contentDescription = null, tint =
-        if (search.isEmpty()) SlackCloneColorProvider.colors.sendButtonDisabled else SlackCloneColorProvider.colors.sendButtonEnabled
-      )
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Outlined.MailOutline, contentDescription = null, chatOptionIconSize())
     }
+    SendMessageButton(viewModel = viewModel, search = search, modifier = Modifier.weight(1f))
+
   }
 }
 
-@Composable
-private fun ChatOptionIconSize() = Modifier.size(20.dp)
+private fun chatOptionIconSize() = Modifier.size(20.dp)
 
 @Composable
 private fun MessageTFRow(
@@ -152,7 +214,6 @@ private fun MessageTFRow(
     BasicTextField(
       value = search,
       cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
-      maxLines = 5,
       onValueChange = {
         viewModel.message.value = it
       },
@@ -165,19 +226,45 @@ private fun MessageTFRow(
       modifier = Modifier.weight(1f)
     )
     if (isKeyboardOpen == Keyboard.Closed) {
-      IconButton(
-        onClick = {
-          viewModel.sendMessage(search)
-          viewModel.message.value = ""
-        }, enabled = search.isNotEmpty()
-      ) {
-        Icon(
-          Icons.Default.Send,
-          contentDescription = null,
-          tint = if (search.isEmpty()) SlackCloneColorProvider.colors.sendButtonDisabled else SlackCloneColorProvider.colors.sendButtonEnabled
-        )
-      }
+      SendMessageButton(viewModel, search)
+    } else {
+      CollapseExpandButton(viewModel)
     }
+  }
+}
+
+@Composable
+fun CollapseExpandButton(viewModel: ChatThreadVM) {
+  val isExpanded by viewModel.isExpanded.collectAsState()
+  IconButton(
+    onClick = {
+      viewModel.isExpanded.value = !viewModel.isExpanded.value
+    },
+  ) {
+    Icon(
+      if (!isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+      contentDescription = null,
+    )
+  }
+}
+
+@Composable
+private fun SendMessageButton(
+  viewModel: ChatThreadVM,
+  search: String,
+  modifier: Modifier = Modifier
+) {
+  IconButton(
+    onClick = {
+      viewModel.sendMessage(search)
+      viewModel.message.value = ""
+    }, enabled = search.isNotEmpty(), modifier = modifier
+  ) {
+    Icon(
+      Icons.Default.Send,
+      contentDescription = null,
+      tint = if (search.isEmpty()) SlackCloneColorProvider.colors.sendButtonDisabled else SlackCloneColorProvider.colors.sendButtonEnabled
+    )
   }
 }
 
@@ -206,11 +293,11 @@ private fun ChatTFPlusPlaceHolder(
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun ChatMessagesUI(viewModel: ChatThreadVM) {
+fun ChatMessagesUI(viewModel: ChatThreadVM, modifier: Modifier) {
   val messages = viewModel.chatMessagesFlow.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
 
-  LazyColumn(state = listState, reverseLayout = true) {
+  LazyColumn(state = listState, reverseLayout = true, modifier = modifier) {
     items(messages) { message ->
       message?.let {
         Column {
