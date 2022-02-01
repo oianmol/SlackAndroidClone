@@ -74,19 +74,29 @@ fun ChatScreenUI(
       ) {
         val checkBoxState by viewModel.chatBoxState.collectAsState()
 
-        Box(
-          contentAlignment = Alignment.BottomCenter,
-          modifier = Modifier.navigationBarsWithImePadding()
+        ConstraintLayout(
+          modifier = Modifier
+            .navigationBarsWithImePadding()
+            .fillMaxHeight()
+            .fillMaxWidth()
         ) {
+          val (chatView, chatBox) = createRefs()
           ChatMessagesUI(
             viewModel,
-            modifier = if (checkBoxState == BoxState.Expanded) Modifier.size(0.dp) else Modifier
-              .fillMaxHeight()
-              .fillMaxWidth().padding(bottom = 60.dp)
+            Modifier.constrainAs(chatView) {
+              top.linkTo(parent.top)
+              start.linkTo(parent.start)
+              end.linkTo(parent.end)
+              bottom.linkTo(parent.bottom)
+            }
           )
           ChatMessageBox(
             viewModel,
-            Modifier
+            Modifier.constrainAs(chatBox) {
+              start.linkTo(parent.start)
+              end.linkTo(parent.end)
+              bottom.linkTo(parent.bottom)
+            }
           )
         }
       }
@@ -99,9 +109,8 @@ fun ChatScreenUI(
 @Composable
 fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
   val keyboard by keyboardAsState()
-  val checkBoxState by viewModel.chatBoxState.collectAsState()
   SideEffect {
-    if(keyboard is Keyboard.Closed){
+    if (keyboard is Keyboard.Closed) {
       viewModel.chatBoxState.value = BoxState.Collapsed
     }
   }
@@ -111,14 +120,15 @@ fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
     MessageTFRow(
       viewModel,
       keyboard,
-      modifier = if (checkBoxState == BoxState.Expanded) Modifier
-        .padding(start = 4.dp)
-        .weight(1f) else Modifier.padding(
+      modifier = Modifier.padding(
         start = 4.dp
       )
     )
     if (keyboard is Keyboard.Opened) {
-      ChatOptions(viewModel, Modifier)
+      ChatOptions(
+        viewModel,
+        Modifier
+      )
     }
   }
 
@@ -128,27 +138,33 @@ fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
 fun ChatOptions(viewModel: ChatThreadVM, modifier: Modifier = Modifier) {
   val search by viewModel.message.collectAsState()
 
-  Row(modifier) {
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.Add, contentDescription = null, chatOptionIconSize())
+  Row(
+    modifier
+      .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+  ) {
+    Row(modifier = Modifier.weight(1f)) {
+      IconButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Outlined.Add, contentDescription = null, chatOptionIconSize())
+      }
+      IconButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Outlined.AccountCircle, contentDescription = null, chatOptionIconSize())
+      }
+      IconButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Outlined.Email, contentDescription = null, chatOptionIconSize())
+      }
+      IconButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Outlined.ShoppingCart, contentDescription = null, chatOptionIconSize())
+      }
+      IconButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Outlined.Phone, contentDescription = null, chatOptionIconSize())
+      }
+      IconButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Outlined.MailOutline, contentDescription = null, chatOptionIconSize())
+      }
     }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.AccountCircle, contentDescription = null, chatOptionIconSize())
+    Box(Modifier.padding(end = 8.dp)) {
+      SendMessageButton(viewModel = viewModel, search = search)
     }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.Email, contentDescription = null, chatOptionIconSize())
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.ShoppingCart, contentDescription = null, chatOptionIconSize())
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.Phone, contentDescription = null, chatOptionIconSize())
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Outlined.MailOutline, contentDescription = null, chatOptionIconSize())
-    }
-    SendMessageButton(viewModel = viewModel, search = search, modifier = Modifier.weight(1f))
-
   }
 }
 
