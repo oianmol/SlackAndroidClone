@@ -1,5 +1,6 @@
 package dev.baseio.slackclone.uidashboard.compose
 
+import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -60,6 +61,13 @@ private fun DashboardScreenRegular(
   val sideNavWidth = screenWidth * 0.8f
   val sideNavPxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
   val screenWidthPxValue = with(LocalDensity.current) { screenWidth.toPx() }
+
+  BackHandler(enabled = !isChatViewClosed){
+    if(!isChatViewClosed){
+      isChatViewClosed = true
+    }
+  }
+
 
   SideEffect {
     if (isChatViewClosed) {

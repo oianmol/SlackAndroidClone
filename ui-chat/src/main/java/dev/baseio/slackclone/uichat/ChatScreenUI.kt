@@ -52,11 +52,6 @@ fun ChatScreenUI(
   onBackClick: () -> Unit,
   viewModel: ChatThreadVM = hiltViewModel()
 ) {
-
-  BackHandler(enabled = true){
-    onBackClick()
-  }
-
   val scaffoldState = rememberScaffoldState()
   SlackCloneTheme {
     Scaffold(
