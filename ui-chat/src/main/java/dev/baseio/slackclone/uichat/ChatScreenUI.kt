@@ -2,6 +2,8 @@ package dev.baseio.slackclone.uichat
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.*
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -70,27 +73,21 @@ fun ChatScreenUI(
           .padding(innerPadding)
       ) {
         val checkBoxState by viewModel.chatBoxState.collectAsState()
-        val keyboard by keyboardAsState()
 
-        Column(
-          Modifier
-            .navigationBarsWithImePadding()
-            .fillMaxHeight()
-            .fillMaxWidth()
+        Box(
+          contentAlignment = Alignment.BottomCenter,
+          modifier = Modifier.navigationBarsWithImePadding()
         ) {
           ChatMessagesUI(
             viewModel,
-            modifier = if (checkBoxState == BoxState.Expanded) Modifier.height(0.dp) else Modifier.weight(
-              1f
-            )
+            modifier = if (checkBoxState == BoxState.Expanded) Modifier.size(0.dp) else Modifier
+              .fillMaxHeight()
+              .fillMaxWidth().padding(bottom = 60.dp)
           )
           ChatMessageBox(
             viewModel,
-            if (checkBoxState == BoxState.Expanded) Modifier.weight(1f) else Modifier
+            Modifier
           )
-          if (keyboard is Keyboard.Opened) {
-            ChatOptions(viewModel, Modifier)
-          }
         }
       }
     }
@@ -101,11 +98,28 @@ fun ChatScreenUI(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
-  val isKeyboardOpen by keyboardAsState()
+  val keyboard by keyboardAsState()
+  val checkBoxState by viewModel.chatBoxState.collectAsState()
+  SideEffect {
+    if(keyboard is Keyboard.Closed){
+      viewModel.chatBoxState.value = BoxState.Collapsed
+    }
+  }
 
   Column(modifier.background(SlackCloneColorProvider.colors.uiBackground)) {
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-    MessageTFRow(viewModel, isKeyboardOpen)
+    MessageTFRow(
+      viewModel,
+      keyboard,
+      modifier = if (checkBoxState == BoxState.Expanded) Modifier
+        .padding(start = 4.dp)
+        .weight(1f) else Modifier.padding(
+        start = 4.dp
+      )
+    )
+    if (keyboard is Keyboard.Opened) {
+      ChatOptions(viewModel, Modifier)
+    }
   }
 
 }
@@ -143,11 +157,14 @@ private fun chatOptionIconSize() = Modifier.size(20.dp)
 @Composable
 private fun MessageTFRow(
   viewModel: ChatThreadVM,
-  isKeyboardOpen: Keyboard
+  isKeyboardOpen: Keyboard,
+  modifier: Modifier
 ) {
   val search by viewModel.message.collectAsState()
 
-  Row(Modifier.padding(start = 4.dp)) {
+  Row(
+    modifier
+  ) {
     BasicTextField(
       value = search,
       cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
