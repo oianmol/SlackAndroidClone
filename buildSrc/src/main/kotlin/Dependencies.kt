@@ -39,10 +39,10 @@ object Lib {
     private const val FRAGMENT_NAVIGATION_VERSION = "2.3.5"
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
-    private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0-rc02"
+    private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0"
     private const val COMPOSE_NAVIGATION_VERSION = "2.4.0-rc01"
     private const val COMPOSE_COIL_VERSION = "1.4.0"
-    private const val ACCOMPANIST_VERSION = "0.22.0-rc"
+    private const val ACCOMPANIST_VERSION = "0.24.1-alpha"
     private const val SPLASH_SCREEN_VERSION = "1.0.0-beta01"
 
     const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
@@ -55,11 +55,8 @@ object Lib {
     const val CONSTRAINT_LAYOUT_COMPOSE =
       "androidx.constraintlayout:constraintlayout-compose:${COMPOSE_CONSTRAINT_LAYOUT_VERSION}"
     const val COMPOSE_UI = "androidx.compose.ui:ui:${COMPOSE_VERSION}"
-    const val BUTTERFLY = "io.getstream:butterfly:1.0.1"
-    const val BUTTERFLY_LIVE = "io.getstream:butterfly-livedata:1.0.1"
-    const val BUTTERFLY_COMPOSE =  "io.getstream:butterfly-compose:1.0.1"
     const val ACCOMPANIST_SYSTEM_UI_CONTROLLER =
-      "com.google.accompanist:accompanist-systemuicontroller:0.24.0-alpha"
+      "com.google.accompanist:accompanist-systemuicontroller:${ACCOMPANIST_VERSION}"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${COMPOSE_COIL_VERSION}"
     const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"

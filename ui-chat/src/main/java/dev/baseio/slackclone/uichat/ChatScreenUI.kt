@@ -6,6 +6,7 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -20,11 +21,15 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
+import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -73,33 +78,67 @@ fun ChatScreenUI(
           .padding(innerPadding)
       ) {
         val checkBoxState by viewModel.chatBoxState.collectAsState()
-
+        val constraintSet =
+          if (checkBoxState == BoxState.Expanded) chatConstrainsExpanded() else chatConstrains()
         ConstraintLayout(
+          constraintSet,
           modifier = Modifier
             .navigationBarsWithImePadding()
             .fillMaxHeight()
             .fillMaxWidth()
         ) {
-          val (chatView, chatBox) = createRefs()
           ChatMessagesUI(
             viewModel,
-            Modifier.constrainAs(chatView) {
-              top.linkTo(parent.top)
-              start.linkTo(parent.start)
-              end.linkTo(parent.end)
-              bottom.linkTo(parent.bottom)
-            }
+            Modifier
+              .layoutId("chatView")
           )
           ChatMessageBox(
             viewModel,
-            Modifier.constrainAs(chatBox) {
-              start.linkTo(parent.start)
-              end.linkTo(parent.end)
-              bottom.linkTo(parent.bottom)
-            }
+            Modifier
+              .layoutId("chatBox")
           )
         }
       }
+    }
+  }
+
+}
+
+fun chatConstrainsExpanded(): ConstraintSet {
+  return ConstraintSet {
+    val chatBox = createRefFor("chatBox")
+    val chatView = createRefFor("chatView")
+    constrain(chatView) {
+      top.linkTo(parent.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+      bottom.linkTo(parent.bottom)
+    }
+    constrain(chatBox) {
+      this.height = Dimension.matchParent
+      top.linkTo(parent.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+      bottom.linkTo(parent.bottom)
+    }
+
+  }
+}
+
+fun chatConstrains(): ConstraintSet {
+  return ConstraintSet {
+    val chatBox = createRefFor("chatBox")
+    val chatView = createRefFor("chatView")
+    constrain(chatBox) {
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+      bottom.linkTo(parent.bottom)
+    }
+    constrain(chatView) {
+      top.linkTo(parent.top)
+      start.linkTo(parent.start)
+      end.linkTo(parent.end)
+      bottom.linkTo(parent.bottom)
     }
   }
 }
@@ -109,17 +148,19 @@ fun ChatScreenUI(
 @Composable
 fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
   val keyboard by keyboardAsState()
+
   SideEffect {
     if (keyboard is Keyboard.Closed) {
       viewModel.chatBoxState.value = BoxState.Collapsed
     }
   }
 
-  Column(modifier.background(SlackCloneColorProvider.colors.uiBackground)) {
-    Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
+  Column(
+    modifier.background(SlackCloneColorProvider.colors.uiBackground),
+    verticalArrangement = Arrangement.SpaceBetween
+  ) {
     MessageTFRow(
       viewModel,
-      keyboard,
       modifier = Modifier.padding(
         start = 4.dp
       )
@@ -170,37 +211,44 @@ fun ChatOptions(viewModel: ChatThreadVM, modifier: Modifier = Modifier) {
 
 private fun chatOptionIconSize() = Modifier.size(20.dp)
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun MessageTFRow(
   viewModel: ChatThreadVM,
-  isKeyboardOpen: Keyboard,
   modifier: Modifier
 ) {
-  val search by viewModel.message.collectAsState()
+  val keyboard by keyboardAsState()
 
-  Row(
-    modifier
-  ) {
-    BasicTextField(
-      value = search,
-      cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
-      onValueChange = {
-        viewModel.message.value = it
-      },
-      textStyle = SlackCloneTypography.subtitle1.copy(
-        color = Color.White,
-      ),
-      decorationBox = { innerTextField ->
-        ChatTFPlusPlaceHolder(search, innerTextField)
-      },
-      modifier = Modifier.weight(1f)
-    )
-    if (isKeyboardOpen == Keyboard.Closed) {
-      SendMessageButton(viewModel, search)
-    } else {
-      CollapseExpandButton(viewModel)
+  val search by viewModel.message.collectAsState()
+  Column() {
+    Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
+    Row(
+      modifier
+    ) {
+      BasicTextField(
+        value = search,
+        maxLines = 4,
+        cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
+        onValueChange = {
+          viewModel.message.value = it
+        },
+        textStyle = SlackCloneTypography.subtitle1.copy(
+          color = Color.White,
+        ),
+        decorationBox = { innerTextField ->
+          ChatTFPlusPlaceHolder(search, Modifier, innerTextField)
+        },
+        modifier = Modifier.weight(1f)
+      )
+
+      if (keyboard is Keyboard.Closed) {
+        SendMessageButton(viewModel, search)
+      } else {
+        CollapseExpandButton(viewModel)
+      }
     }
   }
+
 }
 
 @Composable
@@ -241,10 +289,11 @@ private fun SendMessageButton(
 @Composable
 private fun ChatTFPlusPlaceHolder(
   search: String,
+  modifier: Modifier = Modifier,
   innerTextField: @Composable () -> Unit
 ) {
   Row(
-    Modifier
+    modifier
       .padding(16.dp), verticalAlignment = Alignment.CenterVertically
   ) {
     if (search.isEmpty()) {
