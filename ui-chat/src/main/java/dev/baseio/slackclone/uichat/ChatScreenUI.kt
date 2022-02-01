@@ -1,6 +1,7 @@
 package dev.baseio.slackclone.uichat
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
@@ -57,6 +58,11 @@ fun ChatScreenUI(
   onBackClick: () -> Unit,
   viewModel: ChatThreadVM = hiltViewModel()
 ) {
+
+  BackHandler(enabled = true){
+    onBackClick()
+  }
+
   val scaffoldState = rememberScaffoldState()
   SlackCloneTheme {
     Scaffold(
