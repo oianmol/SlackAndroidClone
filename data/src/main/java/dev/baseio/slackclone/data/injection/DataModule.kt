@@ -11,11 +11,18 @@ import dev.baseio.slackclone.data.local.SlackDatabase
 import dev.baseio.slackclone.data.local.dao.SlackChannelDao
 import dev.baseio.slackclone.data.local.dao.SlackMessageDao
 import dev.baseio.slackclone.data.local.dao.SlackUserDao
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
+
+    @Provides
+    @Singleton
+    @RepositoryCoroutineContext
+    fun provideCoroutineContext() : CoroutineContext = Dispatchers.IO
 
     @Provides
     @Singleton

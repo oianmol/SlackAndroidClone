@@ -33,7 +33,7 @@ class SlackChannelDataDomainMapper @Inject constructor(): EntityMapper<SlackChan
     }
   }
 
-  override fun mapToEntity(model: SlackChannel): DBSlackChannel {
+  override fun mapToData(model: SlackChannel): DBSlackChannel {
     TODO("We don't need this yet")
   }
 }

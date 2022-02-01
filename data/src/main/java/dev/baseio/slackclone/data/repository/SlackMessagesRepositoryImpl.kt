@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import dev.baseio.slackclone.data.injection.RepositoryCoroutineContext
 import dev.baseio.slackclone.data.local.dao.SlackMessageDao
 import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.data.mapper.EntityMapper
@@ -12,11 +13,14 @@ import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.domain.repository.MessagesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class SlackMessagesRepositoryImpl @Inject constructor(
   private val slackMessageDao: SlackMessageDao,
-  private val entityMapper: EntityMapper<SlackMessage, DBSlackMessage>
+  private val entityMapper: EntityMapper<SlackMessage, DBSlackMessage>,
+  @RepositoryCoroutineContext private val coroutineContext: CoroutineContext
 ) :
   MessagesRepository {
   private val chatPager = Pager(PagingConfig(pageSize = 20)) {
@@ -28,6 +32,12 @@ class SlackMessagesRepositoryImpl @Inject constructor(
       messages.map { message ->
         entityMapper.mapToDomain(message)
       }
+    }
+  }
+
+  override suspend fun sendMessage(params: SlackMessage) {
+    withContext(coroutineContext) {
+      slackMessageDao.insert(entityMapper.mapToData(params))
     }
   }
 }

@@ -2,6 +2,8 @@ package dev.baseio.slackclone.data.mapper
 
 import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.domain.model.message.SlackMessage
+import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SlackMessageDataDomMapper @Inject constructor() : EntityMapper<SlackMessage, DBSlackMessage> {
@@ -16,7 +18,14 @@ class SlackMessageDataDomMapper @Inject constructor() : EntityMapper<SlackMessag
     )
   }
 
-  override fun mapToEntity(model: SlackMessage): DBSlackMessage {
-    TODO("Not yet implemented")
+  override fun mapToData(model: SlackMessage): DBSlackMessage {
+    return DBSlackMessage(
+      model.uuid,
+      model.message,
+      model.userId,
+      model.createdBy,
+      model.createdDate,
+      model.modifiedDate,
+    )
   }
 }

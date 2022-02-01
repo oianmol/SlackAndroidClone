@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MessagesRepository {
   fun fetchMessages(params: SlackChannel?): Flow<PagingData<SlackMessage>>
+  suspend fun sendMessage(params: SlackMessage)
 }

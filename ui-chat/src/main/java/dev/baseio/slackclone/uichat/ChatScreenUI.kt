@@ -2,22 +2,22 @@ package dev.baseio.slackclone.uichat
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,7 +32,6 @@ import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 import java.text.SimpleDateFormat
@@ -71,7 +70,7 @@ fun ChatScreenUI(
             ChatMessagesUI(viewModel)
           }
           Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-          ChatMessageBox()
+          ChatMessageBox(viewModel)
         }
       }
     }
@@ -85,13 +84,15 @@ private fun textStyleField() = SlackCloneTypography.h6.copy(
   textAlign = TextAlign.Start
 )
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ChatMessageBox() {
+fun ChatMessageBox(viewModel: ChatThreadVM) {
   var search by remember { mutableStateOf("") }
 
   Row(Modifier.padding(start = 4.dp)) {
     BasicTextField(
       value = search,
+      cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
       maxLines = 5,
       onValueChange = {
         search = it
@@ -100,28 +101,38 @@ fun ChatMessageBox() {
         color = Color.White,
       ),
       decorationBox = { innerTextField ->
-        Row(
-          Modifier
-            .padding(16.dp), verticalAlignment = Alignment.CenterVertically
-        ) {
-          if (search.isEmpty()) {
-            Text(
-              text = "Message #jetpack_compose",
-              style = SlackCloneTypography.subtitle1.copy(
-                color = SlackCloneColorProvider.colors.textSecondary,
-              ),
-              modifier = Modifier.weight(1f)
-            )
-          } else {
-            innerTextField()
-          }
-
-        }
+        ChatTFPlusPlaceHolder(search, innerTextField)
       },
       modifier = Modifier.weight(1f)
     )
-    IconButton(onClick = { }) {
+    IconButton(onClick = {
+      viewModel.sendMessage(search)
+      search = ""
+    }) {
       Icon(Icons.Default.Send, contentDescription = null)
+    }
+  }
+}
+
+@Composable
+private fun ChatTFPlusPlaceHolder(
+  search: String,
+  innerTextField: @Composable () -> Unit
+) {
+  Row(
+    Modifier
+      .padding(16.dp), verticalAlignment = Alignment.CenterVertically
+  ) {
+    if (search.isEmpty()) {
+      Text(
+        text = "Message #jetpack_compose",
+        style = SlackCloneTypography.subtitle1.copy(
+          color = SlackCloneColorProvider.colors.textSecondary,
+        ),
+        modifier = Modifier.weight(1f)
+      )
+    } else {
+      innerTextField()
     }
   }
 }
