@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.baseio.slackclone.data.local.dao.SlackMessageDao
 import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.uichat.chat.UseCaseFetchMessages
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import java.util.*
@@ -24,19 +25,21 @@ class ChatThreadVM @Inject constructor(
   private val useCaseSendMessage: UseCaseSendMessage
 ) : ViewModel() {
   val chatMessagesFlow = useCaseFetchMessages.performStreaming(null)
-  var message  = mutableStateOf("")
+  var message = MutableStateFlow("")
 
   fun sendMessage(search: String) {
-    viewModelScope.launch {
-      val message = SlackMessage(
-        UUID.randomUUID().toString(),
-        search,
-        UUID.randomUUID().toString(),
-        "Anmol Verma",
-        System.currentTimeMillis(),
-        System.currentTimeMillis(),
-      )
-      useCaseSendMessage.perform(message)
+    if (search.isNotEmpty()) {
+      viewModelScope.launch {
+        val message = SlackMessage(
+          UUID.randomUUID().toString(),
+          search,
+          UUID.randomUUID().toString(),
+          "Anmol Verma",
+          System.currentTimeMillis(),
+          System.currentTimeMillis(),
+        )
+        useCaseSendMessage.perform(message)
+      }
     }
   }
 

@@ -61,6 +61,12 @@ private fun DashboardScreenRegular(
   val sideNavPxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
   val screenWidthPxValue = with(LocalDensity.current) { screenWidth.toPx() }
 
+  SideEffect {
+    if (isChatViewClosed) {
+      keyboardController?.hide()
+    }
+  }
+
   SlackDragComposableView(
     isLeftNavOpen = isLeftNavOpen,
     isChatViewClosed = checkChatViewClosed(lastChannel, isChatViewClosed),
@@ -71,9 +77,6 @@ private fun DashboardScreenRegular(
     },
     onOpenCloseRightView = {
       isChatViewClosed = it
-      if (it) {
-        keyboardController?.hide()
-      }
     },
     { modifier ->
       DashboardScaffold(

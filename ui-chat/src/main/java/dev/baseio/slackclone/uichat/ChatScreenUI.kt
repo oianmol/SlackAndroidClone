@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -89,7 +90,7 @@ fun ChatMessageBox(viewModel: ChatThreadVM) {
   val isKeyboardOpen by keyboardAsState()
 
   Column {
-    MessageTFRow(viewModel,isKeyboardOpen)
+    MessageTFRow(viewModel, isKeyboardOpen)
     if (isKeyboardOpen == Keyboard.Opened) {
       ChatOptions(viewModel)
     }
@@ -99,52 +100,61 @@ fun ChatMessageBox(viewModel: ChatThreadVM) {
 
 @Composable
 fun ChatOptions(viewModel: ChatThreadVM) {
-  var search by remember {
-    viewModel.message
-  }
+  val search by viewModel.message.collectAsState()
+
   Row {
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Default.Add, contentDescription = null, Modifier.size(16.dp))
+      Icon(Icons.Outlined.Add, contentDescription = null, ChatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Default.AccountCircle, contentDescription = null, Modifier.size(16.dp))
+      Icon(Icons.Outlined.AccountCircle, contentDescription = null, ChatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Default.Email, contentDescription = null, Modifier.size(16.dp))
+      Icon(Icons.Outlined.Email, contentDescription = null, ChatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Default.ShoppingCart, contentDescription = null, Modifier.size(16.dp))
+      Icon(Icons.Outlined.ShoppingCart, contentDescription = null, ChatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Default.Phone, contentDescription = null, Modifier.size(16.dp))
+      Icon(Icons.Outlined.Phone, contentDescription = null, ChatOptionIconSize())
     }
     IconButton(onClick = { /*TODO*/ }) {
-      Icon(Icons.Default.MailOutline, contentDescription = null, Modifier.size(16.dp))
+      Icon(Icons.Outlined.MailOutline, contentDescription = null, ChatOptionIconSize())
     }
-    IconButton(onClick = {
-      viewModel.sendMessage(search)
-      search = ""
-    },Modifier.weight(1f)) {
-      Icon(Icons.Default.Send, contentDescription = null)
+    IconButton(
+      onClick = {
+        viewModel.sendMessage(search)
+        viewModel.message.value = ""
+      },
+      Modifier.weight(1f),
+      enabled = search.isNotEmpty()
+    ) {
+      Icon(
+        Icons.Default.Send,
+        contentDescription = null, tint =
+        if (search.isEmpty()) SlackCloneColorProvider.colors.sendButtonDisabled else SlackCloneColorProvider.colors.sendButtonEnabled
+      )
     }
   }
 }
+
+@Composable
+private fun ChatOptionIconSize() = Modifier.size(20.dp)
 
 @Composable
 private fun MessageTFRow(
   viewModel: ChatThreadVM,
   isKeyboardOpen: Keyboard
 ) {
-  var search by remember {
-    viewModel.message
-  }
+  val search by viewModel.message.collectAsState()
+
   Row(Modifier.padding(start = 4.dp)) {
     BasicTextField(
       value = search,
       cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
       maxLines = 5,
       onValueChange = {
-        search = it
+        viewModel.message.value = it
       },
       textStyle = SlackCloneTypography.subtitle1.copy(
         color = Color.White,
@@ -154,12 +164,18 @@ private fun MessageTFRow(
       },
       modifier = Modifier.weight(1f)
     )
-    if(isKeyboardOpen == Keyboard.Closed){
-      IconButton(onClick = {
-        viewModel.sendMessage(search)
-        search = ""
-      }) {
-        Icon(Icons.Default.Send, contentDescription = null)
+    if (isKeyboardOpen == Keyboard.Closed) {
+      IconButton(
+        onClick = {
+          viewModel.sendMessage(search)
+          viewModel.message.value = ""
+        }, enabled = search.isNotEmpty()
+      ) {
+        Icon(
+          Icons.Default.Send,
+          contentDescription = null,
+          tint = if (search.isEmpty()) SlackCloneColorProvider.colors.sendButtonDisabled else SlackCloneColorProvider.colors.sendButtonEnabled
+        )
       }
     }
   }
