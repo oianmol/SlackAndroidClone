@@ -25,7 +25,7 @@ fun SlackListItem(
 ) {
   Row(
     modifier = Modifier
-      .padding(12.dp)
+      .padding(horizontal = 8.dp, vertical = 12.dp)
       .clickable {
         onItemClick()
       }, verticalAlignment = Alignment.CenterVertically

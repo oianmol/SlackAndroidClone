@@ -28,7 +28,7 @@ fun SKExpandCollapseColumn(
   Column(
     Modifier
       .fillMaxWidth()
-      .padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp)
+      .padding(start = 16.dp, top = 4.dp, end = 8.dp, bottom = 4.dp)
   ) {
     Row(
       Modifier
