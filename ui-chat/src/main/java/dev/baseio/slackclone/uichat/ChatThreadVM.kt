@@ -1,5 +1,9 @@
 package dev.baseio.slackclone.uichat
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -20,6 +24,7 @@ class ChatThreadVM @Inject constructor(
   private val useCaseSendMessage: UseCaseSendMessage
 ) : ViewModel() {
   val chatMessagesFlow = useCaseFetchMessages.performStreaming(null)
+  var message  = mutableStateOf("")
 
   fun sendMessage(search: String) {
     viewModelScope.launch {

@@ -8,16 +8,13 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -27,6 +24,8 @@ import androidx.paging.compose.items
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import dev.baseio.slackclone.commonui.keyboard.Keyboard
+import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
@@ -87,8 +86,58 @@ private fun textStyleField() = SlackCloneTypography.h6.copy(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ChatMessageBox(viewModel: ChatThreadVM) {
-  var search by remember { mutableStateOf("") }
+  val isKeyboardOpen by keyboardAsState()
 
+  Column {
+    MessageTFRow(viewModel,isKeyboardOpen)
+    if (isKeyboardOpen == Keyboard.Opened) {
+      ChatOptions(viewModel)
+    }
+  }
+
+}
+
+@Composable
+fun ChatOptions(viewModel: ChatThreadVM) {
+  var search by remember {
+    viewModel.message
+  }
+  Row {
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Default.Add, contentDescription = null, Modifier.size(16.dp))
+    }
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Default.AccountCircle, contentDescription = null, Modifier.size(16.dp))
+    }
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Default.Email, contentDescription = null, Modifier.size(16.dp))
+    }
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Default.ShoppingCart, contentDescription = null, Modifier.size(16.dp))
+    }
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Default.Phone, contentDescription = null, Modifier.size(16.dp))
+    }
+    IconButton(onClick = { /*TODO*/ }) {
+      Icon(Icons.Default.MailOutline, contentDescription = null, Modifier.size(16.dp))
+    }
+    IconButton(onClick = {
+      viewModel.sendMessage(search)
+      search = ""
+    },Modifier.weight(1f)) {
+      Icon(Icons.Default.Send, contentDescription = null)
+    }
+  }
+}
+
+@Composable
+private fun MessageTFRow(
+  viewModel: ChatThreadVM,
+  isKeyboardOpen: Keyboard
+) {
+  var search by remember {
+    viewModel.message
+  }
   Row(Modifier.padding(start = 4.dp)) {
     BasicTextField(
       value = search,
@@ -105,11 +154,13 @@ fun ChatMessageBox(viewModel: ChatThreadVM) {
       },
       modifier = Modifier.weight(1f)
     )
-    IconButton(onClick = {
-      viewModel.sendMessage(search)
-      search = ""
-    }) {
-      Icon(Icons.Default.Send, contentDescription = null)
+    if(isKeyboardOpen == Keyboard.Closed){
+      IconButton(onClick = {
+        viewModel.sendMessage(search)
+        search = ""
+      }) {
+        Icon(Icons.Default.Send, contentDescription = null)
+      }
     }
   }
 }
