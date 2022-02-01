@@ -3,11 +3,8 @@ package dev.baseio.slackclone.uichat
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -23,10 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
@@ -50,7 +44,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@OptIn(ExperimentalAnimationApi::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun ChatScreenUI(
   modifier: Modifier,
@@ -226,7 +220,7 @@ private fun MessageTFRow(
   val keyboard by keyboardAsState()
 
   val search by viewModel.message.collectAsState()
-  Column() {
+  Column {
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
     Row(
       modifier
@@ -412,15 +406,6 @@ private fun Long.calendar(): Calendar {
   return Calendar.getInstance().apply {
     this.timeInMillis = this@calendar
   }
-}
-
-private fun Long?.month(): Int? {
-  this?.let {
-    return it.calendar().get(Calendar.MONTH)
-  } ?: kotlin.run {
-    return null
-  }
-
 }
 
 @Composable
