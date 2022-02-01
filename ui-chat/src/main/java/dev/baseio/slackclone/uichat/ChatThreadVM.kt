@@ -26,7 +26,8 @@ class ChatThreadVM @Inject constructor(
 ) : ViewModel() {
   val chatMessagesFlow = useCaseFetchMessages.performStreaming(null)
   var message = MutableStateFlow("")
-  var isExpanded = MutableStateFlow(false)
+    private set
+  var chatBoxState = MutableStateFlow(BoxState.Collapsed)
 
   fun sendMessage(search: String) {
     if (search.isNotEmpty()) {
@@ -41,6 +42,8 @@ class ChatThreadVM @Inject constructor(
         )
         useCaseSendMessage.perform(message)
       }
+      message.value = ""
+      chatBoxState.value = BoxState.Collapsed
     }
   }
 

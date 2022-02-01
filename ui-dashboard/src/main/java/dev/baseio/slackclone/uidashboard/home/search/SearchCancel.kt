@@ -32,7 +32,7 @@ fun SearchCancel() {
     SearchMessagesTF(modifier = Modifier.weight(1f), search) { newValue ->
       search = newValue
     }
-    AnimatedVisibility(visible = isKeyboardOpen == Keyboard.Opened) {
+    AnimatedVisibility(visible = isKeyboardOpen is Keyboard.Opened) {
       TextButton(onClick = {
         search = ""
         keyboardController?.hide()

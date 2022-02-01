@@ -1,6 +1,7 @@
 package dev.baseio.slackclone.uichat
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,11 +18,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+@OptIn(ExperimentalAnimationApi::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun ChatScreenUI(
   modifier: Modifier,
@@ -68,94 +69,30 @@ fun ChatScreenUI(
         modifier = Modifier
           .padding(innerPadding)
       ) {
+        val checkBoxState by viewModel.chatBoxState.collectAsState()
+        val keyboard by keyboardAsState()
 
-        ConstraintLayout(
-          modifier = Modifier
+        Column(
+          Modifier
             .navigationBarsWithImePadding()
             .fillMaxHeight()
             .fillMaxWidth()
         ) {
-          // Create references for the composables to constrain
-          val isExpanded by viewModel.isExpanded.collectAsState()
-          val isKeyboardOpen by keyboardAsState()
-
-          Column() {
-            if(!isExpanded){
-              ChatMessagesUI(
-                viewModel,
-                modifier = Modifier.weight(1f)
-              )
-            }
-            ChatMessageBox(
-              viewModel, if (isExpanded) Modifier.weight(1f) else Modifier
+          ChatMessagesUI(
+            viewModel,
+            modifier = if (checkBoxState == BoxState.Expanded) Modifier.height(0.dp) else Modifier.weight(
+              1f
             )
-            if (isKeyboardOpen == Keyboard.Opened) {
-              ChatOptions(viewModel, Modifier)
-            }
+          )
+          ChatMessageBox(
+            viewModel,
+            if (checkBoxState == BoxState.Expanded) Modifier.weight(1f) else Modifier
+          )
+          if (keyboard is Keyboard.Opened) {
+            ChatOptions(viewModel, Modifier)
           }
         }
-
       }
-    }
-  }
-}
-
-fun expandedBottomViewConstrains(
-  constraintLayoutScope: ConstraintLayoutScope,
-  bottomView: ConstrainedLayoutReference,
-  chatOptions: ConstrainedLayoutReference
-): Modifier {
-  constraintLayoutScope.apply {
-    return Modifier.constrainAs(bottomView) {
-      top.linkTo(parent.top)
-      bottom.linkTo(chatOptions.top)
-      start.linkTo(parent.start)
-      end.linkTo(parent.end)
-    }
-  }
-}
-
-fun normalBottomViewConstraints(
-  constraintLayoutScope: ConstraintLayoutScope,
-  bottomView: ConstrainedLayoutReference,
-  chatView: ConstrainedLayoutReference,
-  chatOptions: ConstrainedLayoutReference
-): Modifier {
-  constraintLayoutScope.apply {
-    return Modifier.constrainAs(bottomView) {
-      top.linkTo(chatView.bottom)
-      bottom.linkTo(chatOptions.top)
-      start.linkTo(parent.start)
-      end.linkTo(parent.end)
-    }
-  }
-}
-
-private fun normalChatConstraints(
-  chatView: ConstrainedLayoutReference,
-  bottomView: ConstrainedLayoutReference,
-  constraintLayoutScope: ConstraintLayoutScope
-): Modifier {
-  constraintLayoutScope.apply {
-    return Modifier.Companion.constrainAs(chatView) {
-      top.linkTo(parent.top)
-      bottom.linkTo(bottomView.top)
-      start.linkTo(parent.start)
-      end.linkTo(parent.end)
-    }
-  }
-}
-
-private fun expandedChatConstraints(
-  chatView: ConstrainedLayoutReference,
-  constraintLayoutScope: ConstraintLayoutScope
-): Modifier {
-  constraintLayoutScope.apply {
-    return Modifier.Companion.constrainAs(chatView) {
-      top.linkTo(parent.top)
-      bottom.linkTo(parent.top)
-      start.linkTo(parent.start)
-      end.linkTo(parent.end)
     }
   }
 }
@@ -235,14 +172,15 @@ private fun MessageTFRow(
 
 @Composable
 fun CollapseExpandButton(viewModel: ChatThreadVM) {
-  val isExpanded by viewModel.isExpanded.collectAsState()
+  val isExpanded by viewModel.chatBoxState.collectAsState()
   IconButton(
     onClick = {
-      viewModel.isExpanded.value = !viewModel.isExpanded.value
+      viewModel.chatBoxState.value =
+        if (viewModel.chatBoxState.value == BoxState.Collapsed) BoxState.Expanded else BoxState.Collapsed
     },
   ) {
     Icon(
-      if (!isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+      if (isExpanded == BoxState.Collapsed) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
       contentDescription = null,
     )
   }
@@ -257,7 +195,6 @@ private fun SendMessageButton(
   IconButton(
     onClick = {
       viewModel.sendMessage(search)
-      viewModel.message.value = ""
     }, enabled = search.isNotEmpty(), modifier = modifier
   ) {
     Icon(
@@ -443,3 +380,6 @@ private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: ChatPresentation.S
 }
 
 fun lock() = "\uD83D\uDD12"
+
+
+enum class BoxState { Collapsed, Expanded }
