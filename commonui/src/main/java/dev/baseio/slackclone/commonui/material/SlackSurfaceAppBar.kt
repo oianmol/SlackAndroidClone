@@ -21,8 +21,9 @@ fun SlackSurfaceAppBar(
   elevation: Dp = AppBarDefaults.TopAppBarElevation,
 ) {
   SlackCloneSurface(
-    color = SlackCloneColorProvider.colors.uiBackground,
-    contentColor = SlackCloneColorProvider.colors.accent,
+    color = backgroundColor,
+    contentColor = contentColor,
+    elevation = elevation
   ) {
     TopAppBar(
       title, modifier, navigationIcon, actions, backgroundColor, contentColor, elevation
@@ -40,8 +41,9 @@ fun SlackSurfaceAppBar(
   content: @Composable RowScope.() -> Unit
 ) {
   SlackCloneSurface(
-    color = SlackCloneColorProvider.colors.uiBackground,
-    contentColor = SlackCloneColorProvider.colors.accent,
+    color = backgroundColor,
+    contentColor = contentColor,
+    elevation = elevation
   ) {
     TopAppBar(
       modifier, backgroundColor, contentColor, elevation, contentPadding, content
