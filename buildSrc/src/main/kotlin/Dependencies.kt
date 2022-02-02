@@ -23,20 +23,17 @@ object BuildPlugins {
 }
 
 object Lib {
-
   object Kotlin {
     const val KOTLIN_VERSION = "1.6.0"
     private const val KTX_CORE_VERSION = "1.2.0"
-
     const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
     const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
     const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
   }
 
   object Android {
-    const val COMPOSE_VERSION = "1.2.0-alpha02"
+    private const val COMPOSE_VERSION = "1.2.0-alpha02"
     const val COMPOSE_COMPILER_VERSION = "1.2.0-alpha02"
-    private const val FRAGMENT_NAVIGATION_VERSION = "2.4.0"
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
     private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0"
