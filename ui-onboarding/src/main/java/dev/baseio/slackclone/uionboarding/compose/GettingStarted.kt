@@ -21,7 +21,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.Screen
+import dev.baseio.slackclone.navigator.SlackScreen
 import dev.baseio.slackclone.uionboarding.R
 
 @Composable
@@ -115,7 +115,7 @@ private fun GetStartedButton(composeNavigator: ComposeNavigator) {
   ) {
     Button(
       onClick = {
-        composeNavigator.navigate(Screen.SkipTypingScreen.name)
+        composeNavigator.navigate(SlackScreen.SkipTypingScreen.name)
       },
       Modifier
         .fillMaxWidth()

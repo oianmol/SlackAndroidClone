@@ -23,7 +23,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.Screen
+import dev.baseio.slackclone.navigator.SlackScreen
 import dev.baseio.slackclone.uionboarding.R
 
 @Composable
@@ -104,7 +104,7 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
 fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
   OutlinedButton(
     onClick = {
-      composeNavigator.navigate(Screen.EmailAddressInputUI.name)
+      composeNavigator.navigate(SlackScreen.EmailAddressInputUI.name)
     },
     border = BorderStroke(1.dp, color = Color.White),
     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
@@ -123,7 +123,7 @@ fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
 private fun IWillSignInManually(composeNavigator: ComposeNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(Screen.WorkspaceInputUI.name)
+      composeNavigator.navigate(SlackScreen.WorkspaceInputUI.name)
     },
     Modifier
       .fillMaxWidth()
