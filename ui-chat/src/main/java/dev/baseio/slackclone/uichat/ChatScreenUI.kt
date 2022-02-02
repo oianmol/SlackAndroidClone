@@ -228,7 +228,7 @@ private fun MessageTFRow(
           viewModel.message.value = it
         },
         textStyle = SlackCloneTypography.subtitle1.copy(
-          color = Color.White,
+          color = SlackCloneColorProvider.colors.textPrimary,
         ),
         decorationBox = { innerTextField ->
           ChatTFPlusPlaceHolder(search, Modifier, innerTextField)
