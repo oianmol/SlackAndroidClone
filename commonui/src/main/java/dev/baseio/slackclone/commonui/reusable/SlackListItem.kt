@@ -10,9 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
+import dev.baseio.slackclone.commonui.theme.SlackCloneShapes
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -25,7 +27,7 @@ fun SlackListItem(
 ) {
   Row(
     modifier = Modifier
-      .padding(horizontal = 8.dp, vertical = 12.dp)
+      .padding(8.dp)
       .clickable {
         onItemClick()
       }, verticalAlignment = Alignment.CenterVertically
@@ -46,7 +48,7 @@ fun SlackListItem(
         )
       ), modifier = Modifier
         .weight(1f)
-        .padding(4.dp)
+        .padding(8.dp)
     )
     trailingItem?.let { safeIcon ->
       Icon(
