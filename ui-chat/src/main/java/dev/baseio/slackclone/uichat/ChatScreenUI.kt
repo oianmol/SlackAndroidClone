@@ -3,6 +3,10 @@ package dev.baseio.slackclone.uichat
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,9 +26,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
-import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -44,7 +46,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(
+  ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class,
+  androidx.constraintlayout.compose.ExperimentalMotionApi::class
+)
 @Composable
 fun ChatScreenUI(
   modifier: Modifier,
@@ -73,10 +78,21 @@ fun ChatScreenUI(
           .padding(innerPadding)
       ) {
         val checkBoxState by viewModel.chatBoxState.collectAsState()
-        val constraintSet =
-          if (checkBoxState == BoxState.Expanded) chatConstrainsExpanded() else chatConstrains()
-        ConstraintLayout(
-          constraintSet,
+        val change by animateFloatAsState(
+          if (checkBoxState == BoxState.Expanded) {
+            1f
+          } else {
+            0f
+          }, animationSpec = spring(
+            dampingRatio = Spring.DampingRatioLowBouncy,
+            stiffness = Spring.StiffnessMediumLow
+          )
+        )
+
+        MotionLayout(
+          start = chatConstrains(),
+          end = chatConstrainsExpanded(),
+          progress = change,
           modifier = Modifier
             .navigationBarsWithImePadding()
             .fillMaxHeight()
@@ -133,7 +149,7 @@ fun chatConstrains(): ConstraintSet {
       top.linkTo(parent.top)
       start.linkTo(parent.start)
       end.linkTo(parent.end)
-      bottom.linkTo(parent.bottom)
+      bottom.linkTo(chatBox.top)
     }
   }
 }
