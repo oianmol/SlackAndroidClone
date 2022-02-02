@@ -32,7 +32,7 @@ object Lib {
   }
 
   object Android {
-    private const val COMPOSE_VERSION = "1.2.0-alpha02"
+    const val COMPOSE_VERSION = "1.2.0-alpha02"
     const val COMPOSE_COMPILER_VERSION = "1.2.0-alpha02"
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
