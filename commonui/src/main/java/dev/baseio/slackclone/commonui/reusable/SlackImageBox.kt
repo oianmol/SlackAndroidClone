@@ -14,9 +14,6 @@ fun SlackImageBox(modifier: Modifier, imageUrl: String) {
     painter = rememberImagePainter(
       data = imageUrl,
       builder = {
-        memoryCachePolicy(CachePolicy.ENABLED)
-        diskCachePolicy(CachePolicy.DISABLED)
-        memoryCacheKey(MemoryCache.Key.invoke(imageUrl + System.currentTimeMillis()))
         transformations(RoundedCornersTransformation(12.0f, 12.0f, 12.0f, 12.0f))
       }
     ),

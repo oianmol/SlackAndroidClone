@@ -36,19 +36,16 @@ object Lib {
   object Android {
     const val COMPOSE_VERSION = "1.2.0-alpha02"
     const val COMPOSE_COMPILER_VERSION = "1.2.0-alpha02"
-    private const val FRAGMENT_NAVIGATION_VERSION = "2.3.5"
+    private const val FRAGMENT_NAVIGATION_VERSION = "2.4.0"
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
     private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0"
-    private const val COMPOSE_NAVIGATION_VERSION = "2.4.0-rc01"
+    private const val COMPOSE_NAVIGATION_VERSION = "2.5.0-alpha01"
     private const val COMPOSE_COIL_VERSION = "1.4.0"
     private const val ACCOMPANIST_VERSION = "0.24.1-alpha"
     private const val SPLASH_SCREEN_VERSION = "1.0.0-beta01"
 
     const val APP_COMPAT = "androidx.appcompat:appcompat:1.3.0-beta01"
-    const val NAVIGATION_FRAGMENT =
-      "androidx.navigation:navigation-fragment-ktx:${FRAGMENT_NAVIGATION_VERSION}"
-    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.4.0"
 
     // Compose
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${COMPOSE_ACTIVITY_VERSION}"

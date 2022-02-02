@@ -8,17 +8,22 @@ sealed class Screen(
   private val baseRoute: String,
   val navArguments: List<NamedNavArgument> = emptyList()
 ) {
-  val route: String = baseRoute.appendArguments(navArguments)
+  val name: String = baseRoute.appendArguments(navArguments)
 
   // onboarding
   object GettingStarted : Screen("gettingStarted")
   object SkipTypingScreen : Screen("SkipTypingUI")
   object EmailAddressInputUI : Screen("EmailAddressInputUI")
-  object WorkspaceInputUI: Screen("WorkspaceInputUI")
+  object WorkspaceInputUI : Screen("WorkspaceInputUI")
 
   // dashboard
-  object Dashboard:Screen("Dashboard")
+  object Dashboard : Screen("Dashboard")
 
+}
+
+sealed class Route(val name: String) {
+  object OnBoarding : Route("onboarding")
+  object Dashboard : Route("dashboard")
 }
 
 private fun String.appendArguments(navArguments: List<NamedNavArgument>): String {

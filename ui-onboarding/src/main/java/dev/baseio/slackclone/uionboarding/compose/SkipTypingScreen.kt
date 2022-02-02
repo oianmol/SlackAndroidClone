@@ -28,71 +28,73 @@ import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun SkipTypingUI(composeNavigator: ComposeNavigator) {
-  val scaffoldState = rememberScaffoldState()
-  val sysUiController = rememberSystemUiController()
-  SideEffect {
-    sysUiController.setNavigationBarColor(color = SlackCloneColor)
-    sysUiController.setSystemBarsColor(color = SlackCloneColor)
-  }
-  Scaffold(
-    backgroundColor = SlackCloneColor,
-    contentColor = SlackCloneColorProvider.colors.textSecondary,
-    modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
-    topBar = {
-      SlackSurfaceAppBar(
-        title = {
-
-        },
-        navigationIcon = {
-          IconButton(onClick = {
-            composeNavigator.navigateUp()
-          }) {
-            Icon(
-              imageVector = Icons.Filled.Clear,
-              contentDescription = "Clear",
-              modifier = Modifier.padding(start = 8.dp), tint = Color.White
-            )
-          }
-        },
-        backgroundColor = SlackCloneColor,
-        elevation = 0.dp
-      )
-    },
-    snackbarHost = {
-      scaffoldState.snackbarHostState
+  SlackCloneTheme() {
+    val scaffoldState = rememberScaffoldState()
+    val sysUiController = rememberSystemUiController()
+    SideEffect {
+      sysUiController.setNavigationBarColor(color = SlackCloneColor)
+      sysUiController.setSystemBarsColor(color = SlackCloneColor)
     }
-  ) { innerPadding ->
-    Box(modifier = Modifier.padding(innerPadding)) {
-      SlackCloneSurface(
-        color = SlackCloneColor,
-        modifier = Modifier
-          .padding(28.dp)
-      ) {
-        Column(
-          verticalArrangement = Arrangement.SpaceAround,
-          horizontalAlignment = Alignment.CenterHorizontally,
+    Scaffold(
+      backgroundColor = SlackCloneColor,
+      contentColor = SlackCloneColorProvider.colors.textSecondary,
+      modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState,
+      topBar = {
+        SlackSurfaceAppBar(
+          title = {
+
+          },
+          navigationIcon = {
+            IconButton(onClick = {
+              composeNavigator.navigateUp()
+            }) {
+              Icon(
+                imageVector = Icons.Filled.Clear,
+                contentDescription = "Clear",
+                modifier = Modifier.padding(start = 8.dp), tint = Color.White
+              )
+            }
+          },
+          backgroundColor = SlackCloneColor,
+          elevation = 0.dp
+        )
+      },
+      snackbarHost = {
+        scaffoldState.snackbarHostState
+      }
+    ) { innerPadding ->
+      Box(modifier = Modifier.padding(innerPadding)) {
+        SlackCloneSurface(
+          color = SlackCloneColor,
           modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
+            .padding(28.dp)
         ) {
-          Image(
-            painter = painterResource(id = R.drawable.gettingstarted),
-            contentDescription = "Logo",
-            Modifier
-          )
-          TitleSubtitleText()
-          Spacer(Modifier.padding(8.dp))
-          Column {
-            EmailMeMagicLink(composeNavigator)
-            Box(modifier = Modifier.height(12.dp))
-            IWillSignInManually(composeNavigator)
+          Column(
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+              .fillMaxHeight()
+              .fillMaxWidth()
+          ) {
+            Image(
+              painter = painterResource(id = R.drawable.gettingstarted),
+              contentDescription = "Logo",
+              Modifier
+            )
+            TitleSubtitleText()
+            Spacer(Modifier.padding(8.dp))
+            Column {
+              EmailMeMagicLink(composeNavigator)
+              Box(modifier = Modifier.height(12.dp))
+              IWillSignInManually(composeNavigator)
+            }
+
           }
 
         }
-
       }
-    }
 
+    }
   }
 
 
@@ -102,7 +104,7 @@ fun SkipTypingUI(composeNavigator: ComposeNavigator) {
 fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
   OutlinedButton(
     onClick = {
-      composeNavigator.navigate(Screen.EmailAddressInputUI.route)
+      composeNavigator.navigate(Screen.EmailAddressInputUI.name)
     },
     border = BorderStroke(1.dp, color = Color.White),
     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
@@ -121,7 +123,7 @@ fun EmailMeMagicLink(composeNavigator: ComposeNavigator) {
 private fun IWillSignInManually(composeNavigator: ComposeNavigator) {
   Button(
     onClick = {
-      composeNavigator.navigate(Screen.WorkspaceInputUI.route)
+      composeNavigator.navigate(Screen.WorkspaceInputUI.name)
     },
     Modifier
       .fillMaxWidth()

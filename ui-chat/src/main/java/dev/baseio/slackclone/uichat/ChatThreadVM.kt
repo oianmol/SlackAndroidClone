@@ -24,7 +24,6 @@ class ChatThreadVM @Inject constructor(
     chatMessagesFlow = useCaseFetchMessages.performStreaming(null)
   }
 
-
   fun sendMessage(search: String) {
     if (search.isNotEmpty()) {
       viewModelScope.launch {

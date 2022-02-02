@@ -98,9 +98,9 @@ kapt {
 }
 
 dependencies {
-  implementation(project(":ui-onboarding"))
-  implementation(project(":ui-dashboard"))
-  implementation(project(":ui-chat"))
+  api(project(":ui-onboarding"))
+  api(project(":ui-dashboard"))
+  api(project(":ui-chat"))
 
   implementation(project(":navigator"))
   implementation(project(":data"))
@@ -118,7 +118,7 @@ dependencies {
   implementation(Lib.Android.SPLASH_SCREEN_API)
 
   implementation(Lib.Android.APP_COMPAT)
-  implementation(Lib.Android.NAVIGATION_FRAGMENT)
+
   implementation(Lib.Kotlin.KTX_CORE)
 
   /*DI*/

@@ -30,12 +30,13 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
+import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 import dev.baseio.slackclone.uichat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
 
 @Composable
-fun DashboardUI() {
+fun DashboardUI(composeNavigator: ComposeNavigator) {
   val scaffoldState = rememberScaffoldState()
   val dashboardNavController = rememberNavController()
 

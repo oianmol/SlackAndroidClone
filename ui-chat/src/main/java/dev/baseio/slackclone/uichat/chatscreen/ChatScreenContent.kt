@@ -83,7 +83,7 @@ private fun chatConstrains(): ConstraintSet {
       top.linkTo(parent.top)
       start.linkTo(parent.start)
       end.linkTo(parent.end)
-      bottom.linkTo(chatBox.top, margin = 44.dp)
+      bottom.linkTo(chatBox.top, margin = 48.dp)
     }
     constrain(chatBox) {
       start.linkTo(parent.start)

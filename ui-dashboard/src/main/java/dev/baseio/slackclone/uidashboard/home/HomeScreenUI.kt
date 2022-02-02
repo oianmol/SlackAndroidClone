@@ -1,5 +1,6 @@
 package dev.baseio.slackclone.uidashboard.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -73,7 +74,7 @@ fun ThreadsTile() {
 fun JumpToText() {
   Box(
     Modifier
-      .fillMaxWidth()
+      .fillMaxWidth().clickable {  }
       .padding(8.dp)
   ) {
     RoundedCornerBoxDecoration {

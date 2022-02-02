@@ -5,7 +5,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,12 +17,11 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.FragmentNavGraphNavigator
-import dev.baseio.slackclone.uionboarding.R
+import dev.baseio.slackclone.navigator.Screen
 
 @Composable
 fun CommonInputUI(
-  fragmentNavigator: FragmentNavGraphNavigator,
+  composeNavigator:ComposeNavigator,
   TopView: @Composable (modifier: Modifier) -> Unit,
   subtitleText: String
 ) {
@@ -69,7 +67,7 @@ fun CommonInputUI(
               bottom.linkTo(parent.bottom)
               start.linkTo(parent.start)
               end.linkTo(parent.end)
-            }, fragmentNavigator)
+            },composeNavigator)
           }
         }
       }
@@ -79,10 +77,10 @@ fun CommonInputUI(
 }
 
 @Composable
-fun NextButton(modifier: Modifier = Modifier, fragmentNavigator: FragmentNavGraphNavigator) {
+fun NextButton(modifier: Modifier = Modifier, composeNavigator: ComposeNavigator) {
   Button(
     onClick = {
-      fragmentNavigator.navigateFragment(R.id.action_onboarding_fragment_to_dashboard_fragment)
+      composeNavigator.navigate(Screen.Dashboard.name)
     },
     modifier
       .fillMaxWidth()

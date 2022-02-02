@@ -18,18 +18,21 @@ import dev.baseio.slackclone.uichat.ChatThreadVM
 
 @Composable
 fun ChatMessagesUI(viewModel: ChatThreadVM, modifier: Modifier) {
-  val messages = viewModel.chatMessagesFlow.collectAsLazyPagingItems()
+  val messages = viewModel.chatMessagesFlow?.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
 
   LazyColumn(state = listState, reverseLayout = true, modifier = modifier) {
-    items(messages) { message ->
-      message?.let {
-        Column {
-          ChatHeader(message.createdDate)
-          ChatMessage(message)
+    messages?.let {
+      items(messages) { message ->
+        message?.let {
+          Column {
+            ChatHeader(message.createdDate)
+            ChatMessage(message)
+          }
         }
       }
     }
+
   }
 }
 
