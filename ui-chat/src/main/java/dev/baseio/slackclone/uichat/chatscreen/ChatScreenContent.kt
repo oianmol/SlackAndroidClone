@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -43,7 +44,7 @@ fun ChatScreenContent(viewModel: ChatThreadVM) {
   ) {
     ChatMessagesUI(
       viewModel,
-      Modifier.fillMaxHeight().fillMaxWidth()
+      Modifier
         .layoutId("chatView")
     )
     ChatMessageBox(
@@ -80,10 +81,12 @@ private fun chatConstrains(): ConstraintSet {
     val chatBox = createRefFor("chatBox")
     val chatView = createRefFor("chatView")
     constrain(chatView) {
+      height = Dimension.fillToConstraints
+      width = Dimension.fillToConstraints
       top.linkTo(parent.top)
       start.linkTo(parent.start)
       end.linkTo(parent.end)
-      bottom.linkTo(chatBox.top, margin = 48.dp)
+      bottom.linkTo(chatBox.top)
     }
     constrain(chatBox) {
       start.linkTo(parent.start)

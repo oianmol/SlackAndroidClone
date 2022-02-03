@@ -8,12 +8,9 @@ import dev.baseio.slackclone.data.mapper.EntityMapper
 import dev.baseio.slackclone.domain.model.channel.SlackChannel
 import dev.baseio.slackclone.domain.model.channel.SlackChannelType
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -29,7 +26,6 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   init {
     // bad ! change, only for testing purposes
     preloadChannels()
-    preloadMessages(20)
   }
 
   override fun fetchChannels(params: SlackChannelType?): Flow<List<SlackChannel>> {
@@ -56,10 +52,10 @@ class SlackChannelsRepositoryImpl @Inject constructor(
 
   private fun preloadChannels() {
     val channels = mutableListOf<DBSlackChannel>()
-    repeat(20) {
+    repeat(5) {
       channels.add(
         DBSlackChannel(
-          UUID.randomUUID().toString(),
+          "prj_jp_compose $it",
           "prj_jp_compose $it",
           "to explore compose...",
           "Anmol Verma",

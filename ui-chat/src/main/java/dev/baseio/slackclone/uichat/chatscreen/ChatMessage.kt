@@ -38,12 +38,6 @@ fun ChatMedia(message: SlackMessage) {
         color = SlackCloneColorProvider.colors.textSecondary
       ), modifier = Modifier.padding(4.dp)
     )
-    SlackImageBox(
-      modifier = Modifier
-        .padding(4.dp)
-        .fillMaxWidth()
-        .height(228.dp), imageUrl = "http://placekitten.com/300/300"
-    )
   }
 
 }

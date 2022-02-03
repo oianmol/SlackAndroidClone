@@ -41,8 +41,7 @@ fun ChatScreenUI(
       backgroundColor = SlackCloneColorProvider.colors.uiBackground,
       contentColor = SlackCloneColorProvider.colors.textSecondary,
       modifier = modifier
-        .statusBarsPadding()
-        .navigationBarsPadding(),
+        .statusBarsPadding(),
       scaffoldState = scaffoldState,
       snackbarHost = {
         scaffoldState.snackbarHostState

@@ -19,31 +19,31 @@ import kotlin.coroutines.CoroutineContext
 @InstallIn(SingletonComponent::class)
 object DataModule {
 
-    @Provides
-    @Singleton
-    @RepositoryCoroutineContext
-    fun provideCoroutineContext() : CoroutineContext = Dispatchers.IO
+  @Provides
+  @Singleton
+  @RepositoryCoroutineContext
+  fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
 
-    @Provides
-    @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): SlackDatabase {
-        return Room.inMemoryDatabaseBuilder(
-            context,
-            SlackDatabase::class.java,
-        ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
-    }
+  @Provides
+  @Singleton
+  fun provideDatabase(@ApplicationContext context: Context): SlackDatabase {
+    return Room.databaseBuilder(
+      context,
+      SlackDatabase::class.java, "messages_db"
+    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
+  }
 
-    @Provides
-    @Singleton
-    fun providesSlackMessageDao(slackDatabase: SlackDatabase): SlackMessageDao =
-        slackDatabase.slackMessageDao()
+  @Provides
+  @Singleton
+  fun providesSlackMessageDao(slackDatabase: SlackDatabase): SlackMessageDao =
+    slackDatabase.slackMessageDao()
 
-    @Provides
-    @Singleton
-    fun provideChannelDao(slackDatabase: SlackDatabase): SlackChannelDao =
-        slackDatabase.slackChannelDao()
+  @Provides
+  @Singleton
+  fun provideChannelDao(slackDatabase: SlackDatabase): SlackChannelDao =
+    slackDatabase.slackChannelDao()
 
-    @Provides
-    @Singleton
-    fun provideUserDao(slackDatabase: SlackDatabase): SlackUserDao = slackDatabase.slackUserDao()
+  @Provides
+  @Singleton
+  fun provideUserDao(slackDatabase: SlackDatabase): SlackUserDao = slackDatabase.slackUserDao()
 }
