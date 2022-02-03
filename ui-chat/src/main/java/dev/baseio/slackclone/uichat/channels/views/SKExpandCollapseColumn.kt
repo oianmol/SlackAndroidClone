@@ -24,6 +24,7 @@ fun SKExpandCollapseColumn(
   onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
   onExpandCollapse: (isChecked: Boolean) -> Unit,
   channels: List<ChatPresentation.SlackChannel>,
+  onClickAdd: () -> Unit
 ) {
   Column(
     Modifier
@@ -44,7 +45,7 @@ fun SKExpandCollapseColumn(
         style = SlackCloneTypography.subtitle2.copy(fontWeight = FontWeight.SemiBold),
         modifier = Modifier.weight(1f)
       )
-      AddButton(expandCollapseModel)
+      AddButton(expandCollapseModel, onClickAdd)
       ToggleButton(expandCollapseModel, onExpandCollapse)
     }
     ChannelsList(expandCollapseModel, onItemClick, channels)
@@ -77,11 +78,10 @@ private fun ColumnScope.ChannelsList(
 @Composable
 private fun AddButton(
   expandCollapseModel: ExpandCollapseModel,
+  onClickAdd: () -> Unit
 ) {
   if (expandCollapseModel.needsPlusButton) {
-    IconButton(onClick = {
-
-    }) {
+    IconButton(onClick = onClickAdd) {
       Icon(
         imageVector = Icons.Default.Add,
         contentDescription = null,

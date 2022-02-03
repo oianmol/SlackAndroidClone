@@ -12,7 +12,8 @@ import dev.baseio.slackclone.uichat.models.ChatPresentation
 @Composable
 fun SlackRecentChannels(
   onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
-  channelVM: SlackChannelVM = hiltViewModel()
+  channelVM: SlackChannelVM = hiltViewModel(),
+  onClickAdd: () -> Unit
 ) {
   val recent = stringResource(R.string.Recent)
   val channels by channelVM.channels.collectAsState(initial = emptyList())
@@ -25,5 +26,5 @@ fun SlackRecentChannels(
   }
   SKExpandCollapseColumn(expandCollapseModel, onItemClick, {
     expandCollapseModel = expandCollapseModel.copy(isOpen = it)
-  }, channels)
+  }, channels, onClickAdd)
 }

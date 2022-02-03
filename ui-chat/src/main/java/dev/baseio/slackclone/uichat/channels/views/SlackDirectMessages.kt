@@ -1,18 +1,17 @@
-package dev.baseio.slackclone.uichat.channels
+package dev.baseio.slackclone.uichat.channels.views
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
 import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
-import dev.baseio.slackclone.uichat.channels.views.SKExpandCollapseColumn
-import dev.baseio.slackclone.uichat.R
+import dev.baseio.slackclone.uichat.channels.SlackChannelVM
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable
 fun SlackDirectMessages(
   onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
-  channelVM: SlackChannelVM = hiltViewModel()
+  channelVM: SlackChannelVM = hiltViewModel(),
+  onClickAdd: () -> Unit
 ) {
   val recent = stringResource(R.string.direct_messages)
   val channels by channelVM.channels.collectAsState(initial = emptyList())
@@ -27,5 +26,5 @@ fun SlackDirectMessages(
   }
   SKExpandCollapseColumn(expandCollapseModel, onItemClick, {
     expandCollapseModel = expandCollapseModel.copy(isOpen = it)
-  }, channels)
+  }, channels, onClickAdd)
 }

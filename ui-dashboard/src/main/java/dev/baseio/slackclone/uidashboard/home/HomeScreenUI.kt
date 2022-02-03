@@ -2,7 +2,6 @@ package dev.baseio.slackclone.uidashboard.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
@@ -24,6 +23,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.uichat.channels.*
 import dev.baseio.slackclone.uichat.channels.views.SlackAllChannels
+import dev.baseio.slackclone.uichat.channels.views.SlackDirectMessages
 import dev.baseio.slackclone.uichat.channels.views.SlackStarredChannels
 import dev.baseio.slackclone.uichat.models.ChatPresentation
 
@@ -44,18 +44,28 @@ fun HomeScreenUI(
         Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
         SlackRecentChannels({
           onItemClick(it)
+        }, onClickAdd = {
+
         })
         SlackStarredChannels({
           onItemClick(it)
+        }, onClickAdd = {
+
         })
         SlackDirectMessages({
           onItemClick(it)
+        }, onClickAdd = {
+
         })
         SlackAllChannels({
           onItemClick(it)
+        }, onClickAdd = {
+
         })
         SlackConnections({
           onItemClick(it)
+        }, onClickAdd = {
+
         })
       }
     }
@@ -74,7 +84,8 @@ fun ThreadsTile() {
 fun JumpToText() {
   Box(
     Modifier
-      .fillMaxWidth().clickable {  }
+      .fillMaxWidth()
+      .clickable { }
       .padding(8.dp)
   ) {
     RoundedCornerBoxDecoration {
