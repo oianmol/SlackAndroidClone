@@ -1,9 +1,6 @@
 package dev.baseio.slackclone.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import kotlinx.coroutines.flow.Flow
 
@@ -23,7 +20,7 @@ interface SlackChannelDao {
   )
   fun findByName(name:String): List<DBSlackChannel>
 
-  @Insert
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertAll( channelDB: List<DBSlackChannel>)
 
   @Delete

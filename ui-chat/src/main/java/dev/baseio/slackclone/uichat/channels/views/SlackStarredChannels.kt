@@ -1,10 +1,9 @@
 package dev.baseio.slackclone.uichat.channels.views
 
-import dev.baseio.slackclone.uichat.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
+import dev.baseio.slackclone.uichat.R
 import dev.baseio.slackclone.uichat.channels.SlackChannelVM
 import dev.baseio.slackclone.uichat.channels.data.ExpandCollapseModel
 import dev.baseio.slackclone.uichat.models.ChatPresentation

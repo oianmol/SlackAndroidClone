@@ -2,6 +2,7 @@ package dev.baseio.slackclone.uidashboard.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
@@ -20,7 +21,6 @@ import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.uichat.channels.*
 import dev.baseio.slackclone.uichat.channels.views.SlackAllChannels
