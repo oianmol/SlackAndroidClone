@@ -10,6 +10,7 @@ class SlackMessageDataDomMapper @Inject constructor() : EntityMapper<SlackMessag
   override fun mapToDomain(entity: DBSlackMessage): SlackMessage {
     return SlackMessage(
       entity.uuid,
+      entity.channelId,
       entity.message,
       entity.userId,
       entity.createdBy,
@@ -21,6 +22,7 @@ class SlackMessageDataDomMapper @Inject constructor() : EntityMapper<SlackMessag
   override fun mapToData(model: SlackMessage): DBSlackMessage {
     return DBSlackMessage(
       model.uuid,
+      model.channelId,
       model.message,
       model.userId,
       model.createdBy,

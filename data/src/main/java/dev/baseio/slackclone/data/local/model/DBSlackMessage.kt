@@ -8,6 +8,7 @@ import dev.baseio.slackclone.data.mapper.DataModel
 @Entity(tableName = "slackMessage")
 data class DBSlackMessage(
     @PrimaryKey val uuid: String,
+    @ColumnInfo(name = "channelId") val channelId: String,
     @ColumnInfo(name = "message") val message: String,
     @ColumnInfo(name = "from") val userId: String,
     @ColumnInfo(name = "createdBy") val createdBy: String,

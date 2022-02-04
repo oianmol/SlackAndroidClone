@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,31 +24,34 @@ import java.util.*
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ChatMessagesUI(viewModel: ChatThreadVM, modifier: Modifier) {
-  val messages = viewModel.chatMessagesFlow.collectAsLazyPagingItems()
+  val flowState by viewModel.chatMessagesFlow.collectAsState()
+  val messages = flowState?.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
 
   LazyColumn(state = listState, reverseLayout = true, modifier = modifier) {
     var lastDrawnMessage: String? = null
-    for (messageIndex in 0 until messages.itemCount) {
-      val message = messages.peek(messageIndex)!!
-      item {
-        ChatMessage(message)
-      }
-      lastDrawnMessage = message.createdDate.calendar().formattedMonthDate()
-      if (!isLastMessage(messageIndex, messages)) {
-        val nextMessageMonth =
-          messages.peek(messageIndex + 1)?.createdDate?.calendar()?.formattedMonthDate()
-        if (nextMessageMonth != lastDrawnMessage) {
-          item {
+    messages?.let {
+      for (messageIndex in 0 until messages.itemCount) {
+        val message = messages.peek(messageIndex)!!
+        item {
+          ChatMessage(message)
+        }
+        lastDrawnMessage = message.createdDate.calendar().formattedMonthDate()
+        if (!isLastMessage(messageIndex, messages)) {
+          val nextMessageMonth =
+            messages.peek(messageIndex + 1)?.createdDate?.calendar()?.formattedMonthDate()
+          if (nextMessageMonth != lastDrawnMessage) {
+            stickyHeader {
+              ChatHeader(message.createdDate)
+            }
+          }
+        } else {
+          stickyHeader {
             ChatHeader(message.createdDate)
           }
         }
-      } else {
-        item {
-          ChatHeader(message.createdDate)
-        }
-      }
 
+      }
     }
   }
 }

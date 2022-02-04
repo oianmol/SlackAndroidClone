@@ -29,10 +29,10 @@ fun ChatScreenUI(
   modifier: Modifier,
   slackChannel: ChatPresentation.SlackChannel,
   onBackClick: () -> Unit,
-  viewModel: ChatThreadVM = hiltViewModel()
+  viewModel: ChatThreadVM
 ) {
   val scaffoldState = rememberScaffoldState()
-  LaunchedEffect(key1 = Unit) {
+  SideEffect {
     viewModel.requestFetch(slackChannel)
   }
   SlackCloneTheme {

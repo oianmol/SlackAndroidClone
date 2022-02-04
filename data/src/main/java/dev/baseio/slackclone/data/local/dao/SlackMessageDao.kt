@@ -19,8 +19,8 @@ interface SlackMessageDao {
   fun insert(message: DBSlackMessage)
 
   // The Int type parameter tells Room to use a PositionalDataSource object.
-  @Query("SELECT * FROM slackMessage ORDER BY createdDate DESC")
-  fun messagesByDate(): PagingSource<Int, DBSlackMessage>
+  @Query("SELECT * FROM slackMessage where channelId = :params ORDER BY createdDate DESC")
+  fun messagesByDate(params: String?): PagingSource<Int, DBSlackMessage>
 
   @Query("SELECT * from slackMessage where uuid like :uuid")
   fun getById(uuid: String): DBSlackMessage
