@@ -1,15 +1,12 @@
 package dev.baseio.slackclone.uichat.chatscreen
 
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.input.pointer.consumePositionChange
+import androidx.compose.ui.composed
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
@@ -22,17 +19,13 @@ import androidx.constraintlayout.compose.MotionLayout
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
 import dev.baseio.slackclone.uichat.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import kotlin.math.abs
 
 @OptIn(ExperimentalMotionApi::class)
 @Composable
 fun ChatScreenContent(viewModel: ChatThreadVM) {
   val checkBoxState by viewModel.chatBoxState.collectAsState()
   val coroutineScope = rememberCoroutineScope()
-  val keyboardState by keyboardAsState()
   val manualExpandValue = if (checkBoxState == BoxState.Expanded) {
     1f
   } else {
@@ -56,10 +49,6 @@ fun ChatScreenContent(viewModel: ChatThreadVM) {
     )
   )
 
-  val height = with(LocalDensity.current) {
-    LocalConfiguration.current.screenHeightDp.dp.toPx()
-  }
-
   MotionLayout(
     start = chatConstrains(),
     end = chatConstrainsExpanded(),
@@ -77,7 +66,7 @@ fun ChatScreenContent(viewModel: ChatThreadVM) {
     ChatMessageBox(
       viewModel,
       Modifier
-        .animateDrag(height, coroutineScope, dragAnimate,{
+        .animateDrag({
           viewModel.chatBoxState.value = BoxState.Expanded
         }) {
           viewModel.chatBoxState.value = BoxState.Collapsed
@@ -87,35 +76,47 @@ fun ChatScreenContent(viewModel: ChatThreadVM) {
   }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@Composable
 private fun Modifier.animateDrag(
-  height: Float,
-  coroutineScope: CoroutineScope,
-  dragAnimate: Animatable<Float, AnimationVector1D>,
   onExpand: () -> Unit,
   onCollapse: () -> Unit
-): Modifier = pointerInput(Unit) {
-  detectVerticalDragGestures(onVerticalDrag = { change, dragAmount ->
-    val percentageDrag = (abs(change.position.y).div(height))
-    change.consumePositionChange()
-    coroutineScope.launch {
-      dragAnimate.snapTo(percentageDrag)
+): Modifier =
+  composed {
+    val sensitivity = 200
+    var swipeOffset by remember {
+      mutableStateOf(0f)
     }
-  }, onDragEnd = {
-    if (dragAnimate.value > 0.1f) {
-      coroutineScope.launch {
-        dragAnimate.animateTo(1f, animationSpec = tween(250))
-        onExpand()
-      }
-    } else {
-      coroutineScope.launch {
-        dragAnimate.animateTo(0f, animationSpec = tween(250))
-        onCollapse()
-      }
+    var gestureConsumed by remember {
+      mutableStateOf(false)
     }
+    this.pointerInput(Unit) {
+      detectVerticalDragGestures(
+        onVerticalDrag = { _, dragAmount ->
+          //dragAmount: positive when scrolling down; negative when scrolling up
+          swipeOffset += dragAmount
+          when {
+            swipeOffset > sensitivity -> {
+              //offset > 0 when swipe down
+              if (!gestureConsumed) {
+                onCollapse()
+                gestureConsumed = true
+              }
+            }
 
-  })
-}
+            swipeOffset < -sensitivity -> {
+              //offset < 0 when swipe up
+              if (!gestureConsumed) {
+                onExpand()
+                gestureConsumed = true
+              }
+            }
+          }
+        }, onDragEnd = {
+          swipeOffset = 0f
+          gestureConsumed = false
+        })
+    }
+  }
 
 private fun chatConstrainsExpanded(): ConstraintSet {
   return ConstraintSet {
