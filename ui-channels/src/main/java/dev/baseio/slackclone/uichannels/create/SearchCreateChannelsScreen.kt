@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
@@ -22,6 +23,7 @@ import dev.baseio.slackclone.navigator.SlackScreen
 
 @Composable
 fun SearchCreateChannelUI(
+  searchChannelsVM: SearchChannelsVM = hiltViewModel(),
   composeNavigator: ComposeNavigator
 ) {
   SlackCloneTheme {
@@ -73,6 +75,7 @@ private fun Content(innerPadding: PaddingValues) {
       val scroll = rememberScrollState()
       Column(Modifier.verticalScroll(scroll)) {
         SearchChannelsTF()
+
       }
     }
   }
@@ -172,7 +175,7 @@ private fun NavBackIcon(composeNavigator: ComposeNavigator) {
     Icon(
       imageVector = Icons.Filled.Clear,
       contentDescription = "Clear",
-      modifier = Modifier.padding(start = 8.dp), tint = Color.White
+      modifier = Modifier.padding(start = 8.dp), tint = SlackCloneColorProvider.colors.appBarIconColor
     )
   }
 }

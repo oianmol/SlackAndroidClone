@@ -251,7 +251,8 @@ private fun NavBackIcon(composeNavigator: ComposeNavigator) {
     Icon(
       imageVector = Icons.Filled.ArrowBack,
       contentDescription = "Clear",
-      modifier = Modifier.padding(start = 8.dp), tint = Color.White
+      modifier = Modifier.padding(start = 8.dp),
+      tint = SlackCloneColorProvider.colors.appBarIconColor
     )
   }
 }
