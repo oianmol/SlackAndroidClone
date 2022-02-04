@@ -1,5 +1,9 @@
 package dev.baseio.slackclone.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import dev.baseio.slackclone.data.local.dao.SlackChannelDao
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.mapper.EntityMapper
@@ -7,12 +11,9 @@ import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
 import dev.baseio.slackclone.domain.model.channel.SlackChannelType
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 import javax.inject.Inject
 
 class SlackChannelsRepositoryImpl @Inject constructor(
@@ -20,6 +21,22 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   private val slackChannelMapper: EntityMapper<DomSlackChannel, DBSlackChannel>,
 ) :
   ChannelsRepository {
+
+  override fun fetchChannelsPaged(params: String?): Flow<PagingData<DomSlackChannel>> {
+    val chatPager = Pager(PagingConfig(pageSize = 20)) {
+      params?.takeIf { it.isNotEmpty() }?.let {
+        slackChannelDao.channelsByName(params)
+      }?:run{
+        slackChannelDao.channelsByName()
+      }
+    }
+    return chatPager.flow.map { messages ->
+      messages.map { message ->
+        slackChannelMapper.mapToDomain(message)
+      }
+    }
+  }
+
 
   override fun fetchChannels(params: SlackChannelType?): Flow<List<DomSlackChannel>> {
     return slackChannelDao.getAllAsFlow()

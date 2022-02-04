@@ -1,5 +1,6 @@
 package dev.baseio.slackclone.data.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import kotlinx.coroutines.flow.Flow
@@ -31,4 +32,12 @@ interface SlackChannelDao {
 
   @Query("SELECT * from slackChannel where uuid like :uuid")
   fun getById(uuid: String): DBSlackChannel?
+
+  // The Int type parameter tells Room to use a PositionalDataSource object.
+  @Query("SELECT * FROM slackChannel where name like '%' || :params || '%' ORDER BY name ASC")
+  fun channelsByName(params: String?): PagingSource<Int, DBSlackChannel>
+
+  // The Int type parameter tells Room to use a PositionalDataSource object.
+  @Query("SELECT * FROM slackChannel ORDER BY name ASC")
+  fun channelsByName(): PagingSource<Int, DBSlackChannel>
 }

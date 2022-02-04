@@ -1,12 +1,16 @@
 package dev.baseio.slackclone.uichannels.create
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,9 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
+import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackScreen
@@ -30,7 +37,7 @@ fun SearchCreateChannelUI(
     val scaffoldState = rememberScaffoldState()
 
     SlackCloneTheme {
-      ListChannels(scaffoldState, composeNavigator) {
+      ListChannels(scaffoldState, composeNavigator, searchChannelsVM = searchChannelsVM) {
         composeNavigator.navigate(SlackScreen.CreateNewChannel.name)
       }
     }
@@ -38,9 +45,10 @@ fun SearchCreateChannelUI(
 }
 
 @Composable
-fun ListChannels(
+private fun ListChannels(
   scaffoldState: ScaffoldState,
   composeNavigator: ComposeNavigator,
+  searchChannelsVM: SearchChannelsVM,
   newChannel: () -> Unit
 ) {
   Box {
@@ -61,34 +69,90 @@ fun ListChannels(
         NewChannelFAB(newChannel)
       }
     ) { innerPadding ->
-      Content(innerPadding)
+      SearchContent(innerPadding, searchChannelsVM)
     }
   }
 }
 
 @Composable
-private fun Content(innerPadding: PaddingValues) {
+private fun SearchContent(innerPadding: PaddingValues, searchChannelsVM: SearchChannelsVM) {
   Box(modifier = Modifier.padding(innerPadding)) {
     SlackCloneSurface(
       modifier = Modifier.fillMaxSize()
     ) {
-      val scroll = rememberScrollState()
-      Column(Modifier.verticalScroll(scroll)) {
-        SearchChannelsTF()
-
+      Column() {
+        SearchChannelsTF(searchChannelsVM)
+        ListAllChannels(searchChannelsVM)
       }
     }
   }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun SearchChannelsTF() {
-  var searchChannel by remember { mutableStateOf("") }
+private fun ListAllChannels(searchChannelsVM: SearchChannelsVM) {
+  val channels by searchChannelsVM.channels.collectAsState()
+  val channelsFlow = channels.collectAsLazyPagingItems()
+  val listState = rememberLazyListState()
+  LazyColumn(state = listState, reverseLayout = false) {
+    var lastDrawnChannel: String? = null
+    for (channelIndex in 0 until channelsFlow.itemCount) {
+      val channel = channelsFlow.peek(channelIndex)!!
+      val newDrawn = channel.name?.first().toString()
+      if (canDrawHeader(lastDrawnChannel, newDrawn)) {
+        stickyHeader {
+          SlackChannelHeader(newDrawn)
+        }
+      }
+      item {
+        SlackChannelListItem(channel)
+      }
+      lastDrawnChannel = newDrawn
+    }
+  }
+}
+
+fun canDrawHeader(lastDrawnChannel: String?, name: String?): Boolean {
+  return lastDrawnChannel != name
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun SlackChannelListItem(slackChannel: ChatPresentation.SlackChannel) {
+  Column {
+    SlackListItem(
+      icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
+      title = "${slackChannel.name}",
+      onItemClick = {
+      }
+    )
+    Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
+  }
+}
+
+@Composable
+fun SlackChannelHeader(title: String) {
+  Box(
+    Modifier
+      .fillMaxWidth()
+      .background(SlackCloneColorProvider.colors.lineColor)
+  ) {
+    Text(
+      text = title,
+      modifier = Modifier.padding(12.dp),
+      style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.textSecondary)
+    )
+  }
+}
+
+@Composable
+private fun SearchChannelsTF(searchChannelsVM: SearchChannelsVM) {
+  val searchChannel by searchChannelsVM.search.collectAsState()
 
   TextField(
     value = searchChannel,
     onValueChange = { newValue ->
-      searchChannel = newValue
+      searchChannelsVM.search(newValue)
     },
     textStyle = textStyleFieldPrimary(),
     placeholder = {
@@ -175,7 +239,8 @@ private fun NavBackIcon(composeNavigator: ComposeNavigator) {
     Icon(
       imageVector = Icons.Filled.Clear,
       contentDescription = "Clear",
-      modifier = Modifier.padding(start = 8.dp), tint = SlackCloneColorProvider.colors.appBarIconColor
+      modifier = Modifier.padding(start = 8.dp),
+      tint = SlackCloneColorProvider.colors.appBarIconColor
     )
   }
 }

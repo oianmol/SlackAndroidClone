@@ -11,6 +11,7 @@ import dev.baseio.slackclone.domain.usecases.channels.UseCaseCreateChannel
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseSendMessage
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseFetchChannels
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseGetChannel
+import dev.baseio.slackclone.domain.usecases.channels.UseCaseSearchChannel
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseFetchMessages
 
 @Module
@@ -41,4 +42,9 @@ object UseCaseModule {
   @ViewModelScoped
   fun provideUseCaseGetChannel(channelsRepository: ChannelsRepository) =
     UseCaseGetChannel(channelsRepository)
+
+  @Provides
+  @ViewModelScoped
+  fun provideUseCaseSearchChannel(channelsRepository: ChannelsRepository) =
+    UseCaseSearchChannel(channelsRepository)
 }
