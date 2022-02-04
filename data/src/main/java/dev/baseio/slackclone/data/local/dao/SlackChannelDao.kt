@@ -7,6 +7,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SlackChannelDao {
+
+  @Query("SELECT COUNT(*) from slackChannel ")
+  fun count(): Int
+
   @Query("SELECT * FROM slackChannel")
   fun getAll(): List<DBSlackChannel>
 

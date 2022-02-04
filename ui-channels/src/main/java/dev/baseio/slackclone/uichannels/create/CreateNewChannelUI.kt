@@ -139,9 +139,9 @@ private fun PrivateChannel(
       checked = isChecked, onCheckedChange = {
         createChannelVM.channel.value = createChannelVM.channel.value.copy(isPrivate = it)
       }, colors = SwitchDefaults.colors(
-        checkedThumbColor = Color.Blue,
+        checkedThumbColor = SlackCloneColorProvider.colors.accent,
         uncheckedThumbColor = Color.LightGray,
-        checkedTrackColor = Color.Blue,
+        checkedTrackColor = SlackCloneColorProvider.colors.accent,
         uncheckedTrackColor = Color.LightGray,
         checkedTrackAlpha = 0.2f
       )
@@ -218,7 +218,6 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
 @Composable
 private fun AppBar(composeNavigator: ComposeNavigator, createChannelVM: CreateChannelVM) {
   val haptic = LocalHapticFeedback.current
-  val context = LocalContext.current
   SlackSurfaceAppBar(
     title = {
       NavTitle()
@@ -237,7 +236,7 @@ private fun AppBar(composeNavigator: ComposeNavigator, createChannelVM: CreateCh
       }) {
         Text(
           stringResource(R.string.create),
-          style = textStyleFieldPrimary().copy(color = SlackCloneColorProvider.colors.appBarTextSubTitleColor)
+          style = textStyleFieldSecondary().copy(color = SlackCloneColorProvider.colors.appBarTextSubTitleColor)
         )
       }
     }

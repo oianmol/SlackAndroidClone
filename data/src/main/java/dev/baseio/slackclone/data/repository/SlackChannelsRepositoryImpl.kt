@@ -37,6 +37,12 @@ class SlackChannelsRepositoryImpl @Inject constructor(
     }
   }
 
+  override suspend fun channelCount(): Int {
+    return withContext(Dispatchers.IO){
+      slackChannelDao.count()
+    }
+
+  }
 
   override fun fetchChannels(params: SlackChannelType?): Flow<List<DomSlackChannel>> {
     return slackChannelDao.getAllAsFlow()

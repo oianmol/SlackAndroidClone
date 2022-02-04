@@ -15,7 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -60,7 +62,8 @@ private fun ListChannels(
         .navigationBarsPadding(),
       scaffoldState = scaffoldState,
       topBar = {
-        AppBar(composeNavigator)
+        val channelCount by searchChannelsVM.channelCount.collectAsState()
+        SearchAppBar(composeNavigator, channelCount)
       },
       snackbarHost = {
         scaffoldState.snackbarHostState
@@ -138,7 +141,7 @@ fun SlackChannelHeader(title: String) {
       .background(SlackCloneColorProvider.colors.lineColor)
   ) {
     Text(
-      text = title,
+      text = title.toUpperCase(Locale.current),
       modifier = Modifier.padding(12.dp),
       style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.textSecondary)
     )
@@ -205,10 +208,10 @@ private fun NewChannelFAB(newChannel: () -> Unit) {
 }
 
 @Composable
-private fun AppBar(composeNavigator: ComposeNavigator) {
+private fun SearchAppBar(composeNavigator: ComposeNavigator, count: Int) {
   SlackSurfaceAppBar(
     title = {
-      NavTitle()
+      SearchNavTitle(count)
     },
     navigationIcon = {
       NavBackIcon(composeNavigator)
@@ -218,14 +221,14 @@ private fun AppBar(composeNavigator: ComposeNavigator) {
 }
 
 @Composable
-private fun NavTitle() {
+private fun SearchNavTitle(count: Int) {
   Column {
     Text(
       text = "Channel Browser",
       style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.appBarTextTitleColor)
     )
     Text(
-      text = "400 channels",
+      text = "$count channels",
       style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.appBarTextSubTitleColor)
     )
   }

@@ -10,5 +10,6 @@ interface ChannelsRepository {
   fun fetchChannelsPaged(params: String?): Flow<PagingData<DomSlackChannel>>
   suspend fun saveChannel(params: DomSlackChannel) : DomSlackChannel?
   suspend fun getChannel(uuid: String): DomSlackChannel?
+  suspend fun channelCount(): Int
 }
 
