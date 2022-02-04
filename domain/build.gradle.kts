@@ -41,6 +41,6 @@ dependencies {
   implementation(Lib.Paging.PAGING_3)
 
   /* Dependency Injection */
-  api(Lib.Di.hilt)
+  api(Lib.Di.hiltAndroid)
   kapt(Lib.Di.hiltAndroidCompiler)
 }

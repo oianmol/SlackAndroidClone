@@ -122,9 +122,9 @@ dependencies {
   implementation(Lib.Kotlin.KTX_CORE)
 
   /*DI*/
-  implementation(Lib.Di.hilt)
+  implementation(Lib.Di.hiltAndroid)
   implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.viewmodel)
+  implementation(Lib.Di.hiltViewModel)
 
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)

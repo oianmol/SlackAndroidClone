@@ -78,9 +78,9 @@ dependencies {
     api(Lib.Android.ACCOMPANIST_INSETS)
 
     /*DI*/
-    api(Lib.Di.hilt)
+    api(Lib.Di.hiltAndroid)
     api(Lib.Di.hiltNavigationCompose)
-    api(Lib.Di.viewmodel)
+    api(Lib.Di.hiltViewModel)
 
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)

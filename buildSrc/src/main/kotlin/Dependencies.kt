@@ -9,15 +9,14 @@ object BuildPlugins {
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
-  const val SAFE_ARGS_GRADLE_PLUGIN =
-    "androidx.navigation:navigation-safe-args-gradle-plugin:${SAFE_ARGS}"
-  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
+  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.40.5"
   const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
   const val KOTLIN_PARCELABLE_PLUGIN = "kotlin-parcelize"
   const val KOTLIN_KAPT = "kotlin-kapt"
+  const val KTLINT = "org.jlleitschuh.gradle.ktlint"
   const val DAGGER_HILT = "dagger.hilt.android.plugin"
   const val SAFE_ARGS_KOTLIN = "androidx.navigation.safeargs.kotlin"
 }
@@ -66,12 +65,12 @@ object Lib {
 
   object Di {
     private const val DAGGER_VERSION = "2.40.5"
-    const val hilt = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
+    const val hiltAndroid = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
     const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
 
-    const val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
-    const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
+    const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
   }
 
   object Paging {

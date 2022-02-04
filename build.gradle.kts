@@ -7,7 +7,6 @@ buildscript {
   }
   dependencies {
     classpath(BuildPlugins.TOOLS_BUILD_GRADLE)
-    classpath(BuildPlugins.SAFE_ARGS_GRADLE_PLUGIN)
     classpath(BuildPlugins.DAGGER_HILT_PLUGIN)
     classpath(BuildPlugins.KOTLIN_GRADLE_PLUGIN)
     classpath(kotlin("serialization", version = Lib.Kotlin.KOTLIN_VERSION))

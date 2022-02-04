@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.uichat.chat.UseCaseFetchMessages
-import dev.baseio.slackclone.uichat.models.ChatPresentation
+import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.*

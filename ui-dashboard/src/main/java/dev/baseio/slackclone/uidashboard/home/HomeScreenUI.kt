@@ -15,23 +15,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
-import dev.baseio.slackclone.uichat.channels.*
+import dev.baseio.slackclone.uichannels.SlackChannelVM
+import dev.baseio.slackclone.uichannels.views.*
 
 import dev.baseio.slackclone.uidashboard.R
-import dev.baseio.slackclone.uichat.channels.views.SlackAllChannels
-import dev.baseio.slackclone.uichat.channels.views.SlackDirectMessages
-import dev.baseio.slackclone.uichat.channels.views.SlackStarredChannels
-import dev.baseio.slackclone.uichat.models.ChatPresentation
 
 @Composable
 fun HomeScreenUI(
   appBarIconClick: () -> Unit,
+  channelVM: SlackChannelVM = hiltViewModel(),
   onItemClick: (ChatPresentation.SlackChannel) -> Unit = {}
 ) {
   SlackCloneSurface(
@@ -46,27 +46,27 @@ fun HomeScreenUI(
         Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
         SlackRecentChannels({
           onItemClick(it)
-        }, onClickAdd = {
+        }, channelVM, onClickAdd = {
 
         })
         SlackStarredChannels({
           onItemClick(it)
-        }, onClickAdd = {
+        }, channelVM, onClickAdd = {
 
         })
         SlackDirectMessages({
           onItemClick(it)
-        }, onClickAdd = {
+        }, channelVM, onClickAdd = {
 
         })
         SlackAllChannels({
           onItemClick(it)
-        }, onClickAdd = {
+        }, channelVM, onClickAdd = {
 
         })
         SlackConnections({
           onItemClick(it)
-        }, onClickAdd = {
+        }, channelVM, onClickAdd = {
 
         })
       }

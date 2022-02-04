@@ -28,10 +28,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.uichat.models.ChatPresentation
 import dev.baseio.slackclone.uichat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
 
@@ -63,8 +63,8 @@ private fun DashboardScreenRegular(
   val sideNavPxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
   val screenWidthPxValue = with(LocalDensity.current) { screenWidth.toPx() }
 
-  BackHandler(enabled = !isChatViewClosed){
-    if(!isChatViewClosed){
+  BackHandler(enabled = !isChatViewClosed) {
+    if (!isChatViewClosed) {
       isChatViewClosed = true
     }
   }
@@ -112,7 +112,7 @@ private fun DashboardScreenRegular(
 }
 
 private fun checkChatViewClosed(
-  lastChannel: ChatPresentation.SlackChannel?,
+  lastChannel: dev.baseio.slackclone.chatcore.data.ChatPresentation.SlackChannel?,
   isChatViewClosed: Boolean
 ) = lastChannel == null || isChatViewClosed
 
@@ -123,7 +123,7 @@ private fun DashboardScaffold(
   dashboardNavController: NavHostController,
   modifier: Modifier,
   appBarIconClick: () -> Unit,
-  onItemClick: (ChatPresentation.SlackChannel) -> Unit,
+  onItemClick: (dev.baseio.slackclone.chatcore.data.ChatPresentation.SlackChannel) -> Unit,
 ) {
   Box(modifier) {
     Scaffold(
@@ -161,7 +161,7 @@ private fun DashboardScaffold(
             startDestination = Screen.Home.route,
           ) {
             composable(Screen.Home.route) {
-              HomeScreenUI(appBarIconClick, onItemClick)
+              HomeScreenUI(appBarIconClick, onItemClick = onItemClick)
             }
             composable(Screen.DMs.route) {
               DirectMessagesUI()

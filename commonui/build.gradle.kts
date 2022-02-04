@@ -54,6 +54,6 @@ dependencies {
     api(Lib.Android.ACTIVITY_COMPOSE)
 
     /* Dependency Injection */
-    api(Lib.Di.hilt)
+    api(Lib.Di.hiltAndroid)
     kapt(Lib.Di.hiltAndroidCompiler)
 }

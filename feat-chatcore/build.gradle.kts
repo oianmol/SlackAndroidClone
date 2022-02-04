@@ -3,6 +3,8 @@ plugins {
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
   id(BuildPlugins.KOTLIN_KAPT)
   id(BuildPlugins.DAGGER_HILT)
+  id(BuildPlugins.KOTLIN_PARCELABLE_PLUGIN)
+  id(BuildPlugins.KTLINT)
 }
 
 android {
@@ -20,6 +22,23 @@ android {
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
   }
+
+  packagingOptions {
+    resources.excludes.add("META-INF/LICENSE.txt")
+    resources.excludes.add("META-INF/NOTICE.txt")
+    resources.excludes.add("LICENSE.txt")
+    resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
+
 }
 
 // Required for annotation processing plugins like Dagger
@@ -29,28 +48,15 @@ kapt {
 }
 
 dependencies {
-
-  implementation(project(":domain"))
   /*Kotlin*/
-  api(Lib.Kotlin.KT_STD)
-  api(Lib.Async.COROUTINES)
+  implementation(project(":data"))
+  implementation(project(":domain"))
+  implementation(project(":common"))
+  implementation(project(":commonui"))
 
-  /* Paging */
-  implementation(Lib.Paging.PAGING_3)
-  /* Room */
-  api(Lib.Room.roomRuntime)
-  kapt(Lib.Room.roomCompiler)
-  api(Lib.Room.roomKtx)
-  api(Lib.Room.roomPaging)
-
-  /* Networking */
-  api(Lib.Networking.RETROFIT)
-  api(Lib.Networking.RETROFIT_GSON)
-  api(Lib.Networking.LOGGING)
-
-  api(Lib.Serialization.GSON)
-
-  /* Dependency Injection */
-  api(Lib.Di.hiltAndroid)
+  implementation(Lib.Di.hiltAndroid)
+  implementation(Lib.Di.hiltNavigationCompose)
+  implementation(Lib.Di.hiltViewModel)
+  kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
 }
