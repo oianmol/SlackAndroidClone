@@ -1,71 +1,40 @@
 package dev.baseio.slackclone.data.repository
 
 import dev.baseio.slackclone.data.local.dao.SlackChannelDao
-import dev.baseio.slackclone.data.local.dao.SlackMessageDao
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
-import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.data.mapper.EntityMapper
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
+import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
 import dev.baseio.slackclone.domain.model.channel.SlackChannelType
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SlackChannelsRepositoryImpl @Inject constructor(
-  // create local/network source
   private val slackChannelDao: SlackChannelDao,
-  private val slackMessageDao: SlackMessageDao,
-  private val slackChannelMapper: EntityMapper<SlackChannel, DBSlackChannel>,
+  private val slackChannelMapper: EntityMapper<DomSlackChannel, DBSlackChannel>,
 ) :
   ChannelsRepository {
 
-  init {
-    // bad ! change, only for testing purposes
-    preloadChannels()
-  }
-
-  override fun fetchChannels(params: SlackChannelType?): Flow<List<SlackChannel>> {
+  override fun fetchChannels(params: SlackChannelType?): Flow<List<DomSlackChannel>> {
     return slackChannelDao.getAllAsFlow()
       .map { list -> list.map { channel -> slackChannelMapper.mapToDomain(channel) } }
   }
 
-  private fun preloadMessages(messagesCount: Int) {
-    var days = 36
-    repeat(messagesCount) {
-      slackMessageDao.insert(
-        DBSlackMessage(
-          UUID.randomUUID().toString(),
-          "This is a message and test, this is a message and test, this is a message and test.",
-          UUID.randomUUID().toString(),
-          "Anmol Verma",
-          System.currentTimeMillis() - TimeUnit.DAYS.toMillis(days.toLong())-TimeUnit.HOURS.toMillis(it.toLong()),
-          System.currentTimeMillis(),
-        )
-      )
-      days += 10
-    }
+  override suspend fun getChannel(uuid: String): DomSlackChannel? {
+    val dbSlack = slackChannelDao.getById(uuid)
+    return dbSlack?.let { slackChannelMapper.mapToDomain(it) }
   }
 
-  private fun preloadChannels() {
-    val channels = mutableListOf<DBSlackChannel>()
-    repeat(5) {
-      channels.add(
-        DBSlackChannel(
-          "prj_jp_compose $it",
-          "prj_jp_compose $it",
-          "to explore compose...",
-          "Anmol Verma",
-          Date().toString(),
-          Date().toString(),
-          false,
-          it % 2 == 0, SlackChannelType.GROUP, it % 2 == 0
-        )
-      )
+  override suspend fun saveChannel(params: DomSlackChannel): DomSlackChannel? {
+    return withContext(Dispatchers.IO) {
+      slackChannelDao.insert(slackChannelMapper.mapToData(params))
+      slackChannelDao.getById(params.uuid!!)?.let { slackChannelMapper.mapToDomain(it) }
     }
-    slackChannelDao.insertAll(channels)
   }
 }

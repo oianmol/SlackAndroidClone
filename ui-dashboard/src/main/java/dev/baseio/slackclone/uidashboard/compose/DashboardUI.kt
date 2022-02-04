@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -32,16 +33,17 @@ import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.SlackScreen
 import dev.baseio.slackclone.uichat.ChatScreenUI
 import dev.baseio.slackclone.uidashboard.home.*
 
 @Composable
-fun DashboardUI(composeNavigator: ComposeNavigator) {
+fun DashboardUI(composeNavigator: ComposeNavigator, dashboardVM: DashboardVM = hiltViewModel()) {
   val scaffoldState = rememberScaffoldState()
   val dashboardNavController = rememberNavController()
 
   SlackCloneTheme {
-    DashboardScreenRegular(scaffoldState, dashboardNavController)
+    DashboardScreenRegular(scaffoldState, dashboardNavController, composeNavigator, dashboardVM)
   }
 }
 
@@ -49,23 +51,24 @@ fun DashboardUI(composeNavigator: ComposeNavigator) {
 @Composable
 private fun DashboardScreenRegular(
   scaffoldState: ScaffoldState,
-  dashboardNavController: NavHostController
+  dashboardNavController: NavHostController,
+  composeNavigator: ComposeNavigator,
+  dashboardVM: DashboardVM
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
+  val lastChannel by dashboardVM.selectedChatChannel.collectAsState()
 
-  var lastChannel by remember {
-    mutableStateOf<ChatPresentation.SlackChannel?>(null)
-  }
   var isLeftNavOpen by remember { mutableStateOf(false) }
-  var isChatViewClosed by remember { mutableStateOf(true) }
+  val isChatViewClosed by dashboardVM.isChatViewClosed.collectAsState()
   val screenWidth = LocalConfiguration.current.screenWidthDp.dp
   val sideNavWidth = screenWidth * 0.8f
   val sideNavPxValue = with(LocalDensity.current) { sideNavWidth.toPx() }
   val screenWidthPxValue = with(LocalDensity.current) { screenWidth.toPx() }
 
+
   BackHandler(enabled = !isChatViewClosed) {
     if (!isChatViewClosed) {
-      isChatViewClosed = true
+      dashboardVM.isChatViewClosed.value = true
     }
   }
 
@@ -85,7 +88,7 @@ private fun DashboardScreenRegular(
       isLeftNavOpen = it
     },
     onOpenCloseRightView = {
-      isChatViewClosed = it
+      dashboardVM.isChatViewClosed.value = it
     },
     { modifier ->
       DashboardScaffold(
@@ -95,17 +98,18 @@ private fun DashboardScreenRegular(
         modifier,
         {
           isLeftNavOpen = !isLeftNavOpen
-        }) {
-        lastChannel = it
-        isChatViewClosed = false
-      }
+        }, {
+          dashboardVM.selectedChatChannel.value = it
+          dashboardVM.isChatViewClosed.value = false
+        }, composeNavigator
+      )
     }, { leftViewModifier ->
       SideNavigation(leftViewModifier.width(sideNavWidth))
     }
   ) { chatViewModifier ->
     lastChannel?.let { slackChannel ->
       ChatScreenUI(chatViewModifier, slackChannel, {
-        isChatViewClosed = true
+        dashboardVM.isChatViewClosed.value = true
       })
     }
   }
@@ -123,7 +127,8 @@ private fun DashboardScaffold(
   dashboardNavController: NavHostController,
   modifier: Modifier,
   appBarIconClick: () -> Unit,
-  onItemClick: (dev.baseio.slackclone.chatcore.data.ChatPresentation.SlackChannel) -> Unit,
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit,
+  composeNavigator: ComposeNavigator,
 ) {
   Box(modifier) {
     Scaffold(
@@ -153,7 +158,7 @@ private fun DashboardScaffold(
     ) { innerPadding ->
       Box(modifier = Modifier.padding(innerPadding)) {
         SlackCloneSurface(
-          color = Color.White,
+          color = SlackCloneColorProvider.colors.uiBackground,
           modifier = Modifier.fillMaxSize()
         ) {
           NavHost(
@@ -161,7 +166,9 @@ private fun DashboardScaffold(
             startDestination = Screen.Home.route,
           ) {
             composable(Screen.Home.route) {
-              HomeScreenUI(appBarIconClick, onItemClick = onItemClick)
+              HomeScreenUI(appBarIconClick, onItemClick = onItemClick, onCreateChannelRequest = {
+                composeNavigator.navigate(SlackScreen.CreateChannelsScreen.name)
+              })
             }
             composable(Screen.DMs.route) {
               DirectMessagesUI()

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create">Create</string>
+    <string name="Name">Name</string>
+    <string name="make_private">Make Private</string>
+    <string name="make_private_subtitle">When a channel is set to private, it can only be viewed or joined by invitation.</string>
+    <string name="share_outside">Share outside organization</string>
+    <string name="share_outside_subtitle">Share this channel with people from other companies or teams, and work together right in Slack.</string>
+    <string name="make_private_subtitle_checked">This can\'t be undone. A private channel cannot be made public later on.</string>
+</resources>

@@ -78,7 +78,7 @@ private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: ChatPresentation.S
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Text(
-        text = " ${if (slackChannel.isPrivate) lock() else "#"}  ${slackChannel.name}",
+        text = " ${if (slackChannel.isPrivate == true) lock() else "#"}  ${slackChannel.name}",
         style = SlackCloneTypography.subtitle1.copy(
           fontWeight = FontWeight.Bold,
           color = SlackCloneColorProvider.colors.appBarTextTitleColor

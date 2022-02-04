@@ -6,6 +6,8 @@ import androidx.navigation.navigation
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackRoute
 import dev.baseio.slackclone.navigator.SlackScreen
+import dev.baseio.slackclone.uichannels.create.CreateNewChannelUI
+import dev.baseio.slackclone.uichannels.create.SearchCreateChannelUI
 import dev.baseio.slackclone.uidashboard.compose.DashboardUI
 
 fun NavGraphBuilder.dashboardNavigation(
@@ -17,6 +19,12 @@ fun NavGraphBuilder.dashboardNavigation(
   ) {
     composable(SlackScreen.Dashboard.name) {
       DashboardUI(composeNavigator)
+    }
+    composable(SlackScreen.CreateChannelsScreen.name) {
+      SearchCreateChannelUI(composeNavigator = composeNavigator)
+    }
+    composable(SlackScreen.CreateNewChannel.name){
+      CreateNewChannelUI(composeNavigator)
     }
   }
 }

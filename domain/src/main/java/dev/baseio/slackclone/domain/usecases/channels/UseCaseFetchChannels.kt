@@ -1,6 +1,6 @@
-package dev.baseio.slackclone.uichat.channels
+package dev.baseio.slackclone.domain.usecases.channels
 
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
+import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
 import dev.baseio.slackclone.domain.model.channel.SlackChannelType
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import dev.baseio.slackclone.domain.usecases.BaseUseCase
@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 class UseCaseFetchChannels(
         private val channelsRepository: ChannelsRepository,
 ) :
-  BaseUseCase<List<SlackChannel>, SlackChannelType> {
-  override fun performStreaming(params: SlackChannelType?): Flow<List<SlackChannel>> {
+  BaseUseCase<List<DomSlackChannel>, SlackChannelType> {
+  override fun performStreaming(params: SlackChannelType?): Flow<List<DomSlackChannel>> {
     return channelsRepository.fetchChannels(params)
   }
 }

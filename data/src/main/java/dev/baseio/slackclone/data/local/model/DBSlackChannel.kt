@@ -11,12 +11,11 @@ import java.util.*
 data class DBSlackChannel(
   @PrimaryKey val uuid: String,
   @ColumnInfo(name = "name") val name: String?,
-  @ColumnInfo(name = "description") val description: String?,
-  @ColumnInfo(name = "createdBy") val createdBy: String,
-  @ColumnInfo(name = "createdDate") val createdDate: String,
-  @ColumnInfo(name = "modifiedDate") val modifiedDate: String,
-  @ColumnInfo(name = "isMuted") val isMuted: Boolean,
-  @ColumnInfo(name = "isStarred") val isStarred: Boolean,
-  @ColumnInfo(name = "type") val channelType: SlackChannelType,
-  @ColumnInfo(name = "isPrivate") val isPrivate: Boolean
+  @ColumnInfo(name = "createdDate") val createdDate: Long?,
+  @ColumnInfo(name = "modifiedDate") val modifiedDate: Long?,
+  @ColumnInfo(name = "isMuted") val isMuted: Boolean? = false,
+  @ColumnInfo(name = "isStarred") val isStarred: Boolean? = false,
+  @ColumnInfo(name = "type") val channelType: SlackChannelType? = SlackChannelType.GROUP,
+  @ColumnInfo(name = "isPrivate") val isPrivate: Boolean? = false,
+  @ColumnInfo(name = "isShareOutSide") val isShareOutSide: Boolean? = false
 ) : DataModel()

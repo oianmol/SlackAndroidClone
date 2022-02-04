@@ -40,7 +40,6 @@ class SlackCloneComposeNavigator @Inject constructor(): ComposeNavigator() {
     )
   }
 
-  @OptIn(ExperimentalCoroutinesApi::class)
   override fun <T> observeResult(key: String, route: String?): Flow<T> {
     return navControllerFlow
       .filterNotNull()

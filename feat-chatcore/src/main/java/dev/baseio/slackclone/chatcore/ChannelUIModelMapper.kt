@@ -2,12 +2,12 @@ package dev.baseio.slackclone.chatcore
 
 import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import dev.baseio.slackclone.domain.mappers.UiModelMapper
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
+import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
 import javax.inject.Inject
 
 class ChannelUIModelMapper @Inject constructor() :
-  UiModelMapper<SlackChannel, ChatPresentation.SlackChannel> {
-  override fun mapToPresentation(model: SlackChannel): ChatPresentation.SlackChannel {
+  UiModelMapper<DomSlackChannel, ChatPresentation.SlackChannel> {
+  override fun mapToPresentation(model: DomSlackChannel): ChatPresentation.SlackChannel {
     return ChatPresentation.SlackChannel(
       model.name,
       model.isPrivate,
@@ -18,7 +18,7 @@ class ChannelUIModelMapper @Inject constructor() :
     )
   }
 
-  override fun mapToDomain(modelItem: ChatPresentation.SlackChannel): SlackChannel {
+  override fun mapToDomain(modelItem: ChatPresentation.SlackChannel): DomSlackChannel {
     TODO("Not yet implemented")
   }
 }

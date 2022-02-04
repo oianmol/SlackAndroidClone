@@ -1,12 +1,14 @@
 package dev.baseio.slackclone.navigator
 
 import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 
 sealed class SlackScreen(
-  private val baseRoute: String,
+  val route: String,
   val navArguments: List<NamedNavArgument> = emptyList()
 ) {
-  val name: String = baseRoute.appendArguments(navArguments)
+  val name: String = route.appendArguments(navArguments)
 
   // onboarding
   object GettingStarted : SlackScreen("gettingStarted")
@@ -15,7 +17,16 @@ sealed class SlackScreen(
   object WorkspaceInputUI : SlackScreen("WorkspaceInputUI")
 
   // dashboard
-  object Dashboard : SlackScreen("Dashboard")
+  object Dashboard : SlackScreen(
+    "Dashboard",
+    navArguments = listOf(navArgument("channelId") { type = NavType.StringType })
+  ) {
+    fun createRoute(channelId: String) =
+      route.replace("{${navArguments.first().name}}", channelId)
+  }
+
+  object CreateChannelsScreen : SlackScreen("CreateChannelsScreen")
+  object CreateNewChannel : SlackScreen("CreateNewChannel")
 
 }
 

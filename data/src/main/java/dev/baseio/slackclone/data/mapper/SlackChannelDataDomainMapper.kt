@@ -1,39 +1,36 @@
 package dev.baseio.slackclone.data.mapper
 
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
-import dev.baseio.slackclone.domain.model.channel.SlackOneToOneChannel
-import dev.baseio.slackclone.domain.model.channel.SlackGroupChannel
-import dev.baseio.slackclone.domain.model.channel.SlackChannel
+import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
 import dev.baseio.slackclone.domain.model.channel.SlackChannelType
 import javax.inject.Inject
 
-class SlackChannelDataDomainMapper @Inject constructor(): EntityMapper<SlackChannel, DBSlackChannel> {
-  override fun mapToDomain(entity: DBSlackChannel): SlackChannel {
-    if (entity.channelType == SlackChannelType.GROUP) {
-      return SlackGroupChannel(
-        description = entity.description,
-        createdBy = entity.createdBy,
-        isStarred = entity.isStarred,
-        isPrivate = entity.isPrivate,
-        uuid = entity.uuid,
-        name = entity.name,
-        createdDate = entity.createdDate,
-        modifiedDate = entity.modifiedDate,
-        isMuted = entity.isMuted
-      )
-    } else {
-      return SlackOneToOneChannel(
-        uuid = entity.uuid,
-        name = entity.name,
-        createdDate = entity.createdDate,
-        modifiedDate = entity.modifiedDate,
-        isMuted = entity.isMuted,
-        isPrivate = entity.isPrivate
-      )
-    }
+class SlackChannelDataDomainMapper @Inject constructor() :
+  EntityMapper<DomSlackChannel, DBSlackChannel> {
+  override fun mapToDomain(entity: DBSlackChannel): DomSlackChannel {
+    return DomSlackChannel(
+      channel = entity.channelType,
+      isStarred = entity.isStarred,
+      isPrivate = entity.isPrivate,
+      uuid = entity.uuid,
+      name = entity.name,
+      isMuted = entity.isMuted,
+      createdDate = entity.createdDate,
+      modifiedDate = entity.modifiedDate,
+      isShareOutSide = entity.isShareOutSide
+    )
   }
 
-  override fun mapToData(model: SlackChannel): DBSlackChannel {
-    TODO("We don't need this yet")
+  override fun mapToData(model: DomSlackChannel): DBSlackChannel {
+    return DBSlackChannel(
+      model.uuid ?: model.name!!,
+      model.name,
+      isStarred = model.isStarred,
+      createdDate = model.createdDate,
+      modifiedDate = model.modifiedDate,
+      isPrivate = model.isPrivate,
+      channelType = model.channel,
+      isShareOutSide = model.isShareOutSide,
+    )
   }
 }

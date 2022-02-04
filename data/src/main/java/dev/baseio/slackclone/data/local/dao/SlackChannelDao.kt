@@ -18,11 +18,17 @@ interface SlackChannelDao {
   @Query(
     "SELECT * FROM slackChannel WHERE name LIKE :name"
   )
-  fun findByName(name:String): List<DBSlackChannel>
+  fun findByName(name: String): List<DBSlackChannel>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insertAll( channelDB: List<DBSlackChannel>)
+  fun insertAll(channelDB: List<DBSlackChannel>)
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  suspend fun insert(channel: DBSlackChannel)
 
   @Delete
   fun delete(channelDB: DBSlackChannel)
+
+  @Query("SELECT * from slackChannel where uuid like :uuid")
+  fun getById(uuid: String): DBSlackChannel?
 }

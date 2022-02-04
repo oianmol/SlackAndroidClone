@@ -64,7 +64,7 @@ private fun ColumnScope.ChannelsList(
       repeat(channels.size) {
         val slackChannel = channels[it]
         SlackListItem(
-          icon = if (slackChannel.isPrivate) Icons.Default.Lock else Icons.Default.MailOutline,
+          icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
           title = "${slackChannel.name}",
           onItemClick = {
             onItemClick(slackChannel)

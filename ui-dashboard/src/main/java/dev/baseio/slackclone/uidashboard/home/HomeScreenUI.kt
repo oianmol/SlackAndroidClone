@@ -32,7 +32,8 @@ import dev.baseio.slackclone.uidashboard.R
 fun HomeScreenUI(
   appBarIconClick: () -> Unit,
   channelVM: SlackChannelVM = hiltViewModel(),
-  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {}
+  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
+  onCreateChannelRequest: () -> Unit = {}
 ) {
   SlackCloneSurface(
     color = SlackCloneColorProvider.colors.uiBackground,
@@ -47,27 +48,27 @@ fun HomeScreenUI(
         SlackRecentChannels({
           onItemClick(it)
         }, channelVM, onClickAdd = {
-
+          onCreateChannelRequest()
         })
         SlackStarredChannels({
           onItemClick(it)
         }, channelVM, onClickAdd = {
-
+          onCreateChannelRequest()
         })
         SlackDirectMessages({
           onItemClick(it)
         }, channelVM, onClickAdd = {
-
+          onCreateChannelRequest()
         })
         SlackAllChannels({
           onItemClick(it)
         }, channelVM, onClickAdd = {
-
+          onCreateChannelRequest()
         })
         SlackConnections({
           onItemClick(it)
         }, channelVM, onClickAdd = {
-
+          onCreateChannelRequest()
         })
       }
     }

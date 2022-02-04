@@ -56,7 +56,7 @@ private val DarkColorPalette = SlackCloneColorPalette(
   bottomNavUnSelectedColor = Color.Gray,
   appBarIconColor = Color.White,
   appBarTextTitleColor = Color.White,
-  appBarTextSubTitleColor = Color.White,
+  appBarTextSubTitleColor = Color.LightGray,
   sendButtonDisabled = Color.White.copy(alpha = 0.4f),
   sendButtonEnabled = Color.White
 )
