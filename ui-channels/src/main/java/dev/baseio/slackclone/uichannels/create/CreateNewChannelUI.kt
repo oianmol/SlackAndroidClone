@@ -10,6 +10,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -214,6 +217,8 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
 
 @Composable
 private fun AppBar(composeNavigator: ComposeNavigator, createChannelVM: CreateChannelVM) {
+  val haptic = LocalHapticFeedback.current
+  val context = LocalContext.current
   SlackSurfaceAppBar(
     title = {
       NavTitle()
@@ -221,14 +226,18 @@ private fun AppBar(composeNavigator: ComposeNavigator, createChannelVM: CreateCh
     navigationIcon = {
       NavBackIcon(composeNavigator)
     },
-    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+    backgroundColor = SlackCloneColorProvider.colors.appBarColor,
     actions = {
       TextButton(onClick = {
-        createChannelVM.createChannel()
+        createChannelVM.channel.value.name?.takeIf { it.isNotEmpty() }?.let {
+          createChannelVM.createChannel()
+        } ?: run {
+          haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
       }) {
         Text(
           stringResource(R.string.create),
-          style = textStyleFieldPrimary()
+          style = textStyleFieldPrimary().copy(color = SlackCloneColorProvider.colors.appBarTextSubTitleColor)
         )
       }
     }

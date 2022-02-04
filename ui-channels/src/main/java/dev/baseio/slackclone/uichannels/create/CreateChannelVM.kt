@@ -25,12 +25,15 @@ class CreateChannelVM @Inject constructor(
 
   fun createChannel() {
     viewModelScope.launch {
-      val channel = useCaseCreateChannel.perform(channel.value)
-      composeNavigator.navigateBackWithResult(
-        NavigationKeys.channelCreated,
-        channel?.uuid!!,
-        SlackScreen.Dashboard.name
-      )
+      if (channel.value.name?.isNotEmpty() == true) {
+        val channel = useCaseCreateChannel.perform(channel.value)
+        composeNavigator.navigateBackWithResult(
+          NavigationKeys.channelCreated,
+          channel?.uuid!!,
+          SlackScreen.Dashboard.name
+        )
+      }
+
     }
   }
 }

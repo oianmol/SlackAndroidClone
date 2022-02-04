@@ -149,7 +149,7 @@ private fun AppBar(composeNavigator: ComposeNavigator) {
     navigationIcon = {
       NavBackIcon(composeNavigator)
     },
-    backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+    backgroundColor = SlackCloneColorProvider.colors.appBarColor,
   )
 }
 
