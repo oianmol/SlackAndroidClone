@@ -8,6 +8,7 @@ import dev.baseio.slackclone.navigator.SlackRoute
 import dev.baseio.slackclone.navigator.SlackScreen
 import dev.baseio.slackclone.uichannels.create.CreateNewChannelUI
 import dev.baseio.slackclone.uichannels.create.SearchCreateChannelUI
+import dev.baseio.slackclone.uichat.NewChatThreadScreen
 import dev.baseio.slackclone.uidashboard.compose.DashboardUI
 
 fun NavGraphBuilder.dashboardNavigation(
@@ -23,8 +24,11 @@ fun NavGraphBuilder.dashboardNavigation(
     composable(SlackScreen.CreateChannelsScreen.name) {
       SearchCreateChannelUI(composeNavigator = composeNavigator)
     }
-    composable(SlackScreen.CreateNewChannel.name){
+    composable(SlackScreen.CreateNewChannel.name) {
       CreateNewChannelUI(composeNavigator)
+    }
+    composable(SlackScreen.CreateNewDM.name) {
+      NewChatThreadScreen(composeNavigator)
     }
   }
 }

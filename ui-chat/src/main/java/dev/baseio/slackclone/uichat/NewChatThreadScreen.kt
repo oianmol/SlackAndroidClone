@@ -31,16 +31,14 @@ import dev.baseio.slackclone.navigator.SlackScreen
 
 @Composable
 fun NewChatThreadScreen(
+  composeNavigator: ComposeNavigator,
   newChatThread: NewChatThreadVM = hiltViewModel(),
-  composeNavigator: ComposeNavigator
 ) {
   SlackCloneTheme {
     val scaffoldState = rememberScaffoldState()
 
     SlackCloneTheme {
-      ListRandomUsers(scaffoldState, composeNavigator, newChatThread = newChatThread) {
-        composeNavigator.navigate(SlackScreen.CreateNewChannel.name)
-      }
+      ListRandomUsers(scaffoldState, composeNavigator, newChatThread = newChatThread)
     }
   }
 }
@@ -50,7 +48,6 @@ private fun ListRandomUsers(
   scaffoldState: ScaffoldState,
   composeNavigator: ComposeNavigator,
   newChatThread: NewChatThreadVM,
-  newChannel: () -> Unit
 ) {
   Box {
     Scaffold(
@@ -65,9 +62,6 @@ private fun ListRandomUsers(
       },
       snackbarHost = {
         scaffoldState.snackbarHostState
-      },
-      floatingActionButton = {
-        NewChannelFAB(newChannel)
       }
     ) { innerPadding ->
       SearchContent(innerPadding, newChatThread)
@@ -76,7 +70,7 @@ private fun ListRandomUsers(
 }
 
 @Composable
-private fun SearchContent(innerPadding: PaddingValues, newChatThread: NewChatThreadVM,) {
+private fun SearchContent(innerPadding: PaddingValues, newChatThread: NewChatThreadVM) {
   Box(modifier = Modifier.padding(innerPadding)) {
     SlackCloneSurface(
       modifier = Modifier.fillMaxSize()
@@ -91,7 +85,7 @@ private fun SearchContent(innerPadding: PaddingValues, newChatThread: NewChatThr
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ListAllUsers(newChatThread: NewChatThreadVM,) {
+private fun ListAllUsers(newChatThread: NewChatThreadVM) {
   val userFlows by newChatThread.users.collectAsState()
   val listState = rememberLazyListState()
   LazyColumn(state = listState, reverseLayout = false) {
@@ -146,7 +140,7 @@ fun SlackChannelHeader(title: String) {
 }
 
 @Composable
-private fun SearchUsersTF(newChatThread: NewChatThreadVM,) {
+private fun SearchUsersTF(newChatThread: NewChatThreadVM) {
   val searchChannel by newChatThread.search.collectAsState()
 
   TextField(
@@ -190,19 +184,6 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
   unfocusedIndicatorColor = Color.Transparent,
   focusedIndicatorColor = Color.Transparent
 )
-
-@Composable
-private fun NewChannelFAB(newChannel: () -> Unit) {
-  FloatingActionButton(onClick = {
-    newChannel()
-  }, backgroundColor = Color.White) {
-    Icon(
-      imageVector = Icons.Default.Add,
-      contentDescription = null,
-      tint = SlackCloneColor
-    )
-  }
-}
 
 @Composable
 private fun SearchAppBar(composeNavigator: ComposeNavigator) {

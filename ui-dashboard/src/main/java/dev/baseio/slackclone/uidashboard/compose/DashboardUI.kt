@@ -152,7 +152,7 @@ private fun DashboardScaffold(
       },
       floatingActionButton = {
         FloatingActionButton(onClick = {
-
+          composeNavigator.navigate(SlackScreen.CreateNewDM.name)
         }, backgroundColor = Color.White) {
           Icon(
             imageVector = Icons.Default.Edit,
