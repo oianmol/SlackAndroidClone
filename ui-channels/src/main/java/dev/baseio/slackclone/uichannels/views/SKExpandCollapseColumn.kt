@@ -63,7 +63,9 @@ private fun ColumnScope.ChannelsList(
     Column {
       repeat(channels.size) {
         val slackChannel = channels[it]
-        SlackChannelItem(slackChannel, onItemClick)
+        SlackChannelItem(slackChannel){
+          onItemClick(it)
+        }
       }
     }
   }

@@ -45,8 +45,7 @@ class DashboardVM @Inject constructor(
       }
     }.map {
       useCaseGetChannel.perform(it)
-    }
-      .onEach {
+    }.onEach {
         it?.let { it1 ->
           selectedChatChannel.value = channelMapper.mapToPresentation(it1)
           isChatViewClosed.value = false

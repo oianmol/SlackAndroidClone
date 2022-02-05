@@ -55,8 +55,7 @@ private fun DashboardScreenRegular(
   dashboardNavController: NavHostController,
   composeNavigator: ComposeNavigator,
   dashboardVM: DashboardVM,
-  viewModel :ChatThreadVM = hiltViewModel()
-
+  viewModel: ChatThreadVM = hiltViewModel()
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
   val lastChannel by dashboardVM.selectedChatChannel.collectAsState()
@@ -116,7 +115,7 @@ private fun DashboardScreenRegular(
     lastChannel?.let { slackChannel ->
       ChatScreenUI(chatViewModifier, slackChannel, {
         dashboardVM.isChatViewClosed.value = true
-      },viewModel)
+      }, viewModel)
     }
   }
 }

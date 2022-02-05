@@ -77,7 +77,10 @@ private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: UiLayerChannels.Sl
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      SlackChannelItem(slackChannel = slackChannel) {}
+      SlackChannelItem(
+        slackChannel = slackChannel,
+        textColor = SlackCloneColorProvider.colors.appBarTextTitleColor
+      ) {}
     }
     IconButton(onClick = { }) {
       Icon(
