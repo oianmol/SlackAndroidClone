@@ -9,8 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,11 +23,10 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
-import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackScreen
-import dev.baseio.slackclone.uichannels.views.SlackChannelItem
+import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 
 @Composable
 fun SearchCreateChannelUI(

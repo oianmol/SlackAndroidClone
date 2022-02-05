@@ -15,6 +15,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.chatcore.data.ExpandCollapseModel
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
+import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

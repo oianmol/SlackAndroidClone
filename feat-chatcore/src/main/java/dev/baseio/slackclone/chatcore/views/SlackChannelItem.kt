@@ -1,12 +1,10 @@
-package dev.baseio.slackclone.uichannels.views
+package dev.baseio.slackclone.chatcore.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -43,7 +41,6 @@ fun SlackChannelItem(
             alpha = 0.8f
           )
         ), modifier = Modifier
-          .weight(1f)
           .padding(8.dp)
       )
     }

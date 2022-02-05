@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
+import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
@@ -76,13 +77,7 @@ private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: UiLayerChannels.Sl
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      Text(
-        text = " ${if (slackChannel.isPrivate == true) lock() else "#"}  ${slackChannel.name}",
-        style = SlackCloneTypography.subtitle1.copy(
-          fontWeight = FontWeight.Bold,
-          color = SlackCloneColorProvider.colors.appBarTextTitleColor
-        ), modifier = Modifier.padding(2.dp)
-      )
+      SlackChannelItem(slackChannel = slackChannel, {})
       Text(
         text = "25 members >",
         style = SlackCloneTypography.caption.copy(
