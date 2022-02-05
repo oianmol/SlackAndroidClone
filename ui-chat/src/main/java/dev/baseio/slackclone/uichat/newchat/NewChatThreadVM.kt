@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat
+package dev.baseio.slackclone.uichat.newchat
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.map
@@ -38,7 +38,7 @@ class NewChatThreadVM @Inject constructor(
 
   fun navigate(channel: UiLayerChannels.SlackChannel) {
     composeNavigator.navigateBackWithResult(
-      NavigationKeys.channelCreated,
+      NavigationKeys.navigateChannel,
       channel.uuid!!,
       SlackScreen.Dashboard.name
     )

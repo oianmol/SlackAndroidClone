@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_channel_conv">Search for a channel or conversation</string>
+    <string name="new_message">New Message</string>
+    <string name="clear">Clear</string>
+</resources>

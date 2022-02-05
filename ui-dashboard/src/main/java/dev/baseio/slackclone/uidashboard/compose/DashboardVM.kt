@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.domain.mappers.UiModelMapper
 import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
-import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseCreateChannels
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseFetchUsers
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseGetChannel
@@ -37,25 +36,29 @@ class DashboardVM @Inject constructor(
 
   private fun observeChannelCreated() {
     composeNavigator.observeResult<String>(
-      NavigationKeys.channelCreated,
+      NavigationKeys.navigateChannel,
     ).onStart {
-      val message = savedStateHandle.get<String>(NavigationKeys.channelCreated)
+      val message = savedStateHandle.get<String>(NavigationKeys.navigateChannel)
       message?.let {
         emit(it)
       }
     }.map {
       useCaseGetChannel.perform(it)
-    }.onEach {
-        it?.let { it1 ->
-          selectedChatChannel.value = channelMapper.mapToPresentation(it1)
-          isChatViewClosed.value = false
-        }
-      }
+    }.onEach { slackChannel ->
+      navigateChatThreadForChannel(slackChannel)
+    }
       .launchIn(viewModelScope)
 
     selectedChatChannel.onEach {
-      savedStateHandle.set(NavigationKeys.channelCreated, it?.uuid)
+      savedStateHandle.set(NavigationKeys.navigateChannel, it?.uuid)
     }.launchIn(viewModelScope)
+  }
+
+  private fun navigateChatThreadForChannel(slackChannel: DomainLayerChannels.SlackChannel?) {
+    slackChannel?.let {
+      selectedChatChannel.value = channelMapper.mapToPresentation(it)
+      isChatViewClosed.value = false
+    }
   }
 
   private fun preloadUsers() {

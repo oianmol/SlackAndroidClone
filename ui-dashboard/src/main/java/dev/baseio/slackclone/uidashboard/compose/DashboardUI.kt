@@ -34,8 +34,8 @@ import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackScreen
-import dev.baseio.slackclone.uichat.ChatScreenUI
-import dev.baseio.slackclone.uichat.ChatThreadVM
+import dev.baseio.slackclone.uichat.chatthread.ChatScreenUI
+import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 import dev.baseio.slackclone.uidashboard.home.*
 
 @Composable
@@ -55,7 +55,7 @@ private fun DashboardScreenRegular(
   dashboardNavController: NavHostController,
   composeNavigator: ComposeNavigator,
   dashboardVM: DashboardVM,
-  viewModel: ChatThreadVM = hiltViewModel()
+  viewModel: ChatScreenVM = hiltViewModel()
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
   val lastChannel by dashboardVM.selectedChatChannel.collectAsState()

@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat
+package dev.baseio.slackclone.uichat.newchat
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -8,11 +8,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
@@ -22,12 +21,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
-import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.uichat.R
 
 @Composable
 fun NewChatThreadScreen(
@@ -113,20 +111,6 @@ fun canDrawHeader(lastDrawnChannel: String?, name: String?): Boolean {
   return lastDrawnChannel != name
 }
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun SlackChannelListItem(slackChannel: UiLayerChannels.SlackChannel) {
-  Column {
-    SlackListItem(
-      icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
-      title = "${slackChannel.name}",
-      onItemClick = {
-      }
-    )
-    Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
-  }
-}
-
 @Composable
 fun SlackChannelHeader(title: String) {
   Box(
@@ -154,7 +138,7 @@ private fun SearchUsersTF(newChatThread: NewChatThreadVM) {
     textStyle = textStyleFieldPrimary(),
     placeholder = {
       Text(
-        text = "Search for a channel or conversation",
+        text = stringResource(R.string.search_channel_conv),
         style = textStyleFieldSecondary(),
         textAlign = TextAlign.Start
       )
@@ -204,7 +188,7 @@ private fun SearchAppBar(composeNavigator: ComposeNavigator) {
 @Composable
 private fun SearchNavTitle() {
   Text(
-    text = "New Message",
+    text = stringResource(R.string.new_message),
     style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.appBarTextTitleColor)
   )
 }
@@ -216,7 +200,7 @@ private fun NavBackIcon(composeNavigator: ComposeNavigator) {
   }) {
     Icon(
       imageVector = Icons.Filled.Clear,
-      contentDescription = "Clear",
+      contentDescription = stringResource(R.string.clear),
       modifier = Modifier.padding(start = 8.dp),
       tint = SlackCloneColorProvider.colors.appBarIconColor
     )

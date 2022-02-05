@@ -28,33 +28,61 @@ fun SlackChannelItem(
   textColor:Color = SlackCloneColorProvider.colors.textPrimary,
   onItemClick: (UiLayerChannels.SlackChannel) -> Unit
 ) {
-  if (slackChannel.isOneToOne == true) {
-    Row(
-      modifier = Modifier
-        .padding(8.dp)
-        .fillMaxWidth()
-        .clickable {
-          onItemClick(slackChannel)
-        }, verticalAlignment = Alignment.CenterVertically
-    ) {
-      SlackImageBox(modifier = Modifier.size(24.dp), imageUrl = slackChannel.pictureUrl ?: "")
-      Text(
-        text = "${slackChannel.name}",
-        style = SlackCloneTypography.subtitle1.copy(
-          color = textColor.copy(
-            alpha = 0.8f
-          )
-        ), modifier = Modifier
-          .padding(8.dp)
-      )
+  when (slackChannel.isOneToOne) {
+    true -> {
+      DirectMessageChannel(onItemClick, slackChannel, textColor)
     }
-  } else {
-    SlackListItem(
-      icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
-      title = "${slackChannel.name}",
-      onItemClick = {
-        onItemClick(slackChannel)
-      }
-    )
+    else -> {
+      GroupChannelItem(slackChannel, onItemClick)
+    }
   }
+}
+
+@Composable
+private fun GroupChannelItem(
+  slackChannel: UiLayerChannels.SlackChannel,
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit
+) {
+  SlackListItem(
+    icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
+    title = "${slackChannel.name}",
+    onItemClick = {
+      onItemClick(slackChannel)
+    }
+  )
+}
+
+@Composable
+private fun DirectMessageChannel(
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit,
+  slackChannel: UiLayerChannels.SlackChannel,
+  textColor: Color
+) {
+  Row(
+    modifier = Modifier
+      .padding(8.dp)
+      .fillMaxWidth()
+      .clickable {
+        onItemClick(slackChannel)
+      }, verticalAlignment = Alignment.CenterVertically
+  ) {
+    SlackImageBox(modifier = Modifier.size(24.dp), imageUrl = slackChannel.pictureUrl ?: "")
+    ChannelText(slackChannel, textColor)
+  }
+}
+
+@Composable
+private fun ChannelText(
+  slackChannel: UiLayerChannels.SlackChannel,
+  textColor: Color
+) {
+  Text(
+    text = "${slackChannel.name}",
+    style = SlackCloneTypography.subtitle1.copy(
+      color = textColor.copy(
+        alpha = 0.8f
+      )
+    ), modifier = Modifier
+      .padding(8.dp)
+  )
 }

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import dev.baseio.slackclone.common.injection.dispatcher.CoroutineDispatcherProvider
 import dev.baseio.slackclone.data.local.dao.SlackChannelDao
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.mapper.EntityMapper
@@ -20,6 +21,7 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   private val slackChannelDao: SlackChannelDao,
   private val slackUserChannelMapper: EntityMapper<DomainLayerUsers.SlackUser, DBSlackChannel>,
   private val slackChannelMapper: EntityMapper<DomainLayerChannels.SlackChannel, DBSlackChannel>,
+  private val coroutineMainDispatcherProvider: CoroutineDispatcherProvider
 ) :
   ChannelsRepository {
 
@@ -39,7 +41,7 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   }
 
   override suspend fun channelCount(): Int {
-    return withContext(Dispatchers.IO) {
+    return withContext(coroutineMainDispatcherProvider.io) {
       slackChannelDao.count()
     }
   }
@@ -58,7 +60,7 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   }
 
   override suspend fun saveOneToOneChannels(params: List<DomainLayerUsers.SlackUser>) {
-    return withContext(Dispatchers.IO) {
+    return withContext(coroutineMainDispatcherProvider.io) {
       slackChannelDao.insertAll(params.map {
         slackUserChannelMapper.mapToData(it)
       })
@@ -66,7 +68,7 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   }
 
   override suspend fun saveChannel(params: DomainLayerChannels.SlackChannel): DomainLayerChannels.SlackChannel? {
-    return withContext(Dispatchers.IO) {
+    return withContext(coroutineMainDispatcherProvider.io) {
       slackChannelDao.insert(slackChannelMapper.mapToData(params))
       slackChannelDao.getById(params.uuid!!)?.let { slackChannelMapper.mapToDomain(it) }
     }

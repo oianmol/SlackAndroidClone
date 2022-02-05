@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat.chatscreen
+package dev.baseio.slackclone.uichat.chatthread.composables
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.gestures.*
@@ -9,21 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import com.google.accompanist.insets.navigationBarsWithImePadding
-import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
-import dev.baseio.slackclone.uichat.*
+import dev.baseio.slackclone.uichat.chatthread.BoxState
+import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMotionApi::class)
 @Composable
-fun ChatScreenContent(viewModel: ChatThreadVM) {
+fun ChatScreenContent(viewModel: ChatScreenVM) {
   val checkBoxState by viewModel.chatBoxState.collectAsState()
   val coroutineScope = rememberCoroutineScope()
   val manualExpandValue = if (checkBoxState == BoxState.Expanded) {

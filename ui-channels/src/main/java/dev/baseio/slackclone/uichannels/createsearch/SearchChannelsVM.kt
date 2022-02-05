@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichannels.create
+package dev.baseio.slackclone.uichannels.createsearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -50,7 +50,7 @@ class SearchChannelsVM @Inject constructor(
 
   fun navigate(channel: UiLayerChannels.SlackChannel) {
     composeNavigator.navigateBackWithResult(
-      NavigationKeys.channelCreated,
+      NavigationKeys.navigateChannel,
       channel.uuid!!,
       SlackScreen.Dashboard.name
     )

@@ -6,9 +6,9 @@ import androidx.navigation.navigation
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackRoute
 import dev.baseio.slackclone.navigator.SlackScreen
-import dev.baseio.slackclone.uichannels.create.CreateNewChannelUI
-import dev.baseio.slackclone.uichannels.create.SearchCreateChannelUI
-import dev.baseio.slackclone.uichat.NewChatThreadScreen
+import dev.baseio.slackclone.uichannels.createsearch.CreateNewChannelUI
+import dev.baseio.slackclone.uichannels.createsearch.SearchCreateChannelUI
+import dev.baseio.slackclone.uichat.newchat.NewChatThreadScreen
 import dev.baseio.slackclone.uidashboard.compose.DashboardUI
 
 fun NavGraphBuilder.dashboardNavigation(

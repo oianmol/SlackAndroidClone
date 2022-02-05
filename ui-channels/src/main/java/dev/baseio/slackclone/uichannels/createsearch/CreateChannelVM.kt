@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichannels.create
+package dev.baseio.slackclone.uichannels.createsearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +27,7 @@ class CreateChannelVM @Inject constructor(
       if (channel.value.name?.isNotEmpty() == true) {
         val channel = useCaseCreateChannel.perform(channel.value)
         composeNavigator.navigateBackWithResult(
-          NavigationKeys.channelCreated,
+          NavigationKeys.navigateChannel,
           channel?.uuid!!,
           SlackScreen.Dashboard.name
         )

@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat
+package dev.baseio.slackclone.uichat.chatthread
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class ChatThreadVM @Inject constructor(
+class ChatScreenVM @Inject constructor(
   private val useCaseFetchMessages: UseCaseFetchMessages,
   private val useCaseSendMessage: UseCaseSendMessage
 ) : ViewModel() {

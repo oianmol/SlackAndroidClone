@@ -1,5 +1,5 @@
 
-package dev.baseio.slackclone.uichat.chatscreen
+package dev.baseio.slackclone.uichat.chatthread.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,12 +18,12 @@ import dev.baseio.slackclone.commonui.keyboard.Keyboard
 import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.uichat.BoxState
-import dev.baseio.slackclone.uichat.ChatThreadVM
+import dev.baseio.slackclone.uichat.chatthread.BoxState
+import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
+fun ChatMessageBox(viewModel: ChatScreenVM, modifier: Modifier) {
   val keyboard by keyboardAsState()
 
   SideEffect {
@@ -53,7 +53,7 @@ fun ChatMessageBox(viewModel: ChatThreadVM, modifier: Modifier) {
 }
 
 @Composable
-fun ChatOptions(viewModel: ChatThreadVM, modifier: Modifier = Modifier) {
+fun ChatOptions(viewModel: ChatScreenVM, modifier: Modifier = Modifier) {
   val search by viewModel.message.collectAsState()
 
   Row(
@@ -91,7 +91,7 @@ private fun chatOptionIconSize() = Modifier.size(20.dp)
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun MessageTFRow(
-  viewModel: ChatThreadVM,
+  viewModel: ChatScreenVM,
   modifier: Modifier
 ) {
   val keyboard by keyboardAsState()
@@ -129,7 +129,7 @@ private fun MessageTFRow(
 }
 
 @Composable
-fun CollapseExpandButton(viewModel: ChatThreadVM) {
+fun CollapseExpandButton(viewModel: ChatScreenVM) {
   val isExpanded by viewModel.chatBoxState.collectAsState()
   IconButton(
     onClick = {
@@ -146,7 +146,7 @@ fun CollapseExpandButton(viewModel: ChatThreadVM) {
 
 @Composable
 private fun SendMessageButton(
-  viewModel: ChatThreadVM,
+  viewModel: ChatScreenVM,
   search: String,
   modifier: Modifier = Modifier
 ) {
@@ -168,7 +168,7 @@ private fun ChatTFPlusPlaceHolder(
   search: String,
   modifier: Modifier = Modifier,
   innerTextField: @Composable () -> Unit,
-  viewModel: ChatThreadVM
+  viewModel: ChatScreenVM
 ) {
   Row(
     modifier

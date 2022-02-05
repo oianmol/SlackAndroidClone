@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichannels.create
+package dev.baseio.slackclone.uichannels.createsearch
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

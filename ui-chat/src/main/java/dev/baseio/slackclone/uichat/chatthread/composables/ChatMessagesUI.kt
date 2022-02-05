@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat.chatscreen
+package dev.baseio.slackclone.uichat.chatthread.composables
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -18,12 +18,11 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.domain.model.message.SlackMessage
-import dev.baseio.slackclone.uichat.ChatThreadVM
-import java.util.*
+import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ChatMessagesUI(viewModel: ChatThreadVM, modifier: Modifier) {
+fun ChatMessagesUI(viewModel: ChatScreenVM, modifier: Modifier) {
   val flowState by viewModel.chatMessagesFlow.collectAsState()
   val messages = flowState?.collectAsLazyPagingItems()
   val listState = rememberLazyListState()

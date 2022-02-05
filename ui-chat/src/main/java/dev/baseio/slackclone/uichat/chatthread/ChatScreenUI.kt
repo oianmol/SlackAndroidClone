@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat
+package dev.baseio.slackclone.uichat.chatthread
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
@@ -17,8 +16,7 @@ import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
-import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.uichat.chatscreen.ChatScreenContent
+import dev.baseio.slackclone.uichat.chatthread.composables.ChatScreenContent
 
 @OptIn(
   ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class,
@@ -29,7 +27,7 @@ fun ChatScreenUI(
   modifier: Modifier,
   slackChannel: UiLayerChannels.SlackChannel,
   onBackClick: () -> Unit,
-  viewModel: ChatThreadVM
+  viewModel: ChatScreenVM
 ) {
   val scaffoldState = rememberScaffoldState()
   SideEffect {

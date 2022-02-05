@@ -18,12 +18,6 @@ import kotlin.coroutines.CoroutineContext
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
-
-  @Provides
-  @Singleton
-  @RepositoryCoroutineContext
-  fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
-
   @Provides
   @Singleton
   fun provideDatabase(@ApplicationContext context: Context): SlackDatabase {

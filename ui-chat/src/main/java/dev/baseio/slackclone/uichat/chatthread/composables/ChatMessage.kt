@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichat.chatscreen
+package dev.baseio.slackclone.uichat.chatthread.composables
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*

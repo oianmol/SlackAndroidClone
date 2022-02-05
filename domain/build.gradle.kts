@@ -31,6 +31,7 @@ kapt {
 }
 
 dependencies {
+  implementation(project(":common"))
 
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)
