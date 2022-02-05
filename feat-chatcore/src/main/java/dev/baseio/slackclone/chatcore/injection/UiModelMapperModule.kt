@@ -5,9 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.baseio.slackclone.chatcore.ChannelUIModelMapper
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.domain.mappers.UiModelMapper
-import dev.baseio.slackclone.domain.model.channel.DomainLayer
+import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
+import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 import javax.inject.Singleton
 
 @Module
@@ -16,6 +17,9 @@ abstract class UiModelMapperModule {
 
   @Binds
   @Singleton
-  @ChatUiModelMapper
-  abstract fun providesUiModelMapper(channelUIModelMapper: ChannelUIModelMapper): UiModelMapper<DomainLayer.Channels.SlackChannel, UiLayer.Channels.SlackChannel>
+  abstract fun bindSlackUserChannelMapper(userChannelUiMapper: UserChannelUiMapper): UiModelMapper<DomainLayerUsers.SlackUser, UiLayerChannels.SlackChannel>
+
+  @Binds
+  @Singleton
+  abstract fun bindChannelUIModelMapper(channelUIModelMapper: ChannelUIModelMapper): UiModelMapper<DomainLayerChannels.SlackChannel, UiLayerChannels.SlackChannel>
 }

@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
@@ -26,7 +26,7 @@ import dev.baseio.slackclone.uichat.chatscreen.ChatScreenContent
 @Composable
 fun ChatScreenUI(
   modifier: Modifier,
-  slackChannel: UiLayer.Channels.SlackChannel,
+  slackChannel: UiLayerChannels.SlackChannel,
   onBackClick: () -> Unit,
   viewModel: ChatThreadVM
 ) {
@@ -61,7 +61,7 @@ fun ChatScreenUI(
 
 
 @Composable
-private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: UiLayer.Channels.SlackChannel) {
+private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: UiLayerChannels.SlackChannel) {
   SlackSurfaceAppBar(backgroundColor = SlackCloneColorProvider.colors.appBarColor) {
     IconButton(onClick = { onBackClick() }) {
       Icon(

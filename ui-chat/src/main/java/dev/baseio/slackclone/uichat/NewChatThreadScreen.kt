@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.MailOutline
@@ -20,14 +19,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.navigator.SlackScreen
 
 @Composable
 fun NewChatThreadScreen(
@@ -86,12 +85,13 @@ private fun SearchContent(innerPadding: PaddingValues, newChatThread: NewChatThr
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ListAllUsers(newChatThread: NewChatThreadVM) {
-  val userFlows by newChatThread.users.collectAsState()
+  val channels by newChatThread.users.collectAsState()
+  val channelsFlow = channels.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
   LazyColumn(state = listState, reverseLayout = false) {
     var lastDrawnChannel: String? = null
-    for (channelIndex in userFlows.indices) {
-      val channel = userFlows[channelIndex]
+    for (channelIndex in 0 until channelsFlow.itemCount) {
+      val channel = channelsFlow.peek(channelIndex)!!
       val newDrawn = channel.name?.first().toString()
       if (canDrawHeader(lastDrawnChannel, newDrawn)) {
         stickyHeader {
@@ -112,7 +112,7 @@ fun canDrawHeader(lastDrawnChannel: String?, name: String?): Boolean {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SlackChannelListItem(slackChannel: UiLayer.Channels.SlackChannel) {
+fun SlackChannelListItem(slackChannel: UiLayerChannels.SlackChannel) {
   Column {
     SlackListItem(
       icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,

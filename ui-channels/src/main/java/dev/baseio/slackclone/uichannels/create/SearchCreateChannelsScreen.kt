@@ -23,12 +23,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackScreen
+import dev.baseio.slackclone.uichannels.views.SlackChannelItem
 
 @Composable
 fun SearchCreateChannelUI(
@@ -121,14 +122,11 @@ fun canDrawHeader(lastDrawnChannel: String?, name: String?): Boolean {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SlackChannelListItem(slackChannel: UiLayer.Channels.SlackChannel) {
+fun SlackChannelListItem(slackChannel: UiLayerChannels.SlackChannel) {
   Column {
-    SlackListItem(
-      icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
-      title = "${slackChannel.name}",
-      onItemClick = {
-      }
-    )
+    SlackChannelItem(slackChannel) {
+
+    }
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
   }
 }

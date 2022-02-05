@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
@@ -29,7 +29,7 @@ import dev.baseio.slackclone.uidashboard.R
 @Composable
 fun HomeScreenUI(
   appBarIconClick: () -> Unit,
-  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit = {},
   onCreateChannelRequest: () -> Unit = {}
 ) {
   SlackCloneSurface(

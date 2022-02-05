@@ -6,7 +6,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SlackMessageDataDomMapper @Inject constructor() : EntityMapper<SlackMessage, DBSlackMessage> {
+class SlackMessageMapper @Inject constructor() : EntityMapper<SlackMessage, DBSlackMessage> {
   override fun mapToDomain(entity: DBSlackMessage): SlackMessage {
     return SlackMessage(
       entity.uuid,

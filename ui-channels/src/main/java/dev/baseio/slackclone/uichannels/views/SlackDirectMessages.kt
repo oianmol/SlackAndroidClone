@@ -6,11 +6,11 @@ import dev.baseio.slackclone.chatcore.data.ExpandCollapseModel
 import dev.baseio.slackclone.uichannels.R
 import dev.baseio.slackclone.uichannels.SlackChannelVM
 import androidx.compose.runtime.*
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 
 @Composable
 fun SlackDirectMessages(
-  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit = {},
   channelVM: SlackChannelVM = hiltViewModel(),
   onClickAdd: () -> Unit
 ) {

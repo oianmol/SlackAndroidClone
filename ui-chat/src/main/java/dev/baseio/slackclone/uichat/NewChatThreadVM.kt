@@ -1,19 +1,35 @@
 package dev.baseio.slackclone.uichat
 
 import androidx.lifecycle.ViewModel
+import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
+import dev.baseio.slackclone.domain.mappers.UiModelMapper
+import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
+import dev.baseio.slackclone.domain.usecases.channels.UseCaseSearchChannel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
-class NewChatThreadVM @Inject constructor() : ViewModel() {
+class NewChatThreadVM @Inject constructor(
+  private val ucFetchChannels: UseCaseSearchChannel,
+  private val chatPresentationMapper: UiModelMapper<DomainLayerChannels.SlackChannel, UiLayerChannels.SlackChannel>
+) :
+  ViewModel() {
 
   val search = MutableStateFlow("")
-  val users = MutableStateFlow<List<UiLayer.Channels.SlackChannel>>(listOf())
+  var users = MutableStateFlow(flow(""))
+
+  private fun flow(search: String) = ucFetchChannels.performStreaming(search).map { channels ->
+    channels.map { channel ->
+      chatPresentationMapper.mapToPresentation(channel)
+    }
+  }
 
   fun search(newValue: String) {
     search.value = newValue
+    users.value = flow(newValue)
   }
 
 

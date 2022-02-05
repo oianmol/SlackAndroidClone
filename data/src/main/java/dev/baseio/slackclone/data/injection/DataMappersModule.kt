@@ -7,12 +7,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.local.model.DBSlackMessage
-import dev.baseio.slackclone.data.mapper.EntityMapper
-import dev.baseio.slackclone.data.mapper.SlackChannelDataDomainMapper
-import dev.baseio.slackclone.data.mapper.SlackMessageDataDomMapper
-import dev.baseio.slackclone.data.mapper.SlackUserDataDomainMapper
-import dev.baseio.slackclone.domain.model.channel.DomainLayer
+import dev.baseio.slackclone.data.mapper.*
+import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
 import dev.baseio.slackclone.domain.model.message.SlackMessage
+import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 import javax.inject.Singleton
 
 @Module
@@ -21,13 +19,17 @@ abstract class DataMappersModule {
 
   @Binds
   @Singleton
-  abstract fun bindSlackUserDataDomainMapper(slackUserDataDomainMapper: SlackUserDataDomainMapper): EntityMapper<dev.baseio.slackclone.domain.model.users.DomainLayer.Users.SlackUser, RandomUser>
+  abstract fun bindSlackUserChannelMapper(slackUserChannelMapper: SlackUserChannelMapper): EntityMapper<DomainLayerUsers.SlackUser, DBSlackChannel>
 
   @Binds
   @Singleton
-  abstract fun provideSlackChannelDataDomainMapper(slackChannelDataDomainMapper: SlackChannelDataDomainMapper): EntityMapper<DomainLayer.Channels.SlackChannel, DBSlackChannel>
+  abstract fun bindSlackUserDataDomainMapper(slackUserMapper: SlackUserMapper): EntityMapper<DomainLayerUsers.SlackUser, RandomUser>
 
   @Binds
   @Singleton
-  abstract fun provideSlackMessageDataDomMapper(slackMessageDataDomMapper: SlackMessageDataDomMapper): EntityMapper<SlackMessage, DBSlackMessage>
+  abstract fun bindSlackChannelDataDomainMapper(slackChannelMapper: SlackChannelMapper): EntityMapper<DomainLayerChannels.SlackChannel, DBSlackChannel>
+
+  @Binds
+  @Singleton
+  abstract fun bindSlackMessageDataDomMapper(slackMessageMapper: SlackMessageMapper): EntityMapper<SlackMessage, DBSlackMessage>
 }

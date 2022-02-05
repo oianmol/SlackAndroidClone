@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.baseio.slackclone.chatcore.data.UiLayer
-import dev.baseio.slackclone.chatcore.injection.ChatUiModelMapper
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.domain.mappers.UiModelMapper
-import dev.baseio.slackclone.domain.model.channel.DomainLayer
+import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseFetchChannelCount
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseSearchChannel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class SearchChannelsVM @Inject constructor(
   private val ucFetchChannels: UseCaseSearchChannel,
   private val useCaseFetchChannelCount: UseCaseFetchChannelCount,
-  @ChatUiModelMapper private val chatPresentationMapper: UiModelMapper<DomainLayer.Channels.SlackChannel, UiLayer.Channels.SlackChannel>
+  private val chatPresentationMapper: UiModelMapper<DomainLayerChannels.SlackChannel, UiLayerChannels.SlackChannel>
 ) : ViewModel() {
 
   val search = MutableStateFlow("")

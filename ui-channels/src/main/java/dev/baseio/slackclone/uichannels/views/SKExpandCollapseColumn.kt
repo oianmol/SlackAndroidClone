@@ -13,17 +13,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.chatcore.data.ExpandCollapseModel
-import dev.baseio.slackclone.chatcore.data.UiLayer
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SKExpandCollapseColumn(
   expandCollapseModel: ExpandCollapseModel,
-  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit = {},
   onExpandCollapse: (isChecked: Boolean) -> Unit,
-  channels: List<UiLayer.Channels.SlackChannel>,
+  channels: List<UiLayerChannels.SlackChannel>,
   onClickAdd: () -> Unit
 ) {
   Column(
@@ -56,20 +55,14 @@ fun SKExpandCollapseColumn(
 @Composable
 private fun ColumnScope.ChannelsList(
   expandCollapseModel: ExpandCollapseModel,
-  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
-  channels: List<UiLayer.Channels.SlackChannel>
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit = {},
+  channels: List<UiLayerChannels.SlackChannel>
 ) {
   AnimatedVisibility(visible = expandCollapseModel.isOpen) {
     Column {
       repeat(channels.size) {
         val slackChannel = channels[it]
-        SlackListItem(
-          icon = if (slackChannel.isPrivate == true) Icons.Default.Lock else Icons.Default.MailOutline,
-          title = "${slackChannel.name}",
-          onItemClick = {
-            onItemClick(slackChannel)
-          }
-        )
+        SlackChannelItem(slackChannel, onItemClick)
       }
     }
   }

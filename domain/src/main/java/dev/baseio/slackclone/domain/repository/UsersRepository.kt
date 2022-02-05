@@ -1,7 +1,7 @@
 package dev.baseio.slackclone.domain.repository
 
-import dev.baseio.slackclone.domain.model.users.DomainLayer
+import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 
 interface UsersRepository {
-  fun getUsers(count: Int): List<DomainLayer.Users.SlackUser>
+  suspend fun getUsers(count: Int): List<DomainLayerUsers.SlackUser>
 }

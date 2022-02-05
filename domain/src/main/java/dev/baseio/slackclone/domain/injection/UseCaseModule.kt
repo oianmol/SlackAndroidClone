@@ -38,6 +38,11 @@ object UseCaseModule {
 
   @Provides
   @ViewModelScoped
+  fun provideUseCaseCreateChannels(channelsRepository: ChannelsRepository) =
+    UseCaseCreateChannels(channelsRepository)
+
+  @Provides
+  @ViewModelScoped
   fun provideUseCaseGetChannel(channelsRepository: ChannelsRepository) =
     UseCaseGetChannel(channelsRepository)
 
