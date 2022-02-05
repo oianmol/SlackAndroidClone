@@ -30,6 +30,10 @@ kapt {
 
 dependencies {
 
+  implementation("com.github.vatbub:randomusers:1.3"){
+    exclude("com.google.guava")
+  }
+
   implementation(project(":domain"))
   /*Kotlin*/
   api(Lib.Kotlin.KT_STD)

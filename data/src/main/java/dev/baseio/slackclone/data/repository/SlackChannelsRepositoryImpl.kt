@@ -7,8 +7,7 @@ import androidx.paging.map
 import dev.baseio.slackclone.data.local.dao.SlackChannelDao
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.mapper.EntityMapper
-import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
-import dev.baseio.slackclone.domain.model.channel.SlackChannelType
+import dev.baseio.slackclone.domain.model.channel.DomainLayer
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,15 +17,15 @@ import javax.inject.Inject
 
 class SlackChannelsRepositoryImpl @Inject constructor(
   private val slackChannelDao: SlackChannelDao,
-  private val slackChannelMapper: EntityMapper<DomSlackChannel, DBSlackChannel>,
+  private val slackChannelMapper: EntityMapper<DomainLayer.Channels.SlackChannel, DBSlackChannel>,
 ) :
   ChannelsRepository {
 
-  override fun fetchChannelsPaged(params: String?): Flow<PagingData<DomSlackChannel>> {
+  override fun fetchChannelsPaged(params: String?): Flow<PagingData<DomainLayer.Channels.SlackChannel>> {
     val chatPager = Pager(PagingConfig(pageSize = 20)) {
       params?.takeIf { it.isNotEmpty() }?.let {
         slackChannelDao.channelsByName(params)
-      }?:run{
+      } ?: run {
         slackChannelDao.channelsByName()
       }
     }
@@ -38,23 +37,25 @@ class SlackChannelsRepositoryImpl @Inject constructor(
   }
 
   override suspend fun channelCount(): Int {
-    return withContext(Dispatchers.IO){
+    return withContext(Dispatchers.IO) {
       slackChannelDao.count()
     }
-
   }
 
-  override fun fetchChannels(params: SlackChannelType?): Flow<List<DomSlackChannel>> {
+  override fun fetchChannels(): Flow<List<DomainLayer.Channels.SlackChannel>> {
     return slackChannelDao.getAllAsFlow()
-      .map { list -> list.map { channel -> slackChannelMapper.mapToDomain(channel) } }
+      .map { list -> dbToDomList(list) }
   }
 
-  override suspend fun getChannel(uuid: String): DomSlackChannel? {
+  private fun dbToDomList(list: List<DBSlackChannel>) =
+    list.map { channel -> slackChannelMapper.mapToDomain(channel) }
+
+  override suspend fun getChannel(uuid: String): DomainLayer.Channels.SlackChannel? {
     val dbSlack = slackChannelDao.getById(uuid)
     return dbSlack?.let { slackChannelMapper.mapToDomain(it) }
   }
 
-  override suspend fun saveChannel(params: DomSlackChannel): DomSlackChannel? {
+  override suspend fun saveChannel(params: DomainLayer.Channels.SlackChannel): DomainLayer.Channels.SlackChannel? {
     return withContext(Dispatchers.IO) {
       slackChannelDao.insert(slackChannelMapper.mapToData(params))
       slackChannelDao.getById(params.uuid!!)?.let { slackChannelMapper.mapToDomain(it) }

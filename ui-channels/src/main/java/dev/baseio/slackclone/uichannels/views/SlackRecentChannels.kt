@@ -11,11 +11,17 @@ import androidx.compose.runtime.*
 @Composable
 fun SlackRecentChannels(
   onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
-  channelVM: SlackChannelVM,
+  channelVM: SlackChannelVM = hiltViewModel(),
   onClickAdd: () -> Unit
 ) {
   val recent = stringResource(R.string.Recent)
-  val channels by channelVM.channels.collectAsState(initial = emptyList())
+  val channelsFlow = channelVM.channels.collectAsState()
+  val channels by channelsFlow.value.collectAsState(initial = listOf())
+
+  LaunchedEffect(key1 = Unit) {
+    channelVM.allChannels()
+  }
+
   var expandCollapseModel by remember {
     mutableStateOf(
       ExpandCollapseModel(

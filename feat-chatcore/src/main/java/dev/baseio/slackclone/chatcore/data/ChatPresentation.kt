@@ -1,8 +1,6 @@
 package dev.baseio.slackclone.chatcore.data
 
-import dev.baseio.slackclone.domain.mappers.UIModel
-
-object ChatPresentation {
+interface ChatPresentation {
   data class SlackChannel(
     val name: String?,
     val isPrivate: Boolean?,
@@ -10,5 +8,5 @@ object ChatPresentation {
     val createdDate: Long?,
     val modifiedDate: Long?,
     val isMuted: Boolean?,
-  ) : UIModel()
+  )
 }

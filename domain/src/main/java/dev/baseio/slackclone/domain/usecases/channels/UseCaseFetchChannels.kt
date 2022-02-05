@@ -1,16 +1,16 @@
 package dev.baseio.slackclone.domain.usecases.channels
 
-import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
-import dev.baseio.slackclone.domain.model.channel.SlackChannelType
+import dev.baseio.slackclone.domain.model.channel.DomainLayer
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import dev.baseio.slackclone.domain.usecases.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 
 class UseCaseFetchChannels(
   private val channelsRepository: ChannelsRepository,
-) : BaseUseCase<List<DomSlackChannel>, SlackChannelType> {
+) : BaseUseCase<List<DomainLayer.Channels.SlackChannel>, Unit> {
 
-  override fun performStreaming(params: SlackChannelType?): Flow<List<DomSlackChannel>> {
-    return channelsRepository.fetchChannels(params)
+  override fun performStreaming(params: Unit?): Flow<List<DomainLayer.Channels.SlackChannel>> {
+    return channelsRepository.fetchChannels()
   }
+
 }

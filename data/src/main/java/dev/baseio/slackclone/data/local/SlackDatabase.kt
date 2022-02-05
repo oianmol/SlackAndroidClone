@@ -8,8 +8,6 @@ import dev.baseio.slackclone.data.local.dao.SlackUserDao
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.data.local.model.DBSlackUser
-import dev.baseio.slackclone.domain.model.channel.SlackChannelType
-import java.util.*
 
 
 @Database(

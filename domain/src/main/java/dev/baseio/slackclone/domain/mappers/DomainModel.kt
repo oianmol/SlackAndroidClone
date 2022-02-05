@@ -1,11 +1,8 @@
 package dev.baseio.slackclone.domain.mappers
 
-open class DomainModel
 
-open class UIModel
+interface UiModelMapper<DomainModel , UiModel> {
+  fun mapToPresentation(model: DomainModel): UiModel
 
-interface UiModelMapper<M : DomainModel, MI : UIModel> {
-  fun mapToPresentation(model: M): MI
-
-  fun mapToDomain(modelItem: MI): M
+  fun mapToDomain(modelItem: UiModel): DomainModel
 }

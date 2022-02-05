@@ -1,8 +1,5 @@
 package dev.baseio.slackclone.domain.usecases
 
-import androidx.paging.PagingData
-import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
-import dev.baseio.slackclone.domain.model.message.SlackMessage
 import kotlinx.coroutines.flow.Flow
 
 interface BaseUseCase<out Result, in ExecutableParam> {

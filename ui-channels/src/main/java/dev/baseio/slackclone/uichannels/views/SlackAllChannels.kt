@@ -11,11 +11,17 @@ import dev.baseio.slackclone.chatcore.data.ChatPresentation
 @Composable
 fun SlackAllChannels(
   onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
-  channelVM: SlackChannelVM,
+  channelVM: SlackChannelVM = hiltViewModel(),
   onClickAdd: () -> Unit
 ) {
   val recent = stringResource(R.string.channels)
-  val channels by channelVM.channels.collectAsState(initial = emptyList())
+  val channelsFlow = channelVM.channels.collectAsState()
+  val channels by channelsFlow.value.collectAsState(initial = listOf())
+
+  LaunchedEffect(key1 = Unit) {
+    channelVM.allChannels()
+  }
+
   var expandCollapseModel by remember {
     mutableStateOf(
       ExpandCollapseModel(
@@ -27,5 +33,5 @@ fun SlackAllChannels(
   }
   SKExpandCollapseColumn(expandCollapseModel = expandCollapseModel, onItemClick = onItemClick, {
     expandCollapseModel = expandCollapseModel.copy(isOpen = it)
-  },channels, onClickAdd)
+  }, channels, onClickAdd)
 }

@@ -7,6 +7,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import dev.baseio.slackclone.domain.repository.MessagesRepository
+import dev.baseio.slackclone.domain.repository.UsersRepository
 import dev.baseio.slackclone.domain.usecases.channels.*
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseSendMessage
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseFetchMessages
@@ -49,4 +50,9 @@ object UseCaseModule {
   @ViewModelScoped
   fun provideUseCaseSearchChannel(channelsRepository: ChannelsRepository) =
     UseCaseSearchChannel(channelsRepository)
+
+  @Provides
+  @ViewModelScoped
+  fun provideUseCaseFetchUsers(slackUsersRepository: UsersRepository) =
+    UseCaseFetchUsers(slackUsersRepository)
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.navArgument
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.baseio.slackclone.domain.model.channel.DomSlackChannel
+import dev.baseio.slackclone.domain.model.channel.DomainLayer
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseCreateChannel
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.NavigationKeys
@@ -21,7 +21,7 @@ class CreateChannelVM @Inject constructor(
 ) :
   ViewModel() {
 
-  var channel = MutableStateFlow(DomSlackChannel())
+  var channel = MutableStateFlow(DomainLayer.Channels.SlackChannel())
 
   fun createChannel() {
     viewModelScope.launch {
