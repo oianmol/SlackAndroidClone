@@ -19,7 +19,7 @@ class ChatThreadVM @Inject constructor(
   private val useCaseFetchMessages: UseCaseFetchMessages,
   private val useCaseSendMessage: UseCaseSendMessage
 ) : ViewModel() {
-  private var channel: UiLayerChannels.SlackChannel? = null
+  var channel: UiLayerChannels.SlackChannel? = null
   var chatMessagesFlow = MutableStateFlow<Flow<PagingData<SlackMessage>>?>(null)
   var message = MutableStateFlow("")
   var chatBoxState = MutableStateFlow(BoxState.Collapsed)

@@ -77,15 +77,7 @@ private fun ChatAppBar(onBackClick: () -> Unit, slackChannel: UiLayerChannels.Sl
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      SlackChannelItem(slackChannel = slackChannel, {})
-      Text(
-        text = "25 members >",
-        style = SlackCloneTypography.caption.copy(
-          fontWeight = FontWeight.Normal,
-          color = SlackCloneColorProvider.colors.appBarTextSubTitleColor
-        ),
-        modifier = Modifier.padding(2.dp)
-      )
+      SlackChannelItem(slackChannel = slackChannel) {}
     }
     IconButton(onClick = { }) {
       Icon(

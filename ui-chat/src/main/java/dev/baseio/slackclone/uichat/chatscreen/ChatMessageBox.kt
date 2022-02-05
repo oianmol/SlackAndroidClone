@@ -113,7 +113,7 @@ private fun MessageTFRow(
           color = SlackCloneColorProvider.colors.textPrimary,
         ),
         decorationBox = { innerTextField ->
-          ChatTFPlusPlaceHolder(search, Modifier, innerTextField)
+          ChatTFPlusPlaceHolder(search, Modifier, innerTextField,viewModel)
         },
         modifier = Modifier.weight(1f)
       )
@@ -167,7 +167,8 @@ private fun SendMessageButton(
 private fun ChatTFPlusPlaceHolder(
   search: String,
   modifier: Modifier = Modifier,
-  innerTextField: @Composable () -> Unit
+  innerTextField: @Composable () -> Unit,
+  viewModel: ChatThreadVM
 ) {
   Row(
     modifier
@@ -175,7 +176,7 @@ private fun ChatTFPlusPlaceHolder(
   ) {
     if (search.isEmpty()) {
       Text(
-        text = "Message #jetpack_compose",
+        text = "Message ${viewModel.channel?.name}",
         style = SlackCloneTypography.subtitle1.copy(
           color = SlackCloneColorProvider.colors.textSecondary,
         ),
