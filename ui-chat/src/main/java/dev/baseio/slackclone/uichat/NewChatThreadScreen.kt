@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uichannels.create
+package dev.baseio.slackclone.uichat
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayer
@@ -31,15 +30,15 @@ import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackScreen
 
 @Composable
-fun SearchCreateChannelUI(
-  searchChannelsVM: SearchChannelsVM = hiltViewModel(),
+fun NewChatThreadScreen(
+  newChatThread: NewChatThreadVM = hiltViewModel(),
   composeNavigator: ComposeNavigator
 ) {
   SlackCloneTheme {
     val scaffoldState = rememberScaffoldState()
 
     SlackCloneTheme {
-      ListChannels(scaffoldState, composeNavigator, searchChannelsVM = searchChannelsVM) {
+      ListRandomUsers(scaffoldState, composeNavigator, newChatThread = newChatThread) {
         composeNavigator.navigate(SlackScreen.CreateNewChannel.name)
       }
     }
@@ -47,10 +46,10 @@ fun SearchCreateChannelUI(
 }
 
 @Composable
-private fun ListChannels(
+private fun ListRandomUsers(
   scaffoldState: ScaffoldState,
   composeNavigator: ComposeNavigator,
-  searchChannelsVM: SearchChannelsVM,
+  newChatThread: NewChatThreadVM,
   newChannel: () -> Unit
 ) {
   Box {
@@ -62,8 +61,7 @@ private fun ListChannels(
         .navigationBarsPadding(),
       scaffoldState = scaffoldState,
       topBar = {
-        val channelCount by searchChannelsVM.channelCount.collectAsState()
-        SearchAppBar(composeNavigator, channelCount)
+        SearchAppBar(composeNavigator)
       },
       snackbarHost = {
         scaffoldState.snackbarHostState
@@ -72,20 +70,20 @@ private fun ListChannels(
         NewChannelFAB(newChannel)
       }
     ) { innerPadding ->
-      SearchContent(innerPadding, searchChannelsVM)
+      SearchContent(innerPadding, newChatThread)
     }
   }
 }
 
 @Composable
-private fun SearchContent(innerPadding: PaddingValues, searchChannelsVM: SearchChannelsVM) {
+private fun SearchContent(innerPadding: PaddingValues, newChatThread: NewChatThreadVM,) {
   Box(modifier = Modifier.padding(innerPadding)) {
     SlackCloneSurface(
       modifier = Modifier.fillMaxSize()
     ) {
       Column() {
-        SearchChannelsTF(searchChannelsVM)
-        ListAllChannels(searchChannelsVM)
+        SearchUsersTF(newChatThread)
+        ListAllUsers(newChatThread)
       }
     }
   }
@@ -93,14 +91,13 @@ private fun SearchContent(innerPadding: PaddingValues, searchChannelsVM: SearchC
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ListAllChannels(searchChannelsVM: SearchChannelsVM) {
-  val channels by searchChannelsVM.channels.collectAsState()
-  val channelsFlow = channels.collectAsLazyPagingItems()
+private fun ListAllUsers(newChatThread: NewChatThreadVM,) {
+  val userFlows by newChatThread.users.collectAsState()
   val listState = rememberLazyListState()
   LazyColumn(state = listState, reverseLayout = false) {
     var lastDrawnChannel: String? = null
-    for (channelIndex in 0 until channelsFlow.itemCount) {
-      val channel = channelsFlow.peek(channelIndex)!!
+    for (channelIndex in userFlows.indices) {
+      val channel = userFlows[channelIndex]
       val newDrawn = channel.name?.first().toString()
       if (canDrawHeader(lastDrawnChannel, newDrawn)) {
         stickyHeader {
@@ -149,18 +146,18 @@ fun SlackChannelHeader(title: String) {
 }
 
 @Composable
-private fun SearchChannelsTF(searchChannelsVM: SearchChannelsVM) {
-  val searchChannel by searchChannelsVM.search.collectAsState()
+private fun SearchUsersTF(newChatThread: NewChatThreadVM,) {
+  val searchChannel by newChatThread.search.collectAsState()
 
   TextField(
     value = searchChannel,
     onValueChange = { newValue ->
-      searchChannelsVM.search(newValue)
+      newChatThread.search(newValue)
     },
     textStyle = textStyleFieldPrimary(),
     placeholder = {
       Text(
-        text = "Search for channels",
+        text = "Search for a channel or conversation",
         style = textStyleFieldSecondary(),
         textAlign = TextAlign.Start
       )
@@ -208,10 +205,10 @@ private fun NewChannelFAB(newChannel: () -> Unit) {
 }
 
 @Composable
-private fun SearchAppBar(composeNavigator: ComposeNavigator, count: Int) {
+private fun SearchAppBar(composeNavigator: ComposeNavigator) {
   SlackSurfaceAppBar(
     title = {
-      SearchNavTitle(count)
+      SearchNavTitle()
     },
     navigationIcon = {
       NavBackIcon(composeNavigator)
@@ -221,17 +218,11 @@ private fun SearchAppBar(composeNavigator: ComposeNavigator, count: Int) {
 }
 
 @Composable
-private fun SearchNavTitle(count: Int) {
-  Column {
-    Text(
-      text = "Channel Browser",
-      style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.appBarTextTitleColor)
-    )
-    Text(
-      text = "$count channels",
-      style = SlackCloneTypography.subtitle2.copy(color = SlackCloneColorProvider.colors.appBarTextSubTitleColor)
-    )
-  }
+private fun SearchNavTitle() {
+  Text(
+    text = "New Message",
+    style = SlackCloneTypography.subtitle1.copy(color = SlackCloneColorProvider.colors.appBarTextTitleColor)
+  )
 }
 
 @Composable

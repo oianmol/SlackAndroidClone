@@ -2,7 +2,7 @@ package dev.baseio.slackclone.uichannels
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.baseio.slackclone.chatcore.data.ChatPresentation
+import dev.baseio.slackclone.chatcore.data.UiLayer
 import dev.baseio.slackclone.domain.mappers.UiModelMapper
 import dev.baseio.slackclone.chatcore.injection.ChatUiModelMapper
 import dev.baseio.slackclone.domain.model.channel.DomainLayer
@@ -13,10 +13,10 @@ import javax.inject.Inject
 @HiltViewModel
 class SlackChannelVM @Inject constructor(
   private val ucFetchChannels: UseCaseFetchChannels,
-  @ChatUiModelMapper private val chatPresentationMapper: UiModelMapper<DomainLayer.Channels.SlackChannel, ChatPresentation.SlackChannel>
+  @ChatUiModelMapper private val chatPresentationMapper: UiModelMapper<DomainLayer.Channels.SlackChannel, UiLayer.Channels.SlackChannel>
 ) : ViewModel() {
 
-  val channels = MutableStateFlow<Flow<List<ChatPresentation.SlackChannel>>>(emptyFlow())
+  val channels = MutableStateFlow<Flow<List<UiLayer.Channels.SlackChannel>>>(emptyFlow())
 
   fun allChannels() {
     channels.value = ucFetchChannels.performStreaming(null).map { channels ->

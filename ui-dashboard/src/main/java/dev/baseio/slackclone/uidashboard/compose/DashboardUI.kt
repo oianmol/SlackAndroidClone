@@ -29,7 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.chatcore.data.ChatPresentation
+import dev.baseio.slackclone.chatcore.data.UiLayer
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
 import dev.baseio.slackclone.navigator.ComposeNavigator
@@ -122,7 +122,7 @@ private fun DashboardScreenRegular(
 }
 
 private fun checkChatViewClosed(
-  lastChannel: dev.baseio.slackclone.chatcore.data.ChatPresentation.SlackChannel?,
+  lastChannel: dev.baseio.slackclone.chatcore.data.UiLayer.Channels.SlackChannel?,
   isChatViewClosed: Boolean
 ) = lastChannel == null || isChatViewClosed
 
@@ -133,7 +133,7 @@ private fun DashboardScaffold(
   dashboardNavController: NavHostController,
   modifier: Modifier,
   appBarIconClick: () -> Unit,
-  onItemClick: (ChatPresentation.SlackChannel) -> Unit,
+  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit,
   composeNavigator: ComposeNavigator,
 ) {
   Box(modifier) {

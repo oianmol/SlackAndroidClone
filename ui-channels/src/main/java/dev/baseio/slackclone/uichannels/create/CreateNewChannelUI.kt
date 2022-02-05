@@ -5,13 +5,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -54,20 +52,20 @@ private fun CreateChannel(
         .navigationBarsPadding(),
       scaffoldState = scaffoldState,
       topBar = {
-        AppBar(composeNavigator, createChannelVM)
+        NewChannelAppBar(composeNavigator, createChannelVM)
       },
       snackbarHost = {
         scaffoldState.snackbarHostState
       },
     ) { innerPadding ->
-      Content(innerPadding, createChannelVM)
+      NewChannelContent(innerPadding, createChannelVM)
     }
   }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun Content(innerPadding: PaddingValues, createChannelVM: CreateChannelVM) {
+private fun NewChannelContent(innerPadding: PaddingValues, createChannelVM: CreateChannelVM) {
   val searchChannel by createChannelVM.channel.collectAsState()
 
   Box(modifier = Modifier.padding(innerPadding)) {
@@ -216,7 +214,7 @@ private fun textFieldColors() = TextFieldDefaults.textFieldColors(
 )
 
 @Composable
-private fun AppBar(composeNavigator: ComposeNavigator, createChannelVM: CreateChannelVM) {
+private fun NewChannelAppBar(composeNavigator: ComposeNavigator, createChannelVM: CreateChannelVM) {
   val haptic = LocalHapticFeedback.current
   SlackSurfaceAppBar(
     title = {

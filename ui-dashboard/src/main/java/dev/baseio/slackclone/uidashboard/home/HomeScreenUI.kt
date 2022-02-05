@@ -15,15 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import dev.baseio.slackclone.chatcore.data.ChatPresentation
+import dev.baseio.slackclone.chatcore.data.UiLayer
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
-import dev.baseio.slackclone.uichannels.SlackChannelVM
 import dev.baseio.slackclone.uichannels.views.*
 
 import dev.baseio.slackclone.uidashboard.R
@@ -31,7 +29,7 @@ import dev.baseio.slackclone.uidashboard.R
 @Composable
 fun HomeScreenUI(
   appBarIconClick: () -> Unit,
-  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
+  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
   onCreateChannelRequest: () -> Unit = {}
 ) {
   SlackCloneSurface(

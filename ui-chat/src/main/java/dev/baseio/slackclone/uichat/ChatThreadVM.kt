@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseFetchMessages
-import dev.baseio.slackclone.chatcore.data.ChatPresentation
+import dev.baseio.slackclone.chatcore.data.UiLayer
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseSendMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,12 +19,12 @@ class ChatThreadVM @Inject constructor(
   private val useCaseFetchMessages: UseCaseFetchMessages,
   private val useCaseSendMessage: UseCaseSendMessage
 ) : ViewModel() {
-  private var channel: ChatPresentation.SlackChannel? = null
+  private var channel: UiLayer.Channels.SlackChannel? = null
   var chatMessagesFlow = MutableStateFlow<Flow<PagingData<SlackMessage>>?>(null)
   var message = MutableStateFlow("")
   var chatBoxState = MutableStateFlow(BoxState.Collapsed)
 
-  fun requestFetch(slackChannel: ChatPresentation.SlackChannel) {
+  fun requestFetch(slackChannel: UiLayer.Channels.SlackChannel) {
     this.channel = slackChannel
     chatMessagesFlow.value  = useCaseFetchMessages.performStreaming(slackChannel.uuid)
   }

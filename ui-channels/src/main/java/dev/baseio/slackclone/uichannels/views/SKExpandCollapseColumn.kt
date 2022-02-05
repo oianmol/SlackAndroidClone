@@ -11,19 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.baseio.slackclone.chatcore.data.ChatPresentation
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.chatcore.data.ExpandCollapseModel
+import dev.baseio.slackclone.chatcore.data.UiLayer
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SKExpandCollapseColumn(
   expandCollapseModel: ExpandCollapseModel,
-  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
+  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
   onExpandCollapse: (isChecked: Boolean) -> Unit,
-  channels: List<ChatPresentation.SlackChannel>,
+  channels: List<UiLayer.Channels.SlackChannel>,
   onClickAdd: () -> Unit
 ) {
   Column(
@@ -56,8 +56,8 @@ fun SKExpandCollapseColumn(
 @Composable
 private fun ColumnScope.ChannelsList(
   expandCollapseModel: ExpandCollapseModel,
-  onItemClick: (ChatPresentation.SlackChannel) -> Unit = {},
-  channels: List<ChatPresentation.SlackChannel>
+  onItemClick: (UiLayer.Channels.SlackChannel) -> Unit = {},
+  channels: List<UiLayer.Channels.SlackChannel>
 ) {
   AnimatedVisibility(visible = expandCollapseModel.isOpen) {
     Column {
