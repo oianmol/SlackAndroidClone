@@ -106,7 +106,9 @@ private fun ListAllChannels(searchChannelsVM: SearchChannelsVM) {
         }
       }
       item {
-        SlackChannelListItem(channel)
+        SlackChannelItem(channel){
+          searchChannelsVM.navigate(it)
+        }
       }
       lastDrawnChannel = newDrawn
     }

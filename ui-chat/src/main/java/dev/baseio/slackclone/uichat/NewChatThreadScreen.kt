@@ -23,6 +23,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
+import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.*
@@ -99,7 +100,9 @@ private fun ListAllUsers(newChatThread: NewChatThreadVM) {
         }
       }
       item {
-        SlackChannelListItem(channel)
+        SlackChannelItem(channel){
+          newChatThread.navigate(it)
+        }
       }
       lastDrawnChannel = newDrawn
     }

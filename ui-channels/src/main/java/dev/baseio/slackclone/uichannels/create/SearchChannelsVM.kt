@@ -9,6 +9,9 @@ import dev.baseio.slackclone.domain.mappers.UiModelMapper
 import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseFetchChannelCount
 import dev.baseio.slackclone.domain.usecases.channels.UseCaseSearchChannel
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.NavigationKeys
+import dev.baseio.slackclone.navigator.SlackScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -16,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchChannelsVM @Inject constructor(
+  private val composeNavigator: ComposeNavigator,
   private val ucFetchChannels: UseCaseSearchChannel,
   private val useCaseFetchChannelCount: UseCaseFetchChannelCount,
   private val chatPresentationMapper: UiModelMapper<DomainLayerChannels.SlackChannel, UiLayerChannels.SlackChannel>
@@ -42,6 +46,14 @@ class SearchChannelsVM @Inject constructor(
   fun search(newValue: String) {
     search.value = newValue
     channels.value = flow(newValue)
+  }
+
+  fun navigate(channel: UiLayerChannels.SlackChannel) {
+    composeNavigator.navigateBackWithResult(
+      NavigationKeys.channelCreated,
+      channel.uuid!!,
+      SlackScreen.Dashboard.name
+    )
   }
 
 }
