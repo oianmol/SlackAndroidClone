@@ -1,6 +1,7 @@
 package dev.baseio.slackclone.uionboarding.compose
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -8,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,28 +46,37 @@ fun WorkspaceInputView(modifier: Modifier) {
 private fun WorkspaceTF() {
   var workspace by remember { mutableStateOf("") }
 
-  TextField(
+  BasicTextField(
     value = workspace,
-    onValueChange = { newEmail ->
-      workspace = newEmail
-    },
+    onValueChange = { newEmail -> workspace = newEmail },
     textStyle = textStyleField(),
-    leadingIcon = {
-      Text(text = "https://", style = textStyleField().copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)))
-    },
-    trailingIcon = {
-      Text(".slack.com", style = textStyleField().copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f)))
-    },
-    placeholder = {
-      Text(
-        text = "your-workspace",
-        style = textStyleField(),
-        textAlign = TextAlign.Start
-      )
-    },
-    colors = textFieldColors(),
     singleLine = true,
     maxLines = 1,
+    cursorBrush = SolidColor(SlackCloneColorProvider.colors.textPrimary),
+    decorationBox = { inputTf ->
+      Row(Modifier.padding(start = 4.dp, top = 12.dp, bottom = 12.dp)){
+        Text(
+          text = "https://",
+          style = textStyleField().copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f))
+        )
+        if (workspace.isEmpty()) {
+          Text(
+            text = "your-workspace",
+            style = textStyleField(),
+            textAlign = TextAlign.Start
+          )
+        } else {
+          //TODO how to wrap the content width of inputTf ?
+          Box(Modifier.wrapContentWidth()) {
+            inputTf()
+          }
+        }
+        Text(
+          ".slack.com",
+          style = textStyleField().copy(color = SlackCloneColorProvider.colors.textPrimary.copy(alpha = 0.4f))
+        )
+      }
+    }
   )
 }
 
