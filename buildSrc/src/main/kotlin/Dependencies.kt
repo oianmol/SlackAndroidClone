@@ -3,7 +3,7 @@ import Lib.Networking
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
-  private const val TOOLS_BUILD = "7.1.0"
+  private const val TOOLS_BUILD = "7.1.1"
   private const val KT_LINT = "9.2.1"
   private const val SAFE_ARGS = "2.3.5"
 

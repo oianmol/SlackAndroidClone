@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -16,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
-import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
+import dev.baseio.slackclone.commonui.reusable.SlackOnlineBox
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 
@@ -66,7 +65,7 @@ private fun DirectMessageChannel(
         onItemClick(slackChannel)
       }, verticalAlignment = Alignment.CenterVertically
   ) {
-    SlackImageBox(modifier = Modifier.size(24.dp), imageUrl = slackChannel.pictureUrl ?: "")
+    SlackOnlineBox(imageUrl = slackChannel.pictureUrl ?: "")
     ChannelText(slackChannel, textColor)
   }
 }
