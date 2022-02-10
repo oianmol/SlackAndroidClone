@@ -22,24 +22,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun ChatScreenContent(viewModel: ChatScreenVM) {
   val checkBoxState by viewModel.chatBoxState.collectAsState()
-  val coroutineScope = rememberCoroutineScope()
   val manualExpandValue = if (checkBoxState == BoxState.Expanded) {
     1f
   } else {
     0f
   }
-  val dragAnimate = remember {
-    Animatable(manualExpandValue)
-  }
-
-  LaunchedEffect(key1 = checkBoxState) {
-    coroutineScope.launch {
-      dragAnimate.animateTo(manualExpandValue)
-    }
-  }
 
   val change by animateFloatAsState(
-    dragAnimate.targetValue,
+    manualExpandValue,
     animationSpec = spring(
       dampingRatio = Spring.DampingRatioLowBouncy,
       stiffness = Spring.StiffnessMediumLow
