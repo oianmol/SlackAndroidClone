@@ -7,6 +7,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.datastore.preferences.core.Preferences
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
 import dev.baseio.slackclone.uipreference.model.Preference
+import dev.baseio.slackclone.uipreference.views.widget.DialogPreferenceWidget
 import dev.baseio.slackclone.uipreference.views.widget.ListPreferenceWidget
 import dev.baseio.slackclone.uipreference.views.widget.SwitchPreferenceWidget
 import dev.baseio.slackclone.uipreference.views.widget.text.TextPreferenceWidget
@@ -45,6 +46,11 @@ internal fun PreferenceItem(
             TextPreferenceWidget(
                 preference = item,
                 onClick = item.onClick,
+            )
+        }
+        is Preference.PreferenceItem.DialogPreference -> {
+            DialogPreferenceWidget(
+                preference = item,
             )
         }
     }

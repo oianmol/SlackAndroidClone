@@ -10,7 +10,7 @@ import dev.baseio.slackclone.uipreference.datastoremanager.PreferenceRequest
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-object LanguagePreference : PreferenceRequest<String>(stringPreferencesKey("pref_language"), "English (US)")
+object LanguagePreference : PreferenceRequest<String>(stringPreferencesKey("pref_language"), "")
 object TimeZonePreference : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_timezone"), true)
 
 object DarkModePreference : PreferenceRequest<String>(stringPreferencesKey("pref_darkMode"), "System default")
@@ -23,3 +23,5 @@ object OpenWebpagesInAppPreference : PreferenceRequest<Boolean>(booleanPreferenc
 object OptimiseImageUploadsPreference : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_optimiseImageUploads"), true)
 object OptimiseVideoUploadsPreference : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_optimiseVideoUploads"), true)
 object ShowImagePreviewsPreference : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_showImagePreviews"), true)
+
+object SlackCallsDebuggingPreference : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_slackCallsDebugging"), true)

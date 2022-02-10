@@ -6,6 +6,7 @@ import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.uipreference.model.Preference
 
 @ExperimentalMaterialApi
@@ -22,7 +23,8 @@ internal fun TextPreferenceWidget(
             text = {
                 Text(
                     text = preference.title,
-                    maxLines = if (preference.singleLineTitle) 1 else Int.MAX_VALUE
+                    maxLines = if (preference.singleLineTitle) 1 else Int.MAX_VALUE,
+                    color = SlackCloneColorProvider.colors.textPrimary
                 )
             },
             secondaryText = { Text(text = summary ?: preference.summary) },

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 
 @Composable
 internal fun PreferenceGroupHeader(title: String) {
@@ -24,10 +25,10 @@ internal fun PreferenceGroupHeader(title: String) {
         ) {
             Text(
                 text = title,
-                fontSize = 14.sp,
-                color = MaterialTheme.colors.secondary,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(start = 16.dp)
+                fontSize = 16.sp,
+                color = SlackCloneColorProvider.colors.accent,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 16.dp),
             )
         }
     }

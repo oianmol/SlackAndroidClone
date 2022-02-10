@@ -58,51 +58,22 @@ sealed class Preference {
             val entries: Map<String, String>,
         ) : PreferenceItem<String>()
 
-        /**
-         * A [PreferenceItem] that displays a list of entries as a dialog.
-         * Multiple entries can be selected at the same time.
-         */
-        data class MultiSelectListPreference(
-            val request: PreferenceRequest<Set<String>>,
+        data class DialogPreference(
             override val title: String,
             override val summary: String,
-            override val singleLineTitle: Boolean,
+            override val singleLineTitle: Boolean = true,
             override val icon: @Composable () -> Unit,
             override val enabled: Boolean = true,
+            val dialogTitle: String? = null,
+            val dialogSummary: String? = null,
+            val content: @Composable () -> Unit,
+            val negativeButtonText : String,
+            val positiveButtonText : String,
+            val negativeButtonClick : () -> Unit,
+            val positiveButtonClick : () -> Unit,
 
-            val entries: Map<String, String>,
-        ) : PreferenceItem<Set<String>>()
-
-        /**
-         * A [PreferenceItem] that displays a seekBar and the currently selected value.
-         */
-        data class SeekBarPreference(
-            val request: PreferenceRequest<Float>,
-            override val title: String,
-            override val summary: String,
-            override val singleLineTitle: Boolean,
-            override val icon: @Composable () -> Unit,
-            override val enabled: Boolean = true,
-
-            val valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
-            val steps: Int = 0,
-            val valueRepresentation: (Float) -> String
-        ) : PreferenceItem<Float>()
-
-        /**
-         * 	A [PreferenceItem] that displays a list of entries as a DropDownMenu.
-         * 	Only one entry can be selected at any given time.
-         */
-        data class DropDownMenuPreference(
-            val request: PreferenceRequest<String>,
-            override val title: String,
-            override val summary: String,
-            override val singleLineTitle: Boolean,
-            override val icon: @Composable () -> Unit,
-            override val enabled: Boolean = true,
-
-            val entries: Map<String, String>,
         ) : PreferenceItem<String>()
+
     }
 
     /**
