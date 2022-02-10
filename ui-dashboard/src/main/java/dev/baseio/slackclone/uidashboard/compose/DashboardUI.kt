@@ -185,7 +185,7 @@ private fun DashboardScaffold(
               SearchMessagesUI()
             }
             composable(Screen.You.route) {
-              UserProfileUI()
+              UserProfileUI(onCreatePreferenceRequest = {composeNavigator.navigate(SlackScreen.CreatePreferenceScreen.name)})
             }
           }
         }

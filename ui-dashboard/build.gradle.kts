@@ -58,6 +58,7 @@ dependencies {
   /*Kotlin*/
   implementation(project(":ui-chat"))
   implementation(project(":ui-channels"))
+  implementation(project(":ui-preference"))
   api(project(":feat-chatcore"))
 
   implementation(project(":data"))
