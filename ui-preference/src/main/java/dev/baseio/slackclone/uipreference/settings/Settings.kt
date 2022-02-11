@@ -7,10 +7,11 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dev.baseio.slackclone.uipreference.datastoremanager.PreferenceRequest
+import java.util.*
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-object LanguagePreference : PreferenceRequest<String>(stringPreferencesKey("pref_language"), "")
+object LanguagePreference : PreferenceRequest<String>(stringPreferencesKey("pref_language"), Locale.getDefault().displayLanguage + " ("+ Locale.getDefault().displayCountry+")")
 object TimeZonePreference : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_timezone"), true)
 
 object DarkModePreference : PreferenceRequest<String>(stringPreferencesKey("pref_darkMode"), "System default")

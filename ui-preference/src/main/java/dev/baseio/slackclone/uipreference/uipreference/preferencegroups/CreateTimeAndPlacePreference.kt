@@ -43,10 +43,16 @@ fun CreateTimeAndPlacePreference(
     for (i in 0 until locales.size()){
         languageList.add(locales[i].displayLanguage + " ("+locales[i].displayCountry+")")
     }
-    val scope = rememberCoroutineScope()
 
     val languagePreference by dataStoreManager.getPreferenceFlow(LanguagePreference)
         .collectAsState(initial = Locale.getDefault().displayLanguage + " ("+Locale.getDefault().displayCountry+")")
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(true){
+        coroutineScope.launch {
+            dataStoreManager.editPreference(LanguagePreference.key,languagePreference)
+        }
+    }
 
 
     return Preference.PreferenceGroup(

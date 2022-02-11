@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -44,11 +46,10 @@ internal fun ListPreferenceWidget(
             title = { Text(text = preference.title,
                 fontWeight = FontWeight.Bold) },
             buttons = {
-                Column(
-                    modifier = Modifier
-                        .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp)
-                ) {
-                    LazyColumn{
+                val lazyListState = LazyListState(0)
+                    LazyColumn( modifier = Modifier
+                        .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp),
+                        state =lazyListState){
                         preference.entries.forEach { current ->
                             val isSelected = value == current.key
                             val onSelected = {
@@ -84,7 +85,7 @@ internal fun ListPreferenceWidget(
                             }
                         }
                     }
-                }
+
             },
             properties = DialogProperties(
                 usePlatformDefaultWidth = true

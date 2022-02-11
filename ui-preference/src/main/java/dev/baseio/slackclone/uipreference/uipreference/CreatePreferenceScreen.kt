@@ -1,5 +1,7 @@
 package dev.baseio.slackclone.uipreference.uipreference
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -105,6 +107,7 @@ private fun NavBackIcon(composeNavigator: ComposeNavigator) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalMaterialApi::class, androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun PreferenceContent(innerPadding: PaddingValues,
