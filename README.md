@@ -1,6 +1,6 @@
 # Slack Android Clone with Compose
 
-### Status: 🚧 In progress 🚧
+### Status: On Hold ✋ Might not commit on daily basis🏼👽
 
 This is a jetpack compose sample app written in Kotlin following clean architecture principles.
 
