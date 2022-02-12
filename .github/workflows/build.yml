@@ -17,10 +17,10 @@ jobs:
         with:
           java-version: 11
       - name: Build APK
-        run: bash ./gradlew assembleRelease --stacktrace
+        run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
           name: apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           retention-days: 5
