@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavOptionsBuilder
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
@@ -28,7 +29,7 @@ import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun UserProfileUI() {
+fun UserProfileUI(onCreatePreferenceRequest: () -> Unit = {}) {
   SlackCloneSurface(
     color = SlackCloneColorProvider.colors.uiBackground,
     modifier = Modifier.fillMaxSize()
@@ -45,7 +46,9 @@ fun UserProfileUI() {
       SlackListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
       SlackListItem(Icons.Default.Person, stringResource(R.string.view_profile))
       SlackListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
-      SlackListItem(Icons.Default.Settings, stringResource(R.string.preferences))
+      SlackListItem(Icons.Default.Settings, stringResource(R.string.preferences)){
+        onCreatePreferenceRequest()
+      }
     }
   }
 }

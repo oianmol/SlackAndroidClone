@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="time_and_place_pref">Time and Place</string>
+    <string-array name="time_and_place_pref_language">
+        <item>Language</item>
+    </string-array>
+    <string-array name="time_and_place_pref_language_values">
+        <item>Deutsh</item>
+        <item>English (US)</item>
+    </string-array>
+    <string-array name="time_and_place_pref_timezone">
+        <item>Set time zone automatically</item>
+    </string-array>
+</resources>
