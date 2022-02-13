@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.model
+package dev.baseio.slackclone.uipreference.composables
 
 import androidx.compose.runtime.Composable
 import dev.baseio.slackclone.uipreference.datastoremanager.PreferenceRequest

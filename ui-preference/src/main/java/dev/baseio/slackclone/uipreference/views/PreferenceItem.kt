@@ -6,7 +6,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.datastore.preferences.core.Preferences
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
-import dev.baseio.slackclone.uipreference.model.Preference
+import dev.baseio.slackclone.uipreference.composables.Preference
 import dev.baseio.slackclone.uipreference.views.widget.DialogPreferenceWidget
 import dev.baseio.slackclone.uipreference.views.widget.ListPreferenceWidget
 import dev.baseio.slackclone.uipreference.views.widget.SwitchPreferenceWidget

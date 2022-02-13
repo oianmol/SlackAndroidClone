@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.uipreference
+package dev.baseio.slackclone.uipreference.preferencegroups
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
-import dev.baseio.slackclone.uipreference.model.Preference
+import dev.baseio.slackclone.uipreference.composables.Preference
 
 @Composable
 fun CreateAboutSlackPreference(

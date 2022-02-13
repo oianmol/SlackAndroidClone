@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.uipreference
+package dev.baseio.slackclone.uipreference.preferencegroups
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,14 +17,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
-import dev.baseio.slackclone.uipreference.model.Preference
+import dev.baseio.slackclone.uipreference.composables.Preference
 import dev.baseio.slackclone.uipreference.settings.SlackCallsDebuggingPreference
 
-@Composable
-fun CreateTroubleShootingPreference(
-    dataStoreManager: DataStoreManager
-) : Preference.PreferenceGroup {
-
+fun createTroubleShootingPreference(): Preference.PreferenceGroup {
     return Preference.PreferenceGroup(
         title = "TroubleShooting",
         enabled = true,

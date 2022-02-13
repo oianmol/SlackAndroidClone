@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.uipreference
+package dev.baseio.slackclone.uipreference.preferencegroups
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
-import dev.baseio.slackclone.uipreference.model.Preference
+import dev.baseio.slackclone.uipreference.composables.Preference
 import dev.baseio.slackclone.uipreference.settings.AllowAnimatedImagesAndEmojiPreference
 import dev.baseio.slackclone.uipreference.settings.DisplayTypingIndicatorsPreference
 import dev.baseio.slackclone.uipreference.settings.UnderlineLinksPreference

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
-import dev.baseio.slackclone.uipreference.model.Preference
+import dev.baseio.slackclone.uipreference.composables.Preference
 import dev.baseio.slackclone.uipreference.views.widget.text.TextPreferenceWidget
 
 @OptIn(ExperimentalMaterialApi::class, androidx.compose.ui.ExperimentalComposeUiApi::class)

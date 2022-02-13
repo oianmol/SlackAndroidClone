@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.screen
+package dev.baseio.slackclone.uipreference.views
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +18,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
-import dev.baseio.slackclone.uipreference.model.Preference
-import dev.baseio.slackclone.uipreference.views.PreferenceGroupHeader
-import dev.baseio.slackclone.uipreference.views.PreferenceItem
+import dev.baseio.slackclone.uipreference.composables.Preference
 import dev.baseio.slackclone.uipreference.views.widget.text.LocalPreferenceEnabledStatus
 
 /**

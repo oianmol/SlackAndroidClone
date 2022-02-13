@@ -10,7 +10,7 @@ import dev.baseio.slackclone.uichannels.createsearch.CreateNewChannelUI
 import dev.baseio.slackclone.uichannels.createsearch.SearchCreateChannelUI
 import dev.baseio.slackclone.uichat.newchat.NewChatThreadScreen
 import dev.baseio.slackclone.uidashboard.compose.DashboardUI
-import dev.baseio.slackclone.uipreference.uipreference.CreatePreferenceScreen
+import dev.baseio.slackclone.uipreference.CreatePreferenceScreen
 
 fun NavGraphBuilder.dashboardNavigation(
   composeNavigator: ComposeNavigator,

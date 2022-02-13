@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.model
+package dev.baseio.slackclone.uipreference.composables
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size

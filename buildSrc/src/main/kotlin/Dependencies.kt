@@ -63,11 +63,6 @@ object Lib {
     const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
   }
 
-  object Google{
-    private const val ACCOMPANIST_INSET_VERSION = "0.13.0"
-    const val googleAccompanistInset= "com.google.accompanist:accompanist-insets:${ACCOMPANIST_INSET_VERSION}"
-  }
-
   object Di {
     private const val DAGGER_VERSION = "2.40.5"
     const val hiltAndroid = "com.google.dagger:hilt-android:${DAGGER_VERSION}"

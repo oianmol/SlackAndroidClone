@@ -26,7 +26,7 @@ internal fun PreferenceGroupHeader(title: String) {
             Text(
                 text = title,
                 fontSize = 16.sp,
-                color = SlackCloneColorProvider.colors.accent,
+                color = SlackCloneColorProvider.colors.textPrimary,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 16.dp),
             )

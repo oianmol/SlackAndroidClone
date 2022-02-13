@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uipreference.uipreference
+package dev.baseio.slackclone.uipreference.preferencegroups
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import dev.baseio.slackclone.uipreference.datastoremanager.DataStoreManager
-import dev.baseio.slackclone.uipreference.model.Preference
-import dev.baseio.slackclone.uipreference.model.PreferenceIcon
+import dev.baseio.slackclone.uipreference.composables.Preference
+import dev.baseio.slackclone.uipreference.composables.PreferenceIcon
 import dev.baseio.slackclone.uipreference.settings.DarkModePreference
 
 
