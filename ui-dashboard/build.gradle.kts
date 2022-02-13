@@ -55,10 +55,10 @@ kapt {
 }
 
 dependencies {
+  implementation(project(":feat-chat"))
   /*Kotlin*/
-  implementation(project(":ui-chat"))
-  implementation(project(":ui-channels"))
-  implementation(project(":ui-preference"))
+  implementation(project(":feat-channels"))
+  implementation(project(":feat-preference"))
   api(project(":feat-chatcore"))
 
   implementation(project(":data"))

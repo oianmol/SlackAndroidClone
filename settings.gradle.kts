@@ -2,7 +2,7 @@
 include(":app")
 
 // Feature modules
-include(":ui-onboarding")
+include(":feat-onboarding")
 include(":ui-dashboard")
 // Other modules
 include(":domain")
@@ -11,7 +11,7 @@ include(":common")
 include(":commonui")
 include(":navigator")
 
-include(":ui-chat")
-include(":ui-channels")
+include(":feat-chat")
+include(":feat-channels")
 include(":feat-chatcore")
-include(":ui-preference")
+include(":feat-preference")
