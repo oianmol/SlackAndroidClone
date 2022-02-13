@@ -110,7 +110,7 @@ private fun DashboardScreenRegular(
         }, composeNavigator
       )
     }, { leftViewModifier ->
-      SideNavigation(leftViewModifier.width(sideNavWidth))
+      SideNavigation(leftViewModifier.width(sideNavWidth),composeNavigator)
     }
   ) { chatViewModifier ->
     lastChannel?.let { slackChannel ->
@@ -179,7 +179,7 @@ private fun DashboardScaffold(
               SearchMessagesUI()
             }
             composable(Screen.You.route) {
-              UserProfileUI(onCreatePreferenceRequest = {composeNavigator.navigate(SlackScreen.CreatePreferenceScreen.name)})
+              UserProfileUI(onCreatePreferenceRequest = { composeNavigator.navigate(SlackScreen.CreatePreferenceScreen.name)})
             }
           }
         }

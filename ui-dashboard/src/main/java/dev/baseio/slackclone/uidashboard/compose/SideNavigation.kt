@@ -26,9 +26,11 @@ import com.google.accompanist.insets.*
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.SlackScreen
 
 @Composable
-fun SideNavigation(modifier: Modifier) {
+fun SideNavigation(modifier: Modifier, composeNavigator: ComposeNavigator) {
   SlackCloneSurface(color = SlackCloneColorProvider.colors.uiBackground , modifier = modifier.fillMaxSize()) {
     Column(
       modifier = Modifier
@@ -42,7 +44,7 @@ fun SideNavigation(modifier: Modifier) {
         Workspace(selected = false)
       }
       Spacer(modifier = Modifier.padding(8.dp))
-      SideNavFooter()
+      SideNavFooter(composeNavigator)
     }
 
   }
@@ -50,11 +52,13 @@ fun SideNavigation(modifier: Modifier) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun SideNavFooter() {
+private fun SideNavFooter(composeNavigator: ComposeNavigator) {
   Column(modifier = Modifier.navigationBarsPadding()) {
     Divider(color = SlackCloneColorProvider.colors.lineColor)
     SlackListItem(Icons.Filled.AddCircle, stringResource(id = R.string.add_workspace))
-    SlackListItem(Icons.Filled.Settings, stringResource(id = R.string.preferences))
+    SlackListItem(Icons.Filled.Settings, stringResource(id = R.string.preferences), onItemClick = {
+      composeNavigator.navigate(SlackScreen.CreatePreferenceScreen.name)
+    })
     SlackListItem(Icons.Filled.CheckCircle, stringResource(id = R.string.help))
   }
 }
