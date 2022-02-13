@@ -97,6 +97,7 @@ private fun DashboardScreenRegular(
     },
     { modifier ->
       DashboardScaffold(
+        !isChatViewClosed,
         isLeftNavOpen,
         scaffoldState,
         dashboardNavController,
@@ -127,6 +128,7 @@ private fun checkChatViewClosed(
 
 @Composable
 private fun DashboardScaffold(
+  isChatViewOpen: Boolean,
   isLeftNavOpen: Boolean,
   scaffoldState: ScaffoldState,
   dashboardNavController: NavHostController,
@@ -150,15 +152,7 @@ private fun DashboardScaffold(
         scaffoldState.snackbarHostState
       },
       floatingActionButton = {
-        FloatingActionButton(onClick = {
-          composeNavigator.navigate(SlackScreen.CreateNewDM.name)
-        }, backgroundColor = Color.White) {
-          Icon(
-            imageVector = Icons.Default.Edit,
-            contentDescription = null,
-            tint = SlackCloneColor
-          )
-        }
+        floatingDM(composeNavigator)
       }
     ) { innerPadding ->
       Box(modifier = Modifier.padding(innerPadding)) {
@@ -190,10 +184,23 @@ private fun DashboardScaffold(
           }
         }
       }
-      if (isLeftNavOpen) {
+      if (isLeftNavOpen || isChatViewOpen) {
         OverlayDark(appBarIconClick)
       }
     }
+  }
+}
+
+@Composable
+private fun floatingDM(composeNavigator: ComposeNavigator) {
+  FloatingActionButton(onClick = {
+    composeNavigator.navigate(SlackScreen.CreateNewDM.name)
+  }, backgroundColor = Color.White) {
+    Icon(
+      imageVector = Icons.Default.Edit,
+      contentDescription = null,
+      tint = SlackCloneColor
+    )
   }
 }
 

@@ -128,13 +128,13 @@ fun StatusBox() {
       modifier = Modifier.fillMaxWidth(),
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Text("🌴", modifier = Modifier.padding(4.dp), style = SlackCloneTypography.subtitle1)
+      Text("🌴", modifier = Modifier.padding(2.dp), style = SlackCloneTypography.subtitle1)
       Text(
         text = "Out on a vacation", style = SlackCloneTypography.body1.copy(
           fontWeight = FontWeight.Normal,
           color = SlackCloneColorProvider.colors.textPrimary
         ), modifier = Modifier
-          .padding(4.dp)
+          .padding(2.dp)
           .weight(1f),
         textAlign = TextAlign.Start
       )
@@ -157,7 +157,7 @@ fun RoundedCornerBoxDecoration(content: @Composable () -> Unit) {
         color = SlackCloneColorProvider.colors.lineColor,
         shape = RoundedCornerShape(12.dp)
       )
-      .padding(16.dp)
+      .padding(12.dp)
   ) {
     content()
   }
