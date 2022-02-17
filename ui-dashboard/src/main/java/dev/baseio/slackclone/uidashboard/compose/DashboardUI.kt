@@ -4,11 +4,35 @@ import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Divider
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,16 +54,27 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
-import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackDragComposableView
+import dev.baseio.slackclone.commonui.theme.SlackCloneColor
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
+import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
+import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackScreen
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenUI
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
-import dev.baseio.slackclone.uidashboard.home.*
+import dev.baseio.slackclone.uidashboard.home.DirectMessagesUI
+import dev.baseio.slackclone.uidashboard.home.HomeScreenUI
+import dev.baseio.slackclone.uidashboard.home.MentionsReactionsUI
+import dev.baseio.slackclone.uidashboard.home.SearchMessagesUI
+import dev.baseio.slackclone.uidashboard.home.UserProfileUI
 
 @Composable
-fun DashboardUI(composeNavigator: ComposeNavigator, dashboardVM: DashboardVM = hiltViewModel()) {
+fun DashboardUI(
+  composeNavigator: ComposeNavigator,
+  dashboardVM: DashboardVM = hiltViewModel()
+) {
   val scaffoldState = rememberScaffoldState()
   val dashboardNavController = rememberNavController()
 
@@ -95,29 +130,36 @@ private fun DashboardScreenRegular(
     onOpenCloseRightView = {
       dashboardVM.isChatViewClosed.value = it
     },
-    { modifier ->
-      DashboardScaffold(
-        !isChatViewClosed,
-        isLeftNavOpen,
-        scaffoldState,
-        dashboardNavController,
-        modifier,
-        {
-          isLeftNavOpen = !isLeftNavOpen
-        }, {
-          dashboardVM.selectedChatChannel.value = it
-          dashboardVM.isChatViewClosed.value = false
-        }, composeNavigator
+    leftViewComposable = { sideNavModifier ->
+      SideNavigation(
+        modifier = sideNavModifier.width(sideNavWidth),
+        composeNavigator = composeNavigator
       )
-    }, { leftViewModifier ->
-      SideNavigation(leftViewModifier.width(sideNavWidth),composeNavigator)
+    },
+    rightViewComposable = { chatViewModifier ->
+      lastChannel?.let { slackChannel ->
+        ChatScreenUI(
+          modifier = chatViewModifier,
+          slackChannel = slackChannel,
+          onBackClick = { dashboardVM.isChatViewClosed.value = true },
+          viewModel = viewModel
+        )
+      }
     }
-  ) { chatViewModifier ->
-    lastChannel?.let { slackChannel ->
-      ChatScreenUI(chatViewModifier, slackChannel, {
-        dashboardVM.isChatViewClosed.value = true
-      }, viewModel)
-    }
+  ) { mainViewModifier ->
+    DashboardScaffold(
+      isChatViewOpen = isChatViewClosed.not(),
+      isLeftNavOpen = isLeftNavOpen,
+      scaffoldState = scaffoldState,
+      dashboardNavController = dashboardNavController,
+      modifier = mainViewModifier,
+      appBarIconClick = { isLeftNavOpen = isLeftNavOpen.not() },
+      onItemClick = {
+        dashboardVM.selectedChatChannel.value = it
+        dashboardVM.isChatViewClosed.value = false
+      },
+      composeNavigator = composeNavigator
+    )
   }
 }
 
@@ -179,7 +221,13 @@ private fun DashboardScaffold(
               SearchMessagesUI()
             }
             composable(Screen.You.route) {
-              UserProfileUI(onCreatePreferenceRequest = { composeNavigator.navigate(SlackScreen.CreatePreferenceScreen.name)})
+              UserProfileUI(
+                onCreatePreferenceRequest = {
+                  composeNavigator.navigate(
+                    SlackScreen.CreatePreferenceScreen.name
+                  )
+                }
+              )
             }
           }
         }
@@ -228,7 +276,6 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
     Screen("Search", Icons.Filled.Search, dev.baseio.slackclone.uidashboard.R.string.search)
 
   object You : Screen("You", Icons.Default.Face, dev.baseio.slackclone.uidashboard.R.string.you)
-
 }
 
 @Composable

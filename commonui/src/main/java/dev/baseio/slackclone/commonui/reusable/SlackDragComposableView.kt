@@ -11,10 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.consumePositionChange
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -27,9 +24,9 @@ fun SlackDragComposableView(
     chatScreenOffset: Float,
     onOpenCloseLeftView: (Boolean) -> Unit,
     onOpenCloseRightView: (Boolean) -> Unit,
-    mainScreenComposable: @Composable (modifier: Modifier) -> Unit,
     leftViewComposable: @Composable (modifier: Modifier) -> Unit,
     rightViewComposable: @Composable (modifier: Modifier) -> Unit,
+    mainScreenComposable: @Composable (modifier: Modifier) -> Unit
 ) {
     val sideNavOffX = remember {
         Animatable(viewOffset(isLeftNavOpen, mainScreenOffset))
@@ -72,8 +69,6 @@ fun SlackDragComposableView(
             )
         )
     }
-
-
 }
 
 @Composable
@@ -114,14 +109,17 @@ private fun chatScreenModifier(
         )
     }
     .pointerInput(Unit) {
-        detectHorizontalDragGestures({
+        detectHorizontalDragGestures(
+          onDragStart = {
             //start
-        }, {
+          },
+          onDragEnd = {
             rightViewEndTransition(offsetX, requiredOffset, coroutineScope, onOpen)
-        }, {
+          },
+          onDragCancel = {
             //cancel
-
-        }, { change, dragAmount ->
+          },
+          onHorizontalDrag = { change, dragAmount ->
             // this moves the chat view left/right
             val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
             val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, requiredOffset), y = 0f)
@@ -148,9 +146,11 @@ private fun mainScreenModifier(
         )
     }
     .pointerInput(Unit) {
-        detectHorizontalDragGestures({
+        detectHorizontalDragGestures(
+          onDragStart = {
             //start
-        }, {
+          },
+          onDragEnd = {
             sideNavigationEndTransition(
                 offsetX,
                 dragOffset,
@@ -163,21 +163,22 @@ private fun mainScreenModifier(
                 coroutineScope,
                 onOpenCloseRightView
             )
-
-        }, {
+          },
+          onDragCancel = {
             //cancel
-
-        }, { change, dragAmount ->
-            mainAnimateOffset(
-                offsetX,
-                dragAmount,
-                dragOffset,
-                change,
-                coroutineScope,
-                chatViewOffX,
-                chatScreenOffset
-            )
-        })
+          },
+          onHorizontalDrag = { change, dragAmount ->
+              mainAnimateOffset(
+                  offsetX,
+                  dragAmount,
+                  dragOffset,
+                  change,
+                  coroutineScope,
+                  chatViewOffX,
+                  chatScreenOffset
+              )
+          }
+        )
     }
 
 fun rightViewEndTransition(
@@ -245,5 +246,4 @@ private fun mainAnimateOffset(
     coroutineScope.launch {
         offsetX.animateTo(newDragValueMain.x, animationSpec = tween(50))
     }
-
 }
