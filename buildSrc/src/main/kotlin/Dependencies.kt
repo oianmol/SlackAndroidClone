@@ -91,13 +91,6 @@ object Lib {
     const val roomPaging = "androidx.room:room-paging:2.4.1"
   }
 
-  object DataStore{
-    private const val dataStoreVersion = "1.0.0"
-
-    const val dataStore  = "androidx.datastore:datastore-preferences:$dataStoreVersion"
-    const val dataStorePreferences = "androidx.datastore:datastore:$dataStoreVersion"
-  }
-
   object Glide {
     private const val GLIDE_VERSION = "4.12.0"
     const val GLIDE = "com.github.bumptech.glide:glide:${GLIDE_VERSION}"

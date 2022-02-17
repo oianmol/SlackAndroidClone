@@ -4,7 +4,6 @@ buildscript {
   repositories {
     google()
     maven("https://plugins.gradle.org/m2/")
-    maven { url = uri("https://dl.bintray.com/kotlin/kotlin-eap") }
   }
   dependencies {
     classpath(BuildPlugins.TOOLS_BUILD_GRADLE)

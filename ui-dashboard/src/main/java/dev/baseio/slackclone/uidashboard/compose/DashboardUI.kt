@@ -221,13 +221,7 @@ private fun DashboardScaffold(
               SearchMessagesUI()
             }
             composable(Screen.You.route) {
-              UserProfileUI(
-                onCreatePreferenceRequest = {
-                  composeNavigator.navigate(
-                    SlackScreen.CreatePreferenceScreen.name
-                  )
-                }
-              )
+              UserProfileUI()
             }
           }
         }
@@ -276,6 +270,7 @@ sealed class Screen(val route: String, val image: ImageVector, @StringRes val re
     Screen("Search", Icons.Filled.Search, dev.baseio.slackclone.uidashboard.R.string.search)
 
   object You : Screen("You", Icons.Default.Face, dev.baseio.slackclone.uidashboard.R.string.you)
+
 }
 
 @Composable

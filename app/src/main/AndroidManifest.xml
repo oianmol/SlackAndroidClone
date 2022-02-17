@@ -13,8 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.App.SplashScreenTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:largeHeap="true">
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".root.MainActivity"
             android:exported="true"

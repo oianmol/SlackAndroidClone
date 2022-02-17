@@ -1,9 +1,6 @@
 package dev.baseio.slackclone.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.map
+import androidx.paging.*
 import dev.baseio.slackclone.common.injection.dispatcher.CoroutineDispatcherProvider
 import dev.baseio.slackclone.data.local.dao.SlackChannelDao
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
@@ -13,6 +10,7 @@ import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -33,11 +31,11 @@ class SlackChannelsRepositoryImpl @Inject constructor(
         slackChannelDao.channelsByName()
       }
     }
-    return chatPager.flow.map { messages ->
-      messages.map { message ->
-        slackChannelMapper.mapToDomain(message)
-      }
-    }
+   return chatPager.flow.map {
+     it.map {message->
+       slackChannelMapper.mapToDomain(message)
+     }
+   }
   }
 
   override suspend fun channelCount(): Int {

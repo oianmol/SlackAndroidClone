@@ -56,9 +56,7 @@ private fun SideNavFooter(composeNavigator: ComposeNavigator) {
   Column(modifier = Modifier.navigationBarsPadding()) {
     Divider(color = SlackCloneColorProvider.colors.lineColor)
     SlackListItem(Icons.Filled.AddCircle, stringResource(id = R.string.add_workspace))
-    SlackListItem(Icons.Filled.Settings, stringResource(id = R.string.preferences), onItemClick = {
-      composeNavigator.navigate(SlackScreen.CreatePreferenceScreen.name)
-    })
+    SlackListItem(Icons.Filled.Settings, stringResource(id = R.string.preferences))
     SlackListItem(Icons.Filled.CheckCircle, stringResource(id = R.string.help))
   }
 }

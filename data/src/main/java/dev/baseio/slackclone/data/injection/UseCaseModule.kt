@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.domain.injection
+package dev.baseio.slackclone.data.injection
 
 import dagger.Module
 import dagger.Provides

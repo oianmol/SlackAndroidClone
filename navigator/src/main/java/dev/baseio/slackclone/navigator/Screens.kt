@@ -28,7 +28,6 @@ sealed class SlackScreen(
   object CreateChannelsScreen : SlackScreen("CreateChannelsScreen")
   object CreateNewChannel : SlackScreen("CreateNewChannel")
   object CreateNewDM : SlackScreen("CreateNewDM")
-  object CreatePreferenceScreen: SlackScreen("CreatePreferences")
 
 }
 

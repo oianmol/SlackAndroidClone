@@ -10,35 +10,25 @@ import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.data.mapper.EntityMapper
 import dev.baseio.slackclone.domain.model.message.SlackMessage
 import dev.baseio.slackclone.domain.repository.MessagesRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class SlackMessagesRepositoryImpl @Inject constructor(
   private val slackMessageDao: SlackMessageDao,
   private val entityMapper: EntityMapper<SlackMessage, DBSlackMessage>,
   private val coroutineMainDispatcherProvider: CoroutineDispatcherProvider
-) :
-  MessagesRepository {
-
-
+) : MessagesRepository {
   override fun fetchMessages(params: String?): Flow<PagingData<SlackMessage>> {
-    val chatPager = Pager(PagingConfig(pageSize = 20)) {
+    return Pager(PagingConfig(pageSize = 20)) {
       slackMessageDao.messagesByDate(params)
-    }
-    return chatPager.flow.map { messages ->
-      messages.map { message ->
-        entityMapper.mapToDomain(message)
-      }
-    }
+    }.flow.mapLatest { it -> it.map { entityMapper.mapToDomain(it) } }
   }
 
   override suspend fun sendMessage(params: SlackMessage): SlackMessage {
     return withContext(coroutineMainDispatcherProvider.io) {
       slackMessageDao.insert(entityMapper.mapToData(params))
-      entityMapper.mapToDomain(slackMessageDao.getById(params.uuid))
+      params
     }
   }
 }

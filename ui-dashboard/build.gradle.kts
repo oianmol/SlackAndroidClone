@@ -56,9 +56,7 @@ kapt {
 
 dependencies {
   implementation(project(":feat-chat"))
-  /*Kotlin*/
   implementation(project(":feat-channels"))
-  implementation(project(":feat-preference"))
   api(project(":feat-chatcore"))
 
   implementation(project(":data"))
