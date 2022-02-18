@@ -9,7 +9,7 @@ The purpose of this app to showcase:
 - Implementation of Jetpack Android Architecture components with Dagger Android and Data Binding to
   minimize boilerplate code
 - Creation of proper components and Subcomponents using Dagger Android and their injection into
-  Activity, Fragment, View Models and Helper Classes
+  Activity, Compose Views, View Models and Helper Classes
 - Performing background task with Kotlin Coroutines
 
 ## Screenshots
