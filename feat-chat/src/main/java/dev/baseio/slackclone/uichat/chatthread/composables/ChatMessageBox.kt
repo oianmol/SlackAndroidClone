@@ -1,4 +1,3 @@
-
 package dev.baseio.slackclone.uichat.chatthread.composables
 
 import androidx.compose.foundation.background
@@ -13,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.keyboard.Keyboard
 import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
@@ -113,7 +113,7 @@ private fun MessageTFRow(
           color = SlackCloneColorProvider.colors.textPrimary,
         ),
         decorationBox = { innerTextField ->
-          ChatTFPlusPlaceHolder(search, Modifier, innerTextField,viewModel)
+          ChatTFPlusPlaceHolder(search, Modifier, innerTextField, viewModel)
         },
         modifier = Modifier.weight(1f)
       )
@@ -138,8 +138,11 @@ fun CollapseExpandButton(viewModel: ChatScreenVM) {
     },
   ) {
     Icon(
-      if (isExpanded == BoxState.Collapsed) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+      Icons.Default.KeyboardArrowUp,
       contentDescription = null,
+      modifier = Modifier.graphicsLayer {
+        rotationZ = if (isExpanded != BoxState.Collapsed) 180F else 0f
+      }
     )
   }
 }
