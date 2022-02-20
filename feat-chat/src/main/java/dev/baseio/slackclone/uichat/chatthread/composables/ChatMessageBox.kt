@@ -133,8 +133,7 @@ fun CollapseExpandButton(viewModel: ChatScreenVM) {
   val isExpanded by viewModel.chatBoxState.collectAsState()
   IconButton(
     onClick = {
-      viewModel.chatBoxState.value =
-        if (viewModel.chatBoxState.value == BoxState.Collapsed) BoxState.Expanded else BoxState.Collapsed
+      viewModel.switchChatBoxState()
     },
   ) {
     Icon(

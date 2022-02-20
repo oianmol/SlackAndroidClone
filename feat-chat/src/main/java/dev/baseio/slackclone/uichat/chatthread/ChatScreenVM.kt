@@ -26,7 +26,7 @@ class ChatScreenVM @Inject constructor(
 
   fun requestFetch(slackChannel: UiLayerChannels.SlackChannel) {
     this.channel = slackChannel
-    chatMessagesFlow.value  = useCaseFetchMessages.performStreaming(slackChannel.uuid)
+    chatMessagesFlow.value = useCaseFetchMessages.performStreaming(slackChannel.uuid)
   }
 
   fun sendMessage(search: String) {
@@ -46,6 +46,12 @@ class ChatScreenVM @Inject constructor(
       message.value = ""
       chatBoxState.value = BoxState.Collapsed
     }
+  }
+
+  fun switchChatBoxState() {
+    chatBoxState.value =
+      if (chatBoxState.value == BoxState.Collapsed) BoxState.Expanded else BoxState.Collapsed
+
   }
 
 }
