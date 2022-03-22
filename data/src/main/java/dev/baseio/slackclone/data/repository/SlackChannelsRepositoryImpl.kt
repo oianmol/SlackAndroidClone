@@ -8,9 +8,7 @@ import dev.baseio.slackclone.data.mapper.EntityMapper
 import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
 import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

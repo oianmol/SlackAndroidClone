@@ -2,6 +2,7 @@ package dev.baseio.slackclone.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import dev.baseio.slackclone.data.local.model.ChannelWithLastMessage
 import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import kotlinx.coroutines.flow.Flow
 
@@ -44,4 +45,9 @@ interface SlackChannelDao {
   // The Int type parameter tells Room to use a PositionalDataSource object.
   @Query("SELECT * FROM slackChannel ORDER BY name ASC")
   fun channelsByName(): PagingSource<Int, DBSlackChannel>
+
+  @Query("SELECT * FROM slackmessage AS channelMessage " +
+      "JOIN (SELECT channelId, max(modifiedDate) AS received_at FROM slackMessage GROUP BY channelId) AS channelMessage_last " +
+      "ON channelMessage_last.channelId = channelMessage.channelId AND channelMessage_last.received_at = channelMessage.modifiedDate")
+  fun getChannelsWithLastMessage(): PagingSource<Int, ChannelWithLastMessage>
 }

@@ -9,7 +9,7 @@ import dev.baseio.slackclone.data.local.model.DBSlackChannel
 import dev.baseio.slackclone.data.local.model.DBSlackMessage
 import dev.baseio.slackclone.data.mapper.*
 import dev.baseio.slackclone.domain.model.channel.DomainLayerChannels
-import dev.baseio.slackclone.domain.model.message.SlackMessage
+import dev.baseio.slackclone.domain.model.message.DomainLayerMessages
 import dev.baseio.slackclone.domain.model.users.DomainLayerUsers
 import javax.inject.Singleton
 
@@ -31,5 +31,5 @@ abstract class DataMappersModule {
 
   @Binds
   @Singleton
-  abstract fun bindSlackMessageDataDomMapper(slackMessageMapper: SlackMessageMapper): EntityMapper<SlackMessage, DBSlackMessage>
+  abstract fun bindSlackMessageDataDomMapper(slackMessageMapper: SlackMessageMapper): EntityMapper<DomainLayerMessages.SlackMessage, DBSlackMessage>
 }

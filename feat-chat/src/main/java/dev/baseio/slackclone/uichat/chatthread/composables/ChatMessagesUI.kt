@@ -15,9 +15,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import dev.baseio.slackclone.common.extensions.calendar
+import dev.baseio.slackclone.common.extensions.formattedMonthDate
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.domain.model.message.SlackMessage
+import dev.baseio.slackclone.domain.model.message.DomainLayerMessages
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -57,7 +59,7 @@ fun ChatMessagesUI(viewModel: ChatScreenVM, modifier: Modifier) {
 
 private fun isLastMessage(
   messageIndex: Int,
-  messages: LazyPagingItems<SlackMessage>
+  messages: LazyPagingItems<DomainLayerMessages.SlackMessage>
 ) = messageIndex == messages.itemCount.minus(1)
 
 @Composable

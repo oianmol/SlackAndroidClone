@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.baseio.slackclone.domain.model.message.SlackMessage
+import dev.baseio.slackclone.domain.model.message.DomainLayerMessages
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseFetchMessages
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.domain.usecases.chat.UseCaseSendMessage
@@ -20,7 +20,7 @@ class ChatScreenVM @Inject constructor(
   private val useCaseSendMessage: UseCaseSendMessage
 ) : ViewModel() {
   var channel: UiLayerChannels.SlackChannel? = null
-  var chatMessagesFlow = MutableStateFlow<Flow<PagingData<SlackMessage>>?>(null)
+  var chatMessagesFlow = MutableStateFlow<Flow<PagingData<DomainLayerMessages.SlackMessage>>?>(null)
   var message = MutableStateFlow("")
   var chatBoxState = MutableStateFlow(BoxState.Collapsed)
 
@@ -32,7 +32,7 @@ class ChatScreenVM @Inject constructor(
   fun sendMessage(search: String) {
     if (search.isNotEmpty() && channel?.uuid != null) {
       viewModelScope.launch {
-        val message = SlackMessage(
+        val message = DomainLayerMessages.SlackMessage(
           UUID.randomUUID().toString(),
           channel!!.uuid!!,
           search,

@@ -3,7 +3,6 @@ package dev.baseio.slackclone.commonui.reusable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -34,12 +33,13 @@ fun SlackImageBox(modifier: Modifier, imageUrl: String) {
 }
 
 @Composable
-fun SlackOnlineBox(imageUrl: String) {
-  ConstraintLayout(Modifier.size(34.dp)) {
+fun SlackOnlineBox(imageUrl: String,
+                   parentModifier: Modifier = Modifier.size(34.dp),
+                   imageModifier:Modifier = Modifier.size(28.dp)) {
+  ConstraintLayout(parentModifier) {
     val (image, indicator) = createRefs()
     SlackImageBox(
-      Modifier
-        .size(28.dp)
+      imageModifier
         .constrainAs(image) {
           top.linkTo(parent.top)
           bottom.linkTo(parent.bottom)

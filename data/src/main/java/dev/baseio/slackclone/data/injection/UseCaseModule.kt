@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import dev.baseio.slackclone.domain.repository.ChannelLastMessageRepository
 import dev.baseio.slackclone.domain.repository.ChannelsRepository
 import dev.baseio.slackclone.domain.repository.MessagesRepository
 import dev.baseio.slackclone.domain.repository.UsersRepository
@@ -20,6 +21,11 @@ object UseCaseModule {
   @ViewModelScoped
   fun provideUseCaseFetchChannels(channelsRepository: ChannelsRepository) =
     UseCaseFetchChannels(channelsRepository)
+
+  @Provides
+  @ViewModelScoped
+  fun provideUseCaseFetchChannelWithLastMessage(channelsRepository: ChannelLastMessageRepository) =
+    UseCaseFetchChannelsWithLastMessage(channelsRepository)
 
   @Provides
   @ViewModelScoped

@@ -1,8 +1,6 @@
 package dev.baseio.slackclone.data.local.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "slackChannel")
 data class DBSlackChannel(
@@ -16,4 +14,10 @@ data class DBSlackChannel(
   @ColumnInfo(name = "isShareOutSide") val isShareOutSide: Boolean? = false,
   @ColumnInfo(name = "photo") val avatarUrl: String? = null,
   @ColumnInfo(name = "isOneToOne") val isOneToOne: Boolean? = null
+)
+
+data class ChannelWithLastMessage(
+  @Embedded
+  val message: DBSlackMessage,
+  @Relation(parentColumn = "channelId", entityColumn = "uuid") val dbSlackChannel: DBSlackChannel
 )

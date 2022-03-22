@@ -10,16 +10,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import dev.baseio.slackclone.common.extensions.calendar
+import dev.baseio.slackclone.common.extensions.formattedTime
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.domain.model.message.SlackMessage
+import dev.baseio.slackclone.domain.model.message.DomainLayerMessages
 import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ChatMessage(message: SlackMessage) {
+fun ChatMessage(message: DomainLayerMessages.SlackMessage) {
   ListItem(icon = {
     SlackImageBox(Modifier.size(48.dp), imageUrl = "http://placekitten.com/200/300")
   }, modifier = Modifier.padding(2.dp), secondaryText = {
@@ -30,7 +32,7 @@ fun ChatMessage(message: SlackMessage) {
 }
 
 @Composable
-fun ChatMedia(message: SlackMessage) {
+fun ChatMedia(message: DomainLayerMessages.SlackMessage) {
   Column {
     Text(
       message.message,
@@ -43,7 +45,7 @@ fun ChatMedia(message: SlackMessage) {
 }
 
 @Composable
-fun ChatUserDateTime(message: SlackMessage) {
+fun ChatUserDateTime(message: DomainLayerMessages.SlackMessage) {
   Row(verticalAlignment = Alignment.CenterVertically) {
     Text(
       message.createdBy + " \uD83C\uDF34",
@@ -61,18 +63,4 @@ fun ChatUserDateTime(message: SlackMessage) {
   }
 }
 
-@SuppressLint("SimpleDateFormat")
-fun Calendar.formattedMonthDate(): String {
-  return SimpleDateFormat("MMM dd").format(this.time)
-}
 
-@SuppressLint("SimpleDateFormat")
-fun Calendar.formattedTime(): String {
-  return SimpleDateFormat("hh:mm a").format(this.time)
-}
-
-fun Long.calendar(): Calendar {
-  return Calendar.getInstance().apply {
-    this.timeInMillis = this@calendar
-  }
-}

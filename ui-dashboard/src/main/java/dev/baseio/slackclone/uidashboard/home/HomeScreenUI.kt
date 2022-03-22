@@ -86,7 +86,7 @@ fun JumpToText() {
     Modifier
       .fillMaxWidth()
       .clickable { }
-      .padding(8.dp)
+      .padding(12.dp)
   ) {
     RoundedCornerBoxDecoration {
       Text(
