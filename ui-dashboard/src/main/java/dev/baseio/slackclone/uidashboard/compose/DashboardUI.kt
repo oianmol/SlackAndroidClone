@@ -212,7 +212,7 @@ private fun DashboardScaffold(
               })
             }
             composable(Screen.DMs.route) {
-              DirectMessagesUI()
+              DirectMessagesUI(onItemClick=onItemClick)
             }
             composable(Screen.Mentions.route) {
               MentionsReactionsUI()

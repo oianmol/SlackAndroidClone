@@ -8,10 +8,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.chatcore.views.DMLastMessageItem
 
 @Composable
-fun DMChannelsList(channelVM: DMessageViewModel = hiltViewModel()) {
+fun DMChannelsList(
+  onItemClick: (UiLayerChannels.SlackChannel) -> Unit,
+  channelVM: DMessageViewModel = hiltViewModel()
+) {
 
   val channels by channelVM.channels.collectAsState()
   val channelsFlow = channels.collectAsLazyPagingItems()
@@ -21,12 +25,14 @@ fun DMChannelsList(channelVM: DMessageViewModel = hiltViewModel()) {
     channelVM.refresh()
   }
 
-  LazyColumn(state = listState){
+  LazyColumn(state = listState) {
     for (channelIndex in 0 until channelsFlow.itemCount) {
       val channel = channelsFlow.peek(channelIndex)!!
 
       item {
-        DMLastMessageItem({},channelVM.mapToUI(channel.channel),channel.message)
+        DMLastMessageItem({
+          onItemClick(it)
+        }, channelVM.mapToUI(channel.channel), channel.message)
       }
     }
   }

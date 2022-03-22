@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
@@ -114,9 +115,11 @@ private fun ChannelMessage(slackMessage: DomainLayerMessages.SlackMessage, textS
     style = SlackCloneTypography.subtitle1.copy(
       color = textSecondary.copy(
         alpha = 0.8f
-      )
+      ),
     ), modifier = Modifier
-      .padding(start = 8.dp, top = 4.dp)
+      .padding(start = 8.dp, top = 4.dp),
+    maxLines = 2,
+    overflow = TextOverflow.Ellipsis
   )
 }
 
@@ -147,6 +150,7 @@ private fun ChannelText(
         alpha = 0.8f
       )
     ), modifier = Modifier
-      .padding(8.dp)
+      .padding(8.dp), maxLines = 1,
+    overflow = TextOverflow.Ellipsis
   )
 }

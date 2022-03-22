@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
@@ -17,7 +18,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uichannels.directmessages.DMChannelsList
 
 @Composable
-fun DirectMessagesUI() {
+fun DirectMessagesUI(onItemClick: (UiLayerChannels.SlackChannel) -> Unit) {
   SlackCloneSurface(
     color = SlackCloneColorProvider.colors.uiBackground,
     modifier = Modifier.fillMaxSize()
@@ -27,7 +28,7 @@ fun DirectMessagesUI() {
       Spacer(modifier = Modifier.height(8.dp))
       JumpToText()
       Spacer(modifier = Modifier.height(12.dp))
-      DMChannelsList()
+      DMChannelsList(onItemClick)
     }
   }
 }
