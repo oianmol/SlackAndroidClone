@@ -107,12 +107,12 @@ fun CircularRectBlock(block: CircularRectBlockData) {
   }
 
   val dropSize by animateFloatAsState(
-    targetValue = if (!isStart) 1f else 1f,
+    targetValue = if (isStart) 0f else 1f,
     SlackAnimSpec.dropSizeKeyFrames(block.dropScaleDelay)
   )
 
   val animatedWidth by animateDpAsState(
-    targetValue = if (!isStart) block.rectBlockWidth else block.rectBlockHeight,
+    targetValue = if (isStart) block.rectBlockHeight else block.rectBlockWidth,
     tween(durationMillis = SlackAnimSpec.ANIM_DURATION.times(2))
   )
 
@@ -205,9 +205,9 @@ object SlackAnimSpec {
     return keyframes {
       durationMillis = ANIM_DURATION
       delayMillis = scaleDelay
-      1f at ANIM_DURATION with LinearEasing
+      0f at 0 with LinearEasing
       1.3f at ANIM_DURATION.div(2) with LinearEasing
-      1f at 0 with LinearEasing
+      1f at ANIM_DURATION with LinearEasing
     }
   }
 
