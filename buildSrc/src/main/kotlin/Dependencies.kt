@@ -31,8 +31,8 @@ object Lib {
   }
 
   object Android {
-    const val COMPOSE_VERSION = "1.1.0"
-    const val COMPOSE_COMPILER_VERSION = "1.1.0"
+    const val COMPOSE_VERSION = "1.1.1"
+    const val COMPOSE_COMPILER_VERSION = "1.1.1"
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
     private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0"

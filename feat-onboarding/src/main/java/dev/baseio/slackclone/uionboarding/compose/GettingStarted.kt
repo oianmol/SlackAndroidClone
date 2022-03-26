@@ -26,46 +26,59 @@ import dev.baseio.slackclone.uionboarding.R
 
 @Composable
 fun GettingStartedUI(composeNavigator: ComposeNavigator) {
- SlackCloneTheme {
-   val scaffoldState = rememberScaffoldState()
-   val sysUiController = rememberSystemUiController()
+  SlackCloneTheme {
+    val scaffoldState = rememberScaffoldState()
+    val sysUiController = rememberSystemUiController()
 
-   SideEffect {
-     sysUiController.setNavigationBarColor(color = SlackCloneColor)
-     sysUiController.setSystemBarsColor(color = SlackCloneColor)
-   }
+    SideEffect {
+      sysUiController.setNavigationBarColor(color = SlackCloneColor)
+      sysUiController.setSystemBarsColor(color = SlackCloneColor)
+    }
 
-   Scaffold(
-     backgroundColor = SlackCloneColor,
-     contentColor = SlackCloneColorProvider.colors.textSecondary,
-     modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
-       scaffoldState.snackbarHostState
-     }
-   ) { innerPadding ->
-     Box(modifier = Modifier.padding(innerPadding)) {
-       SlackCloneSurface(
-         color = SlackCloneColor,
-         modifier = Modifier
-           .padding(28.dp)
-       ) {
-         Column(
-           verticalArrangement = Arrangement.SpaceAround,
-           horizontalAlignment = Alignment.CenterHorizontally,
-           modifier = Modifier
-             .fillMaxHeight()
-             .fillMaxWidth()
-         ) {
-           IntroText(modifier = Modifier.padding(top = 12.dp))
-           CenterImage()
-           Spacer(Modifier.padding(8.dp))
-           GetStartedButton(composeNavigator)
-         }
+    var showSlackAnim by remember {
+      mutableStateOf(true)
+    }
 
-       }
-     }
+    Scaffold(
+      backgroundColor = SlackCloneColor,
+      contentColor = SlackCloneColorProvider.colors.textSecondary,
+      modifier = Modifier.statusBarsPadding(), scaffoldState = scaffoldState, snackbarHost = {
+        scaffoldState.snackbarHostState
+      }
+    ) { innerPadding ->
+      Box(modifier = Modifier.padding(innerPadding)) {
+        SlackCloneSurface(
+          color = SlackCloneColor,
+          modifier = Modifier
+            .padding(28.dp)
+        ) {
 
-   }
- }
+
+          if (showSlackAnim) {
+            SlackAnimation {
+              showSlackAnim = false
+            }
+          } else {
+            AnimatedVisibility(visible = !showSlackAnim) {
+              Column(
+                verticalArrangement = Arrangement.SpaceAround,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                  .fillMaxHeight()
+                  .fillMaxWidth()
+              ) {
+                IntroText(modifier = Modifier.padding(top = 12.dp))
+                CenterImage()
+                Spacer(Modifier.padding(8.dp))
+                GetStartedButton(composeNavigator)
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
 }
 
 @Composable
