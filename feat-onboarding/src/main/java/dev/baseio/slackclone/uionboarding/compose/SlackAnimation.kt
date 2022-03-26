@@ -4,7 +4,6 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,7 +13,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,22 +48,34 @@ fun SlackAnimation(onComplete: () -> Unit) {
     )
 
     LaunchedEffect(key1 = true, block = {
-      isStartAnimation = !isStartAnimation
+      isStartAnimation = true
       delay(SlackAnimSpec.ANIM_DURATION.toLong().plus(700))
+      isStartAnimation = false
+      delay(SlackAnimSpec.ANIM_DURATION.toLong().plus(800))
       onComplete.invoke()
     })
 
 
-    SKTextLoader(Modifier.align(Alignment.Center))
+    SKTextLoader(Modifier.align(Alignment.Center), isStartAnimation)
 
-    SKFourColorLoader(Modifier.align(Alignment.Center), animatedRotateLogo, animatedMoveLogo)
+    SKFourColorLoader(
+      Modifier.align(Alignment.Center),
+      animatedRotateLogo,
+      animatedMoveLogo,
+      isStartAnimation
+    )
 
   }
 
 }
 
 @Composable
-private fun SKFourColorLoader(modifier: Modifier, animatedRotateLogo: Float, animatedMoveLogo: Dp) {
+private fun SKFourColorLoader(
+  modifier: Modifier,
+  animatedRotateLogo: Float,
+  animatedMoveLogo: Dp,
+  isStartAnimation: Boolean
+) {
 
   Box(
     modifier = modifier
@@ -76,7 +86,7 @@ private fun SKFourColorLoader(modifier: Modifier, animatedRotateLogo: Float, ani
 
     SlackAnimSpec.blocks.forEach { block ->
       CircularRectBlock(
-        block
+        block, isStartAnimation
       )
     }
   }
@@ -100,29 +110,28 @@ data class CircularRectBlockData(
 
 
 @Composable
-fun CircularRectBlock(block: CircularRectBlockData) {
-
-  var isStart by remember {
-    mutableStateOf(true)
-  }
-
-  val dropSize by animateFloatAsState(
-    targetValue = if (isStart) 0f else 1f,
-    SlackAnimSpec.dropSizeKeyFrames(block.dropScaleDelay)
+fun CircularRectBlock(block: CircularRectBlockData, isMoveLeft: Boolean) {
+  val dropScale by animateFloatAsState(
+    targetValue = if (isMoveLeft) 1f else 0f,
+    SlackAnimSpec.dropSizeKeyFrames(block.dropScaleDelay, isMoveLeft)
   )
 
   val animatedWidth by animateDpAsState(
-    targetValue = if (isStart) block.rectBlockHeight else block.rectBlockWidth,
+    targetValue = if (isMoveLeft) block.rectBlockWidth else block.rectBlockHeight,
     tween(durationMillis = SlackAnimSpec.ANIM_DURATION.times(2))
   )
 
-  LaunchedEffect(key1 = Unit, block = {
-    isStart = !isStart
-  })
 
+  Droplet(block, dropScale)
 
-  Droplet(block, dropSize)
+  Block(block, animatedWidth)
+}
 
+@Composable
+private fun Block(
+  block: CircularRectBlockData,
+  animatedWidth: Dp
+) {
   Box(
     modifier = Modifier
       .offset(block.offsetX, block.offsetY)
@@ -149,40 +158,28 @@ fun Droplet(block: CircularRectBlockData, dropSize: Float) {
           bottomStartPercent = block.roundedCornerPercentage, bottomEndPercent = 0
         )
       )
-  ) {
-
-  }
+  )
 }
 
 @Composable
-private fun SKTextLoader(modifier: Modifier) {
-  var isStart by remember {
-    mutableStateOf(true)
-  }
-
-  LaunchedEffect(key1 = Unit, block = {
-    isStart = !isStart
-  })
-
-
-
+private fun SKTextLoader(modifier: Modifier, isStartAnimation: Boolean) {
   Box(
     modifier = modifier.offset(x = 40.dp)
   ) {
     Row {
-      AnimatedLetter("s", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.6).toInt())
-      AnimatedLetter("l", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.3).toInt())
-      AnimatedLetter("a", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.2).toInt())
-      AnimatedLetter("c", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.1).toInt())
-      AnimatedLetter("k", isStart, delay = 0)
+      AnimatedLetter("s", isStartAnimation, delay = SlackAnimSpec.ANIM_DURATION.times(0.6).toInt())
+      AnimatedLetter("l", isStartAnimation, delay = SlackAnimSpec.ANIM_DURATION.times(0.3).toInt())
+      AnimatedLetter("a", isStartAnimation, delay = SlackAnimSpec.ANIM_DURATION.times(0.2).toInt())
+      AnimatedLetter("c", isStartAnimation, delay = SlackAnimSpec.ANIM_DURATION.times(0.1).toInt())
+      AnimatedLetter("k", isStartAnimation, delay = 0)
     }
   }
 }
 
 @Composable
-private fun AnimatedLetter(letter: String, isStart: Boolean, delay: Int) {
+private fun AnimatedLetter(letter: String, isVisible: Boolean, delay: Int) {
   val animatedAlpha by animateFloatAsState(
-    targetValue = if (isStart) 0f else 1f,
+    targetValue = if (isVisible) 1f else 0f,
     tween(durationMillis = SlackAnimSpec.ANIM_DURATION.div(2), delayMillis = delay)
   )
   Text(
@@ -201,13 +198,23 @@ private fun slackTextStyle() = SlackCloneTypography.h2.copy(
 object SlackAnimSpec {
   const val ANIM_DURATION = 1500
 
-  fun dropSizeKeyFrames(scaleDelay: Int): AnimationSpec<Float> {
-    return keyframes {
-      durationMillis = ANIM_DURATION
-      delayMillis = scaleDelay
-      0f at 0 with LinearEasing
-      1.3f at ANIM_DURATION.div(2) with LinearEasing
-      1f at ANIM_DURATION with LinearEasing
+  fun dropSizeKeyFrames(scaleDelay: Int, isMoveLeft: Boolean): AnimationSpec<Float> {
+    if (isMoveLeft) {
+      return keyframes {
+        durationMillis = ANIM_DURATION
+        delayMillis = scaleDelay
+        0f at 0 with LinearEasing
+        1.3f at ANIM_DURATION.div(2) with LinearEasing
+        1f at ANIM_DURATION with LinearEasing
+      }
+    } else {
+      return keyframes {
+        durationMillis = ANIM_DURATION
+        delayMillis = scaleDelay
+        1f at 0 with LinearEasing
+        1.3f at ANIM_DURATION.div(2) with LinearEasing
+        0f at ANIM_DURATION with LinearEasing
+      }
     }
   }
 
