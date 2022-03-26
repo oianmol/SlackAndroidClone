@@ -40,18 +40,18 @@ fun SlackAnimation(onComplete: () -> Unit) {
     }
 
     val animatedRotateLogo by animateFloatAsState(
-      targetValue = if (isStartAnimation) 380f else 40f,
+      targetValue = if (isStartAnimation) 0f else 360f,
       tween(durationMillis = SlackAnimSpec.ANIM_DURATION)
     )
 
     val animatedMoveLogo by animateDpAsState(
-      targetValue = if (isStartAnimation) 0.dp else (-120).dp,
+      targetValue = if (isStartAnimation) (-120).dp else 0.dp,
       tween(SlackAnimSpec.ANIM_DURATION)
     )
 
     LaunchedEffect(key1 = true, block = {
       isStartAnimation = !isStartAnimation
-      delay(SlackAnimSpec.ANIM_DURATION.toLong().plus(250))
+      delay(SlackAnimSpec.ANIM_DURATION.toLong().plus(700))
       onComplete.invoke()
     })
 
@@ -71,6 +71,7 @@ private fun SKFourColorLoader(modifier: Modifier, animatedRotateLogo: Float, ani
     modifier = modifier
       .offset(x = animatedMoveLogo)
       .rotate(animatedRotateLogo)
+      .scale(1.3f)
   ) {
 
     SlackAnimSpec.blocks.forEach { block ->
@@ -106,12 +107,12 @@ fun CircularRectBlock(block: CircularRectBlockData) {
   }
 
   val dropSize by animateFloatAsState(
-    targetValue = if (isStart) 1f else 0f,
+    targetValue = if (!isStart) 1f else 1f,
     SlackAnimSpec.dropSizeKeyFrames(block.dropScaleDelay)
   )
 
   val animatedWidth by animateDpAsState(
-    targetValue = if (isStart) block.rectBlockWidth else block.rectBlockHeight,
+    targetValue = if (!isStart) block.rectBlockWidth else block.rectBlockHeight,
     tween(durationMillis = SlackAnimSpec.ANIM_DURATION.times(2))
   )
 
@@ -169,11 +170,11 @@ private fun SKTextLoader(modifier: Modifier) {
     modifier = modifier.offset(x = 40.dp)
   ) {
     Row {
-      AnimatedLetter("s", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.2).toInt())
-      AnimatedLetter("l", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.4).toInt())
-      AnimatedLetter("a", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.6).toInt())
-      AnimatedLetter("c", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.8).toInt())
-      AnimatedLetter("k", isStart, delay = SlackAnimSpec.ANIM_DURATION)
+      AnimatedLetter("s", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.6).toInt())
+      AnimatedLetter("l", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.3).toInt())
+      AnimatedLetter("a", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.2).toInt())
+      AnimatedLetter("c", isStart, delay = SlackAnimSpec.ANIM_DURATION.times(0.1).toInt())
+      AnimatedLetter("k", isStart, delay = 0)
     }
   }
 }
@@ -181,7 +182,7 @@ private fun SKTextLoader(modifier: Modifier) {
 @Composable
 private fun AnimatedLetter(letter: String, isStart: Boolean, delay: Int) {
   val animatedAlpha by animateFloatAsState(
-    targetValue = if (isStart) 1f else 0f,
+    targetValue = if (isStart) 0f else 1f,
     tween(durationMillis = SlackAnimSpec.ANIM_DURATION.div(2), delayMillis = delay)
   )
   Text(
@@ -204,9 +205,9 @@ object SlackAnimSpec {
     return keyframes {
       durationMillis = ANIM_DURATION
       delayMillis = scaleDelay
-      1f at 0 with LinearEasing
+      1f at ANIM_DURATION with LinearEasing
       1.3f at ANIM_DURATION.div(2) with LinearEasing
-      0f at ANIM_DURATION with LinearEasing
+      1f at 0 with LinearEasing
     }
   }
 
