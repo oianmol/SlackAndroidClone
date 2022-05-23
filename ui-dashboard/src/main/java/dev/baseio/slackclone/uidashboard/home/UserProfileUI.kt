@@ -2,13 +2,27 @@ package dev.baseio.slackclone.uidashboard.home
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,16 +33,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
-import dev.baseio.slackclone.commonui.reusable.SlackListItem
-import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
-import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
-import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
+import dev.baseio.slackclone.commonui.reusable.SlackListItem
+import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
+import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
+import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
+import dev.baseio.slackclone.navigator.ComposeNavigator
+import dev.baseio.slackclone.navigator.SlackScreen
+import dev.baseio.slackclone.uidashboard.R
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun UserProfileUI() {
+fun UserProfileUI(composeNavigator: ComposeNavigator) {
   SlackCloneSurface(
     color = SlackCloneColorProvider.colors.uiBackground,
     modifier = Modifier.fillMaxSize()
@@ -45,7 +61,9 @@ fun UserProfileUI() {
       SlackListItem(Icons.Default.FavoriteBorder, stringResource(R.string.saved_items))
       SlackListItem(Icons.Default.Person, stringResource(R.string.view_profile))
       SlackListItem(Icons.Default.Notifications, stringResource(R.string.notifications))
-      SlackListItem(Icons.Default.Settings, stringResource(R.string.preferences))
+      SlackListItem(Icons.Default.Settings, stringResource(R.string.preferences), onItemClick = {
+        composeNavigator.navigate(SlackScreen.SlackPreferences.name)
+      })
     }
   }
 }
