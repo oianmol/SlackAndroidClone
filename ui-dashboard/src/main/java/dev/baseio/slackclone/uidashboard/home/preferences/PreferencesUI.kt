@@ -1,6 +1,5 @@
-package dev.baseio.slackclone.uidashboard.home
+package dev.baseio.slackclone.uidashboard.home.preferences
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,10 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Switch
-import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -29,17 +25,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
-import dev.baseio.slackclone.commonui.theme.DisabledSwitchThumbColor
-import dev.baseio.slackclone.commonui.theme.DisabledSwitchTrackColor
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
-import dev.baseio.slackclone.commonui.theme.SwitchThumbColor
-import dev.baseio.slackclone.commonui.theme.SwitchTrackColor
 import dev.baseio.slackclone.data.local.model.SlackPreferences
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.uidashboard.R
+import dev.baseio.slackclone.uidashboard.R.drawable
+import dev.baseio.slackclone.uidashboard.home.preferences.prefitems.ItemTypePopUp
+import dev.baseio.slackclone.uidashboard.home.preferences.prefitems.ItemWithSlider
 
 @Composable
 fun PreferencesUI(
@@ -86,24 +81,24 @@ fun PrefItemUI(
       0 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           PrefHeading(text = "Time and place")
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_language_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_language_24, onPrefItemClick)
         }
       }
       1 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_hourglass_bottom_24, sliderStateIndex = 0)
+          ItemWithSlider(prefItem, drawable.ic_outline_hourglass_bottom_24, sliderStateIndex = 0)
         }
       }
       2 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           SectionDivider()
           PrefHeading(text = "Look and feel")
-          ItemTypePopUp(prefItem, R.drawable.ic_baseline_front_hand_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_baseline_front_hand_24, onPrefItemClick)
         }
       }
       3 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_broken_image_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick)
 
         }
       }
@@ -111,18 +106,18 @@ fun PrefItemUI(
         Column(modifier = Modifier.fillMaxWidth()) {
           SectionDivider()
           PrefHeading(text = "Accessibility")
-          ItemWithSlider(prefItem, R.drawable.ic_outline_broken_image_24, sliderStateIndex = 1)
+          ItemWithSlider(prefItem, drawable.ic_outline_broken_image_24, sliderStateIndex = 1)
         }
       }
       5 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_broken_image_24, sliderStateIndex = 2)
+          ItemWithSlider(prefItem, drawable.ic_outline_broken_image_24, sliderStateIndex = 2)
 
         }
       }
       6 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_keyboard_alt_24, sliderStateIndex = 3)
+          ItemWithSlider(prefItem, drawable.ic_outline_keyboard_alt_24, sliderStateIndex = 3)
 
         }
       }
@@ -130,24 +125,24 @@ fun PrefItemUI(
         Column(modifier = Modifier.fillMaxWidth()) {
           SectionDivider()
           PrefHeading(text = "Advanced")
-          ItemWithSlider(prefItem, R.drawable.ic_outline_broken_image_24, sliderStateIndex = 4)
+          ItemWithSlider(prefItem, drawable.ic_outline_broken_image_24, sliderStateIndex = 4)
         }
       }
       8 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_speed_24, sliderStateIndex = 5)
+          ItemWithSlider(prefItem, drawable.ic_outline_speed_24, sliderStateIndex = 5)
 
         }
       }
       9 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_speed_24, sliderStateIndex = 6)
+          ItemWithSlider(prefItem, drawable.ic_outline_speed_24, sliderStateIndex = 6)
 
         }
       }
       10 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_image_24, sliderStateIndex = 7)
+          ItemWithSlider(prefItem, drawable.ic_outline_image_24, sliderStateIndex = 7)
 
         }
       }
@@ -155,45 +150,45 @@ fun PrefItemUI(
         Column(modifier = Modifier.fillMaxWidth()) {
           SectionDivider()
           PrefHeading(text = "Troubleshooting")
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_broken_image_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick)
         }
       }
       12 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_broken_image_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick)
 
         }
       }
       13 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_feedback_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_feedback_24, onPrefItemClick)
         }
       }
       14 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemWithSlider(prefItem, R.drawable.ic_outline_call_24, sliderStateIndex = 8)
+          ItemWithSlider(prefItem, drawable.ic_outline_call_24, sliderStateIndex = 8)
         }
       }
       15 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_help_outline_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_help_outline_24, onPrefItemClick)
         }
       }
       16 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           SectionDivider()
           PrefHeading(text = "About Slack")
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_feed_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_feed_24, onPrefItemClick)
         }
       }
       17 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_feed_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_feed_24, onPrefItemClick)
         }
       }
       18 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
-          ItemTypePopUp(prefItem, R.drawable.ic_outline_info_24, onPrefItemClick)
+          ItemTypePopUp(prefItem, drawable.ic_outline_info_24, onPrefItemClick)
         }
       }
     }
@@ -220,92 +215,6 @@ fun PrefHeading(text: String) {
 }
 
 @Composable
-private fun ItemTypePopUp(
-  prefItem: SlackPreferences,
-  @DrawableRes icon: Int,
-  onOptionsClick: (SlackPreferences) -> Unit = {}
-) {
-  Row(modifier = Modifier.fillMaxWidth()) {
-    IconButton(onClick = { onOptionsClick(prefItem) }) {
-      Icon(painter = painterResource(id = icon), contentDescription = prefItem.description)
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-      Text(
-          modifier = Modifier.padding(bottom = 8.dp),
-          text = prefItem.name, style = SlackCloneTypography.body1.copy(
-          color = SlackCloneColorProvider.colors.textPrimary,
-      )
-      )
-      Text(
-          text = prefItem.value, maxLines = 3,
-          style = SlackCloneTypography.body1.copy(
-              color = SlackCloneColorProvider.colors.textPrimary,
-              fontSize = 14.sp,
-          )
-      )
-    }
-  }
-}
-
-@Composable
-private fun ItemWithSlider(
-  prefItem: SlackPreferences,
-  @DrawableRes icon: Int,
-  onSwitchStateChange: (Boolean) -> Unit = {},
-  prefVM: PreferencesVM = hiltViewModel(),
-  sliderStateIndex: Int = 0
-) {
-  val switchState = prefVM.switchesStates[sliderStateIndex]
-  Row(modifier = Modifier.fillMaxWidth()) {
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(painter = painterResource(id = icon), contentDescription = prefItem.description)
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-      Row(
-          horizontalArrangement = Arrangement.SpaceBetween,
-          modifier = Modifier
-              .fillMaxWidth()
-      ) {
-        Column(modifier = Modifier.fillMaxWidth(0.7F)) {
-          Text(
-              modifier = Modifier.padding(bottom = 8.dp), maxLines = 3,
-              text = prefItem.name, style = SlackCloneTypography.body1.copy(
-              color = SlackCloneColorProvider.colors.textPrimary
-          )
-          )
-          Text(
-              text = prefItem.value,maxLines = 3, style = SlackCloneTypography.body1.copy(
-              color = SlackCloneColorProvider.colors.textPrimary,
-              fontSize = 14.sp
-          )
-          )
-        }
-        Switch(
-            checked = switchState.value,
-            onCheckedChange = {
-              switchState.value = it
-              onSwitchStateChange(it)
-            },
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = SwitchThumbColor,
-                checkedTrackColor = SwitchTrackColor,
-                uncheckedThumbColor = DisabledSwitchThumbColor,
-                uncheckedTrackColor = DisabledSwitchTrackColor
-            ),
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
-        )
-      }
-    }
-  }
-}
-
-@Composable
 fun PreferencesAppBar() {
   SlackSurfaceAppBar(
       title = {
@@ -318,7 +227,8 @@ fun PreferencesAppBar() {
       },
       navigationIcon = {
         Icon(
-            painterResource(id = R.drawable.ic_baseline_close_24), contentDescription = "close preferences",
+            painterResource(id = R.drawable.ic_baseline_close_24),
+            contentDescription = "close preferences",
             tint = SlackCloneColorProvider.colors.buttonTextColor
         )
       },

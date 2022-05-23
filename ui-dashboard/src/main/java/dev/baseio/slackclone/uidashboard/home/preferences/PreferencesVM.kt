@@ -1,4 +1,4 @@
-package dev.baseio.slackclone.uidashboard.home
+package dev.baseio.slackclone.uidashboard.home.preferences
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
