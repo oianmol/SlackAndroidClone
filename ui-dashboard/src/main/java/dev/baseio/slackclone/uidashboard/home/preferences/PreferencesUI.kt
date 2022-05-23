@@ -10,28 +10,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
-import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.data.local.model.SlackPreferences
 import dev.baseio.slackclone.navigator.ComposeNavigator
-import dev.baseio.slackclone.uidashboard.R
 import dev.baseio.slackclone.uidashboard.R.drawable
 import dev.baseio.slackclone.uidashboard.home.preferences.prefitems.ItemTypePopUp
 import dev.baseio.slackclone.uidashboard.home.preferences.prefitems.ItemWithSlider
@@ -51,7 +46,7 @@ fun PreferencesUI(
             .statusBarsPadding()
             .navigationBarsPadding(),
         scaffoldState = scaffoldState,
-        topBar = { PreferencesAppBar() }
+        topBar = { PreferencesAppBar(composeNavigator) }
     ) {
       SlackCloneSurface(
           color = SlackCloneColorProvider.colors.uiBackground,
@@ -211,27 +206,5 @@ fun PrefHeading(text: String) {
       color = SlackCloneColorProvider.colors.textPrimary,
       fontSize = 14.sp
   ), fontWeight = FontWeight.Bold
-  )
-}
-
-@Composable
-fun PreferencesAppBar() {
-  SlackSurfaceAppBar(
-      title = {
-        Text(
-            text = stringResource(R.string.preferences),
-            style = SlackCloneTypography.subtitle1.copy(
-                color = SlackCloneColorProvider.colors.appBarTextTitleColor
-            ), fontSize = 16.sp
-        )
-      },
-      navigationIcon = {
-        Icon(
-            painterResource(id = R.drawable.ic_baseline_close_24),
-            contentDescription = "close preferences",
-            tint = SlackCloneColorProvider.colors.buttonTextColor
-        )
-      },
-      backgroundColor = SlackCloneColorProvider.colors.appBarColor,
   )
 }
