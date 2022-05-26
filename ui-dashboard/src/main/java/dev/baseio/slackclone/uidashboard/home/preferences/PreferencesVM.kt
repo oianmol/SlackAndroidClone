@@ -1,26 +1,20 @@
 package dev.baseio.slackclone.uidashboard.home.preferences
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.baseio.slackclone.data.local.model.SlackPreferences
+import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.ItemClickStates
+import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.PopUpItemStates
+import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.SwitchesStates
 import javax.inject.Inject
 
 @HiltViewModel
 class PreferencesVM @Inject constructor() : ViewModel() {
-  val switchesStates = listOf(
-      SwitchesStates().timeZone,
-      SwitchesStates().allowAnimation,
-      SwitchesStates().underlineLinks,
-      SwitchesStates().displayTypingIndicators,
-      SwitchesStates().openWebPageInSlack,
-      SwitchesStates().optimizeImageUploads,
-      SwitchesStates().optimizeVideoUploads,
-      SwitchesStates().showImagePreviews,
-      SwitchesStates().callDebugging
-  )
   val preferencesList = mutableListOf<SlackPreferences>()
+
+  val switchesStates: SwitchesStates = SwitchesStates()
+  val itemClickStates: ItemClickStates = ItemClickStates()
+  val popUpItemStates: PopUpItemStates = PopUpItemStates()
 
   init {
     createPreferencesList()
@@ -118,15 +112,3 @@ class PreferencesVM @Inject constructor() : ViewModel() {
     )
   }
 }
-
-data class SwitchesStates(
-  var timeZone: MutableState<Boolean> = mutableStateOf(false),
-  var allowAnimation: MutableState<Boolean> = mutableStateOf(false),
-  var underlineLinks: MutableState<Boolean> = mutableStateOf(false),
-  var displayTypingIndicators: MutableState<Boolean> = mutableStateOf(false),
-  var openWebPageInSlack: MutableState<Boolean> = mutableStateOf(false),
-  var optimizeImageUploads: MutableState<Boolean> = mutableStateOf(false),
-  var optimizeVideoUploads: MutableState<Boolean> = mutableStateOf(false),
-  var showImagePreviews: MutableState<Boolean> = mutableStateOf(false),
-  var callDebugging: MutableState<Boolean> = mutableStateOf(false)
-)
