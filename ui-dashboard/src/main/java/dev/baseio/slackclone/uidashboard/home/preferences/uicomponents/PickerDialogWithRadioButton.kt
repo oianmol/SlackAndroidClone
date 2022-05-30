@@ -58,9 +58,7 @@ fun RadioButtonPickerDialog(
       }
     }, title = {
       Text(
-          text = "Language", style = SlackCloneTypography.body1.copy(
-          color = DarkBlue
-      )
+          text = "Language", style = SlackCloneTypography.body1
       )
     }, text = {
       LazyColumn(

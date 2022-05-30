@@ -17,6 +17,7 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -39,47 +40,56 @@ import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.EmojiSkin
 import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.ItemClickStates
 import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.PopUpItemStates
 import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.RadioButtonPickerDialog
-import dev.baseio.slackclone.uidashboard.home.preferences.uicomponents.SwitchesStates
-import kotlinx.coroutines.launch
 
 @Composable
 fun PreferencesUI(
-  onPrefItemClick: (SlackPreferences) -> Unit = {},
   prefVM: PreferencesVM = hiltViewModel(),
   composeNavigator: ComposeNavigator
 ) {
   val scaffoldState = rememberScaffoldState()
+  val itemClickStates: ItemClickStates = prefVM.itemClickStates
+  val popUpItemStates: PopUpItemStates = prefVM.popUpItemStates
+
+  val onPrefItemClick: (SlackPreferences) -> Unit =
+    { pref -> handlePrefItemClicks(pref, itemClickStates) }
+
+  val onSwitchStateChanged: (SlackPreferences, Boolean) -> Unit = { pref, updatedState ->
+    handleSwitchItemClicks(pref, prefVM, updatedState)
+  }
+
+  HandlePrefItemClicks(itemClickStates, popUpItemStates, scaffoldState)
+
   SlackCloneTheme {
     Scaffold(
-        backgroundColor = SlackCloneColorProvider.colors.uiBackground,
-        contentColor = SlackCloneColorProvider.colors.textSecondary,
-        modifier = Modifier
-            .statusBarsPadding()
-            .navigationBarsPadding(),
-        scaffoldState = scaffoldState,
-        topBar = { PreferencesAppBar(composeNavigator) },
-        snackbarHost = {
-          SnackbarHost(hostState = it) { data ->
-            Snackbar(
-                backgroundColor = SlackCloneColorProvider.colors.uiBackground,
-                contentColor = SlackCloneColorProvider.colors.textPrimary, snackbarData = data
-            )
-          }
+      backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+      contentColor = SlackCloneColorProvider.colors.textSecondary,
+      modifier = Modifier
+        .statusBarsPadding()
+        .navigationBarsPadding(),
+      scaffoldState = scaffoldState,
+      topBar = { PreferencesAppBar(composeNavigator) },
+      snackbarHost = {
+        SnackbarHost(hostState = it) { data ->
+          Snackbar(
+            backgroundColor = SlackCloneColorProvider.colors.uiBackground,
+            contentColor = SlackCloneColorProvider.colors.textPrimary, snackbarData = data
+          )
         }
+      }
     ) {
       SlackCloneSurface(
-          color = SlackCloneColorProvider.colors.uiBackground,
-          modifier = Modifier.fillMaxSize()
+        color = SlackCloneColorProvider.colors.uiBackground,
+        modifier = Modifier.fillMaxSize()
       ) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+          modifier = Modifier.fillMaxSize(),
+          contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+          verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
           items(prefVM.preferencesList) { prefItem ->
             PrefItemUI(
-                onPrefItemClick = onPrefItemClick, prefItem = prefItem,
-                scaffoldState = scaffoldState
+              onPrefItemClick = onPrefItemClick, prefItem = prefItem,
+              onSwitchStateChange = onSwitchStateChanged
             )
           }
         }
@@ -88,32 +98,100 @@ fun PreferencesUI(
   }
 }
 
+fun handleSwitchItemClicks(
+  pref: SlackPreferences,
+  prefVM: PreferencesVM,
+  updatedState: Boolean
+) {
+  val switchStates = prefVM.switchesStates
+  when (pref.id) {
+    1 -> {
+      switchStates.timeZone.value = updatedState
+    }
+    4 -> {
+      switchStates.allowAnimation.value = updatedState
+    }
+    5 -> {
+      switchStates.underlineLinks.value = updatedState
+    }
+    6 -> {
+      switchStates.displayTypingIndicators.value = updatedState
+    }
+    7 -> {
+      switchStates.openWebPageInSlack.value = updatedState
+    }
+    8 -> {
+      switchStates.optimizeImageUploads.value = updatedState
+    }
+    9 -> {
+      switchStates.optimizeVideoUploads.value = updatedState
+    }
+    14 -> {
+      switchStates.showImagePreviews.value = updatedState
+    }
+  }
+}
+
+private fun handlePrefItemClicks(
+  pref: SlackPreferences,
+  itemClickStates: ItemClickStates
+) {
+  when (pref.id) {
+    0 -> {
+      itemClickStates.language.value = true
+    }
+    2 -> {
+      itemClickStates.defaultEmoji.value = true
+    }
+    3 -> {
+      itemClickStates.darkMode.value = true
+    }
+    11 -> {
+      itemClickStates.resetCache.value = true
+    }
+    12 -> {
+      itemClickStates.forceStop.value = true
+    }
+    13 -> {
+      itemClickStates.sendFeeback.value = true
+    }
+    15 -> {
+      itemClickStates.helpCenter.value = true
+    }
+    16 -> {
+      itemClickStates.privacyPolicy.value = true
+    }
+    17 -> {
+      itemClickStates.openSourceLicenses.value = true
+    }
+    18 -> {
+      itemClickStates.version.value = true
+    }
+  }
+}
+
 @Composable
 fun PrefItemUI(
-  prefVM: PreferencesVM = hiltViewModel(),
+  onSwitchStateChange: (SlackPreferences, Boolean) -> Unit,
   onPrefItemClick: (SlackPreferences) -> Unit,
   prefItem: SlackPreferences,
-  scaffoldState: ScaffoldState
+  prefVM: PreferencesVM = hiltViewModel()
 ) {
-  val itemClickStates: ItemClickStates = prefVM.itemClickStates
-  val popUpItemStates: PopUpItemStates = prefVM.popUpItemStates
-  val switchStates: SwitchesStates = prefVM.switchesStates
-  HandlePrefItemClicks(itemClickStates, popUpItemStates, scaffoldState)
-
+  val switchInitialState = prefVM.switchesStates
   Row(modifier = Modifier.fillMaxWidth()) {
     when (prefItem.id) {
       0 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           PrefHeading(text = "Time and place")
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_language_24, onPrefItemClick, itemClickStates.language
+            prefItem, drawable.ic_outline_language_24, onPrefItemClick
           )
         }
       }
       1 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_hourglass_bottom_24, sliderState = switchStates.timeZone
+            prefItem, drawable.ic_outline_hourglass_bottom_24, onSwitchStateChange, switchInitialState.timeZone.value
           )
         }
       }
@@ -122,16 +200,14 @@ fun PrefItemUI(
           SectionDivider()
           PrefHeading(text = "Look and feel")
           ItemTypePopUp(
-              prefItem, drawable.ic_baseline_front_hand_24, onPrefItemClick,
-              itemClickStates.defaultEmoji
+            prefItem, drawable.ic_baseline_front_hand_24, onPrefItemClick
           )
         }
       }
       3 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick,
-              itemClickStates.darkMode
+            prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick
           )
 
         }
@@ -141,16 +217,14 @@ fun PrefItemUI(
           SectionDivider()
           PrefHeading(text = "Accessibility")
           ItemWithSlider(
-              prefItem, drawable.ic_outline_broken_image_24,
-              sliderState = switchStates.allowAnimation
+            prefItem, drawable.ic_outline_broken_image_24, onSwitchStateChange, switchInitialState.allowAnimation.value
           )
         }
       }
       5 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_broken_image_24,
-              sliderState = switchStates.underlineLinks
+            prefItem, drawable.ic_outline_broken_image_24, onSwitchStateChange, switchInitialState.underlineLinks.value
           )
 
         }
@@ -158,8 +232,7 @@ fun PrefItemUI(
       6 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_keyboard_alt_24,
-              sliderState = switchStates.displayTypingIndicators
+            prefItem, drawable.ic_outline_keyboard_alt_24, onSwitchStateChange, switchInitialState.displayTypingIndicators.value
           )
 
         }
@@ -169,16 +242,14 @@ fun PrefItemUI(
           SectionDivider()
           PrefHeading(text = "Advanced")
           ItemWithSlider(
-              prefItem, drawable.ic_outline_broken_image_24,
-              sliderState = switchStates.openWebPageInSlack
+            prefItem, drawable.ic_outline_broken_image_24, onSwitchStateChange, switchInitialState.openWebPageInSlack.value
           )
         }
       }
       8 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_speed_24,
-              sliderState = switchStates.optimizeImageUploads
+            prefItem, drawable.ic_outline_speed_24, onSwitchStateChange, switchInitialState.optimizeImageUploads.value
           )
 
         }
@@ -186,8 +257,7 @@ fun PrefItemUI(
       9 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_speed_24,
-              sliderState = switchStates.optimizeVideoUploads
+            prefItem, drawable.ic_outline_speed_24, onSwitchStateChange, switchInitialState.optimizeVideoUploads.value
           )
 
         }
@@ -195,7 +265,7 @@ fun PrefItemUI(
       10 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_image_24, sliderState = switchStates.showImagePreviews
+            prefItem, drawable.ic_outline_image_24, onSwitchStateChange, switchInitialState.showImagePreviews.value
           )
 
         }
@@ -205,16 +275,14 @@ fun PrefItemUI(
           SectionDivider()
           PrefHeading(text = "Troubleshooting")
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick,
-              itemClickStates.resetCache
+            prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick
           )
         }
       }
       12 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick,
-              itemClickStates.forceStop
+            prefItem, drawable.ic_outline_broken_image_24, onPrefItemClick
           )
 
         }
@@ -222,22 +290,21 @@ fun PrefItemUI(
       13 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_feedback_24, onPrefItemClick, itemClickStates.language
+            prefItem, drawable.ic_outline_feedback_24, onPrefItemClick
           )
         }
       }
       14 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemWithSlider(
-              prefItem, drawable.ic_outline_call_24, sliderState = switchStates.callDebugging
+            prefItem, drawable.ic_outline_call_24, onSwitchStateChange, switchInitialState.callDebugging.value
           )
         }
       }
       15 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_help_outline_24, onPrefItemClick,
-              itemClickStates.language
+            prefItem, drawable.ic_outline_help_outline_24, onPrefItemClick
           )
         }
       }
@@ -246,21 +313,21 @@ fun PrefItemUI(
           SectionDivider()
           PrefHeading(text = "About Slack")
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_feed_24, onPrefItemClick, itemClickStates.language
+            prefItem, drawable.ic_outline_feed_24, onPrefItemClick
           )
         }
       }
       17 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_feed_24, onPrefItemClick, itemClickStates.language
+            prefItem, drawable.ic_outline_feed_24, onPrefItemClick
           )
         }
       }
       18 -> {
         Column(modifier = Modifier.fillMaxWidth()) {
           ItemTypePopUp(
-              prefItem, drawable.ic_outline_info_24, onPrefItemClick, itemClickStates.version
+            prefItem, drawable.ic_outline_info_24, onPrefItemClick
           )
         }
       }
@@ -295,7 +362,7 @@ private fun HandleVersionInfoClick(
   val scope = rememberCoroutineScope()
 
   if (itemClickStates.version.value) {
-    scope.launch {
+    LaunchedEffect(key1 = Unit){
       scaffoldState.snackbarHostState.showSnackbar("Version info copied!")
     }
     itemClickStates.version.value = false
@@ -309,17 +376,17 @@ private fun HandleForcestopClick(
 ) {
   if (itemClickStates.forceStop.value) {
     DoubleOptionDialog(
-        confirmButtonText = "Force stop", cancelButtonText = "Cancel",
-        title = "Unsaved data may be lost",
-        messsage = "Are you sure you want to force Slack to stop running?",
-        onConfirm = {
-          itemClickStates.forceStop.value = false
-          popUpItemStates.forceStopState.value = "Cancel"
-        },
-        onDismiss = {
-          itemClickStates.forceStop.value = false
-          popUpItemStates.forceStopState.value = "Force stop"
-        }
+      confirmButtonText = "Force stop", cancelButtonText = "Cancel",
+      title = "Unsaved data may be lost",
+      messsage = "Are you sure you want to force Slack to stop running?",
+      onConfirm = {
+        itemClickStates.forceStop.value = false
+        popUpItemStates.forceStopState.value = "Cancel"
+      },
+      onDismiss = {
+        itemClickStates.forceStop.value = false
+        popUpItemStates.forceStopState.value = "Force stop"
+      }
     )
   }
 }
@@ -331,12 +398,13 @@ private fun HandleDarkModeClick(
 ) {
   if (itemClickStates.darkMode.value) {
     RadioButtonPickerDialog(options = listOf("System default", "Off", "On"),
-        popUpItemStates.darkMode,
-        onDismiss = {
-          itemClickStates.darkMode.value = false
-        }, onConfirm = {
+      popUpItemStates.darkMode,
+      onDismiss = {
+        itemClickStates.darkMode.value = false
+      }, onConfirm = {
       itemClickStates.darkMode.value = false
-    })
+    }
+    )
   }
 }
 
@@ -347,8 +415,8 @@ private fun HandleResetCacheClick(
 ) {
   if (itemClickStates.resetCache.value) {
     DoubleOptionDialog(
-        confirmButtonText = "Yes", cancelButtonText = "No", title = "Reset cache",
-        messsage = "Are you sure you would like to reset cache?", onConfirm = {
+      confirmButtonText = "Yes", cancelButtonText = "No", title = "Reset cache",
+      messsage = "Are you sure you would like to reset cache?", onConfirm = {
       itemClickStates.resetCache.value = false
       popUpItemStates.resetCache.value = "Yes"
     }, onDismiss = {
@@ -377,30 +445,30 @@ private fun HandleDefaultEmojiClick(
 ) {
   if (itemClickStates.defaultEmoji.value) {
     EmojiSkinColorDialog(emojisList = listOf("light", "dark"), popUpItemStates.emojiSkinColor,
-        onDismiss = {
-          itemClickStates.defaultEmoji.value = false
-        },
-        onConfirm = {
-          itemClickStates.defaultEmoji.value = false
-        })
+      onDismiss = {
+        itemClickStates.defaultEmoji.value = false
+      },
+      onConfirm = {
+        itemClickStates.defaultEmoji.value = false
+      })
   }
 }
 
 @Composable
 private fun SectionDivider() {
   Divider(
-      color = SlackCloneColorProvider.colors.buttonColor.copy(0.7F),
-      modifier = Modifier.padding(bottom = 16.dp)
+    color = SlackCloneColorProvider.colors.buttonColor.copy(0.7F),
+    modifier = Modifier.padding(bottom = 16.dp)
   )
 }
 
 @Composable
 fun PrefHeading(text: String) {
   Text(
-      modifier = Modifier.padding(bottom = 16.dp),
-      text = text, style = SlackCloneTypography.body1.copy(
-      color = SlackCloneColorProvider.colors.textPrimary,
-      fontSize = 14.sp
+    modifier = Modifier.padding(bottom = 16.dp),
+    text = text, style = SlackCloneTypography.body1.copy(
+    color = SlackCloneColorProvider.colors.textPrimary,
+    fontSize = 14.sp
   ), fontWeight = FontWeight.Bold
   )
 }

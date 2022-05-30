@@ -12,7 +12,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -25,7 +24,6 @@ import dev.baseio.slackclone.data.local.model.SlackPreferences
   prefItem: SlackPreferences,
   @DrawableRes icon: Int,
   onOptionsClick: (SlackPreferences) -> Unit = {},
-  clickState: MutableState<Boolean>
 ) {
   Row(
       modifier = Modifier
@@ -33,7 +31,6 @@ import dev.baseio.slackclone.data.local.model.SlackPreferences
           .clickable(interactionSource = MutableInteractionSource(), indication = rememberRipple(),
               onClick = {
                 onOptionsClick(prefItem)
-                clickState.value = true
               })
   ) {
     IconButton(onClick = {
