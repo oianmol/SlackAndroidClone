@@ -18,7 +18,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -359,13 +358,11 @@ private fun HandleVersionInfoClick(
   itemClickStates: ItemClickStates,
   scaffoldState: ScaffoldState
 ) {
-  val scope = rememberCoroutineScope()
-
-  if (itemClickStates.version.value) {
-    LaunchedEffect(key1 = Unit){
+  LaunchedEffect(key1 = itemClickStates.version.value) {
+    if(itemClickStates.version.value) {
       scaffoldState.snackbarHostState.showSnackbar("Version info copied!")
+      itemClickStates.version.value = false
     }
-    itemClickStates.version.value = false
   }
 }
 
