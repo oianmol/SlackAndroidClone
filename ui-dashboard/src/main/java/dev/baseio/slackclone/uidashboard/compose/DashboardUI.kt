@@ -221,7 +221,7 @@ private fun DashboardScaffold(
               SearchMessagesUI()
             }
             composable(Screen.You.route) {
-              UserProfileUI()
+              UserProfileUI(composeNavigator)
             }
           }
         }
