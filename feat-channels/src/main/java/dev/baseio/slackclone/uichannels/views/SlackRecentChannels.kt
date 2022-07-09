@@ -6,8 +6,10 @@ import dev.baseio.slackclone.uichannels.SlackChannelVM
 import dev.baseio.slackclone.chatcore.data.ExpandCollapseModel
 import dev.baseio.slackclone.uichannels.R
 import androidx.compose.runtime.*
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
-
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SlackRecentChannels(
   onItemClick: (UiLayerChannels.SlackChannel) -> Unit = {},
@@ -15,8 +17,8 @@ fun SlackRecentChannels(
   onClickAdd: () -> Unit
 ) {
   val recent = stringResource(R.string.Recent)
-  val channelsFlow = channelVM.channels.collectAsState()
-  val channels by channelsFlow.value.collectAsState(initial = listOf())
+  val channelsFlow = channelVM.channels.collectAsStateWithLifecycle()
+  val channels by channelsFlow.value.collectAsStateWithLifecycle(initialValue = listOf())
 
   LaunchedEffect(key1 = Unit) {
     channelVM.allChannels()

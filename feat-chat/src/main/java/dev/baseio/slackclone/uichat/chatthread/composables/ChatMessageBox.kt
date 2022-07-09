@@ -20,6 +20,8 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uichat.chatthread.BoxState
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -52,9 +54,10 @@ fun ChatMessageBox(viewModel: ChatScreenVM, modifier: Modifier) {
 
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ChatOptions(viewModel: ChatScreenVM, modifier: Modifier = Modifier) {
-  val search by viewModel.message.collectAsState()
+  val search by viewModel.message.collectAsStateWithLifecycle()
 
   Row(
     modifier
@@ -87,8 +90,7 @@ fun ChatOptions(viewModel: ChatScreenVM, modifier: Modifier = Modifier) {
 }
 
 private fun chatOptionIconSize() = Modifier.size(20.dp)
-
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun MessageTFRow(
   viewModel: ChatScreenVM,
@@ -96,7 +98,7 @@ private fun MessageTFRow(
 ) {
   val keyboard by keyboardAsState()
 
-  val search by viewModel.message.collectAsState()
+  val search by viewModel.message.collectAsStateWithLifecycle()
   Column {
     Divider(color = SlackCloneColorProvider.colors.lineColor, thickness = 0.5.dp)
     Row(
@@ -128,9 +130,10 @@ private fun MessageTFRow(
 
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CollapseExpandButton(viewModel: ChatScreenVM) {
-  val isExpanded by viewModel.chatBoxState.collectAsState()
+  val isExpanded by viewModel.chatBoxState.collectAsStateWithLifecycle()
   IconButton(
     onClick = {
       viewModel.switchChatBoxState()
