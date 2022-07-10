@@ -66,10 +66,11 @@ dependencies {
   implementation(project(":commonui"))
 
   api(Lib.Android.COMPOSE_UI)
-  api(Lib.Android.RUNTIME_COMPOSE)
   api(Lib.Android.COIL_COMPOSE)
   api(Lib.Android.COMPOSE_MATERIAL)
+  implementation(Lib.Android.RUNTIME_COMPOSE)
   implementation(Lib.Android.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
+  api(Lib.Android.COMPOSE_UI)
   api(Lib.Android.COMPOSE_TOOLING)
   implementation(Lib.Android.COIL_COMPOSE)
   debugApi(Lib.Android.COMPOSE_DEBUG_TOOLING)

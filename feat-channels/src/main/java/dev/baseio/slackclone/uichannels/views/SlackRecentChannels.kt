@@ -7,8 +7,9 @@ import dev.baseio.slackclone.chatcore.data.ExpandCollapseModel
 import dev.baseio.slackclone.uichannels.R
 import androidx.compose.runtime.*
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dev.baseio.slackclone.chatcore.data.UiLayerChannels
+
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SlackRecentChannels(

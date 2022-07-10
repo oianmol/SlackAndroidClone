@@ -116,7 +116,7 @@ dependencies {
   implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
   implementation(Lib.Android.ACCOMPANIST_INSETS)
   implementation(Lib.Android.SPLASH_SCREEN_API)
-
+  implementation(Lib.Android.RUNTIME_COMPOSE)
   implementation(Lib.Android.APP_COMPAT)
 
   implementation(Lib.Kotlin.KTX_CORE)

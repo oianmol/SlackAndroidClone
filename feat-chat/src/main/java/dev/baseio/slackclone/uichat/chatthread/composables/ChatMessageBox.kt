@@ -14,14 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.baseio.slackclone.commonui.keyboard.Keyboard
 import dev.baseio.slackclone.commonui.keyboard.keyboardAsState
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
 import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.uichat.chatthread.BoxState
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -90,7 +90,8 @@ fun ChatOptions(viewModel: ChatScreenVM, modifier: Modifier = Modifier) {
 }
 
 private fun chatOptionIconSize() = Modifier.size(20.dp)
-@OptIn(ExperimentalLifecycleComposeApi::class)
+
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun MessageTFRow(
   viewModel: ChatScreenVM,

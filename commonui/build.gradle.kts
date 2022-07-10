@@ -46,7 +46,6 @@ dependencies {
     /* Android Designing and layout */
     api(Lib.Android.MATERIAL_DESIGN)
     api(Lib.Android.COMPOSE_UI)
-    api(Lib.Android.RUNTIME_COMPOSE)
     implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
     implementation(Lib.Android.ACCOMPANIST_SYSTEM_UI_CONTROLLER)
     api(Lib.Android.COIL_COMPOSE)

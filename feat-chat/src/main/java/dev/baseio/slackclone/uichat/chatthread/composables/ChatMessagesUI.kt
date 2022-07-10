@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -23,8 +24,7 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.domain.model.message.DomainLayerMessages
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 
-@ExperimentalLifecycleComposeApi
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ChatMessagesUI(viewModel: ChatScreenVM, modifier: Modifier) {
   val flowState by viewModel.chatMessagesFlow.collectAsStateWithLifecycle()
