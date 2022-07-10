@@ -19,7 +19,7 @@ fun SlackRecentChannels(
 ) {
   val recent = stringResource(R.string.Recent)
   val channelsFlow = channelVM.channels.collectAsStateWithLifecycle()
-  val channels by channelsFlow.value.collectAsStateWithLifecycle(initialValue = listOf())
+  val channels by channelsFlow.value.collectAsStateWithLifecycle(initialValue = emptyList())
 
   LaunchedEffect(key1 = Unit) {
     channelVM.allChannels()

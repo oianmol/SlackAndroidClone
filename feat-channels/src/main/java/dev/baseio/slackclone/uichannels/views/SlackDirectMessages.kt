@@ -19,7 +19,7 @@ fun SlackDirectMessages(
 ) {
   val recent = stringResource(R.string.direct_messages)
   val channelsFlow = channelVM.channels.collectAsStateWithLifecycle()
-  val channels by channelsFlow.value.collectAsStateWithLifecycle(initialValue = listOf())
+  val channels by channelsFlow.value.collectAsStateWithLifecycle(initialValue = emptyList())
 
   LaunchedEffect(key1 = Unit) {
     channelVM.loadDirectMessageChannels()
