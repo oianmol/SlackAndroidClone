@@ -13,6 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import dev.baseio.slackclone.common.extensions.calendar
@@ -22,10 +24,10 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTypography
 import dev.baseio.slackclone.domain.model.message.DomainLayerMessages
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ChatMessagesUI(viewModel: ChatScreenVM, modifier: Modifier) {
-  val flowState by viewModel.chatMessagesFlow.collectAsState()
+  val flowState by viewModel.chatMessagesFlow.collectAsStateWithLifecycle()
   val messages = flowState?.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
 

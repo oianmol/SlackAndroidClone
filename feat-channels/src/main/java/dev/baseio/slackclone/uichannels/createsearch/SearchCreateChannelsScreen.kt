@@ -18,6 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -44,6 +46,7 @@ fun SearchCreateChannelUI(
   }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun ListChannels(
   scaffoldState: ScaffoldState,
@@ -60,7 +63,7 @@ private fun ListChannels(
         .navigationBarsPadding(),
       scaffoldState = scaffoldState,
       topBar = {
-        val channelCount by searchChannelsVM.channelCount.collectAsState()
+        val channelCount by searchChannelsVM.channelCount.collectAsStateWithLifecycle()
         SearchAppBar(composeNavigator, channelCount)
       },
       snackbarHost = {
@@ -89,10 +92,10 @@ private fun SearchContent(innerPadding: PaddingValues, searchChannelsVM: SearchC
   }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun ListAllChannels(searchChannelsVM: SearchChannelsVM) {
-  val channels by searchChannelsVM.channels.collectAsState()
+  val channels by searchChannelsVM.channels.collectAsStateWithLifecycle()
   val channelsFlow = channels.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
   LazyColumn(state = listState, reverseLayout = false) {
@@ -145,9 +148,10 @@ fun SlackChannelHeader(title: String) {
   }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun SearchChannelsTF(searchChannelsVM: SearchChannelsVM) {
-  val searchChannel by searchChannelsVM.search.collectAsState()
+  val searchChannel by searchChannelsVM.search.collectAsStateWithLifecycle()
 
   TextField(
     value = searchChannel,

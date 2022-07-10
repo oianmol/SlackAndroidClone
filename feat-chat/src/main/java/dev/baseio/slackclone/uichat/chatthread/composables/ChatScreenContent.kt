@@ -13,15 +13,17 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import dev.baseio.slackclone.uichat.chatthread.BoxState
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMotionApi::class)
+@OptIn(ExperimentalMotionApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ChatScreenContent(viewModel: ChatScreenVM) {
-  val checkBoxState by viewModel.chatBoxState.collectAsState()
+  val checkBoxState by viewModel.chatBoxState.collectAsStateWithLifecycle()
   val manualExpandValue = if (checkBoxState == BoxState.Expanded) {
     1f
   } else {

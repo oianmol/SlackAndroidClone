@@ -7,17 +7,20 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.chatcore.views.DMLastMessageItem
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DMChannelsList(
   onItemClick: (UiLayerChannels.SlackChannel) -> Unit,
   channelVM: DMessageViewModel = hiltViewModel()
 ) {
 
-  val channels by channelVM.channels.collectAsState()
+  val channels by channelVM.channels.collectAsStateWithLifecycle()
   val channelsFlow = channels.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
 

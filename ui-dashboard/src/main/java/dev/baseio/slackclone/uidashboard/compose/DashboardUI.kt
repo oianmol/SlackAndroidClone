@@ -43,6 +43,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -83,7 +85,7 @@ fun DashboardUI(
   }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun DashboardScreenRegular(
   scaffoldState: ScaffoldState,
@@ -93,10 +95,10 @@ private fun DashboardScreenRegular(
   viewModel: ChatScreenVM = hiltViewModel()
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
-  val lastChannel by dashboardVM.selectedChatChannel.collectAsState()
+  val lastChannel by dashboardVM.selectedChatChannel.collectAsStateWithLifecycle()
 
   var isLeftNavOpen by remember { mutableStateOf(false) }
-  val isChatViewClosed by dashboardVM.isChatViewClosed.collectAsState()
+  val isChatViewClosed by dashboardVM.isChatViewClosed.collectAsStateWithLifecycle()
   val screenWidth = LocalConfiguration.current.screenWidthDp.dp
   val sideNavWidth = screenWidth * 0.8f
   val sideNavPxValue = with(LocalDensity.current) { sideNavWidth.toPx() }

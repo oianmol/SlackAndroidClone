@@ -16,6 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
@@ -63,10 +65,10 @@ private fun CreateChannel(
   }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun NewChannelContent(innerPadding: PaddingValues, createChannelVM: CreateChannelVM) {
-  val searchChannel by createChannelVM.channel.collectAsState()
+  val searchChannel by createChannelVM.channel.collectAsStateWithLifecycle()
 
   Box(modifier = Modifier.padding(innerPadding)) {
     SlackCloneSurface(
@@ -157,9 +159,10 @@ private fun Name() {
   )
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun NameField(createChannelVM: CreateChannelVM) {
-  val searchChannel by createChannelVM.channel.collectAsState()
+  val searchChannel by createChannelVM.channel.collectAsStateWithLifecycle()
 
   TextField(
     value = searchChannel.name ?: "",

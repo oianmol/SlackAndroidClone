@@ -18,6 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -81,10 +83,10 @@ private fun SearchContent(innerPadding: PaddingValues, newChatThread: NewChatThr
   }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun ListAllUsers(newChatThread: NewChatThreadVM) {
-  val channels by newChatThread.users.collectAsState()
+  val channels by newChatThread.users.collectAsStateWithLifecycle()
   val channelsFlow = channels.collectAsLazyPagingItems()
   val listState = rememberLazyListState()
   LazyColumn(state = listState, reverseLayout = false) {
@@ -126,9 +128,10 @@ fun SlackChannelHeader(title: String) {
   }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun SearchUsersTF(newChatThread: NewChatThreadVM) {
-  val searchChannel by newChatThread.search.collectAsState()
+  val searchChannel by newChatThread.search.collectAsStateWithLifecycle()
 
   TextField(
     value = searchChannel,
