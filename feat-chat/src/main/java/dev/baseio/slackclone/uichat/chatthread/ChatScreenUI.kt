@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.chatcore.data.UiLayerChannels
 import dev.baseio.slackclone.chatcore.views.SlackChannelItem
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
@@ -19,7 +18,6 @@ import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.uichat.chatthread.composables.ChatScreenContent
 
 @OptIn(
-  ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class,
   androidx.constraintlayout.compose.ExperimentalMotionApi::class
 )
 @Composable

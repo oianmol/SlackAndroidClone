@@ -22,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import dev.baseio.slackclone.commonui.material.SlackSurfaceAppBar
 import dev.baseio.slackclone.uidashboard.R
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.*
 import dev.baseio.slackclone.commonui.reusable.SlackImageBox
 import dev.baseio.slackclone.commonui.theme.*
 import dev.baseio.slackclone.commonui.reusable.SlackListItem
@@ -129,12 +128,7 @@ private fun WorkspacesBar() {
   SlackSurfaceAppBar(
     backgroundColor = SlackCloneColorProvider.colors.uiBackground,
     elevation = 0.dp,
-    contentPadding = rememberInsetsPaddingValues(
-      insets = LocalWindowInsets.current.statusBars,
-      applyStart = true,
-      applyTop = true,
-      applyEnd = true,
-    )
+    contentPadding = WindowInsets.statusBars.asPaddingValues()
   ) {
     Text(
       text = stringResource(id = R.string.head_workspaces),

@@ -4,6 +4,8 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -15,7 +17,6 @@ import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import dev.baseio.slackclone.uichat.chatthread.BoxState
 import dev.baseio.slackclone.uichat.chatthread.ChatScreenVM
 import kotlinx.coroutines.launch
@@ -43,7 +44,8 @@ fun ChatScreenContent(viewModel: ChatScreenVM) {
     end = chatConstrainsExpanded(),
     progress = change,
     modifier = Modifier
-      .navigationBarsWithImePadding()
+      .navigationBarsPadding()
+      .imePadding()
       .fillMaxHeight()
       .fillMaxWidth()
   ) {

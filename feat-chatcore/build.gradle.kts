@@ -78,12 +78,9 @@ dependencies {
   api(Lib.Android.APP_COMPAT)
   api(Lib.Kotlin.KTX_CORE)
 
-  api(Lib.Android.ACCOMPANIST_INSETS)
-
   /*DI*/
   api(Lib.Di.hiltAndroid)
   api(Lib.Di.hiltNavigationCompose)
-  api(Lib.Di.hiltViewModel)
 
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)

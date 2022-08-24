@@ -9,9 +9,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.statusBarsPadding
 import dev.baseio.slackclone.commonui.theme.SlackCloneSurface
 import dev.baseio.slackclone.commonui.theme.SlackCloneTheme
 import dev.baseio.slackclone.commonui.theme.SlackCloneColorProvider
@@ -48,7 +45,8 @@ fun CommonInputUI(
           ConstraintLayout(
             modifier = Modifier
               .padding(12.dp)
-              .navigationBarsWithImePadding()
+              .navigationBarsPadding()
+              .imePadding()
               .fillMaxHeight()
               .fillMaxWidth()
           ) {

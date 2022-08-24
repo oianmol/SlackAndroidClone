@@ -8,8 +8,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
+import dev.baseio.slackclone.R
 import dev.baseio.slackclone.navigator.ComposeNavigator
 import dev.baseio.slackclone.navigator.SlackRoute
 import dev.baseio.slackclone.uidashboard.nav.dashboardNavigation
@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity() {
   lateinit var composeNavigator: ComposeNavigator
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    setTheme(R.style.Theme_SlackJetpackCompose)
     super.onCreate(savedInstanceState)
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
-    installSplashScreen()
     setContent {
       val navController = rememberNavController()
 
@@ -34,18 +34,16 @@ class MainActivity : AppCompatActivity() {
         composeNavigator.handleNavigationCommands(navController)
       }
 
-      ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
-        NavHost(
-          navController = navController,
-          startDestination = SlackRoute.OnBoarding.name,
-        ) {
-          onboardingNavigation(
-            composeNavigator = composeNavigator,
-          )
-          dashboardNavigation(
-            composeNavigator = composeNavigator
-          )
-        }
+      NavHost(
+        navController = navController,
+        startDestination = SlackRoute.OnBoarding.name,
+      ) {
+        onboardingNavigation(
+          composeNavigator = composeNavigator,
+        )
+        dashboardNavigation(
+          composeNavigator = composeNavigator
+        )
       }
 
 

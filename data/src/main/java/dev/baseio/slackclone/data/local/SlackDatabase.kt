@@ -12,7 +12,8 @@ import dev.baseio.slackclone.data.local.model.DBSlackUser
 
 @Database(
     entities = [DBSlackUser::class, DBSlackChannel::class, DBSlackMessage::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class SlackDatabase : RoomDatabase() {
     abstract fun slackUserDao(): SlackUserDao

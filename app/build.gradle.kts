@@ -1,5 +1,3 @@
-// Manifest version information!
-
 plugins {
   id(BuildPlugins.ANDROID_APPLICATION_PLUGIN)
   id(BuildPlugins.KOTLIN_ANDROID_PLUGIN)
@@ -114,7 +112,6 @@ dependencies {
   implementation(Lib.Kotlin.KT_STD)
   implementation(Lib.Android.MATERIAL_DESIGN)
   implementation(Lib.Android.CONSTRAINT_LAYOUT_COMPOSE)
-  implementation(Lib.Android.ACCOMPANIST_INSETS)
   implementation(Lib.Android.SPLASH_SCREEN_API)
   implementation(Lib.Android.RUNTIME_COMPOSE)
   implementation(Lib.Android.APP_COMPAT)
@@ -124,7 +121,6 @@ dependencies {
   /*DI*/
   implementation(Lib.Di.hiltAndroid)
   implementation(Lib.Di.hiltNavigationCompose)
-  implementation(Lib.Di.hiltViewModel)
 
   kapt(Lib.Di.hiltCompiler)
   kapt(Lib.Di.hiltAndroidCompiler)
@@ -152,6 +148,6 @@ dependencies {
   testImplementation(TestLib.COROUTINES)
   testImplementation(TestLib.MOCKK)
 
-  androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Lib.Android.COMPOSE_VERSION}")
-  debugImplementation("androidx.compose.ui:ui-test-manifest:${Lib.Android.COMPOSE_VERSION}")
+  androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
+  debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.1")
 }

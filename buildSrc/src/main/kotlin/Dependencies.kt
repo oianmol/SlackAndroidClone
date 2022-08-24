@@ -3,14 +3,14 @@ import Lib.Networking
 /** This file contains versions of all the dependencies used in the module  */
 
 object BuildPlugins {
-  private const val TOOLS_BUILD = "7.1.1"
+  private const val TOOLS_BUILD = "7.2.1"
   private const val KT_LINT = "9.2.1"
   private const val SAFE_ARGS = "2.3.5"
 
   const val TOOLS_BUILD_GRADLE = "com.android.tools.build:gradle:${TOOLS_BUILD}"
   const val KTLINT_GRADLE_PLUGIN = "org.jlleitschuh.gradle:ktlint-gradle:${KT_LINT}"
-  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.40.5"
-  const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+  const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.43.2"
+  const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
   const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
   const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
   const val KOTLIN_ANDROID_PLUGIN = "kotlin-android"
@@ -23,16 +23,16 @@ object BuildPlugins {
 
 object Lib {
   object Kotlin {
-    const val KOTLIN_VERSION = "1.6.0"
+    const val KOTLIN_VERSION = "1.7.10"
     private const val KTX_CORE_VERSION = "1.2.0"
-    const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
+    const val KT_STD = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KOTLIN_VERSION}"
     const val KTX_CORE = "androidx.core:core-ktx:${KTX_CORE_VERSION}"
     const val DATE_TIME = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
   }
 
   object Android {
-    const val COMPOSE_VERSION = "1.1.1"
-    const val COMPOSE_COMPILER_VERSION = "1.1.1"
+    const val COMPOSE_VERSION = "1.2.1"
+    const val COMPOSE_COMPILER_VERSION = "1.3.0"
     private const val MATERIAL_DESIGN_VERSION = "1.4.0"
     private const val COMPOSE_ACTIVITY_VERSION = "1.4.0"
     private const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.0"
@@ -52,22 +52,20 @@ object Lib {
     const val ACCOMPANIST_SYSTEM_UI_CONTROLLER =
       "com.google.accompanist:accompanist-systemuicontroller:${ACCOMPANIST_VERSION}"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${COMPOSE_COIL_VERSION}"
-    const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
+    const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata:${COMPOSE_VERSION}"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${COMPOSE_VERSION}"
     const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling-preview:${COMPOSE_VERSION}"
     const val COMPOSE_DEBUG_TOOLING = "androidx.compose.ui:ui-tooling:${COMPOSE_VERSION}"
     const val COMPOSE_NAVIGATION =
       "androidx.navigation:navigation-compose:${COMPOSE_NAVIGATION_VERSION}"
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
-    const val ACCOMPANIST_INSETS =
-      "com.google.accompanist:accompanist-insets:${ACCOMPANIST_VERSION}"
     const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
     const val RUNTIME_COMPOSE = "androidx.lifecycle:lifecycle-runtime-compose:${LIFECYCLE_VERSION}"
 
   }
 
   object Di {
-    private const val DAGGER_VERSION = "2.40.5"
+    private const val DAGGER_VERSION = "2.43.2"
     const val hiltAndroid = "com.google.dagger:hilt-android:${DAGGER_VERSION}"
     const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${DAGGER_VERSION}"
 

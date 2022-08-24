@@ -12,12 +12,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App.SplashScreenTheme"
+        android:theme="@style/SplashTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <profileable
+            android:shell="true"
+            tools:targetApi="q" />
         <activity
             android:name=".root.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.SplashScreenTheme">
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.SlackJetpackCompose">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

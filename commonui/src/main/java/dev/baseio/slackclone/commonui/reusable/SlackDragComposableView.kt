@@ -123,7 +123,7 @@ private fun chatScreenModifier(
             // this moves the chat view left/right
             val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
             val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, requiredOffset), y = 0f)
-            change.consumePositionChange()
+            change.consume()
             coroutineScope.launch {
                 offsetX.animateTo(newDragValueMain.x, animationSpec = tween(50))
             }
@@ -233,7 +233,7 @@ private fun mainAnimateOffset(
     if (offsetX.targetValue <= 0f) {
         val summedChat = Offset(x = chatViewOffX.targetValue + dragAmount, y = 0f)
         val chatNewDragValueMain = Offset(x = summedChat.x.coerceIn(0f, chatScreenOffset), y = 0f)
-        change.consumePositionChange()
+        change.consume()
         coroutineScope.launch {
             chatViewOffX.animateTo(chatNewDragValueMain.x, animationSpec = tween(50))
         }
@@ -242,7 +242,7 @@ private fun mainAnimateOffset(
     // this moved the main view left/right
     val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
     val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, mainDragOffset), y = 0f)
-    change.consumePositionChange()
+    change.consume()
     coroutineScope.launch {
         offsetX.animateTo(newDragValueMain.x, animationSpec = tween(50))
     }
