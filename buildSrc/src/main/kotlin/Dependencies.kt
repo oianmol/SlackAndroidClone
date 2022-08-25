@@ -61,7 +61,7 @@ object Lib {
     const val MATERIAL_DESIGN = "com.google.android.material:material:${MATERIAL_DESIGN_VERSION}"
     const val SPLASH_SCREEN_API = "androidx.core:core-splashscreen:${SPLASH_SCREEN_VERSION}"
     const val RUNTIME_COMPOSE = "androidx.lifecycle:lifecycle-runtime-compose:${LIFECYCLE_VERSION}"
-
+    const val ANDROIDX_WINDOW = "androidx.window:window:1.1.0-alpha03"
   }
 
   object Di {
@@ -144,6 +144,7 @@ object TestLib {
   const val MOCKK = "io.mockk:mockk:1.10.5"
   const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$nav_version"
   const val TURBINE = "app.cash.turbine:turbine:0.7.0"
+  const val ANDROIDX_WINDOW_TESTING = "androidx.window:window-testing:1.1.0-alpha03"
 }
 
 object DebugLib {

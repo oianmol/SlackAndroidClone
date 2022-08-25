@@ -44,8 +44,8 @@ dependencies {
   /*Kotlin*/
   implementation(Lib.Android.APP_COMPAT)
   implementation(Lib.Kotlin.KTX_CORE)
-  api(Lib.Async.COROUTINES)
-  api(Lib.Async.COROUTINES_ANDROID)
+  implementation(Lib.Async.COROUTINES)
+  implementation(Lib.Async.COROUTINES_ANDROID)
 
   implementation(Lib.Kotlin.KT_STD)
   implementation(Lib.Android.COMPOSE_NAVIGATION)

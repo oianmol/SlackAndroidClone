@@ -30,11 +30,11 @@ kapt {
 
 dependencies {
     /*Kotlin*/
-    api(Lib.Kotlin.KT_STD)
+    implementation(Lib.Kotlin.KT_STD)
     implementation(Lib.Async.COROUTINES)
     implementation(Lib.Async.COROUTINES_ANDROID)
     /* Dependency Injection */
-    api(Lib.Di.hiltAndroid)
+    implementation(Lib.Di.hiltAndroid)
     kapt(Lib.Di.hiltCompiler)
     kapt(Lib.Di.hiltAndroidCompiler)
 }

@@ -9,8 +9,8 @@ java {
 }
 
 dependencies {
-  api(Lib.Kotlin.KT_STD)
-  api(Lib.Async.COROUTINES)
+  implementation(Lib.Kotlin.KT_STD)
+  implementation(Lib.Async.COROUTINES)
   implementation("androidx.paging:paging-common-ktx:3.1.0")
 }
 

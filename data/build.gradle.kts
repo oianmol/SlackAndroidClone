@@ -36,25 +36,25 @@ dependencies {
   implementation(project(":common"))
   implementation(project(":domain"))
   /*Kotlin*/
-  api(Lib.Kotlin.KT_STD)
-  api(Lib.Async.COROUTINES)
+  implementation(Lib.Kotlin.KT_STD)
+  implementation(Lib.Async.COROUTINES)
 
   /* Paging */
   implementation(Lib.Paging.PAGING_3)
   /* Room */
-  api(Lib.Room.roomRuntime)
+  implementation(Lib.Room.roomRuntime)
   kapt(Lib.Room.roomCompiler)
-  api(Lib.Room.roomKtx)
-  api(Lib.Room.roomPaging)
+  implementation(Lib.Room.roomKtx)
+  implementation(Lib.Room.roomPaging)
 
   /* Networking */
-  api(Lib.Networking.RETROFIT)
-  api(Lib.Networking.RETROFIT_GSON)
-  api(Lib.Networking.LOGGING)
+  implementation(Lib.Networking.RETROFIT)
+  implementation(Lib.Networking.RETROFIT_GSON)
+  implementation(Lib.Networking.LOGGING)
 
-  api(Lib.Serialization.GSON)
+  implementation(Lib.Serialization.GSON)
 
   /* Dependency Injection */
-  api(Lib.Di.hiltAndroid)
+  implementation(Lib.Di.hiltAndroid)
   kapt(Lib.Di.hiltAndroidCompiler)
 }

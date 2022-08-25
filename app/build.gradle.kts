@@ -96,9 +96,9 @@ kapt {
 }
 
 dependencies {
-  api(project(":feat-onboarding"))
-  api(project(":ui-dashboard"))
-  api(project(":feat-chat"))
+  implementation(project(":feat-onboarding"))
+  implementation(project(":ui-dashboard"))
+  implementation(project(":feat-chat"))
 
   implementation(project(":navigator"))
   implementation(project(":data"))

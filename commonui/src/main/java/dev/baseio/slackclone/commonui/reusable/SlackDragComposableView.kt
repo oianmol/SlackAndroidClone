@@ -123,7 +123,7 @@ private fun chatScreenModifier(
             // this moves the chat view left/right
             val summedMain = Offset(x = offsetX.targetValue + dragAmount, y = 0f)
             val newDragValueMain = Offset(x = summedMain.x.coerceIn(0f, requiredOffset), y = 0f)
-            change.consume()
+            change.consumePositionChange()
             coroutineScope.launch {
                 offsetX.animateTo(newDragValueMain.x, animationSpec = tween(50))
             }
