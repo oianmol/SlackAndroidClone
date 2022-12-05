@@ -1,6 +1,6 @@
 # Slack Android Clone with Compose
 
-### Status: On Hold ✋ Might not commit on daily basis🏼👽
+### Status: Active Development happening here https://github.com/oianmol/SlackComposeMultiplatform
 
 This is a jetpack compose sample app written in Kotlin following clean architecture principles.
 
