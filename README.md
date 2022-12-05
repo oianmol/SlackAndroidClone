@@ -1,4 +1,4 @@
-# Slack Android Clone with Compose
+# Slack Android Clone with Compose is now in Kotlin Multiplatform!
 
 ### Status: Active Development happening here https://github.com/oianmol/SlackComposeMultiplatform
 
