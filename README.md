@@ -6,8 +6,7 @@ This is a jetpack compose sample app written in Kotlin following clean architect
 
 The purpose of this app to showcase:
 
-- Implementation of Jetpack Android Architecture components with Dagger Android and Data Binding to
-  minimize boilerplate code
+- Implementation of Jetpack Android Architecture components with Dagger Android and jetpack compose
 - Creation of proper components and Subcomponents using Dagger Android and their injection into
   Activity, Compose Views, View Models and Helper Classes
 - Performing background task with Kotlin Coroutines
